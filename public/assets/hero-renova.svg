@@ -1,0 +1,19 @@
+<svg width="1200" height="1200" viewBox="0 0 1200 1200" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="1200" height="1200" rx="80" fill="#08080C"/>
+  <g opacity="0.72">
+    <circle cx="600" cy="600" r="420" stroke="#D5B46A" stroke-width="2"/>
+    <circle cx="600" cy="600" r="310" stroke="#5472FF" stroke-width="2"/>
+    <circle cx="600" cy="600" r="190" stroke="#F5F2EA" stroke-width="1" opacity="0.45"/>
+  </g>
+  <path d="M304 735C355 500 506 357 758 392C642 455 557 561 544 740" stroke="#F5F2EA" stroke-width="44" stroke-linecap="round"/>
+  <path d="M548 738C619 668 715 664 819 729" stroke="#D5B46A" stroke-width="28" stroke-linecap="round"/>
+  <path d="M279 888C454 974 697 980 897 840" stroke="#5472FF" stroke-width="10" stroke-linecap="round" opacity="0.75"/>
+  <g fill="#D5B46A">
+    <circle cx="260" cy="357" r="8"/>
+    <circle cx="915" cy="389" r="8"/>
+    <circle cx="318" cy="895" r="8"/>
+    <circle cx="882" cy="836" r="8"/>
+  </g>
+  <text x="600" y="108" text-anchor="middle" fill="#F5F2EA" font-family="Georgia, serif" font-size="58">RENOVA AGENT</text>
+  <text x="600" y="1120" text-anchor="middle" fill="#B9B2A3" font-family="Arial, sans-serif" font-size="28" letter-spacing="6">REY FILÓSOFO BY SERESARTE</text>
+</svg>

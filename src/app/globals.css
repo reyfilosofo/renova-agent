@@ -1,0 +1,203 @@
+:root {
+  --background: #050506;
+  --panel: #111116;
+  --panel-soft: #17171f;
+  --text: #f5f2ea;
+  --muted: #b9b2a3;
+  --line: rgba(245, 242, 234, 0.14);
+  --gold: #d5b46a;
+  --blue: #5472ff;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  background:
+    radial-gradient(circle at top right, rgba(84, 114, 255, 0.22), transparent 30rem),
+    radial-gradient(circle at top left, rgba(213, 180, 106, 0.16), transparent 28rem),
+    var(--background);
+  color: var(--text);
+  font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+main {
+  width: min(1180px, calc(100% - 32px));
+  margin: 0 auto;
+}
+
+.hero {
+  min-height: 92vh;
+  display: grid;
+  grid-template-columns: 1.05fr 0.95fr;
+  align-items: center;
+  gap: 3rem;
+  padding: 5rem 0 3rem;
+}
+
+.heroContent h1 {
+  margin: 1rem 0;
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: clamp(4rem, 11vw, 9rem);
+  line-height: 0.86;
+  letter-spacing: -0.08em;
+}
+
+.heroLead {
+  max-width: 720px;
+  color: var(--muted);
+  font-size: clamp(1.08rem, 2vw, 1.42rem);
+  line-height: 1.65;
+}
+
+.heroActions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin-top: 2rem;
+}
+
+.heroActions a {
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  padding: 0.9rem 1.2rem;
+  background: rgba(245, 242, 234, 0.06);
+}
+
+.heroActions .secondaryLink {
+  color: var(--muted);
+  background: transparent;
+}
+
+.heroVisual,
+.architecturePanel {
+  border: 1px solid var(--line);
+  border-radius: 2rem;
+  background: linear-gradient(145deg, rgba(255,255,255,0.06), rgba(255,255,255,0.02));
+  padding: 1.25rem;
+  overflow: hidden;
+  box-shadow: 0 30px 90px rgba(0,0,0,0.38);
+}
+
+.heroVisual img,
+.architecturePanel img {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+.badge,
+.status {
+  display: inline-flex;
+  width: fit-content;
+  border: 1px solid rgba(213, 180, 106, 0.35);
+  color: var(--gold);
+  border-radius: 999px;
+  padding: 0.38rem 0.7rem;
+  font-size: 0.78rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.section {
+  padding: 4.5rem 0;
+  border-top: 1px solid var(--line);
+}
+
+.eyebrow {
+  color: var(--gold);
+  text-transform: uppercase;
+  letter-spacing: 0.16em;
+  font-size: 0.8rem;
+}
+
+.section h2 {
+  margin: 0.4rem 0 1.2rem;
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: clamp(2rem, 5vw, 4rem);
+  line-height: 1.02;
+  letter-spacing: -0.04em;
+}
+
+.sectionBody > p {
+  max-width: 900px;
+  color: var(--muted);
+  font-size: 1.15rem;
+  line-height: 1.8;
+}
+
+.grid {
+  display: grid;
+  gap: 1rem;
+}
+
+.grid.two {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.grid.three {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.card {
+  border: 1px solid var(--line);
+  border-radius: 1.4rem;
+  background: rgba(17, 17, 22, 0.86);
+  padding: 1.2rem;
+  min-height: 210px;
+}
+
+.cardHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 1rem;
+}
+
+.card h3 {
+  margin: 0 0 0.8rem;
+  font-size: 1.08rem;
+}
+
+.card p,
+.roadmapList {
+  color: var(--muted);
+  line-height: 1.65;
+}
+
+.roadmapList {
+  padding-left: 1.25rem;
+  font-size: 1.1rem;
+}
+
+footer {
+  border-top: 1px solid var(--line);
+  padding: 3rem 0 4rem;
+  color: var(--muted);
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+@media (max-width: 900px) {
+  .hero,
+  .grid.two,
+  .grid.three {
+    grid-template-columns: 1fr;
+  }
+
+  .hero {
+    padding-top: 3rem;
+  }
+}
