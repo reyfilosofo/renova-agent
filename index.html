@@ -1,0 +1,93 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="SERESARTE V-OS, ordenador virtual web para RENOVA y SERESARTE.">
+  <title>SERESARTE V-OS</title>
+  <link rel="icon" href="data:,">
+  <link rel="stylesheet" href="./styles.css">
+</head>
+<body>
+  <section id="boot" class="boot-screen" aria-live="polite" data-testid="boot-screen">
+    <div class="boot-panel">
+      <div class="boot-brand">SERESARTE V-OS</div>
+      <pre id="bootLog" class="boot-log"></pre>
+      <div class="boot-progress" aria-hidden="true"><span id="bootProgress"></span></div>
+    </div>
+  </section>
+
+  <main id="desktop" class="desktop" aria-label="Escritorio virtual" hidden data-testid="desktop">
+    <header class="topbar">
+      <div class="topbar-left">
+        <strong>SERESARTE V-OS</strong>
+        <span id="statusText">Inicializando</span>
+      </div>
+      <div class="topbar-right">
+        <span id="clock"></span>
+      </div>
+    </header>
+
+    <section class="wallpaper" aria-hidden="true">
+      <div class="wallpaper-grid"></div>
+      <div class="desktop-mark">
+        <span>RENOVA</span>
+        <strong>SERESARTE</strong>
+      </div>
+    </section>
+
+    <nav class="desktop-icons" aria-label="Accesos directos">
+      <button class="desktop-icon" data-open="terminal" data-testid="icon-terminal">
+        <span>TER</span>
+        <strong>Terminal</strong>
+      </button>
+      <button class="desktop-icon" data-open="files" data-testid="icon-files">
+        <span>ARC</span>
+        <strong>Archivos</strong>
+      </button>
+      <button class="desktop-icon" data-open="notes" data-testid="icon-notes">
+        <span>NOT</span>
+        <strong>Notas</strong>
+      </button>
+      <button class="desktop-icon" data-open="browser" data-testid="icon-browser">
+        <span>NAV</span>
+        <strong>Navegador</strong>
+      </button>
+      <button class="desktop-icon" data-open="calculator" data-testid="icon-calculator">
+        <span>CAL</span>
+        <strong>Calculadora</strong>
+      </button>
+      <button class="desktop-icon" data-open="system" data-testid="icon-system">
+        <span>SIS</span>
+        <strong>Sistema</strong>
+      </button>
+    </nav>
+
+    <section id="windows" class="windows" aria-live="polite" data-testid="windows"></section>
+
+    <nav class="dock" aria-label="Aplicaciones">
+      <button data-open="terminal" data-testid="dock-terminal">Terminal</button>
+      <button data-open="files" data-testid="dock-files">Archivos</button>
+      <button data-open="notes" data-testid="dock-notes">Notas</button>
+      <button data-open="browser" data-testid="dock-browser">Navegador</button>
+      <button data-open="calculator" data-testid="dock-calculator">Calculadora</button>
+      <button data-open="system" data-testid="dock-system">Sistema</button>
+    </nav>
+
+    <template id="window-template">
+      <article class="window" role="dialog" aria-modal="false">
+        <header class="window-header">
+          <div class="window-title"></div>
+          <div class="window-controls">
+            <button class="window-minimize" aria-label="Minimizar">_</button>
+            <button class="window-close" aria-label="Cerrar">x</button>
+          </div>
+        </header>
+        <div class="window-body"></div>
+      </article>
+    </template>
+  </main>
+
+  <script src="./app.js"></script>
+</body>
+</html>

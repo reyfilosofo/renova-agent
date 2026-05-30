@@ -1,0 +1,19 @@
+{
+  "name": "seresarte-v-os",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Ordenador virtual web para RENOVA/SERESARTE con escritorio, terminal y sistema de archivos virtual.",
+  "scripts": {
+    "start": "python3 server.py",
+    "serve": "python3 server.py",
+    "check": "node --check app.js && python3 -m py_compile server.py"
+  },
+  "keywords": [
+    "seresarte",
+    "renova",
+    "virtual-desktop",
+    "terminal",
+    "localstorage"
+  ],
+  "license": "UNLICENSED"
+}
