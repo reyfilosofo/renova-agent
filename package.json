@@ -1,0 +1,30 @@
+{
+  "name": "renova-agent",
+  "version": "0.1.0",
+  "private": true,
+  "description": "RENOVA Agent: ontological, existential and renewative AI interface by Rey Filósofo by SERESARTE.",
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint",
+    "check:structure": "node scripts/check-project.mjs"
+  },
+  "dependencies": {
+    "@types/node": "^22.10.0",
+    "@types/react": "^19.0.0",
+    "@types/react-dom": "^19.0.0",
+    "next": "^15.1.0",
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0",
+    "typescript": "^5.7.0"
+  },
+  "devDependencies": {
+    "@eslint/eslintrc": "^3.3.5",
+    "eslint": "^9.17.0",
+    "eslint-config-next": "^15.1.0"
+  },
+  "engines": {
+    "node": ">=20.0.0"
+  }
+}
