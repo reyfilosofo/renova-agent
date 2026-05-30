@@ -2,7 +2,7 @@
 
 ## Definition
 
-RENOVA Agent is a software and conceptual interface for la ℛenova, understood here as an ontological, existential and renewative framework. The system should help convert thought into artifacts: code, diagrams, essays, briefs, indices, editorial products and institutional communication.
+RENOVA Agent is a software and conceptual interface for la ℛenova, understood here as an ontological, existential and ℛenovative framework. The system should help convert thought into artifacts: code, diagrams, essays, briefs, indices, editorial products and institutional communication.
 
 ## Core proposition
 
@@ -19,7 +19,7 @@ The agent does not exist to accelerate generic productivity. It exists to increa
 
 1. Landing page.
 2. Conceptual diagnostic engine.
-3. Renewative brief generator.
+3. ℛenovative brief generator.
 4. Document and source tracker.
 5. Editorial generator.
 6. Visual system and diagram generator.
@@ -36,4 +36,4 @@ The agent does not exist to accelerate generic productivity. It exists to increa
 
 ## Terminology note
 
-"Renewative" is used as a deliberate authorial/conceptual term. It should not be automatically replaced by "renewable", because renewable refers mostly to replenishable resources, while renewative refers to a capacity, process or orientation of renewal within life, systems and meaning.
+"ℛenovative" is used as a deliberate authorial/conceptual term. It should not be automatically replaced by "renewable", because renewable refers mostly to replenishable resources, while ℛenovative refers to a capacity, process or orientation of renewal within life, systems and meaning.

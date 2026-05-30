@@ -23,6 +23,6 @@ export function generateRenovaPlan(request: AgentRequest): AgentResponse {
     selectedPrinciples,
     proposedModules,
     nextAction:
-      "Convert the topic into a structured renewative brief with variables, risks, opportunities, deliverables and a publication path."
+      "Convert the topic into a structured ℛenovative brief with variables, risks, opportunities, deliverables and a publication path."
   };
 }

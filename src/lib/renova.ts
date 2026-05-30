@@ -10,7 +10,7 @@ export type AgentCapability = {
 };
 
 export const renovaThesis =
-  "La ℛenova is an ontological, existential and renewative framework: a way of measuring, designing and amplifying the conditions under which life, meaning, systems, communities and worlds can be renewed without reducing existence to extraction, automation or mere optimization.";
+  "La ℛenova is an ontological, existential and ℛenovative framework: a way of measuring, designing and amplifying the conditions under which life, meaning, systems, communities and worlds can be renewed without reducing existence to extraction, automation or mere optimization.";
 
 export const signature = "Rey Filósofo by SERESARTE";
 
@@ -21,9 +21,9 @@ export const principles: RenovaPrinciple[] = [
       "The system treats life, care, meaning and continuity as first-order variables rather than as collateral effects of efficiency."
   },
   {
-    title: "Renewative capacity",
+    title: "ℛenovative capacity",
     description:
-      "Renewative capacity names the power of a system to generate new viable conditions for life, not merely to restore a previous state."
+      "ℛenovative capacity names the power of a system to generate new viable conditions for life, not merely to restore a previous state."
   },
   {
     title: "Ontological accountability",

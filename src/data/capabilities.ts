@@ -4,11 +4,11 @@ export const capabilities: AgentCapability[] = [
   {
     name: "Conceptual diagnosis",
     description:
-      "Reads a project, text, policy, artwork or technological system and identifies its renewative or anti-renewative tendencies.",
+      "Reads a project, text, policy, artwork or technological system and identifies its ℛenovative or anti-ℛenovative tendencies.",
     status: "prototype"
   },
   {
-    name: "Renewative index design",
+    name: "ℛenovative index design",
     description:
       "Prepares variables, indicators and scoring models for evaluating the life-amplifying capacity of a project.",
     status: "research"

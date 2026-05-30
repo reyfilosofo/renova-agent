@@ -12,7 +12,7 @@ Clean editorial systems diagram showing four layers: Conceptual Core, Agent Logi
 
 ## 3. Social card
 
-Minimal premium social card: RENOVA Agent, Rey Filósofo by SERESARTE, ontological · existential · renewative. Black editorial background, gold accent, subtle blue field, serif title, modern sans-serif metadata, intellectual and cinematic.
+Minimal premium social card: RENOVA Agent, Rey Filósofo by SERESARTE, ontological · existential · ℛenovative. Black editorial background, gold accent, subtle blue field, serif title, modern sans-serif metadata, intellectual and cinematic.
 
 ## 4. App icon
 

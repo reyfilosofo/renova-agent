@@ -1,6 +1,6 @@
 # RENOVA Agent
 
-RENOVA Agent is the first technical scaffold for an AI-facing interface around the philosophy of **la ℛenova**: an ontological, existential and renewative framework oriented toward life, meaning, repair, transformation and applied intelligence.
+RENOVA Agent is the first technical scaffold for an AI-facing interface around the philosophy of **la ℛenova**: an ontological, existential and ℛenovative framework oriented toward life, meaning, repair, transformation and applied intelligence.
 
 The project is deliberately minimal, professional and extensible. It is designed to be opened in Codex, edited by an AI coding agent, reviewed in GitHub, and deployed as a public landing page or prototype dashboard.
 

@@ -12,7 +12,7 @@
 
 - Add a form for topic submission.
 - Call `/api/agent` from the UI.
-- Show generated renewative brief.
+- Show generated ℛenovative brief.
 - Add export to Markdown.
 
 ## Phase 2 — Source-aware research
@@ -22,7 +22,7 @@
 - Add citation tracking.
 - Add reliability labels.
 
-## Phase 3 — Renewative Index
+## Phase 3 — ℛenovative Index
 
 - Define variables.
 - Define weights.

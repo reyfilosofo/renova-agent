@@ -2,7 +2,7 @@
   "name": "renova-agent",
   "version": "0.1.0",
   "private": true,
-  "description": "RENOVA Agent: ontological, existential and renewative AI interface by Rey Filósofo by SERESARTE.",
+  "description": "RENOVA Agent: ontological, existential and ℛenovative AI interface by Rey Filósofo by SERESARTE.",
   "scripts": {
     "dev": "next dev",
     "build": "next build",

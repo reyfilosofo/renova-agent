@@ -23,7 +23,7 @@ Restricciones:
 - No agregues dependencias innecesarias.
 - No conviertas la ℛenova en un producto genérico.
 - Mantén el estilo editorial, sobrio, filosófico y premium.
-- Usa "renewative" cuando corresponda como término autoral.
+- Usa "ℛenovative" cuando corresponda como término autoral.
 
 Entrega final:
 

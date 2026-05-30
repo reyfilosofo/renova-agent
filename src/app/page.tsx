@@ -10,7 +10,7 @@ export default function Home() {
     <main>
       <section className="hero">
         <div className="heroContent">
-          <Badge>Ontological · Existential · Renewative</Badge>
+          <Badge>Ontological · Existential · ℛenovative</Badge>
           <h1>RENOVA Agent</h1>
           <p className="heroLead">{renovaThesis}</p>
           <div className="heroActions">
@@ -23,7 +23,7 @@ export default function Home() {
         </div>
       </section>
 
-      <Section eyebrow="Thesis" title="An AI interface for renewative intelligence">
+      <Section eyebrow="Thesis" title="An AI interface for ℛenovative intelligence">
         <p>
           RENOVA Agent is not only a chatbot wrapper. It is a conceptual operating layer for transforming philosophical, artistic, scientific and institutional material into structured action: diagnosis, writing, diagrams, indices, software artifacts and public communication.
         </p>
@@ -56,9 +56,9 @@ export default function Home() {
 
       <Section eyebrow="Next modules" title="Where Codex should take this repository">
         <ol className="roadmapList">
-          <li>Interactive prompt console for renewative briefs.</li>
+          <li>Interactive prompt console for ℛenovative briefs.</li>
           <li>Document ingestion with source tracking.</li>
-          <li>Renewative index prototype with variables and weights.</li>
+          <li>ℛenovative index prototype with variables and weights.</li>
           <li>Editorial generator for essays, books and social posts.</li>
           <li>Deployment pipeline for Vercel and GitHub Actions.</li>
         </ol>

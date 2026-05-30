@@ -5,11 +5,11 @@ export const metadata: Metadata = {
   metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000"),
   title: "RENOVA Agent — Rey Filósofo by SERESARTE",
   description:
-    "A first technical interface for the ontological, existential and renewative framework of la ℛenova.",
+    "A first technical interface for the ontological, existential and ℛenovative framework of la ℛenova.",
   openGraph: {
     title: "RENOVA Agent",
     description:
-      "AI interface for renewative philosophy, symbolic engineering and life-centered systems.",
+      "AI interface for ℛenovative philosophy, symbolic engineering and life-centered systems.",
     images: ["/assets/social-card.svg"]
   }
 };
