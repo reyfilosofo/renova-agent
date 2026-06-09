@@ -1,0 +1,93 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="SERESARTE Web Lab: hub maestro para landings, webs, piezas interactivas y juegos del ecosistema SERESARTE.">
+  <meta property="og:title" content="SERESARTE Web Lab">
+  <meta property="og:description" content="Archivo vivo para landings, experiencias web, piezas interactivas y juegos SERESARTE.">
+  <title>SERESARTE Web Lab</title>
+  <link rel="stylesheet" href="./styles.css">
+</head>
+<body>
+  <header class="site-header">
+    <nav class="nav" aria-label="Navegacion principal">
+      <a class="brand" href="#top" aria-label="SERESARTE Web Lab inicio">seresarte</a>
+      <div class="nav-links">
+        <a href="#ecosistema">Ecosistema</a>
+        <a href="#proyectos">Proyectos</a>
+        <a href="#flujo">Flujo</a>
+        <a href="#contacto">Contacto</a>
+      </div>
+    </nav>
+  </header>
+
+  <main id="top">
+    <section class="hero section-grid">
+      <div class="eyebrow">GitHub Master System</div>
+      <h1>Landings, webs, paginas interactivas y juegos de SERESARTE en un solo archivo vivo.</h1>
+      <p class="lead">SERESARTE Web Lab organiza el ecosistema digital para crear, versionar, revisar y desplegar cada proyecto sin perder memoria tecnica, editorial ni visual.</p>
+      <div class="actions" aria-label="Acciones principales">
+        <a class="button primary" href="#proyectos">Ver proyectos</a>
+        <a class="button" href="./docs/deployment.md">Guia de despliegue</a>
+      </div>
+    </section>
+
+    <section id="ecosistema" class="section">
+      <div class="section-heading">
+        <p class="eyebrow">Arquitectura viva</p>
+        <h2>Ecosistema digital SERESARTE</h2>
+      </div>
+      <div class="cards three">
+        <article class="card">
+          <h3>Landings institucionales</h3>
+          <p>Fundacion SERESARTE, SERESARTE Media, Experiences, ReyFilosofo y Renova Press con identidad editorial, narrativa y llamadas a la accion claras.</p>
+        </article>
+        <article class="card">
+          <h3>Experiencias interactivas</h3>
+          <p>Galerias vivas, mapas de impacto, piezas poeticas en HTML, archivos de artistas, simuladores de propuestas y herramientas de vinculacion cultural.</p>
+        </article>
+        <article class="card">
+          <h3>Juegos y prototipos</h3>
+          <p>Microjuegos educativos, piezas de color, memoria visual, arte para infancia, experiencias de trazo y prototipos filosoficos de atencion y percepcion.</p>
+        </article>
+      </div>
+    </section>
+
+    <section id="proyectos" class="section alt">
+      <div class="section-heading">
+        <p class="eyebrow">Registro maestro</p>
+        <h2>Proyectos iniciales</h2>
+      </div>
+      <div id="projectGrid" class="project-grid" aria-live="polite"></div>
+    </section>
+
+    <section id="flujo" class="section split">
+      <div>
+        <p class="eyebrow">Metodo</p>
+        <h2>Del concepto al despliegue</h2>
+        <p>Todo proyecto entra por brief, avanza a prototipo, se revisa, se convierte en pieza deploy-ready y finalmente se publica con URL, version y fecha.</p>
+      </div>
+      <ol class="steps">
+        <li><strong>Registrar</strong><span>Crear entrada en data/projects.json.</span></li>
+        <li><strong>Prototipar</strong><span>Crear carpeta, HTML, CSS, JS y assets optimizados.</span></li>
+        <li><strong>Revisar</strong><span>Texto, visual, responsive, accesibilidad y performance.</span></li>
+        <li><strong>Publicar</strong><span>Desplegar en Vercel, Netlify, Cloudflare, EdgeOne o GitHub Pages.</span></li>
+      </ol>
+    </section>
+
+    <section id="contacto" class="section manifesto">
+      <p class="eyebrow">SERESARTE</p>
+      <h2>Retomad toda esperanza / aquel que entre aqui.</h2>
+      <p>El sitio no es una vitrina muerta. Es una estructura de produccion cultural: memoria, obra, sistema, comunidad y accion.</p>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <span>SERESARTE Web Lab</span>
+    <span>GitHub source of truth</span>
+  </footer>
+
+  <script src="./app.js"></script>
+</body>
+</html>
