@@ -1,0 +1,72 @@
+[
+  {
+    "id": "fundacion-seresarte",
+    "title": "Fundacion SERESARTE",
+    "family": "landing-institucional",
+    "status": "brief",
+    "priority": "alta",
+    "path": "sites/fundacion-seresarte/",
+    "description": "Landing institucional para presentar mision, experiencias artisticas, comunidad, voluntariado y vinculacion cultural.",
+    "nextAction": "Convertir dossier institucional en estructura web."
+  },
+  {
+    "id": "seresarte-media",
+    "title": "SERESARTE Media",
+    "family": "landing-institucional",
+    "status": "idea",
+    "priority": "alta",
+    "path": "sites/seresarte-media/",
+    "description": "Web de narrativa, contenido, relaciones publicas, musica, campanas, documentacion y estrategia digital.",
+    "nextAction": "Definir servicios, casos y llamada a la accion."
+  },
+  {
+    "id": "seresarte-experiences",
+    "title": "SERESARTE Experiences",
+    "family": "landing-comercial",
+    "status": "brief",
+    "priority": "alta",
+    "path": "sites/seresarte-experiences/",
+    "description": "Landing para Entra al Lienzo, Mural Colectivo, 27NoDiceMucho, voluntariado corporativo y arte con causa.",
+    "nextAction": "Crear paquetes, galeria de casos y formulario."
+  },
+  {
+    "id": "renova-press",
+    "title": "Renova Press",
+    "family": "landing-editorial",
+    "status": "idea",
+    "priority": "alta",
+    "path": "sites/renova-press/",
+    "description": "Sello editorial para libros, ensayos, dossiers, obra filosofica y productos editoriales.",
+    "nextAction": "Disenar catalogo editorial, manifiesto y pagina de libros."
+  },
+  {
+    "id": "reyfilosofo",
+    "title": "ReyFilosofo x SERESARTE",
+    "family": "landing-autor",
+    "status": "idea",
+    "priority": "alta",
+    "path": "sites/reyfilosofo/",
+    "description": "Sitio de autor, pensamiento aplicado, libros, conferencias, aforismos, asesorias y productos filosoficos.",
+    "nextAction": "Crear bio editorial, biblioteca, servicios y medios."
+  },
+  {
+    "id": "natura-movil",
+    "title": "Natura Movil",
+    "family": "landing-comercial",
+    "status": "brief",
+    "priority": "media",
+    "path": "sites/natura-movil/",
+    "description": "Propuesta de arte, movilidad, curaduria, exposicion, ecologia y experiencia de impacto.",
+    "nextAction": "Transformar propuesta PDF en landing."
+  },
+  {
+    "id": "seresarte-html",
+    "title": "SERESARTE HTML",
+    "family": "coleccion-interactiva",
+    "status": "prototype",
+    "priority": "alta",
+    "path": "interactive/seresarte-html/",
+    "description": "Coleccion de piezas web interactivas, poeticas, visuales y coleccionables.",
+    "nextAction": "Crear plantilla base para cada pieza."
+  }
+]
