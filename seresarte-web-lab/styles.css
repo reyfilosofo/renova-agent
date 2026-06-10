@@ -1,0 +1,317 @@
+:root {
+  --black: #070707;
+  --ink: #151515;
+  --muted: #6f6a61;
+  --paper: #fbf7ef;
+  --white: #ffffff;
+  --gold: #b9934b;
+  --red: #a81825;
+  --cobalt: #153c7a;
+  --line: rgba(21, 21, 21, 0.16);
+  --shadow: 0 24px 80px rgba(0, 0, 0, 0.12);
+  font-family: Georgia, 'Times New Roman', serif;
+}
+
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  margin: 0;
+  color: var(--ink);
+  background: var(--paper);
+  line-height: 1.55;
+}
+
+a { color: inherit; }
+
+.site-header {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  border-bottom: 1px solid var(--line);
+  background: rgba(251, 247, 239, 0.92);
+  backdrop-filter: blur(18px);
+}
+
+.nav {
+  width: min(1180px, calc(100% - 40px));
+  margin: 0 auto;
+  min-height: 76px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+}
+
+.brand {
+  font-size: clamp(1.7rem, 3vw, 2.6rem);
+  font-weight: 700;
+  letter-spacing: -0.06em;
+  text-decoration: none;
+}
+
+.nav-links {
+  display: flex;
+  gap: 18px;
+  font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  font-size: 0.82rem;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+}
+
+.nav-links a { text-decoration: none; }
+.nav-links a:hover { color: var(--red); }
+
+.section,
+.hero {
+  width: min(1180px, calc(100% - 40px));
+  margin: 0 auto;
+  padding: 96px 0;
+}
+
+.hero {
+  min-height: calc(100vh - 76px);
+  display: grid;
+  align-content: center;
+  border-bottom: 1px solid var(--line);
+}
+
+.hero h1 {
+  max-width: 980px;
+  margin: 0;
+  font-size: clamp(3.1rem, 9vw, 8.8rem);
+  line-height: 0.92;
+  letter-spacing: -0.075em;
+}
+
+.lead {
+  max-width: 760px;
+  margin: 28px 0 0;
+  font-size: clamp(1.15rem, 2vw, 1.6rem);
+  color: var(--muted);
+}
+
+.eyebrow {
+  margin: 0 0 18px;
+  color: var(--red);
+  font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  font-size: 0.78rem;
+  text-transform: uppercase;
+  letter-spacing: 0.19em;
+  font-weight: 800;
+}
+
+.actions {
+  display: flex;
+  gap: 14px;
+  flex-wrap: wrap;
+  margin-top: 42px;
+}
+
+.button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 48px;
+  padding: 0 18px;
+  border: 1px solid var(--ink);
+  border-radius: 999px;
+  text-decoration: none;
+  font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+}
+
+.button.primary {
+  color: var(--white);
+  background: var(--black);
+}
+
+.section-heading {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 2fr);
+  gap: 32px;
+  align-items: end;
+  margin-bottom: 36px;
+}
+
+.section-heading h2,
+.split h2,
+.manifesto h2 {
+  margin: 0;
+  font-size: clamp(2.2rem, 5vw, 5rem);
+  line-height: 0.98;
+  letter-spacing: -0.055em;
+}
+
+.cards,
+.project-grid {
+  display: grid;
+  gap: 18px;
+}
+
+.cards.three {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.card,
+.project-card,
+.steps li {
+  border: 1px solid var(--line);
+  background: rgba(255, 255, 255, 0.42);
+  box-shadow: var(--shadow);
+}
+
+.card {
+  min-height: 260px;
+  padding: 28px;
+}
+
+.card h3,
+.project-card h3 {
+  margin: 0 0 16px;
+  font-size: 1.55rem;
+  letter-spacing: -0.04em;
+}
+
+.card p,
+.project-card p,
+.split p,
+.manifesto p {
+  margin: 0;
+  color: var(--muted);
+  font-size: 1.03rem;
+}
+
+.alt {
+  width: 100%;
+  max-width: none;
+  padding-left: max(20px, calc((100vw - 1180px) / 2));
+  padding-right: max(20px, calc((100vw - 1180px) / 2));
+  background: var(--black);
+  color: var(--paper);
+}
+
+.alt .section-heading,
+.alt .project-grid {
+  width: min(1180px, 100%);
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.project-grid {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.project-card {
+  padding: 26px;
+  color: var(--paper);
+  background: rgba(255, 255, 255, 0.06);
+  border-color: rgba(255, 255, 255, 0.18);
+  box-shadow: none;
+}
+
+.project-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 0 0 18px;
+  font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  font-size: 0.68rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+}
+
+.pill {
+  border: 1px solid rgba(255, 255, 255, 0.22);
+  border-radius: 999px;
+  padding: 5px 9px;
+}
+
+.project-card p { color: rgba(251, 247, 239, 0.76); }
+.project-path {
+  margin-top: 20px;
+  color: var(--gold);
+  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  font-size: 0.82rem;
+}
+
+.split {
+  display: grid;
+  grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
+  gap: 56px;
+  align-items: start;
+}
+
+.steps {
+  display: grid;
+  gap: 12px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.steps li {
+  display: grid;
+  grid-template-columns: 0.7fr 1.3fr;
+  gap: 18px;
+  padding: 20px;
+}
+
+.steps strong {
+  color: var(--red);
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  font-size: 0.8rem;
+}
+
+.steps span { color: var(--muted); }
+
+.manifesto {
+  border-top: 1px solid var(--line);
+  text-align: center;
+}
+
+.manifesto h2 {
+  max-width: 960px;
+  margin: 0 auto 22px;
+}
+
+.manifesto p {
+  max-width: 760px;
+  margin: 0 auto;
+}
+
+.footer {
+  width: min(1180px, calc(100% - 40px));
+  margin: 0 auto;
+  padding: 34px 0;
+  border-top: 1px solid var(--line);
+  display: flex;
+  justify-content: space-between;
+  gap: 18px;
+  color: var(--muted);
+  font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  font-size: 0.78rem;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+}
+
+@media (max-width: 840px) {
+  .nav,
+  .section-heading,
+  .cards.three,
+  .project-grid,
+  .split,
+  .steps li,
+  .footer {
+    grid-template-columns: 1fr;
+  }
+
+  .nav { align-items: flex-start; flex-direction: column; padding: 18px 0; }
+  .nav-links { flex-wrap: wrap; }
+  .hero { min-height: auto; padding: 82px 0; }
+  .cards.three { display: grid; }
+  .footer { display: grid; }
+}
