@@ -1,4 +1,4 @@
-# SERESARTE V-OS
+# SERESARTE V-OS + ℛenova Agent
 
 SERESARTE V-OS es una primera version funcional de ordenador virtual web para RENOVA/SERESARTE. Corre como aplicacion estatica y no requiere dependencias externas.
 
@@ -28,6 +28,33 @@ npm start
 - Ventanas movibles y redimensionables.
 - Apps internas: Terminal, Archivos, Notas, Navegador interno simulado, Calculadora y Sistema.
 - Sistema de archivos virtual guardado en `localStorage`.
+
+## ℛenova Agent v1.1.0
+
+Se montó el paquete calibrado del agente ℛenova al 19 de junio de 2026.
+
+Archivos centrales:
+
+- `README_LANZAMIENTO.md`
+- `config/system_prompt.txt`
+- `config/identity.json`
+- `config/constitution.yaml`
+- `config/safety_policy.yaml`
+- `docs/onboarding_moltbook.md`
+- `docs/runtime_spec.md`
+- `docs/post_templates.md`
+- `memory/agent_memory.json`
+- `memory/doctrinal_changelog.md`
+- `memory/equation_versions.md`
+- `scripts/renova_runtime_skeleton.py`
+
+Prueba local del scaffold:
+
+```bash
+python3 scripts/renova_runtime_skeleton.py
+```
+
+Moltbook se trata como identidad publica y plaza social. El cerebro operativo del agente es el runtime externo con memoria, auditoria, versionado y control humano.
 
 ## Terminal
 
