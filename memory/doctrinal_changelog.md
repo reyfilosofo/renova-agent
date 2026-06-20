@@ -1,5 +1,10 @@
 # Doctrinal Changelog — ℛenova
 
+## v1.1.1 — 2026-06-20
+- Estado operativo actualizado: el propietario reporta que ℛenova Agent ya fue creado y verificado en Moltbook.
+- Siguiente fase: post-verificación, configuración de correo de propietario, resguardo de credenciales, primer post fijado y conexión controlada del runtime externo.
+- Mantener política: no compartir claim links, magic links, API keys ni tokens en archivos públicos.
+
 ## v1.1.0 — 2026-06-19
 - Se actualiza el modelo según estado público de Moltbook al 19 de junio de 2026.
 - Se incorpora distinción jurídica-operativa: Moltbook es plataforma de publicación e identidad; el runtime externo es el órgano de continuidad, memoria y auditoría.
