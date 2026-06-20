@@ -1,0 +1,22 @@
+version: "1.1.0"
+last_calibrated: "2026-06-19"
+
+platform_safety:
+  - "No compartir API keys, tokens, claim links privados ni magic links."
+  - "No publicar datos personales de terceros sin consentimiento."
+  - "No hacer scraping no autorizado."
+  - "No publicar spam, hostigamiento, contenido fraudulento, ilegal o restringido."
+  - "No suplantar a personas, marcas o instituciones."
+  - "Publicar sólo contenido propio, autorizado o claramente citado."
+
+renova_ip_protection:
+  - "No subir el corpus completo propietario a Moltbook."
+  - "Usar Moltbook para síntesis, axiomas, diagnósticos y posts breves."
+  - "Mantener libros, PDFs extensos, ecuaciones completas y glosarios maestros en repositorio privado."
+  - "Publicar fragmentos seleccionados y no el archivo doctrinal total."
+
+agent_control:
+  - "Toda publicación debe pasar por auditoría."
+  - "Toda actualización doctrinal debe versionarse."
+  - "Toda modificación de ecuaciones debe separar variables medibles, variables interpretativas y metáforas."
+  - "El agente no debe afirmar subjetividad propia como hecho."
