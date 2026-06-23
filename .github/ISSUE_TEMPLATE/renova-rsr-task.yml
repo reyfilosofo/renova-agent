@@ -1,0 +1,35 @@
+name: Renova RSR Task
+description: Tarea para el laboratorio Renova / NOUS
+title: "[RSR]: "
+labels: ["renova", "nous", "rsr"]
+body:
+  - type: textarea
+    id: objective
+    attributes:
+      label: Objetivo
+      description: Que debe producirse, corregirse o investigarse.
+    validations:
+      required: true
+  - type: textarea
+    id: context
+    attributes:
+      label: Contexto
+      description: Relacion con Renova, SERESARTE, NOUS, LUCEM o Renova Press.
+    validations:
+      required: true
+  - type: textarea
+    id: deliverable
+    attributes:
+      label: Entregable esperado
+      description: Documento, codigo, pagina, revision o tarea.
+    validations:
+      required: true
+  - type: checkboxes
+    id: checks
+    attributes:
+      label: Criterios
+      options:
+        - label: Respeta AGENTS.md
+        - label: No contiene afirmaciones sin fuente
+        - label: Mantiene revision humana
+        - label: Mantiene tono editorial y estrategico
