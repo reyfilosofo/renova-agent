@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="1000" viewBox="0 0 1600 1000">
+  <rect width="1600" height="1000" fill="#f7f2e8"/>
+  <rect x="70" y="70" width="1460" height="860" fill="none" stroke="#111111" stroke-width="8"/>
+  <rect x="105" y="105" width="1390" height="790" fill="none" stroke="#b78a2f" stroke-width="2"/>
+  <text x="800" y="180" font-family="Georgia, serif" font-size="54" text-anchor="middle" fill="#111111">SERESARTE / ℛenova</text>
+  <text x="800" y="245" font-family="Georgia, serif" font-size="30" text-anchor="middle" fill="#222222">Certificado verificable de presencia cultural</text>
+  <line x1="360" y1="285" x2="1240" y2="285" stroke="#111111" stroke-width="2"/>
+  <text x="800" y="385" font-family="Georgia, serif" font-size="42" text-anchor="middle" fill="#111111">{{CERTIFICATE_TITLE}}</text>
+  <text x="800" y="455" font-family="Georgia, serif" font-size="28" text-anchor="middle" fill="#333333">Otorgado a</text>
+  <text x="800" y="525" font-family="Georgia, serif" font-size="44" text-anchor="middle" fill="#111111">{{RECIPIENT_NAME}}</text>
+  <text x="800" y="600" font-family="Georgia, serif" font-size="25" text-anchor="middle" fill="#333333">Evento / Obra / Archivo: {{EVENT_OR_WORK}}</text>
+  <text x="800" y="650" font-family="Georgia, serif" font-size="23" text-anchor="middle" fill="#333333">Folio: {{FOLIO}} · Fecha: {{DATE}}</text>
+  <text x="800" y="700" font-family="Georgia, serif" font-size="22" text-anchor="middle" fill="#333333">Hash / Token / Attestation: {{VERIFICATION_ID}}</text>
+  <rect x="1180" y="705" width="180" height="180" fill="none" stroke="#111111" stroke-width="3"/>
+  <text x="1270" y="805" font-family="Arial, sans-serif" font-size="20" text-anchor="middle" fill="#111111">QR</text>
+  <text x="800" y="845" font-family="Georgia, serif" font-size="24" text-anchor="middle" fill="#111111">Carlos Jonathan González Rodríguez · SERESARTE</text>
+  <text x="800" y="880" font-family="Georgia, serif" font-size="18" text-anchor="middle" fill="#555555">Este certificado no transfiere derechos de autor, marca ni explotación comercial salvo licencia expresa.</text>
+</svg>
