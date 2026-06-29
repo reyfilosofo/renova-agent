@@ -1,0 +1,26 @@
+{
+  "subject": "Community cultural lab pilot",
+  "notes": "Synthetic example for demonstrating the Renova Global Index workflow.",
+  "dimensions": {
+    "habitat": {
+      "value": 68,
+      "evidence": "The space exists and has participants, but continuity and accessibility require work."
+    },
+    "repair": {
+      "value": 54,
+      "evidence": "Participants can name tensions, but there is no stable practice for shared repair."
+    },
+    "horizon": {
+      "value": 82,
+      "evidence": "The group has a strong future narrative and a clear public purpose."
+    },
+    "sensitivity": {
+      "value": 76,
+      "evidence": "Facilitators listen carefully and include symbolic, aesthetic, and emotional dimensions."
+    },
+    "equilibrium": {
+      "value": 61,
+      "evidence": "Rhythm exists, but the project depends on a few overloaded people."
+    }
+  }
+}
