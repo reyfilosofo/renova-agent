@@ -1,0 +1,79 @@
+{
+  "collection": "ℛenova Genesis 314",
+  "project": "SERESARTE / ℛenova",
+  "author": "Carlos Jonathan González Rodríguez",
+  "created_at": "2026-06-29",
+  "metadata_standard": "ERC-721 compatible metadata draft",
+  "items": [
+    {
+      "token_id": 1,
+      "name": "El Umbral No Pide Permiso",
+      "axis": "Sensibilidad fundante",
+      "symbol": "Umbral",
+      "description": "La primera aparición de la renovación como tránsito entre mundos de sentido."
+    },
+    {
+      "token_id": 2,
+      "name": "Vida Plena como Archivo Vivo",
+      "axis": "Vida plena",
+      "symbol": "Archivo",
+      "description": "La vida como documento sensible que no se agota en el dato."
+    },
+    {
+      "token_id": 3,
+      "name": "La Consciencia como Jardín",
+      "axis": "Consciencia",
+      "symbol": "Jardín",
+      "description": "La consciencia no como posesión individual, sino como cultivo relacional."
+    },
+    {
+      "token_id": 4,
+      "name": "Homeostasis del Fuego",
+      "axis": "Homeostasis",
+      "symbol": "Fuego",
+      "description": "El equilibrio no es quietud: es combustión regulada."
+    },
+    {
+      "token_id": 5,
+      "name": "Memoria del Agua",
+      "axis": "Memoria",
+      "symbol": "Agua",
+      "description": "Toda forma conserva una estela de su transformación."
+    },
+    {
+      "token_id": 6,
+      "name": "Entropía y Cuidado",
+      "axis": "Cuidado",
+      "symbol": "Mano",
+      "description": "Cuidar es introducir forma amorosa en el desorden inevitable."
+    },
+    {
+      "token_id": 7,
+      "name": "El Portal de SERESARTE",
+      "axis": "Cultura",
+      "symbol": "Portal",
+      "description": "La cultura como pasaje entre la obra, la comunidad y la vida."
+    },
+    {
+      "token_id": 8,
+      "name": "Tiempo Renovativo",
+      "axis": "Tiempo",
+      "symbol": "Círculo abierto",
+      "description": "El tiempo como espiral de recomposición, no como línea de desgaste."
+    },
+    {
+      "token_id": 9,
+      "name": "La Obra Respira",
+      "axis": "Arte",
+      "symbol": "Aliento",
+      "description": "La obra no termina en el objeto: respira en quien la encuentra."
+    },
+    {
+      "token_id": 10,
+      "name": "Renovar no es Repetir",
+      "axis": "Renovación",
+      "symbol": "Ruptura fecunda",
+      "description": "La renovación auténtica no copia el inicio: funda una segunda posibilidad."
+    }
+  ]
+}
