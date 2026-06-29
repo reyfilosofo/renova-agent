@@ -1,19 +1,25 @@
 {
-  "name": "seresarte-v-os",
-  "version": "0.1.0",
+  "name": "renova-agent",
+  "version": "0.2.0",
   "private": true,
-  "description": "Ordenador virtual web para RENOVA/SERESARTE con escritorio, terminal y sistema de archivos virtual.",
+  "description": "Renova system with virtual desktop, local agent scaffold, renewal index, ontology graph, and lab kit.",
   "scripts": {
     "start": "python3 server.py",
     "serve": "python3 server.py",
-    "check": "node --check app.js && python3 -m py_compile server.py"
+    "check": "node --check app.js && python3 -m py_compile server.py && python3 -m compileall renova_core",
+    "renova:index": "python3 -m renova_core.cli index data/sample_assessment.json",
+    "renova:agent": "python3 -m renova_core.cli agent 'What is Renova?'",
+    "renova:ontology": "python3 -m renova_core.cli ontology",
+    "renova:canvas": "python3 -m renova_core.cli canvas 'Community cultural lab'"
   },
   "keywords": [
     "seresarte",
     "renova",
-    "virtual-desktop",
-    "terminal",
-    "localstorage"
+    "ai-agent",
+    "ontology",
+    "renewal-index",
+    "cultural-technology",
+    "virtual-desktop"
   ],
   "license": "UNLICENSED"
 }
