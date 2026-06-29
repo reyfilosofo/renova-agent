@@ -47,11 +47,13 @@ Open `http://localhost:8000`.
 
 ## Run Renova Core
 
+Install the Python package locally, then use the `renova` command exposed by `pyproject.toml`.
+
 ```bash
-python3 -m renova_core.cli index data/sample_assessment.json
-python3 -m renova_core.cli agent "What is Renova?"
-python3 -m renova_core.cli ontology
-python3 -m renova_core.cli canvas "Community cultural lab"
+renova index data/sample_assessment.json
+renova agent "What is Renova?"
+renova ontology
+renova canvas "Community cultural lab"
 ```
 
 ## Verification
