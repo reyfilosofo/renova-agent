@@ -1,0 +1,29 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "renova-core"
+version = "0.1.0"
+description = "Open-source tools for Renova: renewal index, ontology graph, local agent scaffold, and lab kit."
+readme = "README.md"
+requires-python = ">=3.10"
+dependencies = []
+
+[project.optional-dependencies]
+dev = ["pytest>=8", "ruff>=0.5"]
+
+[project.scripts]
+renova = "renova_core.cli:main"
+
+[tool.setuptools.packages.find]
+where = ["."]
+include = ["renova_core*"]
+
+[tool.pytest.ini_options]
+addopts = "-q"
+testpaths = ["tests"]
+
+[tool.ruff]
+line-length = 100
+target-version = "py310"
