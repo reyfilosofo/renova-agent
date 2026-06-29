@@ -1,0 +1,9 @@
+{
+  "version": "0.1.0",
+  "terms": [
+    {"term": "Renova", "definition": "Life-oriented renewal beyond mere restoration.", "domain": "root"},
+    {"term": "habitat", "definition": "Conditions that allow a life-system to continue and breathe.", "domain": "diagnostic"},
+    {"term": "horizon", "definition": "Credible future that gives orientation to action.", "domain": "diagnostic"},
+    {"term": "care", "definition": "Practical attention that protects and organizes value.", "domain": "ethics"}
+  ]
+}
