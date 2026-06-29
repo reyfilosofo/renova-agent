@@ -1,0 +1,20 @@
+{
+  "name": "seresarte-renova-web3-starter",
+  "version": "0.1.0",
+  "description": "Starter pack Web3 para SERESARTE / ℛenova: NFTs, access pass, hashes documentales, metadatos y landing page.",
+  "private": true,
+  "license": "SEE LICENSE IN docs/LEGAL_AND_LICENSE.md",
+  "scripts": {
+    "compile": "hardhat compile",
+    "test": "hardhat test",
+    "deploy:local": "hardhat run scripts/deploy.js --network hardhat",
+    "deploy:sepolia": "hardhat run scripts/deploy.js --network sepolia",
+    "hash": "node scripts/generate-hashes.js ./docs ./data/document-registry.generated.json"
+  },
+  "devDependencies": {
+    "@nomicfoundation/hardhat-toolbox": "^5.0.0",
+    "@openzeppelin/contracts": "^5.0.2",
+    "dotenv": "^16.4.5",
+    "hardhat": "^2.22.0"
+  }
+}
