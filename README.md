@@ -2,6 +2,19 @@
 
 SERESARTE V-OS es una primera version funcional de ordenador virtual web para RENOVA/SERESARTE. Corre como aplicacion estatica y no requiere dependencias externas.
 
+## SERESARTE Brain
+
+Se añadió una capa de bóveda documental para trabajar el repositorio como segundo cerebro Markdown/Obsidian con apoyo de ChatGPT y Codex.
+
+Archivos nuevos de esta capa:
+
+- `AGENTS.md`: reglas operativas para Codex.
+- `SERESARTE_BRAIN_START_HERE.md`: guía de inicio.
+- `MANIFEST.md`: inventario vivo del repositorio.
+- `09_META/MAPA_MAESTRO.md`: mapa conceptual inicial.
+- `PROMPT_CODEX.md`: nota operativa breve para Codex.
+- `TAXONOMIA.md`: clasificación mínima inicial.
+
 ## Ejecutar
 
 ```bash
