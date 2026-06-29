@@ -1,0 +1,30 @@
+{
+  "project": "SERESARTE BRAIN onchain",
+  "registry_purpose": "Registrar hashes y metadatos mínimos de documentos sin publicar el contenido privado en blockchain.",
+  "records": [
+    {
+      "folio": "SER-BRAIN-RENOVA-0001",
+      "title": "Manifiesto Web3 SERESARTE / ℛenova",
+      "author": "Carlos Jonathan González Rodríguez",
+      "version": "0.1.0",
+      "date": "2026-06-29",
+      "sha256": "REPLACE_WITH_GENERATED_SHA256",
+      "storage": "local/private until publication",
+      "public_cid": null,
+      "status": "draft",
+      "confidentiality": "public draft"
+    },
+    {
+      "folio": "SER-BRAIN-NOUS-0001",
+      "title": "NOUS / CIVITAS 100 Credential Schema",
+      "author": "SERESARTE / NOUS",
+      "version": "0.1.0",
+      "date": "2026-06-29",
+      "sha256": "REPLACE_WITH_GENERATED_SHA256",
+      "storage": "private",
+      "public_cid": null,
+      "status": "internal",
+      "confidentiality": "confidential"
+    }
+  ]
+}
