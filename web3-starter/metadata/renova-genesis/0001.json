@@ -1,0 +1,19 @@
+{
+  "name": "ℛenova Genesis #001 — El Umbral No Pide Permiso",
+  "description": "Primera pieza demo de la colección ℛenova Genesis 314. Representa el umbral como símbolo de tránsito, sensibilidad fundante, memoria viva y renovación de la presencia.",
+  "image": "ipfs://REPLACE_WITH_IMAGE_CID/0001.png",
+  "external_url": "https://seresarte.example/renova-genesis/0001",
+  "attributes": [
+    { "trait_type": "Serie", "value": "ℛenova Genesis 314" },
+    { "trait_type": "Eje Filosófico", "value": "Sensibilidad fundante" },
+    { "trait_type": "Símbolo", "value": "Umbral" },
+    { "trait_type": "Archivo", "value": "SERESARTE" },
+    { "trait_type": "Edición", "value": "Genesis" },
+    { "trait_type": "Número", "value": 1 }
+  ],
+  "properties": {
+    "author": "Carlos Jonathan González Rodríguez",
+    "project": "SERESARTE / ℛenova",
+    "license_note": "La adquisición del NFT no transfiere derechos de autor, marca ni explotación comercial salvo licencia expresa."
+  }
+}
