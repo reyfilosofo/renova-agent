@@ -1,0 +1,25 @@
+{
+  "project": "SERESARTE / ℛenova Access Pass",
+  "events": [
+    {
+      "event_code": "SER-RENOVA-LAB-0001",
+      "title": "Laboratorio ℛenova: Sensibilidad Fundante",
+      "type": "laboratorio filosófico-cultural",
+      "location": "Ciudad de México",
+      "date": "YYYY-MM-DD",
+      "credential_type": "attendance-pass",
+      "qr_payload_example": "https://seresarte.example/access/SER-RENOVA-LAB-0001?claim=REPLACE_WITH_SIGNED_CLAIM",
+      "notes": "El QR no debe exponer datos personales sensibles. Usar enlaces firmados o códigos de reclamo de un solo uso."
+    },
+    {
+      "event_code": "SER-DAOIAO-READING-0081",
+      "title": "DAO IAO 81: Lectura y comentario ritual",
+      "type": "lectura editorial",
+      "location": "Híbrido",
+      "date": "YYYY-MM-DD",
+      "credential_type": "collector-reading-pass",
+      "qr_payload_example": "https://seresarte.example/access/SER-DAOIAO-READING-0081?claim=REPLACE_WITH_SIGNED_CLAIM",
+      "notes": "Puede vincularse a una edición ERC-1155 del capítulo o a una credencial no transferible."
+    }
+  ]
+}
