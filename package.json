@@ -7,10 +7,17 @@
     "start": "python3 server.py",
     "serve": "python3 server.py",
     "check": "node --check app.js && python3 -m py_compile server.py && python3 -m compileall renova_core",
+    "test": "python3 -m pytest",
+    "verify": "npm run check && npm run test",
     "renova:index": "python3 -m renova_core.cli index data/sample_assessment.json",
     "renova:agent": "python3 -m renova_core.cli agent 'What is Renova?'",
     "renova:ontology": "python3 -m renova_core.cli ontology",
-    "renova:canvas": "python3 -m renova_core.cli canvas 'Community cultural lab'"
+    "renova:canvas": "python3 -m renova_core.cli canvas 'Community cultural lab'",
+    "ruflo:init": "npx ruflo@latest init wizard",
+    "ruflo:init:quick": "npx ruflo@latest init",
+    "codex:init": "npx claude-flow@alpha init --codex --full",
+    "codex:mcp:list": "codex mcp list",
+    "codex:mcp:add": "codex mcp add claude-flow -- npx claude-flow mcp start"
   },
   "keywords": [
     "seresarte",
@@ -19,7 +26,10 @@
     "ontology",
     "renewal-index",
     "cultural-technology",
-    "virtual-desktop"
+    "virtual-desktop",
+    "codex",
+    "ruflo",
+    "multi-agent"
   ],
   "license": "UNLICENSED"
 }
