@@ -1,0 +1,24 @@
+name: Renova RSR CI
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+jobs:
+  structure:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Validate RSR lab structure
+        run: |
+          test -f AGENTS.md
+          test -f .env.example
+          test -f docs/security-secrets.md
+          test -f labs/renova-nous-rsr-lab/README.md
+          test -d labs/renova-nous-rsr-lab/docs
+          test -d labs/renova-nous-rsr-lab/products
+          test -d labs/renova-nous-rsr-lab/tasks
+          echo "Renova RSR Lab structure OK"
