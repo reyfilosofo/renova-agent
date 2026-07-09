@@ -37,6 +37,25 @@ pyproject.toml
 RENOVA_OPEN_SYSTEM_PLAN.md
 ```
 
+## ℛenova / NOUS Recursive Intelligence Lab
+
+The repository also includes `labs/renova-nous-rsr-lab/`, a documented foundation for the **Recursive Self-Renewal** laboratory connecting ℛenova, SERESARTE, NOUS, LUCEM, ℛenova Press and Codex/GitHub workflows.
+
+Core files:
+
+```text
+labs/renova-nous-rsr-lab/README.md
+labs/renova-nous-rsr-lab/docs/00-manifiesto.md
+labs/renova-nous-rsr-lab/docs/01-arquitectura.md
+labs/renova-nous-rsr-lab/docs/02-metodologia-rsr.md
+labs/renova-nous-rsr-lab/docs/03-productos.md
+labs/renova-nous-rsr-lab/docs/04-lucem-verification-protocol.md
+labs/renova-nous-rsr-lab/products/nous-recursive-intelligence-sprint.md
+labs/renova-nous-rsr-lab/tasks/codex-ready-tasks.md
+```
+
+This lab must be described as an assisted, versioned, auditable and human-governed system. It must not be presented as autonomous self-improvement, AGI, self-help or unsupported technical automation.
+
 ## Page Agent integration
 
 The virtual desktop includes an optional client-side Page Agent bridge.
@@ -70,6 +89,7 @@ Open `http://localhost:8000`.
 Install the Python package locally, then use the `renova` command exposed by `pyproject.toml`.
 
 ```bash
+python3 -m pip install -e '.[dev]'
 renova index data/sample_assessment.json
 renova agent "What is Renova?"
 renova ontology
@@ -81,7 +101,14 @@ renova canvas "Community cultural lab"
 ```bash
 npm run check
 python3 -m pytest
+npm run verify
 ```
+
+CI workflows validate the Python/JavaScript project and the RSR laboratory structure on pull requests and pushes to `main`.
+
+## Security
+
+Use `.env.example` only as a variable-name template. Never commit real credentials, tokens, API keys, private keys, certificates or screenshots containing secrets. See `docs/security-secrets.md`.
 
 ## Notes
 
