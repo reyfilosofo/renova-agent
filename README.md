@@ -37,6 +37,26 @@ pyproject.toml
 RENOVA_OPEN_SYSTEM_PLAN.md
 ```
 
+## Page Agent integration
+
+The virtual desktop includes an optional client-side Page Agent bridge.
+
+Page Agent is loaded from the official demo IIFE bundle and exposed through `page-agent-bridge.js` as a floating panel inside SERESARTE V-OS. The bridge lets the user send natural-language GUI instructions such as:
+
+```text
+Open the terminal and run help
+Open the files app and inspect the home folder
+Open the system app and explain the current state
+```
+
+Technical notes:
+
+- The integration uses the public demo bundle: `page-agent@1.11.0/dist/iife/page-agent.demo.js`.
+- The demo bundle is for technical evaluation, not production secrets.
+- The bridge does not store API keys.
+- For production, replace the demo configuration with a backend-proxied LLM endpoint or install the package with `npm install page-agent` and configure a private model endpoint.
+- Page Agent is designed as a client-side web enhancement, not as a server-side automation layer.
+
 ## Run the virtual desktop
 
 ```bash
