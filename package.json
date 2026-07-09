@@ -6,7 +6,7 @@
   "scripts": {
     "start": "python3 server.py",
     "serve": "python3 server.py",
-    "check": "node --check app.js && python3 -m py_compile server.py && python3 -m compileall renova_core",
+    "check": "node --check app.js && node --check page-agent-bridge.js && python3 -m py_compile server.py && python3 -m compileall renova_core",
     "test": "python3 -m pytest",
     "verify": "npm run check && npm run test",
     "renova:index": "python3 -m renova_core.cli index data/sample_assessment.json",
@@ -23,6 +23,8 @@
     "seresarte",
     "renova",
     "ai-agent",
+    "gui-agent",
+    "page-agent",
     "ontology",
     "renewal-index",
     "cultural-technology",
