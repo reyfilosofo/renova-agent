@@ -3,6 +3,11 @@
 
   const BRIDGE_ID = "renova-page-agent-bridge";
   const STYLE_ID = "renova-page-agent-bridge-style";
+  const SCRIPT_ID = "renova-page-agent-demo-script";
+  const SCRIPT_URL =
+    "https://cdn.jsdelivr.net/npm/page-agent@1.11.0/dist/iife/page-agent.demo.js?lang=en-US&showPanel=false";
+  const SCRIPT_INTEGRITY =
+    "sha384-VYGt7nF/k1GzIuuuEZQKEPwnxXu7P2Srwc6WTool0khvQpqfLWcdOOrx+J4Fi4xa";
   const DEMO_CONFIG = {
     model: "qwen3.5-plus",
     baseURL: "https://page-ag-testing-ohftxirgbn.cn-shanghai.fcapp.run",
@@ -186,6 +191,32 @@
     });
   }
 
+  function loadPageAgentScript() {
+    if (window.pageAgent || window.PageAgent) return waitForPageAgent();
+
+    const existing = document.getElementById(SCRIPT_ID);
+    if (existing) return waitForPageAgent();
+
+    const script = document.createElement("script");
+    script.id = SCRIPT_ID;
+    script.src = SCRIPT_URL;
+    script.integrity = SCRIPT_INTEGRITY;
+    script.crossOrigin = "anonymous";
+    script.referrerPolicy = "no-referrer";
+
+    return new Promise((resolve, reject) => {
+      script.addEventListener("load", () => waitForPageAgent().then(resolve, reject), {
+        once: true
+      });
+      script.addEventListener(
+        "error",
+        () => reject(new Error("No se pudo cargar el bundle verificado de Page Agent.")),
+        { once: true }
+      );
+      document.head.appendChild(script);
+    });
+  }
+
   function createBridge() {
     if (document.getElementById(BRIDGE_ID)) return;
     injectStyles();
@@ -206,13 +237,14 @@
         <div class="pa-body">
           <textarea data-role="prompt" spellcheck="true" placeholder="Ejemplo: Open the terminal and run help"></textarea>
           <div class="pa-actions">
-            <button class="primary" type="button" data-action="run">Ejecutar</button>
+            <button class="primary" type="button" data-action="activate">Activar demo</button>
+            <button type="button" data-action="run">Ejecutar</button>
             <button type="button" data-action="show-panel">Panel oficial</button>
             <button type="button" data-action="clear">Limpiar</button>
           </div>
           <div class="pa-examples" data-role="examples"></div>
-          <div class="pa-status" data-role="status">Cargando Page Agent...</div>
-          <div class="pa-hint">Usa instrucciones breves en inglés para mayor precisión. El demo usa el LLM de prueba público de Page Agent; no pegues secretos.</div>
+          <div class="pa-status" data-role="status">Demo desactivado: no hay conexión externa.</div>
+          <div class="pa-hint">Al activarlo se carga código verificado desde jsDelivr y el prompt se envía al LLM público de prueba de Page Agent. El agente puede interactuar con esta página y su almacenamiento local. No pegues secretos ni datos privados.</div>
         </div>
       </div>
     `;
@@ -221,8 +253,12 @@
 
     const prompt = root.querySelector('[data-role="prompt"]');
     const status = root.querySelector('[data-role="status"]');
+    const activateButton = root.querySelector('[data-action="activate"]');
     const runButton = root.querySelector('[data-action="run"]');
+    const panelButton = root.querySelector('[data-action="show-panel"]');
     const examplesBox = root.querySelector('[data-role="examples"]');
+    let agentReady = Boolean(window.pageAgent || window.PageAgent);
+    let activationPromise = null;
 
     function setStatus(message) {
       status.textContent = message;
@@ -234,7 +270,12 @@
         if (el.classList.contains("pa-launcher")) return;
         el.disabled = isBusy;
       });
+      activateButton.disabled = isBusy || agentReady;
+      runButton.disabled = isBusy || !agentReady;
+      panelButton.disabled = isBusy || !agentReady;
     }
+
+    setBusy(false);
 
     examples.forEach((example) => {
       const button = document.createElement("button");
@@ -261,7 +302,33 @@
       prompt.focus();
     });
 
-    root.querySelector('[data-action="show-panel"]').addEventListener("click", async () => {
+    activateButton.addEventListener("click", async () => {
+      const approved = window.confirm(
+        "¿Activar el demo externo de Page Agent? Se cargará código verificado desde jsDelivr " +
+          "y tus instrucciones se enviarán al servicio público de prueba. No continúes con " +
+          "secretos ni información privada."
+      );
+      if (!approved) {
+        setStatus("Page Agent permanece desactivado.");
+        return;
+      }
+
+      setBusy(true);
+      setStatus("Cargando Page Agent verificado...");
+      try {
+        activationPromise ||= loadPageAgentScript();
+        await activationPromise;
+        agentReady = true;
+        setStatus("Page Agent listo para esta sesión.");
+      } catch (error) {
+        activationPromise = null;
+        setStatus(`Error Page Agent: ${error.message}`);
+      } finally {
+        setBusy(false);
+      }
+    });
+
+    panelButton.addEventListener("click", async () => {
       try {
         const agent = await waitForPageAgent();
         if (agent.panel && typeof agent.panel.show === "function") {
@@ -280,6 +347,10 @@
       if (!command) {
         setStatus("Escribe una instrucción para Page Agent.");
         prompt.focus();
+        return;
+      }
+      if (!agentReady) {
+        setStatus("Activa el demo y acepta el aviso de privacidad antes de ejecutar.");
         return;
       }
 
@@ -308,9 +379,11 @@
       }
     });
 
-    waitForPageAgent()
-      .then(() => setStatus("Page Agent listo."))
-      .catch((error) => setStatus(error.message));
+    if (agentReady) {
+      waitForPageAgent()
+        .then(() => setStatus("Page Agent listo para esta sesión."))
+        .catch((error) => setStatus(error.message));
+    }
   }
 
   if (document.readyState === "loading") {
