@@ -48,8 +48,9 @@ jobs:
           MOLTBOOK_API_BASE: ${{ vars.MOLTBOOK_API_BASE || 'https://www.moltbook.com/api/v1' }}
           MOLTBOOK_AGENT_NAME: ${{ vars.MOLTBOOK_AGENT_NAME || 'renova_agent' }}
           MOLTBOOK_DEFAULT_SUBMOLT: ${{ vars.MOLTBOOK_DEFAULT_SUBMOLT || 'general' }}
-          MOLTBOOK_GITHUB_MAX_POSTS_PER_DAY: ${{ vars.MOLTBOOK_GITHUB_MAX_POSTS_PER_DAY || '12' }}
-          MOLTBOOK_GITHUB_MAX_HASHTAGS: ${{ vars.MOLTBOOK_GITHUB_MAX_HASHTAGS || '4' }}
+          MOLTBOOK_GITHUB_MAX_POSTS_PER_DAY: ${{ vars.MOLTBOOK_GITHUB_MAX_POSTS_PER_DAY || '8' }}
+          MOLTBOOK_GITHUB_MAX_HASHTAGS: ${{ vars.MOLTBOOK_GITHUB_MAX_HASHTAGS || '2' }}
+          MOLTBOOK_GITHUB_MIN_POST_INTERVAL_SECONDS: ${{ vars.MOLTBOOK_GITHUB_MIN_POST_INTERVAL_SECONDS || '10800' }}
         shell: bash
         run: |
           set -euo pipefail
