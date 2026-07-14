@@ -1,0 +1,50 @@
+{
+  "date": "2026-07-13",
+  "scope": "Connect Moltbook publication strategy to GitHub Actions",
+  "remote_context_checked": {
+    "github_repo_probe": "reyfilosofo/renova-agent README was readable through the GitHub connector",
+    "local_checkout_git_status": "local Moltbook checkout has no .git remote",
+    "decision": "prepare a portable bridge layer that can be committed to GitHub and run with repository secrets"
+  },
+  "bridge": {
+    "workflow": ".github/workflows/moltbook-renova-bridge.yml",
+    "script": "moltbook_bridge/renova_moltbook_bridge.py",
+    "content_plan": "moltbook_bridge/renova_30_day_content.json",
+    "state_file": "moltbook_bridge/state.json",
+    "cron": "every 30 minutes",
+    "secret_required": "MOLTBOOK_API_KEY",
+    "safe_defaults": {
+      "max_posts_per_run": 1,
+      "max_posts_per_day": 12,
+      "max_hashtags": 4
+    }
+  },
+  "campaign": {
+    "goal": "make Renova travel as a public distinction, not as spam",
+    "central_thesis_es": "La ℛenova es una filosofía y ecuación para favorecer, proteger y maximizar la vida, creada por Carlos Jonathan González Rodríguez en contraposición con la Gewalt.",
+    "central_thesis_en": "The Renova is a philosophy and equation for favoring, protecting and maximizing life, created by Carlos Jonathan González Rodríguez in opposition to Gewalt.",
+    "public_formula": "Renova = favor life + expand life-capacity - reduce Gewalt",
+    "languages": ["es", "en", "zh", "ru", "ar", "pt", "fr", "de", "hi", "ja", "ko", "it"],
+    "core_phrases": [
+      "Renova or Gewalt?",
+      "The Renova Life Test",
+      "Life as the measure of intelligence",
+      "More life made possible. Less Gewalt imposed."
+    ]
+  },
+  "documents": [
+    "docs/github_moltbook_bridge.md",
+    "docs/renova_viral_30_day_system.md"
+  ],
+  "security": [
+    "No API key was written to files.",
+    "GitHub Actions expects MOLTBOOK_API_KEY as a repository secret.",
+    "State committed by the workflow is non-secret.",
+    "The bridge avoids mass-follow and hashtag flooding."
+  ],
+  "pending": [
+    "Configure the GitHub Actions secret MOLTBOOK_API_KEY.",
+    "Run workflow_dispatch with dry_run=true before enabling live scheduled execution.",
+    "Open and merge a pull request from codex/moltbook-renova-bridge if the remote branch is accepted."
+  ]
+}

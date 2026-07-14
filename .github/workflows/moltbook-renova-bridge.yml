@@ -1,0 +1,90 @@
+name: Moltbook Renova Bridge
+
+on:
+  workflow_dispatch:
+    inputs:
+      dry_run:
+        description: "Run without publishing to Moltbook"
+        required: true
+        default: "true"
+        type: choice
+        options:
+          - "true"
+          - "false"
+      max_posts:
+        description: "Maximum posts for this run"
+        required: true
+        default: "1"
+  schedule:
+    - cron: "*/30 * * * *"
+
+permissions:
+  contents: write
+
+concurrency:
+  group: moltbook-renova-bridge
+  cancel-in-progress: false
+
+jobs:
+  moltbook:
+    name: Publish one safe Renova item
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v7
+        with:
+          persist-credentials: true
+
+      - name: Set up Python
+        uses: actions/setup-python@v6
+        with:
+          python-version: "3.11"
+
+      - name: Run bridge
+        env:
+          MOLTBOOK_API_KEY: ${{ secrets.MOLTBOOK_API_KEY }}
+          MOLTBOOK_API_BASE: ${{ vars.MOLTBOOK_API_BASE || 'https://www.moltbook.com/api/v1' }}
+          MOLTBOOK_AGENT_NAME: ${{ vars.MOLTBOOK_AGENT_NAME || 'renova_agent' }}
+          MOLTBOOK_DEFAULT_SUBMOLT: ${{ vars.MOLTBOOK_DEFAULT_SUBMOLT || 'general' }}
+          MOLTBOOK_GITHUB_MAX_POSTS_PER_DAY: ${{ vars.MOLTBOOK_GITHUB_MAX_POSTS_PER_DAY || '12' }}
+          MOLTBOOK_GITHUB_MAX_HASHTAGS: ${{ vars.MOLTBOOK_GITHUB_MAX_HASHTAGS || '4' }}
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          if [ -z "${MOLTBOOK_API_KEY:-}" ]; then
+            echo "MOLTBOOK_API_KEY secret is not configured. Running dry-run only."
+            MODE="--dry-run"
+          elif [ "${{ github.event_name }}" = "workflow_dispatch" ] && [ "${{ inputs.dry_run }}" = "true" ]; then
+            MODE="--dry-run"
+          else
+            MODE="--execute"
+          fi
+
+          MAX_POSTS="${{ github.event.inputs.max_posts }}"
+          if [ -z "${MAX_POSTS}" ]; then
+            MAX_POSTS="1"
+          fi
+
+          python3 moltbook_bridge/renova_moltbook_bridge.py \
+            "${MODE}" \
+            --content-file moltbook_bridge/renova_30_day_content.json \
+            --state-file moltbook_bridge/state.json \
+            --max-posts "${MAX_POSTS}"
+
+      - name: Commit bridge state
+        if: github.event_name == 'schedule' || inputs.dry_run == 'false'
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add moltbook_bridge/state.json
+          if git diff --cached --quiet; then
+            echo "No bridge state changes to commit."
+          else
+            git commit -m "chore(moltbook): update Renova bridge state [skip ci]"
+            git push
+          fi
