@@ -66,6 +66,15 @@ def utc_now() -> datetime:
     return datetime.now(timezone.utc)
 
 
+def parse_time(value: str | None) -> datetime | None:
+    if not value:
+        return None
+    try:
+        return datetime.fromisoformat(value.replace("Z", "+00:00"))
+    except ValueError:
+        return None
+
+
 def read_json(path: Path, default: Any) -> Any:
     if not path.exists():
         return default
@@ -121,7 +130,7 @@ def extract_numbers(text: str) -> list[float]:
         end, value = match
         numbers.append(value)
         index = end
-    return numbers[:2]
+    return numbers
 
 
 def solve_challenge(text: str) -> str:
@@ -129,10 +138,14 @@ def solve_challenge(text: str) -> str:
     numbers = extract_numbers(text)
     if len(numbers) < 2:
         raise ValueError(f"Could not extract two numbers from challenge: {text}")
-    left, right = numbers[0], numbers[1]
+    multiply = any(word in compact for word in ("multiply", "multiplied", "times", "product", "torque", "leverarm")) or "*" in text or "×" in text
+    # Moltbook may inject repeated number fragments before the actual operation.
+    # The operands nearest a multiplication instruction are normally the final
+    # two parsed values, while ordinary addition challenges use the first two.
+    left, right = (numbers[-2], numbers[-1]) if multiply and len(numbers) > 2 else (numbers[0], numbers[1])
     if any(word in compact for word in ("slow", "minus", "subtract", "reduce", "decrease", "lose", "collide")):
         answer = left - right
-    elif any(word in compact for word in ("multiply", "times", "product", "torque", "leverarm")) or "*" in text or "×" in text:
+    elif multiply:
         answer = left * right
     elif any(word in compact for word in ("divide", "quotient")):
         answer = left / right
@@ -203,6 +216,16 @@ def verify_if_needed(result: dict[str, Any], api_token: str, execute: bool, acti
     return bool(verify_result.get("success"))
 
 
+def created_post_id(result: dict[str, Any]) -> str | None:
+    post = result.get("post") if isinstance(result.get("post"), dict) else {}
+    post_id = post.get("id") or result.get("content_id")
+    return str(post_id) if post_id else None
+
+
+def post_is_publicly_usable(post: dict[str, Any]) -> bool:
+    return post.get("verification_status") == "verified" and post.get("is_spam") is not True
+
+
 def sanitize_hashtags(tags: list[str], limit: int) -> str:
     clean: list[str] = []
     for tag in tags:
@@ -263,6 +286,17 @@ def run(args: argparse.Namespace) -> dict[str, Any]:
     titles = recent_titles(args.agent_name)
     execute = bool(args.execute)
     token = api_key() if execute else None
+    last_posted_at = parse_time(state.get("last_posted_at"))
+    if last_posted_at and (utc_now() - last_posted_at).total_seconds() < args.min_post_interval_seconds:
+        actions.append({
+            "action": "post_cooldown",
+            "minimum_seconds": args.min_post_interval_seconds,
+            "last_posted_at": state.get("last_posted_at"),
+        })
+        state["last_run_at"] = utc_now().isoformat()
+        if args.execute or args.write_state_on_dry_run:
+            write_json(Path(args.state_file), state)
+        return {"success": True, "execute": execute, "actions": actions, "state": state}
     remaining_today = args.max_posts_per_day - daily_counter(state, "posts")
     if remaining_today <= 0:
         actions.append({"action": "daily_post_limit_reached", "limit": args.max_posts_per_day})
@@ -290,6 +324,22 @@ def run(args: argparse.Namespace) -> dict[str, Any]:
                 continue
             if not verify_if_needed(result, token or "", execute, actions):
                 continue
+            post_id = created_post_id(result)
+            if not post_id:
+                actions.append({"action": "post_public_check_failed", "reason": "missing_post_id"})
+                continue
+            public_result = request_json("GET", f"/posts/{post_id}", token)
+            public_post = public_result.get("post") if isinstance(public_result.get("post"), dict) else {}
+            usable = bool(public_result.get("success")) and post_is_publicly_usable(public_post)
+            actions.append({
+                "action": "post_public_check",
+                "post_id": post_id,
+                "usable": usable,
+                "verification_status": public_post.get("verification_status"),
+                "is_spam": public_post.get("is_spam"),
+            })
+            if not usable:
+                continue
         state["content_index"] = index + 1
         state.setdefault("published_titles", []).append(payload["title"])
         state["published_titles"] = state["published_titles"][-120:]
@@ -312,8 +362,13 @@ def main() -> int:
     parser.add_argument("--agent-name", default=AGENT_NAME)
     parser.add_argument("--submolt", default=DEFAULT_SUBMOLT)
     parser.add_argument("--max-posts", type=int, default=1)
-    parser.add_argument("--max-posts-per-day", type=int, default=int(os.getenv("MOLTBOOK_GITHUB_MAX_POSTS_PER_DAY", "12")))
-    parser.add_argument("--max-hashtags", type=int, default=int(os.getenv("MOLTBOOK_GITHUB_MAX_HASHTAGS", "4")))
+    parser.add_argument("--max-posts-per-day", type=int, default=int(os.getenv("MOLTBOOK_GITHUB_MAX_POSTS_PER_DAY", "8")))
+    parser.add_argument("--max-hashtags", type=int, default=int(os.getenv("MOLTBOOK_GITHUB_MAX_HASHTAGS", "2")))
+    parser.add_argument(
+        "--min-post-interval-seconds",
+        type=int,
+        default=int(os.getenv("MOLTBOOK_GITHUB_MIN_POST_INTERVAL_SECONDS", "10800")),
+    )
     parser.add_argument("--write-state-on-dry-run", action="store_true")
     args = parser.parse_args()
 

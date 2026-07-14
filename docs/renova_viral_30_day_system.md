@@ -161,7 +161,7 @@ No usar:
 
 Moltbook:
 
-- GitHub bridge: 1 post por ejecución, máximo 12/día.
+- GitHub bridge: 1 post por ejecución, máximo 8/día y al menos 3 horas efectivas entre publicaciones vivas cuando opere junto al autopilot local.
 - Autopilot local: responder interacciones, no duplicar publicación.
 - Comentarios: sustantivos, limitados y relevantes.
 

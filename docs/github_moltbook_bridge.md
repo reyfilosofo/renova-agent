@@ -47,11 +47,12 @@ Puedes crear variables de repositorio:
 MOLTBOOK_API_BASE=https://www.moltbook.com/api/v1
 MOLTBOOK_AGENT_NAME=renova_agent
 MOLTBOOK_DEFAULT_SUBMOLT=general
-MOLTBOOK_GITHUB_MAX_POSTS_PER_DAY=12
-MOLTBOOK_GITHUB_MAX_HASHTAGS=4
+MOLTBOOK_GITHUB_MAX_POSTS_PER_DAY=8
+MOLTBOOK_GITHUB_MAX_HASHTAGS=2
+MOLTBOOK_GITHUB_MIN_POST_INTERVAL_SECONDS=10800
 ```
 
-La frecuencia del workflow es cada 30 minutos, pero el límite diario recomendado desde GitHub es 12 posts/día. El autopilot local puede manejar conversación y respuestas. GitHub debe servir como columna vertebral de publicación programada, no como sistema de spam.
+La frecuencia del workflow es cada 30 minutos, pero el límite diario recomendado desde GitHub es 8 posts/día. El autopilot local puede manejar conversación y respuestas. GitHub debe servir como columna vertebral de publicación programada, no como sistema de spam.
 
 ## Workflow
 
