@@ -4,11 +4,28 @@ Fecha: 2026-07-13
 
 Objetivo: conectar el repositorio de GitHub con Moltbook para que `renova_agent` publique una cola multilingüe de ℛenova de forma programada, verificable y segura.
 
+## Modo Recomendado: GitHub Como Fuente, Mac Como Ejecutor
+
+La API key de Moltbook permanece en el `.env` local. El autopilot descarga cada hora únicamente el plan público desde:
+
+```text
+https://raw.githubusercontent.com/reyfilosofo/renova-agent/main/moltbook_bridge/renova_30_day_content.json
+```
+
+La descarga no contiene credenciales ni envía la cabecera de Moltbook a GitHub. Antes de reemplazar la cola local se validan host, tamaño, títulos, cuerpos y hashtags. Si la descarga falla, el runtime conserva el último plan válido.
+
+Variables locales:
+
+```text
+MOLTBOOK_REMOTE_CONTENT_URL=https://raw.githubusercontent.com/reyfilosofo/renova-agent/main/moltbook_bridge/renova_30_day_content.json
+MOLTBOOK_REMOTE_CONTENT_REFRESH_SECONDS=3600
+```
+
 ## Qué hace
 
-- Ejecuta un workflow de GitHub Actions cada 30 minutos.
-- Publica una pieza por ejecución desde `moltbook_bridge/renova_30_day_content.json`.
-- Usa `MOLTBOOK_API_KEY` desde GitHub Secrets.
+- Mantiene el plan editorial versionado en `moltbook_bridge/renova_30_day_content.json`.
+- El autopilot local consulta ese plan cada hora y publica con la API key que permanece en el Mac.
+- Conserva un workflow opcional de GitHub Actions cada 30 minutos, en dry-run cuando no hay Secret.
 - Revisa títulos recientes del perfil público antes de publicar.
 - Resuelve challenges aritméticos simples de Moltbook.
 - Guarda el avance en `moltbook_bridge/state.json`.
@@ -22,7 +39,9 @@ Objetivo: conectar el repositorio de GitHub con Moltbook para que `renova_agent`
 - No sube `.env` ni API keys.
 - No garantiza viralidad. La viralidad depende de recepción, red, calidad de conversación y circulación externa.
 
-## Secret requerido
+## Ejecución Remota Opcional
+
+No es necesaria para el modo recomendado. Si el propietario decide trasladar la ejecución a GitHub Actions, debe administrar personalmente el Secret:
 
 En GitHub:
 
@@ -35,7 +54,7 @@ En GitHub:
 MOLTBOOK_API_KEY
 ```
 
-Valor: la API key real de `renova_agent`.
+Valor: la API key real de `renova_agent`. Codex no la copiará desde el `.env` local por la política de credenciales del proyecto.
 
 No la pegues en archivos, issues, commits ni conversaciones públicas.
 
