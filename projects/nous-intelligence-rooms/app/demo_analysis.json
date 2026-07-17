@@ -1,0 +1,39 @@
+{
+  "meta": {"mode":"demo","model":"GPT-5.6 design target","confidence":84,"generated_at":"2026-07-17"},
+  "organization":"SERESARTE","sector":"Creative & cultural organization","decision":"Clarify positioning and priorities",
+  "thesis":"SERESARTE has strong intellectual and cultural capital, but its value is fragmented across brands, programs and formats.",
+  "summary":"The central issue is not a lack of ideas, legitimacy or production capacity. It is the absence of a visible operating architecture that connects institutional identity, commercial offers, evidence of impact and a disciplined decision sequence. The fastest path to growth is to consolidate the portfolio, define one institutional narrative and convert existing assets into a prioritized system of offers, proof and next actions.",
+  "decision_enabled":"Adopt a portfolio architecture with SERESARTE as the institutional platform, NOUS as the strategic intelligence offer, and ℛenova as the proprietary philosophical framework—then execute a 90-day proof-and-conversion sprint.",
+  "overall_score":72,"score_interpretation":"High potential, uneven systemization.",
+  "metrics":[{"name":"Identity","score":78},{"name":"Communication","score":64},{"name":"Digital experience","score":58},{"name":"Operational clarity","score":61},{"name":"Growth readiness","score":82}],
+  "top_opportunity":{"title":"Convert the existing body of work into a portfolio architecture","why":"The organization already owns substantial intellectual property, events, publications and strategic capabilities. Reframing these as a coherent system can create immediate clarity without inventing a new brand."},
+  "top_risk":{"title":"Narrative and offer fragmentation","why":"Multiple initiatives can appear unrelated, forcing each prospect to reconstruct the organization’s value. This increases cognitive load, weakens conversion and dilutes institutional authority."},
+  "signals":[
+    {"type":"Strength","tone":"opportunity","title":"Unusually rich proprietary intellectual capital","body":"The organization combines philosophy, artistic production, cultural management, publishing and strategic consulting. This is a defensible differentiation when presented as a system rather than a list.","confidence":92,"source":"Founder profile and project inventory"},
+    {"type":"Constraint","tone":"risk","title":"The architecture is clearer internally than externally","body":"A visitor may encounter several names and offers before understanding the institutional hierarchy, intended audience and path to engagement.","confidence":88,"source":"Narrative review"},
+    {"type":"Opportunity","tone":"opportunity","title":"Proof can be converted into decision assets","body":"Existing event metrics, partnerships, publications and client work can become case studies, dashboards and credibility modules that reduce perceived risk.","confidence":86,"source":"Historical outputs"},
+    {"type":"Risk","tone":"risk","title":"Founder dependency limits scale","body":"A large share of context and decision logic remains concentrated in the founder. Without explicit frameworks and repeatable intake systems, execution capacity remains constrained.","confidence":81,"source":"Operating-model inference"},
+    {"type":"Market signal","tone":"neutral","title":"Organizations need integrated interpretation, not another isolated report","body":"NOUS can differentiate by linking brand, digital experience, operations, risk and execution in one evidence-backed decision room.","confidence":80,"source":"Service design synthesis"},
+    {"type":"Strategic principle","tone":"neutral","title":"Do not replace judgment—structure it","body":"The product should preserve human authority while making evidence, assumptions, confidence and trade-offs legible.","confidence":96,"source":"NOUS methodology"}
+  ],
+  "decisions":[
+    {"rank":1,"title":"Define and publish the portfolio architecture","detail":"One hierarchy, one diagram, one sentence per entity, one primary CTA.","impact":"Very high","effort":"Low","urgency":"7 days","quadrant":"Act now"},
+    {"rank":2,"title":"Build a proof library","detail":"Convert events, metrics, publications and client outcomes into reusable evidence cards.","impact":"High","effort":"Medium","urgency":"30 days","quadrant":"Act now"},
+    {"rank":3,"title":"Productize NOUS Intelligence Rooms","detail":"Create a repeatable intake, analysis schema, decision map and exportable executive brief.","impact":"Very high","effort":"Medium","urgency":"30 days","quadrant":"Plan"},
+    {"rank":4,"title":"Create a single conversion pathway","detail":"Route each audience to a relevant offer, meeting or diagnostic instead of presenting the entire ecosystem at once.","impact":"High","effort":"Medium","urgency":"45 days","quadrant":"Plan"},
+    {"rank":5,"title":"Document founder knowledge","detail":"Turn implicit criteria into prompts, checklists, rubrics and case templates.","impact":"Medium","effort":"Medium","urgency":"60 days","quadrant":"Delegate"},
+    {"rank":6,"title":"Defer non-strategic visual proliferation","detail":"Avoid adding more sub-brands or redesigns until the architecture and offer system are stable.","impact":"Medium","effort":"Low","urgency":"Now","quadrant":"Defer"}
+  ],
+  "roadmap":{
+    "0–30 days":[{"title":"Portfolio architecture","detail":"Institutional hierarchy, descriptors and audience map."},{"title":"Executive narrative","detail":"One master description in Spanish and English."},{"title":"Proof inventory","detail":"Select 12 strongest evidence assets and normalize them."},{"title":"MVP Intelligence Room","detail":"Deploy the working intake → analysis → roadmap flow."}],
+    "31–60 days":[{"title":"Offer system","detail":"Package diagnostics, strategic rooms and implementation phases."},{"title":"Case-study library","detail":"Publish three traceable examples with problem, evidence, decision and outcome."},{"title":"Lead routing","detail":"Create targeted CTAs for organizations, cultural partners and founders."},{"title":"Evaluation baseline","detail":"Measure clarity, usefulness, completion time and recommendation acceptance."}],
+    "61–90 days":[{"title":"Pilot cohort","detail":"Run five supervised rooms with real organizations."},{"title":"Operational handbook","detail":"Standardize prompts, quality gates and human review."},{"title":"Commercial launch","detail":"Publish pricing logic, engagement process and proof."},{"title":"Learning loop","detail":"Use pilot evidence to refine scoring and prioritization."}]
+  },
+  "evidence":[
+    {"id":"E-01","observation":"The project portfolio spans cultural production, publishing, philosophy and strategic intelligence.","source":"Organizational context","confidence":96,"implication":"The institutional architecture must organize diversity without erasing it."},
+    {"id":"E-02","observation":"The current challenge is described as clarity and prioritization rather than ideation.","source":"Decision brief","confidence":94,"implication":"The product should prioritize decisions and sequencing, not generate more concepts."},
+    {"id":"E-03","observation":"Substantial outputs and impact claims exist but are not yet presented as a normalized proof system.","source":"Project inventory","confidence":84,"implication":"A proof library can increase trust and conversion quickly."},
+    {"id":"E-04","observation":"Multiple brands and initiatives depend on founder-held context.","source":"Operating-model inference","confidence":81,"implication":"Explicit frameworks are needed to reduce key-person dependency."},
+    {"id":"E-05","observation":"NOUS methodology already uses observe, verify, analyze, convert and produce.","source":"Existing methodology","confidence":98,"implication":"The product workflow can be grounded in an authentic operating method."}
+  ]
+}
