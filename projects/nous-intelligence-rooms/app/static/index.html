@@ -5,34 +5,36 @@
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <meta name="description" content="NOUS Intelligence Rooms transforms scattered organizational information into evidence-backed strategic decisions." />
   <title>NOUS Intelligence Rooms</title>
-  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>⌂</text></svg>">
+  <link rel="icon" href="/static/logo.svg" type="image/svg+xml">
   <link rel="stylesheet" href="/static/styles.css" />
 </head>
 <body>
+  <a class="skip-link" href="#mainContent">Skip to main content</a>
   <div class="app-shell">
     <aside class="sidebar">
       <div class="brand-wrap"><img src="/static/logo.svg" alt="NOUS by SERESARTE" class="brand-logo" /></div>
       <div class="product-name">INTELLIGENCE ROOMS</div>
       <nav class="nav" aria-label="Primary navigation">
-        <button class="nav-item active" data-nav="room"><span>◫</span>Current room</button>
-        <button class="nav-item" data-nav="evidence"><span>⌁</span>Evidence ledger</button>
-        <button class="nav-item" data-nav="roadmap"><span>↗</span>Roadmap</button>
-        <button class="nav-item" data-nav="submission"><span>◎</span>Build Week</button>
+        <button class="nav-item active" data-nav="room" aria-current="page"><span aria-hidden="true">◫</span>Current room</button>
+        <button class="nav-item" data-nav="evidence"><span aria-hidden="true">⌁</span>Evidence ledger</button>
+        <button class="nav-item" data-nav="roadmap"><span aria-hidden="true">↗</span>Roadmap</button>
+        <button class="nav-item" data-nav="submission"><span aria-hidden="true">◎</span>Build Week</button>
       </nav>
       <div class="sidebar-bottom">
-        <div class="status-card"><span class="status-dot" id="statusDot"></span><div><strong id="modeText">Demo mode</strong><small id="modelText">GPT-5.6 ready</small></div></div>
+        <div class="status-card" role="status" aria-live="polite"><span class="status-dot" id="statusDot" aria-hidden="true"></span><div><strong id="modeText">Demo mode</strong><small id="modelText">Checking API availability…</small></div></div>
         <div class="micro">Estructura para decidir.<br/>Comprender. Anticipar. Ordenar.</div>
       </div>
     </aside>
 
-    <main class="main">
+    <main class="main" id="mainContent" tabindex="-1">
       <header class="topbar">
         <div>
           <div class="eyebrow">STRATEGIC INTELLIGENCE WORKSPACE</div>
           <h1 id="pageTitle">New Intelligence Room</h1>
         </div>
         <div class="top-actions">
-          <button class="ghost" id="languageBtn" title="Language">ES / EN</button>
+          <button class="ghost" id="languageBtn" title="Interface language">Language: EN</button>
+          <button class="ghost" id="newRoomBtn" hidden>New room</button>
           <button class="ghost" id="exportJsonBtn" disabled>Export JSON</button>
           <button class="primary" id="printBtn" disabled>Export executive brief</button>
         </div>
@@ -53,7 +55,13 @@
           </div>
         </div>
 
-        <form id="intakeForm" class="intake-card">
+        <div id="analysisError" class="error-panel" role="alert" aria-live="assertive" tabindex="-1" hidden>
+          <strong id="analysisErrorTitle">Analysis could not be completed</strong>
+          <p id="analysisErrorMessage"></p>
+          <small id="analysisErrorHint">Review the information below and try again. No demonstration result has been substituted.</small>
+        </div>
+
+        <form id="intakeForm" class="intake-card" aria-describedby="privacyNotice">
           <div class="section-heading"><div><span>01</span><h3>Define the organization and decision</h3></div><button type="button" class="text-button" id="loadDemoBtn">Load curated demo case</button></div>
           <div class="form-grid">
             <label>Organization<input id="organization" required placeholder="Organization or project name" /></label>
@@ -64,55 +72,57 @@
           </div>
 
           <div class="section-heading second"><div><span>02</span><h3>Add evidence</h3></div><small>PDF, DOCX, TXT, CSV, PNG or JPG · max 3 files · 8 MB each</small></div>
-          <label class="dropzone" id="dropzone">
-            <input type="file" id="files" multiple accept=".pdf,.doc,.docx,.txt,.md,.csv,.json,.png,.jpg,.jpeg" />
-            <div class="drop-icon">＋</div><strong>Drop documents or click to browse</strong><span>Files remain local in demo mode. Live analysis sends selected evidence to the OpenAI API with storage disabled.</span>
+          <label class="dropzone" id="dropzone" for="files">
+            <input class="visually-hidden-file" type="file" id="files" multiple accept=".pdf,.doc,.docx,.txt,.md,.csv,.json,.png,.jpg,.jpeg" aria-describedby="fileRequirements privacyNotice" />
+            <div class="drop-icon" aria-hidden="true">＋</div><strong>Drop documents or click to browse</strong><span>Curated demo mode leaves selected files in this browser and always returns the fixed SERESARTE case. Live mode sends selected evidence to the OpenAI Responses API with <code>store: false</code>.</span>
           </label>
-          <div id="fileList" class="file-list"></div>
-          <div class="consent-row"><label class="check"><input id="consent" type="checkbox" required /> I confirm I have authority to analyze the submitted material.</label><label class="check"><input id="liveToggle" type="checkbox" /> Use live GPT-5.6 analysis when an API key is available.</label></div>
-          <div class="submit-row"><div><small>Method</small><strong>Observe → Verify → Analyze → Convert → Produce</strong></div><button class="analyze-button" type="submit"><span>Open Intelligence Room</span><b>↗</b></button></div>
+          <p id="fileRequirements" class="sr-only">Accepted formats: PDF, DOC, DOCX, TXT, Markdown, CSV, JSON, PNG, JPG and JPEG. Maximum three files and eight megabytes per file.</p>
+          <div id="fileList" class="file-list" aria-live="polite"></div>
+          <div class="consent-row"><label class="check"><input id="consent" type="checkbox" required /> I confirm I have authority to analyze the submitted material.</label><label class="check"><input id="liveToggle" type="checkbox" aria-describedby="liveAvailability privacyNotice" /> Use live GPT-5.6 analysis when an API key is available.</label><small id="liveAvailability">Checking live API availability…</small></div>
+          <p id="privacyNotice" class="privacy-notice"><strong>Privacy and demo scope:</strong> Curated demo mode does not upload selected files; it returns the fixed SERESARTE example, so intake changes do not alter its diagnosis. Live mode sends selected evidence to the OpenAI Responses API with <code>store: false</code>. This disables storage of the response object for later retrieval; applicable OpenAI API data controls and retention terms still apply.</p>
+          <div class="submit-row"><div><small>Method</small><strong>Observe → Verify → Analyze → Convert → Produce</strong></div><button class="analyze-button" id="analyzeButton" type="submit"><span id="analyzeButtonText">Open Intelligence Room</span><b aria-hidden="true">↗</b></button></div>
         </form>
       </section>
 
-      <section id="loadingView" class="view">
+      <section id="loadingView" class="view" aria-labelledby="loadingTitle" aria-live="polite" aria-busy="true">
         <div class="loading-panel">
           <img src="/static/logo.svg" alt="" />
-          <h2>Building the intelligence room</h2>
+          <h2 id="loadingTitle" tabindex="-1">Building the intelligence room</h2>
           <p id="loadingStep">Structuring evidence...</p>
-          <div class="progress"><i id="progressBar"></i></div>
+          <div class="progress" id="progressTrack" role="progressbar" aria-label="Analysis progress" aria-valuemin="0" aria-valuemax="100" aria-valuenow="4"><i id="progressBar"></i></div>
           <div class="loading-steps"><span class="done">Observe</span><span>Verify</span><span>Analyze</span><span>Convert</span><span>Produce</span></div>
         </div>
       </section>
 
-      <section id="resultsView" class="view">
+      <section id="resultsView" class="view" aria-labelledby="roomOrganization">
         <div class="room-header">
-          <div><div class="eyebrow" id="roomSector">CREATIVE & CULTURAL ORGANIZATION</div><h2 id="roomOrganization">SERESARTE</h2><p id="roomDecision">Decision: Clarify positioning and priorities</p></div>
+          <div><div class="eyebrow" id="roomSector">CREATIVE & CULTURAL ORGANIZATION</div><h2 id="roomOrganization" tabindex="-1">SERESARTE</h2><p id="roomDecision">Decision: Clarify positioning and priorities</p></div>
           <div class="confidence-card"><span>Evidence confidence</span><strong id="confidenceScore">84%</strong><small id="modeBadge">Curated demo</small></div>
         </div>
-        <div class="tabs" role="tablist">
-          <button class="tab active" data-tab="overview">Executive overview</button>
-          <button class="tab" data-tab="signals">Strategic signals</button>
-          <button class="tab" data-tab="decisions">Decision map</button>
-          <button class="tab" data-tab="roadmap">30 / 60 / 90</button>
-          <button class="tab" data-tab="evidence">Evidence ledger</button>
+        <div class="tabs" role="tablist" aria-label="Intelligence Room sections">
+          <button class="tab active" id="tab-button-overview" role="tab" aria-selected="true" aria-controls="tab-overview" tabindex="0" data-tab="overview">Executive overview</button>
+          <button class="tab" id="tab-button-signals" role="tab" aria-selected="false" aria-controls="tab-signals" tabindex="-1" data-tab="signals">Strategic signals</button>
+          <button class="tab" id="tab-button-decisions" role="tab" aria-selected="false" aria-controls="tab-decisions" tabindex="-1" data-tab="decisions">Decision map</button>
+          <button class="tab" id="tab-button-roadmap" role="tab" aria-selected="false" aria-controls="tab-roadmap" tabindex="-1" data-tab="roadmap">30 / 60 / 90</button>
+          <button class="tab" id="tab-button-evidence" role="tab" aria-selected="false" aria-controls="tab-evidence" tabindex="-1" data-tab="evidence">Evidence ledger</button>
         </div>
 
-        <div id="tab-overview" class="tab-panel active">
+        <div id="tab-overview" class="tab-panel active" role="tabpanel" aria-labelledby="tab-button-overview" tabindex="0">
           <div class="summary-grid">
             <article class="executive-summary"><div class="card-kicker">EXECUTIVE SYNTHESIS</div><h3 id="thesis">The organization has strong intellectual capital but its value is fragmented across brands, programs and formats.</h3><p id="summary"></p><div class="decision-statement"><span>Decision enabled</span><strong id="decisionEnabled"></strong></div></article>
             <article class="score-card"><div class="score-ring"><svg viewBox="0 0 120 120"><circle class="ring-bg" cx="60" cy="60" r="49"></circle><circle class="ring-value" id="ringValue" cx="60" cy="60" r="49"></circle></svg><div><strong id="overallScore">72</strong><span>/100</span></div></div><h4>Strategic readiness</h4><p id="scoreInterpretation">High potential, uneven systemization.</p></article>
           </div>
           <div class="metric-grid" id="metricGrid"></div>
           <div class="two-col">
-            <article class="card"><div class="card-title"><span>Priority opportunity</span><b>01</b></div><h3 id="topOpportunity"></h3><p id="topOpportunityWhy"></p></article>
-            <article class="card risk"><div class="card-title"><span>Critical risk</span><b>!</b></div><h3 id="topRisk"></h3><p id="topRiskWhy"></p></article>
+            <article class="card"><div class="card-title"><span>Priority opportunity</span><b>01</b></div><h3 id="topOpportunity"></h3><p id="topOpportunityWhy"></p><div id="topOpportunityTrace" class="trace-meta"></div></article>
+            <article class="card risk"><div class="card-title"><span>Critical risk</span><b>!</b></div><h3 id="topRisk"></h3><p id="topRiskWhy"></p><div id="topRiskTrace" class="trace-meta"></div></article>
           </div>
         </div>
 
-        <div id="tab-signals" class="tab-panel"><div class="signals-grid" id="signalsGrid"></div></div>
-        <div id="tab-decisions" class="tab-panel"><div class="matrix-head"><div><h3>Impact / effort decision matrix</h3><p>Prioritize what changes outcomes, not what merely creates activity.</p></div><div class="legend"><span class="q1">Act now</span><span class="q2">Plan</span><span class="q3">Delegate</span><span class="q4">Defer</span></div></div><div class="decision-list" id="decisionList"></div></div>
-        <div id="tab-roadmap" class="tab-panel"><div class="roadmap-grid" id="roadmapGrid"></div></div>
-        <div id="tab-evidence" class="tab-panel"><div class="evidence-intro"><h3>Traceable evidence ledger</h3><p>Every recommendation is linked to an observation, its source and the confidence assigned to it.</p></div><div class="evidence-table-wrap"><table><thead><tr><th>ID</th><th>Observation</th><th>Source</th><th>Confidence</th><th>Implication</th></tr></thead><tbody id="evidenceBody"></tbody></table></div></div>
+        <div id="tab-signals" class="tab-panel" role="tabpanel" aria-labelledby="tab-button-signals" tabindex="0" hidden><div class="signals-grid" id="signalsGrid"></div></div>
+        <div id="tab-decisions" class="tab-panel" role="tabpanel" aria-labelledby="tab-button-decisions" tabindex="0" hidden><div class="matrix-head"><div><h3>Impact / effort decision matrix</h3><p>Prioritize what changes outcomes, not what merely creates activity.</p></div><div class="legend" aria-label="Decision categories"><span class="q1">Act now</span><span class="q2">Plan</span><span class="q3">Delegate</span><span class="q4">Defer</span></div></div><div class="decision-list" id="decisionList"></div></div>
+        <div id="tab-roadmap" class="tab-panel" role="tabpanel" aria-labelledby="tab-button-roadmap" tabindex="0" hidden><div class="roadmap-grid" id="roadmapGrid"></div></div>
+        <div id="tab-evidence" class="tab-panel" role="tabpanel" aria-labelledby="tab-button-evidence" tabindex="0" hidden><div class="evidence-intro"><h3>Traceable evidence ledger</h3><p>Every recommendation is linked to an observation, its source and the confidence assigned to it.</p></div><div class="evidence-table-wrap" tabindex="0"><table><caption class="sr-only">Evidence observations, sources, confidence and implications</caption><thead><tr><th scope="col">ID</th><th scope="col">Observation</th><th scope="col">Source</th><th scope="col">Confidence</th><th scope="col">Implication</th></tr></thead><tbody id="evidenceBody"></tbody></table></div></div>
       </section>
 
       <section id="submissionView" class="view">

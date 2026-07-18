@@ -2,7 +2,7 @@
 name = "nous-intelligence-rooms"
 version = "1.0.0"
 description = "Evidence-backed strategic decision workspace for OpenAI Build Week 2026"
-requires-python = ">=3.11"
+requires-python = ">=3.9"
 authors = [{name = "Carlos Jonathan González Rodríguez"}]
 license = {text = "Evaluation License"}
 
