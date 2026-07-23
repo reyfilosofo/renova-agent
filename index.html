@@ -1,9 +1,14 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="es">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="description" content="SERESARTE V-OS, ordenador virtual web para RENOVA y SERESARTE.">
+  <meta
+    http-equiv="Content-Security-Policy"
+    content="default-src 'self'; script-src 'self' https://cdn.jsdelivr.net; connect-src 'self' https://page-ag-testing-ohftxirgbn.cn-shanghai.fcapp.run; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self' data:; worker-src 'self' blob:; object-src 'none'; base-uri 'none'; form-action 'none'"
+  >
+  <meta name="referrer" content="no-referrer">
   <title>SERESARTE V-OS</title>
   <link rel="icon" href="data:,">
   <link rel="stylesheet" href="./styles.css">
@@ -37,27 +42,27 @@
     </section>
 
     <nav class="desktop-icons" aria-label="Accesos directos">
-      <button class="desktop-icon" data-open="terminal" data-testid="icon-terminal">
+      <button type="button" class="desktop-icon" data-open="terminal" data-testid="icon-terminal">
         <span>TER</span>
         <strong>Terminal</strong>
       </button>
-      <button class="desktop-icon" data-open="files" data-testid="icon-files">
+      <button type="button" class="desktop-icon" data-open="files" data-testid="icon-files">
         <span>ARC</span>
         <strong>Archivos</strong>
       </button>
-      <button class="desktop-icon" data-open="notes" data-testid="icon-notes">
+      <button type="button" class="desktop-icon" data-open="notes" data-testid="icon-notes">
         <span>NOT</span>
         <strong>Notas</strong>
       </button>
-      <button class="desktop-icon" data-open="browser" data-testid="icon-browser">
+      <button type="button" class="desktop-icon" data-open="browser" data-testid="icon-browser">
         <span>NAV</span>
         <strong>Navegador</strong>
       </button>
-      <button class="desktop-icon" data-open="calculator" data-testid="icon-calculator">
+      <button type="button" class="desktop-icon" data-open="calculator" data-testid="icon-calculator">
         <span>CAL</span>
         <strong>Calculadora</strong>
       </button>
-      <button class="desktop-icon" data-open="system" data-testid="icon-system">
+      <button type="button" class="desktop-icon" data-open="system" data-testid="icon-system">
         <span>SIS</span>
         <strong>Sistema</strong>
       </button>
@@ -66,12 +71,12 @@
     <section id="windows" class="windows" aria-live="polite" data-testid="windows"></section>
 
     <nav class="dock" aria-label="Aplicaciones">
-      <button data-open="terminal" data-testid="dock-terminal">Terminal</button>
-      <button data-open="files" data-testid="dock-files">Archivos</button>
-      <button data-open="notes" data-testid="dock-notes">Notas</button>
-      <button data-open="browser" data-testid="dock-browser">Navegador</button>
-      <button data-open="calculator" data-testid="dock-calculator">Calculadora</button>
-      <button data-open="system" data-testid="dock-system">Sistema</button>
+      <button type="button" data-open="terminal" data-testid="dock-terminal">Terminal</button>
+      <button type="button" data-open="files" data-testid="dock-files">Archivos</button>
+      <button type="button" data-open="notes" data-testid="dock-notes">Notas</button>
+      <button type="button" data-open="browser" data-testid="dock-browser">Navegador</button>
+      <button type="button" data-open="calculator" data-testid="dock-calculator">Calculadora</button>
+      <button type="button" data-open="system" data-testid="dock-system">Sistema</button>
     </nav>
 
     <template id="window-template">
@@ -79,8 +84,8 @@
         <header class="window-header">
           <div class="window-title"></div>
           <div class="window-controls">
-            <button class="window-minimize" aria-label="Minimizar">_</button>
-            <button class="window-close" aria-label="Cerrar">x</button>
+            <button type="button" class="window-minimize" aria-label="Minimizar">_</button>
+            <button type="button" class="window-close" aria-label="Cerrar">x</button>
           </div>
         </header>
         <div class="window-body"></div>
@@ -88,11 +93,8 @@
     </template>
   </main>
 
+  <script src="./calculator.js"></script>
   <script src="./app.js"></script>
-  <script
-    src="https://cdn.jsdelivr.net/npm/page-agent@1.11.0/dist/iife/page-agent.demo.js?lang=en-US&showPanel=false"
-    crossorigin="anonymous"
-  ></script>
   <script src="./page-agent-bridge.js"></script>
 </body>
 </html>

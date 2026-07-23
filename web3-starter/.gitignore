@@ -5,6 +5,7 @@ cache/
 artifacts/
 coverage/
 typechain-types/
+types/
 .DS_Store
 npm-debug.log*
 yarn-debug.log*
