@@ -5,7 +5,9 @@ const $$ = (selector) => [...document.querySelectorAll(selector)];
 
 const MAX_FILES = 3;
 const MAX_FILE_BYTES = 8 * 1024 * 1024;
-const ANALYSIS_TIMEOUT_MS = 130_000;
+const ANALYSIS_TIMEOUT_MS = 15_000;
+const STATIC_DEMO = document.querySelector('meta[name="nous-deployment-mode"]')?.content === 'curated-static-demo';
+const STATIC_DEMO_DATA_URL = './demo_analysis.json';
 const FILE_TYPES = Object.freeze({
   pdf: 'application/pdf',
   doc: 'application/msword',
@@ -126,10 +128,6 @@ function fileExtension(name) {
   return match ? match[1] : '';
 }
 
-function normalizedMime(file) {
-  return FILE_TYPES[fileExtension(file.name)] || file.type || 'application/octet-stream';
-}
-
 function validateFile(file) {
   const extension = fileExtension(file.name);
   if (!FILE_TYPES[extension]) return `${file.name}: unsupported file type.`;
@@ -177,53 +175,21 @@ function addFiles(files) {
   if (errors.length) showError(errors.join(' '), 'Some evidence could not be added', 'Choose a supported, non-empty file no larger than 8 MB.');
 }
 
-function readFileBase64(file) {
-  return new Promise((resolve, reject) => {
-    const reader = new FileReader();
-    reader.onload = () => resolve(String(reader.result).split(',')[1] || '');
-    reader.onerror = () => reject(new Error(`Could not read ${file.name}.`));
-    reader.readAsDataURL(file);
-  });
-}
-
-async function filePayload() {
-  return Promise.all(selectedFiles.map(async (file) => ({
-    name: file.name,
-    type: normalizedMime(file),
-    size: file.size,
-    data: await readFileBase64(file)
-  })));
-}
-
-function updateLiveAvailability(available, model) {
-  liveAvailable = Boolean(available);
+function configureStaticDemo() {
+  liveAvailable = false;
   const toggle = $('#liveToggle');
-  toggle.disabled = !liveAvailable;
-  if (!liveAvailable) toggle.checked = false;
-  $('#statusDot').classList.toggle('live', liveAvailable);
-  $('#modeText').textContent = liveAvailable ? 'Live mode configured' : 'Demo mode';
-  $('#modelText').textContent = liveAvailable ? 'Request not yet verified' : 'Live analysis unavailable';
-  $('#liveAvailability').textContent = liveAvailable
-    ? `${safeText(model, 'GPT-5.6')} is configured for a server-side live request. A successful live result is confirmed only after the analysis completes.`
-    : 'Live analysis is disabled because this server has no usable API key. Curated demo mode returns the fixed SERESARTE example; submitted intake and files do not alter it.';
+  toggle.disabled = true;
+  toggle.checked = false;
+  $('#statusDot').classList.remove('live');
+  $('#modeText').textContent = 'Curated static demo';
+  $('#modelText').textContent = 'Public SERESARTE case';
+  $('#liveAvailability').textContent = 'This public deployment has no API connection, upload or live analysis. It always returns the fixed SERESARTE demonstration.';
 }
 
 async function init() {
   setView('#intakeView');
-  try {
-    const controller = new AbortController();
-    const timeout = window.setTimeout(() => controller.abort(), 8000);
-    const response = await fetch('/api/health', { signal: controller.signal, cache: 'no-store' });
-    window.clearTimeout(timeout);
-    const health = await response.json();
-    if (!response.ok || !health.ok) throw new Error('Health check failed');
-    updateLiveAvailability(health.live_available, health.model);
-  } catch (_error) {
-    updateLiveAvailability(false);
-    $('#modeText').textContent = 'Server unavailable';
-    $('#modelText').textContent = 'Reload to reconnect';
-    $('#liveAvailability').textContent = 'The application server could not be reached. Reload before starting an analysis.';
-  }
+  if (!STATIC_DEMO) throw new Error('This build requires curated static demo mode.');
+  configureStaticDemo();
 }
 
 function emptyState(message) {
@@ -487,31 +453,7 @@ async function analyze(event) {
   event.preventDefault();
   if (isSubmitting) return;
   clearError();
-  const requestedLive = $('#liveToggle').checked;
-  if (requestedLive && !liveAvailable) {
-    showError('Live analysis is unavailable on this server.', 'Live analysis unavailable', 'Use curated demo mode or configure a valid server-side API key, then reload.');
-    return;
-  }
-
-  let files = [];
-  if (requestedLive) {
-    try {
-      files = await filePayload();
-    } catch (error) {
-      showError(error.message, 'Evidence could not be read');
-      return;
-    }
-  }
-
-  const payload = {
-    organization: $('#organization').value.trim(),
-    sector: $('#sector').value,
-    goal: $('#goal').value,
-    website: $('#website').value.trim(),
-    context: $('#context').value.trim(),
-    use_live: requestedLive,
-    files
-  };
+  const requestedLive = false;
 
   setSubmitting(true);
   setView('#loadingView', '#loadingTitle');
@@ -521,19 +463,19 @@ async function analyze(event) {
   const timeout = window.setTimeout(() => controller.abort(), ANALYSIS_TIMEOUT_MS);
 
   try {
-    const response = await fetch('/api/analyze', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(payload),
+    const response = await fetch(STATIC_DEMO_DATA_URL, {
+      method: 'GET',
+      cache: 'no-store',
       signal: controller.signal
     });
     let data = null;
     try {
       data = await response.json();
-    } catch (_error) {
+    } catch {
       throw new Error(`The server returned an unreadable response (${response.status}).`);
     }
     if (!response.ok) throw new Error(backendErrorMessage(data, `Analysis failed (${response.status}).`));
+    data = { mode: 'demo', analysis: data };
 
     const responseMode = String(data.mode || data.analysis?.meta?.mode || '');
     if (responseMode === 'demo-fallback') {
@@ -564,10 +506,8 @@ async function analyze(event) {
     const timedOut = error.name === 'AbortError';
     showError(
       timedOut ? 'The request exceeded 130 seconds and was cancelled.' : error.message,
-      requestedLive ? 'Live analysis could not be verified' : 'Analysis could not be completed',
-      requestedLive
-        ? 'No curated result has been substituted. Verify API access and retry the live request.'
-        : 'No demonstration result has been substituted. Confirm the server is running and retry.'
+      'Curated demonstration could not be loaded',
+      'The curated demonstration data could not be loaded. Reload the page and retry.'
     );
   } finally {
     window.clearTimeout(timeout);

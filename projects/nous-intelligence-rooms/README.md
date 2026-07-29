@@ -5,7 +5,7 @@
 
 NOUS Intelligence Rooms turns fragmented organizational material into an evidence-backed decision architecture: executive synthesis, scored strategic signals, prioritized decisions, a 30/60/90-day roadmap and a traceable evidence ledger.
 
-> **Verification status — 2026-07-17:** the curated SERESARTE flow, security regressions, request contract, structured output validation, desktop/mobile interface, keyboard flow, JSON export and print/PDF export were verified. The existing server-side key can access the official `gpt-5.6-terra` model record, but a real Responses API generation returned `429 insufficient_quota`; therefore a successful live analysis is **not** claimed. Docker and public deployment remain unverified because those facilities were unavailable in this pass.
+> **Verification status — updated 2026-07-28:** the curated SERESARTE flow, security regressions, request contract, structured output validation, desktop/mobile interface, keyboard flow, JSON export and print/PDF export were verified. The public demo-only export is live on EdgeOne and Netlify and was verified without authentication. The existing server-side key can access the official `gpt-5.6-terra` model record, but a real Responses API generation returned `429 insufficient_quota`; therefore a successful live analysis is **not** claimed. Docker remains unverified.
 
 ## Product flow
 
@@ -62,6 +62,20 @@ For transparency:
 - The demonstration observations are a controlled product example, not independently verified claims about SERESARTE.
 - No Tayga or Lucky Pizza confidential material is included.
 
+## Public curated demonstration
+
+Two public, serverless static deployments expose the same deterministic
+SERESARTE experience:
+
+- EdgeOne: <https://nous-intelligence-rooms.edgeone.dev/>
+- Netlify mirror: <https://nous-intelligence-rooms-seresarte.netlify.app/>
+
+Both destinations serve the files in `deployment/static-demo`. They have no
+OpenAI API key, backend or upload endpoint. The live toggle is disabled, files
+remain local to the browser, and the interface states that the fixed case is a
+curated demonstration. The drop-deploy ZIP is
+`deployment/artifacts/NOUS_Intelligence_Rooms_STATIC_DROP_DEPLOY.zip`.
+
 ## Live Responses API mode
 
 Export a key into the server process, start the app and enable **Use live GPT-5.6 analysis**:
@@ -85,6 +99,8 @@ The live implementation keeps the key server-side and uses:
 - Local schema and semantic validation before data reaches the interface.
 
 Every top item, signal, decision and roadmap action must include confidence plus valid `evidence_refs`. A failed live request returns an explicit error; it never substitutes curated data.
+
+`GET /api/health` reports live mode as configured when a non-empty server-side key is detected. It does not preflight credential validity, model access or remaining quota; only a completed live analysis confirms successful execution.
 
 Official references: [GPT-5.6 Terra](https://developers.openai.com/api/docs/models/gpt-5.6-terra), [Structured Outputs](https://developers.openai.com/api/docs/guides/structured-outputs), [file inputs](https://developers.openai.com/api/docs/guides/file-inputs), [image inputs](https://developers.openai.com/api/docs/guides/images-vision) and [API data controls](https://developers.openai.com/api/docs/guides/your-data).
 
@@ -122,7 +138,7 @@ PYTHONDONTWRITEBYTECODE=1 python3 -m unittest tests/test_app.py -v
 
 Verified on 2026-07-17 with Python 3.9.6:
 
-- 26/26 unit and HTTP integration tests passed.
+- 30/30 unit, HTTP integration and product-contract tests passed.
 - Full local output schema and semantic evidence references passed.
 - Raw and encoded static path traversal returned 404.
 - Invalid MIME, Base64, size, count and JSON requests were rejected.
@@ -130,12 +146,16 @@ Verified on 2026-07-17 with Python 3.9.6:
 - Live failures remained explicit and provider details were not exposed.
 - `python3 -m py_compile app/server.py` passed.
 - `git diff --check` passed.
-- Desktop and 390 px mobile flows had no horizontal overflow or console errors.
+- Desktop and 390 CSS px mobile flows had no horizontal overflow or console errors; the narrow header, navigation, actions and intake section remain fully contained.
 - Keyboard tabs, focus transfer, labels, error states and evidence links were exercised.
 - The prior filename/model-output XSS reproduction no longer executed.
 - Exported JSON parsed successfully and retained evidence references.
-- Browser print export produced an 8-page Letter PDF.
+- Browser print export produced a valid Letter PDF; pagination can vary slightly by browser print engine.
+- The latest print pass hides interactive-only controls and renders the readiness score without overlap.
+- Executive brief export restores the Intelligence Room before printing, even when initiated from the Build Week view.
 - The 22-page master dossier PDF was separately rendered and found free of clipping; a viewer preview had produced the earlier false alarm.
+- On 2026-07-28, anonymous GET checks returned HTTP 200 for both public homes and every required static asset; the deployed application script matched the local SHA-256 on both hosts.
+- The full public flow passed at 390 CSS px on EdgeOne and 1280 CSS px on Netlify: SERESARTE, 84% evidence confidence, five evidence rows, six decisions, three roadmap phases and enabled JSON/print controls.
 
 ### Live verification outcome
 
@@ -169,10 +189,12 @@ Docker was not installed in the validation environment, so the image remains unv
 
 - Project branch: [`codex/nous-intelligence-rooms-build-week-2026`](https://github.com/reyfilosofo/renova-agent/tree/codex/nous-intelligence-rooms-build-week-2026/projects/nous-intelligence-rooms)
 - Pull request: [#19](https://github.com/reyfilosofo/renova-agent/pull/19)
+- Primary public demo: [EdgeOne](https://nous-intelligence-rooms.edgeone.dev/)
+- Public mirror: [Netlify](https://nous-intelligence-rooms-seresarte.netlify.app/)
 - Final URL tracker: [`submission/FINAL_URLS_TEMPLATE.md`](submission/FINAL_URLS_TEMPLATE.md)
 - Codex verification record: [`submission/CODEX_BUILD_LOG.md`](submission/CODEX_BUILD_LOG.md)
 
-Before Devpost submission: restore OpenAI API quota and record one successful live run, deploy and verify a public URL, host the video, complete the Devpost page, and regenerate the master ZIP so it contains this final code rather than the pre-audit source snapshot.
+Before Devpost submission: restore OpenAI API quota and record one successful live run, host the video, complete the Devpost page, and regenerate the master ZIP so it contains this final code and deployment record rather than the pre-audit source snapshot.
 
 ## License
 

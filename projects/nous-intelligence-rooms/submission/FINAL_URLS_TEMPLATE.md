@@ -9,12 +9,19 @@ Verified repository references:
 
 External publication references:
 
-- Live demo: `PENDING`
+- Primary public demo — EdgeOne: `https://nous-intelligence-rooms.edgeone.dev/`
+- Public static mirror — Netlify: `https://nous-intelligence-rooms-seresarte.netlify.app/`
+- Private owner-only Sites mirror: `https://nous-intelligence-rooms-2026.seresarte.chatgpt.site`
 - Hosted demo video: `PENDING`
 - Devpost project page: `PENDING`
-- Final Codex commit: `PENDING — recorded in PR #19 after commit`
+- Product finalization commit: `b18affed631e31579d0613afcc0c92722827d446`
+- Deployment record commit: `Recorded in the completion report because a commit cannot contain its own SHA.`
 - Codex session/share reference, if requested by the submission form: `PENDING`
 
 Submission deadline: **2026-07-21 at 5:00 PM PDT (UTC−07:00)**.
 
-Do not replace `PENDING` until each destination exists and has been verified. Check public URLs in a signed-out browser session, confirm that the video includes captions, and confirm that the final commit contains the same product and documentation represented in the submitted archive.
+The two public demo URLs were verified by anonymous HTTP GET and full browser
+flows on 2026-07-28. The Sites mirror is owner-only because this workspace does
+not permit internet-public Sites access; do not use it as the judge URL. Do not
+replace the remaining `PENDING` fields until each destination exists and has
+been verified.

@@ -389,5 +389,42 @@ class HttpServerTests(unittest.TestCase):
         self.assertNotIn(b"dependency-free demo and Responses API backend", raw)
 
 
+class ResponsiveAssetContractTests(unittest.TestCase):
+    def test_narrow_mobile_layout_keeps_navigation_and_actions_contained(self):
+        css = (ROOT / "app" / "static" / "styles.css").read_text(encoding="utf-8")
+        mobile_contract = css.rsplit("@media(max-width:650px)", 1)[-1]
+        self.assertIn(".sidebar{gap:6px;padding:10px 12px;overflow:hidden}", mobile_contract)
+        self.assertIn(".nav{gap:2px;min-width:0}", mobile_contract)
+        self.assertIn(".topbar{flex-direction:column;align-items:stretch}", mobile_contract)
+        self.assertIn(
+            ".top-actions{width:100%;min-width:0;grid-template-columns:repeat(2,minmax(0,1fr))}",
+            mobile_contract,
+        )
+        self.assertIn(".section-heading,.matrix-head{flex-direction:column", mobile_contract)
+
+    def test_print_layout_hides_skip_link_and_separates_score_text(self):
+        css = (ROOT / "app" / "static" / "styles.css").read_text(encoding="utf-8")
+        self.assertIn("@media print{.skip-link{display:none!important}}", css)
+        self.assertIn(
+            ".score-ring>div{display:flex;flex-direction:column;align-items:center;",
+            css,
+        )
+        self.assertIn(".score-ring span{position:static;margin-top:2px}", css)
+
+    def test_live_configuration_copy_does_not_claim_request_success(self):
+        script = (ROOT / "app" / "static" / "app.js").read_text(encoding="utf-8")
+        self.assertIn("Live mode configured", script)
+        self.assertIn("Request not yet verified", script)
+        self.assertIn("A successful live result is confirmed only after the analysis completes", script)
+        self.assertNotIn("Live API available", script)
+
+    def test_print_action_restores_intelligence_room_before_printing(self):
+        script = (ROOT / "app" / "static" / "app.js").read_text(encoding="utf-8")
+        self.assertIn("function printExecutiveBrief()", script)
+        self.assertIn("setView('#resultsView');", script)
+        self.assertIn("window.requestAnimationFrame(() => window.print());", script)
+        self.assertIn("addEventListener('click', printExecutiveBrief)", script)
+
+
 if __name__ == "__main__":
     unittest.main()
