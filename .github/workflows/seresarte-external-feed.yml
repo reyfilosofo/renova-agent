@@ -1,0 +1,57 @@
+name: SERESARTE Agent Public Feed
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: "20 17 * * *"
+  push:
+    branches: [main]
+    paths:
+      - "content/seresarte_agent_profile.json"
+      - "content/seresarte_institutional_post_series.md"
+      - "scripts/generate_seresarte_external_feed.py"
+      - ".github/workflows/seresarte-external-feed.yml"
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: seresarte-agent-pages
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+      - uses: actions/setup-python@v6
+        with:
+          python-version: "3.11"
+      - name: Generate multilingual public feed
+        run: >-
+          python scripts/generate_seresarte_external_feed.py
+          --source content/seresarte_institutional_post_series.md
+          --output-dir _site/seresarte-agent
+          --base-url https://reyfilosofo.github.io/renova-agent/seresarte-agent/
+      - name: Add publication root
+        shell: bash
+        run: |
+          cp _site/seresarte-agent/index.html _site/index.html
+          touch _site/.nojekyll
+      - uses: actions/configure-pages@v5
+      - uses: actions/upload-pages-artifact@v4
+        with:
+          path: _site
+
+  deploy:
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
+    needs: build
+    steps:
+      - name: Deploy SERESARTE Agent feed
+        id: deployment
+        uses: actions/deploy-pages@v4
