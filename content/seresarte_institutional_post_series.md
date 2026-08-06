@@ -109,9 +109,9 @@ Source: SERESARTE.2026, p. 31.
 
 ## Post 10: What we mean by SERESARTE Group
 
-SERESARTE Group is the umbrella name used here for the broader cultural ecosystem around Fundación SERESARTE, SERESARTE Media, SERESARTE Press and associated cultural production.
+SERESARTE Group is the umbrella name used here for the broader creative ecosystem around SERESARTE, SERESARTE Media, SERESARTE Press and associated cultural production.
 
-Important boundary: the institutional PDFs document Fundación SERESARTE and its programs. They do not establish a separate legal entity called SERESARTE Group. This agent will therefore describe the Group as an operational ecosystem and will not invent legal status, current metrics or partnerships.
+Important boundary: the institutional PDFs document SERESARTE and its programs. They do not establish a separate legal entity called SERESARTE Group. This agent will therefore describe the Group as an operational ecosystem and will not invent legal status, current metrics or partnerships.
 
 ES: identidad de grupo no sustituye evidencia institucional.
 
