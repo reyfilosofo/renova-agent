@@ -37,6 +37,7 @@ contract SeresarteEdition1155 is ERC1155, Ownable {
 
     function createEdition(uint256 id, string calldata editionName, uint256 maxSupply) external onlyOwner {
         require(id != 0, "SERESARTE: id zero reserved");
+        require(bytes(editionName).length > 0, "SERESARTE: edition name required");
         require(maxSupply > 0, "SERESARTE: max supply required");
         require(bytes(editions[id].name).length == 0, "SERESARTE: edition exists");
 
@@ -53,6 +54,7 @@ contract SeresarteEdition1155 is ERC1155, Ownable {
     function mint(address to, uint256 id, uint256 amount, bytes calldata data) external onlyOwner {
         Edition storage edition = editions[id];
         require(edition.active, "SERESARTE: inactive edition");
+        require(amount > 0, "SERESARTE: amount required");
         require(edition.minted + amount <= edition.maxSupply, "SERESARTE: edition sold out");
         require(to != address(0), "SERESARTE: zero address");
 

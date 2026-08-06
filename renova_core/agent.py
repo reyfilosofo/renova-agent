@@ -9,7 +9,7 @@ from __future__ import annotations
 
 from dataclasses import dataclass
 
-from .ontology import default_graph
+from .ontology import default_graph, normalize_text
 
 
 SYSTEM_PRINCIPLES: tuple[str, ...] = (
@@ -19,6 +19,67 @@ SYSTEM_PRINCIPLES: tuple[str, ...] = (
     "Prefer concrete practices over vague inspiration.",
     "Treat life, dignity, care, and world as central evaluative coordinates.",
 )
+
+HEALTH_TERMS = (
+    "cura",
+    "terapia",
+    "diagnostico medico",
+    "medicina",
+    "salud",
+    "enfermedad",
+    "cure",
+    "therapy",
+    "medical diagnosis",
+    "medicine",
+    "health",
+    "disease",
+)
+
+LEGAL_TERMS = (
+    "asesoria legal",
+    "demanda",
+    "contrato",
+    "amparo",
+    "tribunal",
+    "legal advice",
+    "lawsuit",
+    "contract",
+    "court",
+)
+
+FINANCIAL_TERMS = (
+    "asesoria financiera",
+    "inversion",
+    "rendimiento",
+    "credito",
+    "financial advice",
+    "investment",
+    "returns",
+    "credit",
+)
+
+INSTITUTION_TERMS = (
+    "empresa",
+    "institucion",
+    "gobierno",
+    "escuela",
+    "comunidad",
+    "organizacion",
+    "company",
+    "institution",
+    "government",
+    "school",
+    "community",
+    "organization",
+    "organisation",
+)
+
+DEFINITION_TERMS = ("que es", "what is", "definicion", "definition")
+
+
+def _contains_any(text: str, terms: tuple[str, ...]) -> bool:
+    padded = f" {text} "
+    return any(f" {normalize_text(term)} " in padded for term in terms)
 
 
 @dataclass(frozen=True)
@@ -49,13 +110,30 @@ class RenovaAgent:
         self.graph = default_graph()
 
     def answer(self, prompt: str) -> AgentResponse:
-        normalized = prompt.casefold()
+        normalized = normalize_text(prompt)
         matched = self.graph.search(prompt)
-        concept_labels = tuple(concept.label for concept in matched[:5]) or ("Renova", "Vida", "Cuidado")
+        concept_labels = tuple(concept.label for concept in matched[:5]) or (
+            "Renova",
+            "Vida",
+            "Cuidado",
+        )
         cautions: list[str] = []
-        if any(word in normalized for word in ("cura", "terapia", "diagnostico medico", "medicina")):
-            cautions.append("Renova can support reflection and design, but it does not replace professional clinical care.")
-        if any(word in normalized for word in ("empresa", "institucion", "gobierno", "escuela", "comunidad")):
+        if _contains_any(normalized, HEALTH_TERMS):
+            cautions.append(
+                "Renova can support reflection and design, but it does not replace "
+                "professional clinical care."
+            )
+        if _contains_any(normalized, LEGAL_TERMS):
+            cautions.append(
+                "Renova can organize questions and evidence, but it does not replace qualified "
+                "legal advice."
+            )
+        if _contains_any(normalized, FINANCIAL_TERMS):
+            cautions.append(
+                "Renova can support strategic reflection, but it does not replace qualified "
+                "financial advice."
+            )
+        if _contains_any(normalized, INSTITUTION_TERMS):
             answer = (
                 "From a Renova perspective, the first task is to identify the habitat, the wound, "
                 "and the horizon of the system. A real intervention should name what conditions "
@@ -66,7 +144,7 @@ class RenovaAgent:
                 "Score the five IRG dimensions before proposing solutions.",
                 "Translate the diagnosis into one care practice, one repair practice, and one horizon practice.",
             )
-        elif any(word in normalized for word in ("que es", "what is", "definicion", "definition")):
+        elif _contains_any(normalized, DEFINITION_TERMS):
             answer = (
                 "Renova is a philosophy of renewal: the capacity of life to generate new conditions "
                 "of possibility when a world, body, institution, or symbolic order has become exhausted, "

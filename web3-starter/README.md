@@ -25,7 +25,7 @@ web3-starter/
 │  ├─ SeresarteEdition1155.sol
 │  └─ SeresarteAccessPass.sol
 ├─ scripts/
-│  ├─ deploy.js
+│  ├─ deploy.ts
 │  └─ generate-hashes.js
 ├─ metadata/
 │  └─ renova-genesis/
@@ -44,8 +44,8 @@ web3-starter/
 │  ├─ IPFS_ARWEAVE.md
 │  ├─ IPHONE_MINT_GUIDE.md
 │  ├─ QR_ACCESS.md
-│  └─ LEGAL_AND_LICENSE.md
-├─ hardhat.config.js
+│  └─ LICENSE_NOTES.md
+├─ hardhat.config.ts
 ├─ package.json
 └─ .gitignore
 ```
@@ -97,7 +97,30 @@ Sistema de registro de hashes documentales para probar existencia, versión y pr
 
 ## Estado actual
 
-Versión inicial de arquitectura. No desplegada onchain. Lista para revisión técnica, diseño visual y despliegue controlado.
+Versión inicial de arquitectura. No desplegada onchain. Los contratos compilan con Solidity 0.8.30, cuentan con pruebas locales de sus invariantes básicas y disponen de un script de despliegue reproducible. Siguen requiriendo auditoría profesional antes de cualquier uso con valor económico.
+
+## Instalación y verificación
+
+```bash
+npm ci
+npm run verify
+```
+
+La verificación revisa sintaxis, compila los tres contratos, ejecuta las pruebas y realiza un despliegue efímero en la red local de Hardhat.
+
+## Despliegue controlado
+
+El script `scripts/deploy.ts` usa por defecto la cuenta local de Hardhat y URI de reemplazo. Antes de una testnet, configura las variables en un `.env` local nunca rastreado o expórtalas en el entorno de ejecución:
+
+```text
+INITIAL_OWNER=0x...
+CONTRACT_URI=ipfs://.../contract.json
+EDITION_BASE_URI=ipfs://.../{id}.json
+SEPOLIA_RPC_URL=https://...
+DEPLOYER_PRIVATE_KEY=...
+```
+
+Después ejecuta `npm run deploy:sepolia`. Nunca compartas ni confirmes una clave privada en chats, issues, commits o capturas.
 
 ## Autoría conceptual
 
@@ -105,4 +128,4 @@ SERESARTE / ℛenova by Carlos Jonathan González Rodríguez.
 
 ## Nota
 
-Este repositorio separa dos planos: el código abierto y la obra cultural. El código puede licenciarse como open source; los textos, marcas, manifiestos, imágenes, símbolos, nombres y conceptos deben tener una licencia cultural separada.
+Este repositorio separa dos planos: el código técnico y la obra cultural. El paquete permanece `UNLICENSED` hasta que el titular adopte expresamente una licencia; la disponibilidad pública del código no concede por sí sola derechos de reutilización. Los textos, marcas, manifiestos, imágenes, símbolos, nombres y conceptos requieren una decisión de licencia cultural separada.

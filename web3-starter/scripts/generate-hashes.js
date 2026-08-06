@@ -1,6 +1,6 @@
-const fs = require("fs");
-const path = require("path");
-const crypto = require("crypto");
+import crypto from "node:crypto";
+import fs from "node:fs";
+import path from "node:path";
 
 function walk(dir) {
   const files = [];

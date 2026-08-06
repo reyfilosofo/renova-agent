@@ -42,26 +42,32 @@ FOUNDATIONAL_PROMPTS: tuple[LabPrompt, ...] = (
 
 
 def render_canvas(subject: str) -> str:
+    if not isinstance(subject, str) or not subject.strip():
+        raise ValueError("Canvas subject must be a non-empty string.")
     lines = [f"# Renova Lab Canvas: {subject}", ""]
     for prompt in FOUNDATIONAL_PROMPTS:
-        lines.extend([
-            f"## {prompt.title} ({prompt.duration_minutes} min)",
-            f"**Question:** {prompt.question}",
-            f"**Expected output:** {prompt.output}",
+        lines.extend(
+            [
+                f"## {prompt.title} ({prompt.duration_minutes} min)",
+                f"**Question:** {prompt.question}",
+                f"**Expected output:** {prompt.output}",
+                "",
+                "Notes:",
+                "",
+                "- ",
+                "",
+            ]
+        )
+    lines.extend(
+        [
+            "## Minimum viable renovative action",
             "",
-            "Notes:",
+            "- Action:",
+            "- Owner:",
+            "- First date:",
+            "- Evidence of completion:",
+            "- Follow-up:",
             "",
-            "- ",
-            "",
-        ])
-    lines.extend([
-        "## Minimum viable renovative action",
-        "",
-        "- Action:",
-        "- Owner:",
-        "- First date:",
-        "- Evidence of completion:",
-        "- Follow-up:",
-        "",
-    ])
+        ]
+    )
     return "\n".join(lines)

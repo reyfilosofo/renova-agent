@@ -1,17 +1,17 @@
 [build-system]
-requires = ["setuptools>=68"]
+requires = ["setuptools==83.0.0"]
 build-backend = "setuptools.build_meta"
 
 [project]
 name = "renova-core"
-version = "0.1.0"
-description = "Open-source tools for Renova: renewal index, ontology graph, local agent scaffold, and lab kit."
+version = "0.2.0"
+description = "Public tools for Renova: renewal index, ontology graph, local agent scaffold, and lab kit."
 readme = "README.md"
 requires-python = ">=3.10"
 dependencies = []
 
 [project.optional-dependencies]
-dev = ["pytest>=8", "ruff>=0.5"]
+dev = ["pytest==9.1.1", "pytest-cov==7.1.0", "ruff==0.15.21"]
 
 [project.scripts]
 renova = "renova_core.cli:main"
@@ -21,9 +21,15 @@ where = ["."]
 include = ["renova_core*"]
 
 [tool.pytest.ini_options]
-addopts = "-q"
+addopts = "-q --cov=renova_core --cov-report=term-missing --cov-fail-under=90"
 testpaths = ["tests"]
 
 [tool.ruff]
 line-length = 100
 target-version = "py310"
+
+[tool.coverage.run]
+branch = true
+
+[tool.coverage.report]
+exclude_also = ["if __name__ == .__main__.:"]

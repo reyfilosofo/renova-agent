@@ -1,7 +1,7 @@
 (() => {
   "use strict";
 
-  const VERSION = "0.1.0";
+  const VERSION = "0.2.0";
   const STORAGE_KEY = "seresarte_v_os_state_v1";
   const HOME = "/home/renova";
 
@@ -44,7 +44,7 @@
     },
     "/home/renova/bitacora.md": {
       type: "file",
-      content: "# Bitacora\n\n- v0.1: escritorio, terminal, archivos, notas, navegador simulado, calculadora y sistema.\n"
+      content: "# Bitacora\n\n- v0.1: escritorio, terminal, archivos, notas, navegador simulado, calculadora y sistema.\n- v0.2: servidor allowlisted, Page Agent opt-in, CSP y calculadora sin evaluacion dinamica.\n"
     },
     "/home/renova/proyectos/codex.txt": {
       type: "file",
@@ -66,7 +66,7 @@
     "/apps/system.app": { type: "file", content: "Panel del sistema." },
     "/system/about.txt": {
       type: "file",
-      content: "SERESARTE V-OS v0.1.0\nTipo: ordenador virtual web simulado.\nRuntime: HTML, CSS y JavaScript.\nPersistencia: localStorage.\nServidor: python3 server.py en http://localhost:8000.\n"
+      content: "SERESARTE V-OS v0.2.0\nTipo: ordenador virtual web simulado.\nRuntime: HTML, CSS y JavaScript.\nPersistencia: localStorage.\nServidor seguro: python3 server.py en http://127.0.0.1:8000.\n"
     },
     "/system/limits.txt": {
       type: "file",
@@ -74,7 +74,7 @@
     },
     "/system/changelog.txt": {
       type: "file",
-      content: "v0.1.0: primera version funcional del escritorio virtual SERESARTE V-OS.\n"
+      content: "v0.1.0: primera version funcional del escritorio virtual SERESARTE V-OS.\nv0.2.0: endurecimiento del servidor, privacidad del agente y verificacion ampliada.\n"
     },
     "/var/log/boot.log": {
       type: "file",
@@ -87,7 +87,7 @@
   const openWindows = new Map();
 
   const bootLines = [
-    "SERESARTE V-OS BIOS 0.1.0",
+    "SERESARTE V-OS BIOS 0.2.0",
     "Verificando entorno de navegador",
     "Montando sistema de archivos virtual",
     "Cargando escritorio y gestor de ventanas",
@@ -1172,11 +1172,7 @@ Este prototipo no hace peticiones web. Usa rutas internas, por ejemplo /home/ren
   function calculate(display) {
     const expression = display.value.trim();
     try {
-      if (!expression || !/^[0-9+\-*/%.() ]+$/.test(expression)) {
-        throw new Error("Expresion no permitida");
-      }
-      const result = Function(`"use strict"; return (${expression});`)();
-      if (!Number.isFinite(result)) throw new Error("Resultado invalido");
+      const result = window.RenovaCalculator.evaluate(expression);
       display.value = String(result);
     } catch {
       display.value = "Error";

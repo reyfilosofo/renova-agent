@@ -39,3 +39,11 @@ Never commit:
 ## Required variables
 
 See `.env.example` for names only.
+
+## Public repository warning
+
+The current GitHub repository is public. `.gitignore`, the local server allowlist and the Pages `_site/` allowlist reduce accidental exposure, but they cannot make a committed file private. Client records, private intelligence, unpublished contracts, personal files and confidential drafts belong in a separate private vault.
+
+## Browser-agent boundary
+
+The optional Page Agent demo is disabled until the user accepts its session notice. Once activated, it loads external code and sends prompts to a public test endpoint. Never activate it with secrets or private data in the page or `localStorage`.

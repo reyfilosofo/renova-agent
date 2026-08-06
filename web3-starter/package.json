@@ -3,18 +3,37 @@
   "version": "0.1.0",
   "description": "Starter pack Web3 para SERESARTE / ℛenova: NFTs, access pass, hashes documentales, metadatos y landing page.",
   "private": true,
-  "license": "SEE LICENSE IN docs/LEGAL_AND_LICENSE.md",
+  "type": "module",
+  "license": "UNLICENSED",
   "scripts": {
-    "compile": "hardhat compile",
+    "check": "tsc --noEmit && node --check scripts/generate-hashes.js",
+    "compile": "hardhat build",
     "test": "hardhat test",
-    "deploy:local": "hardhat run scripts/deploy.js --network hardhat",
-    "deploy:sepolia": "hardhat run scripts/deploy.js --network sepolia",
+    "smoke:deploy": "hardhat run scripts/deploy.ts --network hardhatMainnet",
+    "verify": "npm run check && npm run compile && npm test && npm run smoke:deploy",
+    "deploy:local": "hardhat run scripts/deploy.ts --network hardhatMainnet",
+    "deploy:sepolia": "hardhat run scripts/deploy.ts --network sepolia",
     "hash": "node scripts/generate-hashes.js ./docs ./data/document-registry.generated.json"
   },
   "devDependencies": {
-    "@nomicfoundation/hardhat-toolbox": "^5.0.0",
-    "@openzeppelin/contracts": "^5.0.2",
-    "dotenv": "^16.4.5",
-    "hardhat": "^2.22.0"
+    "@nomicfoundation/hardhat-ethers": "4.0.14",
+    "@nomicfoundation/hardhat-ethers-chai-matchers": "3.0.11",
+    "@nomicfoundation/hardhat-mocha": "3.0.21",
+    "@openzeppelin/contracts": "5.6.1",
+    "@types/chai": "5.2.3",
+    "@types/mocha": "10.0.10",
+    "@types/node": "22.20.1",
+    "chai": "6.2.2",
+    "dotenv": "17.4.2",
+    "ethers": "6.17.0",
+    "hardhat": "3.9.1",
+    "mocha": "11.7.6",
+    "solc": "0.8.30",
+    "typescript": "6.0.3"
+  },
+  "overrides": {
+    "diff": "8.0.4",
+    "serialize-javascript": "7.0.5",
+    "tmp": "0.2.7"
   }
 }

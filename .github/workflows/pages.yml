@@ -1,7 +1,9 @@
 name: Deploy SERESARTE and Renova sites to GitHub Pages
 
 on:
-  push:
+  workflow_run:
+    workflows: ["Verify"]
+    types: [completed]
     branches: ["main"]
   workflow_dispatch:
 
@@ -16,19 +18,26 @@ concurrency:
 
 jobs:
   deploy:
+    if: github.event_name == 'workflow_dispatch' || github.event.workflow_run.conclusion == 'success'
+    timeout-minutes: 15
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
     runs-on: ubuntu-latest
-    env:
-      PAGES_ADMIN_TOKEN: ${{ secrets.PAGES_ADMIN_TOKEN }}
     steps:
       - name: Checkout
-        uses: actions/checkout@v7
+        uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # v7.0.0
+        with:
+          persist-credentials: false
+          ref: ${{ github.event.workflow_run.head_sha || github.sha }}
+
+      - name: Build allowlisted public site
+        run: bash scripts/build-pages-site.sh
 
       - name: Detect Pages configuration
         id: pages
         env:
+          PAGES_ADMIN_TOKEN: ${{ secrets.PAGES_ADMIN_TOKEN }}
           API_TOKEN: ${{ secrets.PAGES_ADMIN_TOKEN || github.token }}
         run: |
           status="$(curl -sS -o /tmp/pages.json -w "%{http_code}" \
@@ -56,18 +65,31 @@ jobs:
 
       - name: Setup Pages
         if: steps.pages.outputs.deploy == 'true'
-        uses: actions/configure-pages@v6
+        uses: actions/configure-pages@45bfe0192ca1faeb007ade9deae92b16b8254a0d # v6.0.0
+        env:
+          PAGES_ADMIN_TOKEN: ${{ secrets.PAGES_ADMIN_TOKEN }}
         with:
           enablement: ${{ steps.pages.outputs.enablement }}
           token: ${{ env.PAGES_ADMIN_TOKEN || github.token }}
 
       - name: Upload static artifact
         if: steps.pages.outputs.deploy == 'true'
-        uses: actions/upload-pages-artifact@v5
+        uses: actions/upload-pages-artifact@fc324d3547104276b827a68afc52ff2a11cc49c9 # v5.0.0
         with:
-          path: "."
+          path: "_site"
 
       - name: Deploy to GitHub Pages
         if: steps.pages.outputs.deploy == 'true'
         id: deployment
-        uses: actions/deploy-pages@v5
+        uses: actions/deploy-pages@cd2ce8fcbc39b97be8ca5fce6e763baed58fa128 # v5.0.0
+
+      - name: Report required one-time Pages setup
+        if: steps.pages.outputs.deploy != 'true'
+        run: |
+          echo "::warning title=GitHub Pages is disabled::Enable Pages with GitHub Actions as the source, or configure the narrowly scoped PAGES_ADMIN_TOKEN for one-time enablement."
+          {
+            echo "### GitHub Pages was not deployed"
+            echo
+            echo "The repository setting is disabled. CI stayed safe and did not upload the repository vault."
+            echo "Enable **Settings → Pages → Build and deployment → GitHub Actions**, then rerun this workflow."
+          } >> "${GITHUB_STEP_SUMMARY}"

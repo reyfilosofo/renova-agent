@@ -53,3 +53,5 @@ The rhythm, boundaries, continuity, and sustainability of action.
 ```bash
 python -m renova_core.cli index data/sample_assessment.json
 ```
+
+The standard IRG requires all five default dimensions. A partial or alternative assessment must provide an explicit `weights` object whose keys match exactly the included dimensions; reports label such results as a custom assessment. Weights must be finite, non-negative and contain at least one positive value.

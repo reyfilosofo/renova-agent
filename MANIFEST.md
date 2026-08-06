@@ -1,6 +1,6 @@
 # MANIFEST — SERESARTE Brain
 
-Estado inicial creado el 2026-06-29. Última actualización: 2026-07-09.
+Estado inicial creado el 2026-06-29. Última actualización: 2026-07-10.
 
 ## Función
 
@@ -31,22 +31,23 @@ Cada entrada debe incluir:
 
 | Ruta | Tipo | Proyecto | Conceptos principales | Estado | Acción recomendada | Riesgos o dudas |
 |---|---|---|---|---|---|---|
-| `README.md` | documentación técnica | SERESARTE V-OS / Renova Agent | arranque, verificación, Page Agent, RSR | activo | Mantener actualizado con cada nueva capa | Ninguno crítico |
+| `README.md` | documentación técnica | SERESARTE V-OS / Renova Agent | arranque, verificación, Page Agent, RSR | activo | Mantener actualizado con cada nueva capa | El repositorio es público; no incorporar material privado |
 | `AGENTS.md` | constitución operativa | SERESARTE Brain / Codex | reglas, roles, seguridad editorial | aprobado | Respetar antes de cualquier edición | No borrar ni simplificar sin decisión registrada |
 | `MANIFEST.md` | inventario vivo | SERESARTE Brain | auditoría, trazabilidad, clasificación | activo | Actualizar después de cambios significativos | Inventario no sustituye escaneo completo de árbol |
 | `SERESARTE_BRAIN_START_HERE.md` | guía de inicio | SERESARTE Brain | bóveda, Obsidian, flujo Codex | aprobado | Usar como onboarding | Ninguno crítico |
 | `.gitignore` | configuración técnica | Repo hygiene | secretos, Node, Python, editores | aprobado | Mantener estricto contra secretos | Revisar si aparecen nuevos artefactos |
 | `.env.example` | plantilla segura | Repo hygiene / CI | variables, secretos, entorno | aprobado | Agregar solo nombres, nunca valores | Alto riesgo si se copia con secretos reales |
 | `docs/security-secrets.md` | política de seguridad | Repo hygiene / LUCEM | secretos, rotación, límites | aprobado | Citar en PRs que toquen credenciales | Ninguno crítico |
-| `.github/workflows/verify.yml` | CI | Repo hygiene | pruebas, Node, Python | activo | Mantener como validación general | Requiere que dependencias dev instalen correctamente |
-| `.github/workflows/pages.yml` | despliegue GitHub Pages | SERESARTE V-OS | Pages, artifact, deploy | activo | Validar configuración de Pages en Settings | Puede requerir `PAGES_ADMIN_TOKEN` si Pages no está habilitado |
+| `.github/workflows/verify.yml` | CI | Repo hygiene | Python matrix, Node, Web3, Pages boundary | activo | Mantener checks requeridos en `main` | Las reglas de protección se configuran fuera del código |
+| `.github/workflows/pages.yml` | despliegue GitHub Pages | SERESARTE V-OS | `_site`, artifact, deploy | activo | Habilitar Pages con GitHub Actions como fuente | No despliega mientras Pages siga deshabilitado |
 | `.github/workflows/renova-rsr-ci.yml` | CI estructural | Renova / NOUS RSR Lab | estructura, verificación, laboratorio | activo | Mantener junto con el laboratorio | No reemplaza pruebas funcionales |
 | `.github/ISSUE_TEMPLATE/renova-rsr-task.yml` | template de issue | Renova / NOUS RSR Lab | tareas, revisión humana, LUCEM | activo | Usar para nuevas tareas RSR | Crear labels si GitHub no los tiene |
-| `index.html` | interfaz estática | SERESARTE V-OS | escritorio virtual, Page Agent | activo | Mantener accesible y sin secretos cliente | CDN externo de Page Agent es demo público |
+| `index.html` | interfaz estática | SERESARTE V-OS | escritorio virtual, Page Agent | activo | Mantener accesible y sin secretos cliente | Demo externo opt-in; no usar con datos privados |
 | `styles.css` | estilos frontend | SERESARTE V-OS | UI, escritorio, estética | activo | Revisar contraste y responsive | Requiere prueba visual |
 | `app.js` | lógica frontend | SERESARTE V-OS | filesystem virtual, apps, terminal | activo | Ejecutar `node --check app.js` tras cambios | Riesgo de regresión si se edita sin pruebas manuales |
-| `page-agent-bridge.js` | integración frontend | SERESARTE V-OS / Page Agent | GUI agent, bridge, panel | activo | Ejecutar `node --check page-agent-bridge.js` | El demo no debe recibir secretos |
-| `server.py` | servidor local | SERESARTE V-OS | HTTP local, no cache | activo | Validar con `python3 -m py_compile server.py` | Puerto fijo 8000 |
+| `page-agent-bridge.js` | integración frontend | SERESARTE V-OS / Page Agent | consentimiento, SRI, GUI agent | activo | Mantener demo desactivado por defecto | El demo no debe recibir secretos |
+| `server.py` | servidor local | SERESARTE V-OS | allowlist, loopback, cabeceras | activo | Mantener pruebas de rutas privadas | Puerto fijo 8000 |
+| `calculator.js` | parser aritmético | SERESARTE V-OS | cálculo, CSP, validación | activo | Mantener pruebas Node | No ampliar gramática sin pruebas |
 | `package.json` | scripts Node/Python | Repo hygiene | check, test, verify, Ruflo, Codex | activo | Mantener scripts mínimos y claros | No instalar dependencias sin decisión |
 | `pyproject.toml` | empaquetado Python | Renova Core | paquete, dev extras, pytest | activo | Mantener dependencias mínimas | Compatibilidad Python >=3.10 |
 | `renova_core/__init__.py` | módulo Python | Renova Core | exports, versión | activo | Sincronizar versión con pyproject | Ninguno crítico |
@@ -56,7 +57,7 @@ Cada entrada debe incluir:
 | `renova_core/index.py` | motor IRG | Renova Index | score, dimensiones, reporte | activo | Conservar aviso no clínico/legal/financiero | No usar como diagnóstico profesional |
 | `renova_core/lab.py` | canvas | Renova Lab Kit | prompts, taller, acción | activo | Expandir con plantillas de sesión | Ninguno crítico |
 | `renova_core/ontology.py` | grafo conceptual | Renovagrama | conceptos, relaciones, búsqueda | activo | Agregar nodos con trazabilidad | Riesgo de deriva conceptual |
-| `tests/test_index.py` | pruebas | Renova Index | IRG, buckets | activo | Ampliar cobertura para CLI y ontology | Cobertura parcial |
+| `tests/` y `tests-js/` | pruebas | Renova Core / V-OS | IRG, CLI, agente, servidor, calculadora | activo | Mantener cobertura ≥90% | La prueba visual de navegador sigue siendo complementaria |
 | `data/sample_assessment.json` | dato demo | Renova Index | evaluación, muestra | activo | Mantener sin datos personales reales | No usar como caso real |
 | `data/glossary_min.json` | dato demo | Renova Open Corpus | términos, definiciones | activo | Expandir con fuentes internas | Requiere verificación si se publican claims |
 | `docs/RENOVA_OPEN_SYSTEM.md` | documentación | Renova Open System | arquitectura pública | activo | Revisar con LUCEM antes de publicación | Requiere verificación externa si agrega claims técnicos |

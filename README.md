@@ -60,7 +60,7 @@ This lab must be described as an assisted, versioned, auditable and human-govern
 
 The virtual desktop includes an optional client-side Page Agent bridge.
 
-Page Agent is loaded from the official demo IIFE bundle and exposed through `page-agent-bridge.js` as a floating panel inside SERESARTE V-OS. The bridge lets the user send natural-language GUI instructions such as:
+Page Agent is disabled by default. The user must activate it explicitly from the floating panel and accept a privacy notice before the browser loads the official demo IIFE bundle. The bridge then lets the user send natural-language GUI instructions such as:
 
 ```text
 Open the terminal and run help
@@ -71,8 +71,11 @@ Open the system app and explain the current state
 Technical notes:
 
 - The integration uses the public demo bundle: `page-agent@1.11.0/dist/iife/page-agent.demo.js`.
+- The bundle is version-pinned and protected with Subresource Integrity (SRI).
+- Consent lasts only for the current page session; no external script is loaded before activation.
 - The demo bundle is for technical evaluation, not production secrets.
 - The bridge does not store API keys.
+- Prompts are sent to the public Page Agent test endpoint, and the activated agent can interact with the page and its `localStorage` data.
 - For production, replace the demo configuration with a backend-proxied LLM endpoint or install the package with `npm install page-agent` and configure a private model endpoint.
 - Page Agent is designed as a client-side web enhancement, not as a server-side automation layer.
 
@@ -83,6 +86,8 @@ python3 server.py
 ```
 
 Open `http://localhost:8000`.
+
+The development server accepts only loopback hosts and an explicit list of public V-OS assets. Requests for `.env`, `.git`, `config/`, `memory/`, dependencies or any other repository path return an error.
 
 ## Run Renova Core
 
@@ -98,18 +103,30 @@ renova canvas "Community cultural lab"
 
 ## Verification
 
+Install the development tools once:
+
 ```bash
-npm run check
-python3 -m pytest
+python3 -m pip install -e '.[dev]'
 npm run verify
 ```
 
-CI workflows validate the Python/JavaScript project and the RSR laboratory structure on pull requests and pushes to `main`.
+To include the locked Web3 starter and build the exact GitHub Pages artifact:
+
+```bash
+npm run setup:web3
+npm run verify:all
+```
+
+CI validates Python 3.10, 3.12 and 3.14, JavaScript syntax and calculator behavior, server isolation, repository credential patterns, Python coverage, the packaged wheel, the Web3 contracts and the Pages public boundary.
+
+GitHub Pages publishes only the generated `_site/` allowlist. The repository itself is never used as the deployment artifact.
 
 ## Security
 
 Use `.env.example` only as a variable-name template. Never commit real credentials, tokens, API keys, private keys, certificates or screenshots containing secrets. See `docs/security-secrets.md`.
 
+This GitHub repository is public. Every tracked file—including `config/`, `memory/`, clients, people and books—must therefore be treated as publicly disclosed. Before storing private intelligence or client material, move the vault to a private repository or split the public code/corpus from a private knowledge vault. See `SECURITY.md`.
+
 ## Notes
 
-The local agent scaffold does not call external APIs by default. The core Python layer is dependency-free, transparent, and designed for extension.
+The local Renova Agent scaffold does not call external APIs by default. Page Agent is a separate, opt-in browser demo. The Renova Core runtime remains dependency-free, transparent and designed for extension.

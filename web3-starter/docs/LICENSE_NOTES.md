@@ -7,7 +7,7 @@ Este repositorio separa dos capas:
 
 ## Código
 
-El código puede publicarse bajo una licencia open source si SERESARTE lo decide. Una opción común para starters técnicos es MIT, siempre que se revise antes de producción.
+El paquete está marcado actualmente como `UNLICENSED`. Su presencia en un repositorio público permite inspeccionarlo, pero no concede automáticamente derechos de copia, modificación, distribución o explotación. SERESARTE deberá adoptar de forma expresa una licencia antes de presentar este starter como software open source.
 
 ## Obra cultural
 
