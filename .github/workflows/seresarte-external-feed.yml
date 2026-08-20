@@ -14,44 +14,38 @@ on:
 
 permissions:
   contents: read
-  pages: write
-  id-token: write
 
 concurrency:
-  group: seresarte-agent-pages
+  group: seresarte-agent-feed
   cancel-in-progress: true
 
 jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v6
+      - uses: actions/checkout@v7
+
       - uses: actions/setup-python@v6
         with:
           python-version: "3.11"
+
       - name: Generate multilingual public feed
         run: >-
           python scripts/generate_seresarte_external_feed.py
           --source content/seresarte_institutional_post_series.md
           --output-dir _site/seresarte-agent
           --base-url https://reyfilosofo.github.io/renova-agent/seresarte-agent/
+
       - name: Add publication root
         shell: bash
         run: |
           cp _site/seresarte-agent/index.html _site/index.html
           touch _site/.nojekyll
-      - uses: actions/configure-pages@v5
-      - uses: actions/upload-pages-artifact@v4
-        with:
-          path: _site
 
-  deploy:
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
-    runs-on: ubuntu-latest
-    needs: build
-    steps:
-      - name: Deploy SERESARTE Agent feed
-        id: deployment
-        uses: actions/deploy-pages@v4
+      - name: Validate generated feed
+        shell: bash
+        run: |
+          test -s _site/index.html
+          test -s _site/seresarte-agent/index.html
+          test -f _site/.nojekyll
+          echo "SERESARTE feed generated successfully. GitHub Pages deployment is centralized in .github/workflows/pages.yml."
