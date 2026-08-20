@@ -1,0 +1,19 @@
+version: 2
+updates:
+  - package-ecosystem: pip
+    directory: "/"
+    schedule:
+      interval: monthly
+    labels: ["dependencies", "python"]
+
+  - package-ecosystem: npm
+    directory: "/web3-starter"
+    schedule:
+      interval: monthly
+    labels: ["dependencies", "web3"]
+
+  - package-ecosystem: github-actions
+    directory: "/"
+    schedule:
+      interval: monthly
+    labels: ["dependencies", "ci"]
