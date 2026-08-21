@@ -3,6 +3,9 @@
 
   const BRIDGE_ID = "renova-page-agent-bridge";
   const STYLE_ID = "renova-page-agent-bridge-style";
+  const SCRIPT_ID = "renova-page-agent-demo-script";
+  const SCRIPT_URL = "https://cdn.jsdelivr.net/npm/page-agent@1.11.0/dist/iife/page-agent.demo.js?lang=en-US&showPanel=false";
+  const SCRIPT_INTEGRITY = "sha384-VYGt7nF/k1GzIuuuEZQKEPwnxXu7P2Srwc6WTool0khvQpqfLWcdOOrx+J4Fi4xa";
   const DEMO_CONFIG = {
     model: "qwen3.5-plus",
     baseURL: "https://page-ag-testing-ohftxirgbn.cn-shanghai.fcapp.run",
@@ -22,131 +25,24 @@
     const style = document.createElement("style");
     style.id = STYLE_ID;
     style.textContent = `
-      #${BRIDGE_ID} {
-        position: fixed;
-        right: 18px;
-        bottom: 82px;
-        z-index: 180;
-        width: min(360px, calc(100vw - 32px));
-        color: #f4eee1;
-        font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-      }
-
-      #${BRIDGE_ID} .pa-shell {
-        border: 1px solid rgba(244, 238, 225, 0.2);
-        border-radius: 10px;
-        background: rgba(7, 8, 11, 0.9);
-        box-shadow: 0 18px 42px rgba(0, 0, 0, 0.42);
-        backdrop-filter: blur(16px);
-        overflow: hidden;
-      }
-
-      #${BRIDGE_ID} .pa-header {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        gap: 10px;
-        padding: 10px 12px;
-        border-bottom: 1px solid rgba(244, 238, 225, 0.14);
-        background: rgba(17, 20, 26, 0.92);
-      }
-
-      #${BRIDGE_ID} .pa-title {
-        display: grid;
-        gap: 2px;
-        min-width: 0;
-      }
-
-      #${BRIDGE_ID} .pa-title strong {
-        font-size: 13px;
-        line-height: 1.2;
-      }
-
-      #${BRIDGE_ID} .pa-title span,
-      #${BRIDGE_ID} .pa-status,
-      #${BRIDGE_ID} .pa-hint {
-        color: #b8b1a4;
-        font-size: 11px;
-        line-height: 1.35;
-      }
-
-      #${BRIDGE_ID} .pa-body {
-        display: grid;
-        gap: 10px;
-        padding: 12px;
-      }
-
-      #${BRIDGE_ID} textarea {
-        width: 100%;
-        min-height: 92px;
-        resize: vertical;
-        border: 1px solid rgba(244, 238, 225, 0.18);
-        border-radius: 8px;
-        background: rgba(17, 20, 26, 0.95);
-        color: #f4eee1;
-        padding: 10px;
-        outline: 0;
-      }
-
-      #${BRIDGE_ID} textarea:focus {
-        border-color: rgba(200, 164, 81, 0.7);
-      }
-
-      #${BRIDGE_ID} .pa-actions,
-      #${BRIDGE_ID} .pa-examples {
-        display: flex;
-        flex-wrap: wrap;
-        gap: 6px;
-      }
-
-      #${BRIDGE_ID} button {
-        border: 1px solid rgba(244, 238, 225, 0.18);
-        border-radius: 8px;
-        background: rgba(244, 238, 225, 0.08);
-        color: #f4eee1;
-        padding: 7px 9px;
-        cursor: pointer;
-        font-size: 12px;
-      }
-
-      #${BRIDGE_ID} button:hover,
-      #${BRIDGE_ID} button:focus-visible {
-        border-color: rgba(200, 164, 81, 0.75);
-        outline: 0;
-      }
-
-      #${BRIDGE_ID} button.primary {
-        border-color: rgba(200, 164, 81, 0.75);
-        background: rgba(200, 164, 81, 0.18);
-      }
-
-      #${BRIDGE_ID} button.icon {
-        width: 30px;
-        height: 30px;
-        display: grid;
-        place-items: center;
-        padding: 0;
-      }
-
-      #${BRIDGE_ID}.is-collapsed {
-        width: auto;
-      }
-
-      #${BRIDGE_ID}.is-collapsed .pa-shell {
-        display: none;
-      }
-
-      #${BRIDGE_ID} .pa-launcher {
-        display: none;
-        border-color: rgba(200, 164, 81, 0.75);
-        background: rgba(7, 8, 11, 0.92);
-        box-shadow: 0 18px 42px rgba(0, 0, 0, 0.42);
-        font-weight: 700;
-      }
-
-      #${BRIDGE_ID}.is-collapsed .pa-launcher {
-        display: block;
-      }
+      #${BRIDGE_ID} { position: fixed; right: 18px; bottom: 82px; z-index: 180; width: min(360px, calc(100vw - 32px)); color: #f4eee1; font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; }
+      #${BRIDGE_ID} .pa-shell { border: 1px solid rgba(244, 238, 225, 0.2); border-radius: 10px; background: rgba(7, 8, 11, 0.9); box-shadow: 0 18px 42px rgba(0, 0, 0, 0.42); backdrop-filter: blur(16px); overflow: hidden; }
+      #${BRIDGE_ID} .pa-header { display: flex; align-items: center; justify-content: space-between; gap: 10px; padding: 10px 12px; border-bottom: 1px solid rgba(244, 238, 225, 0.14); background: rgba(17, 20, 26, 0.92); }
+      #${BRIDGE_ID} .pa-title { display: grid; gap: 2px; min-width: 0; }
+      #${BRIDGE_ID} .pa-title strong { font-size: 13px; line-height: 1.2; }
+      #${BRIDGE_ID} .pa-title span, #${BRIDGE_ID} .pa-status, #${BRIDGE_ID} .pa-hint { color: #b8b1a4; font-size: 11px; line-height: 1.35; }
+      #${BRIDGE_ID} .pa-body { display: grid; gap: 10px; padding: 12px; }
+      #${BRIDGE_ID} textarea { width: 100%; min-height: 92px; resize: vertical; border: 1px solid rgba(244, 238, 225, 0.18); border-radius: 8px; background: rgba(17, 20, 26, 0.95); color: #f4eee1; padding: 10px; outline: 0; }
+      #${BRIDGE_ID} textarea:focus { border-color: rgba(200, 164, 81, 0.7); }
+      #${BRIDGE_ID} .pa-actions, #${BRIDGE_ID} .pa-examples { display: flex; flex-wrap: wrap; gap: 6px; }
+      #${BRIDGE_ID} button { border: 1px solid rgba(244, 238, 225, 0.18); border-radius: 8px; background: rgba(244, 238, 225, 0.08); color: #f4eee1; padding: 7px 9px; cursor: pointer; font-size: 12px; }
+      #${BRIDGE_ID} button:hover, #${BRIDGE_ID} button:focus-visible { border-color: rgba(200, 164, 81, 0.75); outline: 0; }
+      #${BRIDGE_ID} button.primary { border-color: rgba(200, 164, 81, 0.75); background: rgba(200, 164, 81, 0.18); }
+      #${BRIDGE_ID} button.icon { width: 30px; height: 30px; display: grid; place-items: center; padding: 0; }
+      #${BRIDGE_ID}.is-collapsed { width: auto; }
+      #${BRIDGE_ID}.is-collapsed .pa-shell { display: none; }
+      #${BRIDGE_ID} .pa-launcher { display: none; border-color: rgba(200, 164, 81, 0.75); background: rgba(7, 8, 11, 0.92); box-shadow: 0 18px 42px rgba(0, 0, 0, 0.42); font-weight: 700; }
+      #${BRIDGE_ID}.is-collapsed .pa-launcher { display: block; }
     `;
     document.head.appendChild(style);
   }
@@ -160,29 +56,40 @@
     const startedAt = Date.now();
     return new Promise((resolve, reject) => {
       const tick = () => {
-        if (window.pageAgent) {
-          resolve(window.pageAgent);
-          return;
-        }
-
+        if (window.pageAgent) return resolve(window.pageAgent);
         if (window.PageAgent) {
           try {
             window.pageAgent = new window.PageAgent(DEMO_CONFIG);
-            resolve(window.pageAgent);
-            return;
+            return resolve(window.pageAgent);
           } catch {
-            /* Keep polling while the IIFE bundle finishes mounting. */
+            // Bundle may still be initializing.
           }
         }
-
         if (Date.now() - startedAt > timeoutMs) {
-          reject(new Error("Page Agent no se cargó. Revisa la conexión al CDN o usa npm install page-agent."));
+          reject(new Error("Page Agent no se cargó. Revisa la conexión al CDN."));
           return;
         }
-
         window.setTimeout(tick, 160);
       };
       tick();
+    });
+  }
+
+  function loadPageAgentScript() {
+    if (window.pageAgent || window.PageAgent) return waitForPageAgent();
+    if (document.getElementById(SCRIPT_ID)) return waitForPageAgent();
+
+    const script = document.createElement("script");
+    script.id = SCRIPT_ID;
+    script.src = SCRIPT_URL;
+    script.integrity = SCRIPT_INTEGRITY;
+    script.crossOrigin = "anonymous";
+    script.referrerPolicy = "no-referrer";
+
+    return new Promise((resolve, reject) => {
+      script.addEventListener("load", () => waitForPageAgent().then(resolve, reject), { once: true });
+      script.addEventListener("error", () => reject(new Error("No se pudo cargar el bundle verificado de Page Agent.")), { once: true });
+      document.head.appendChild(script);
     });
   }
 
@@ -197,22 +104,20 @@
       <button class="pa-launcher" type="button" aria-label="Abrir Page Agent">Page Agent</button>
       <div class="pa-shell">
         <header class="pa-header">
-          <div class="pa-title">
-            <strong>Page Agent · RENOVA</strong>
-            <span>Agente GUI dentro del escritorio web</span>
-          </div>
+          <div class="pa-title"><strong>Page Agent · RENOVA</strong><span>Agente GUI opcional dentro del escritorio web</span></div>
           <button class="icon" type="button" data-action="collapse" aria-label="Minimizar">_</button>
         </header>
         <div class="pa-body">
           <textarea data-role="prompt" spellcheck="true" placeholder="Ejemplo: Open the terminal and run help"></textarea>
           <div class="pa-actions">
-            <button class="primary" type="button" data-action="run">Ejecutar</button>
+            <button class="primary" type="button" data-action="activate">Activar demo</button>
+            <button type="button" data-action="run">Ejecutar</button>
             <button type="button" data-action="show-panel">Panel oficial</button>
             <button type="button" data-action="clear">Limpiar</button>
           </div>
           <div class="pa-examples" data-role="examples"></div>
-          <div class="pa-status" data-role="status">Cargando Page Agent...</div>
-          <div class="pa-hint">Usa instrucciones breves en inglés para mayor precisión. El demo usa el LLM de prueba público de Page Agent; no pegues secretos.</div>
+          <div class="pa-status" data-role="status">Demo desactivado: no hay conexión externa.</div>
+          <div class="pa-hint">Al activarlo se carga código verificado desde jsDelivr y el prompt se envía al LLM público de prueba de Page Agent. No pegues secretos ni datos privados.</div>
         </div>
       </div>
     `;
@@ -221,8 +126,12 @@
 
     const prompt = root.querySelector('[data-role="prompt"]');
     const status = root.querySelector('[data-role="status"]');
+    const activateButton = root.querySelector('[data-action="activate"]');
     const runButton = root.querySelector('[data-action="run"]');
+    const panelButton = root.querySelector('[data-action="show-panel"]');
     const examplesBox = root.querySelector('[data-role="examples"]');
+    let agentReady = Boolean(window.pageAgent || window.PageAgent);
+    let activationPromise = null;
 
     function setStatus(message) {
       status.textContent = message;
@@ -234,7 +143,12 @@
         if (el.classList.contains("pa-launcher")) return;
         el.disabled = isBusy;
       });
+      activateButton.disabled = isBusy || agentReady;
+      runButton.disabled = isBusy || !agentReady;
+      panelButton.disabled = isBusy || !agentReady;
     }
+
+    setBusy(false);
 
     examples.forEach((example) => {
       const button = document.createElement("button");
@@ -247,28 +161,48 @@
       examplesBox.appendChild(button);
     });
 
-    root.querySelector('[data-action="collapse"]').addEventListener("click", () => {
-      root.classList.add("is-collapsed");
-    });
-
+    root.querySelector('[data-action="collapse"]').addEventListener("click", () => root.classList.add("is-collapsed"));
     root.querySelector(".pa-launcher").addEventListener("click", () => {
       root.classList.remove("is-collapsed");
       prompt.focus();
     });
-
     root.querySelector('[data-action="clear"]').addEventListener("click", () => {
       prompt.value = "";
       prompt.focus();
     });
 
-    root.querySelector('[data-action="show-panel"]').addEventListener("click", async () => {
+    activateButton.addEventListener("click", async () => {
+      const approved = window.confirm(
+        "¿Activar el demo externo de Page Agent? Se cargará código verificado desde jsDelivr y tus instrucciones se enviarán al servicio público de prueba. No continúes con secretos ni información privada."
+      );
+      if (!approved) {
+        setStatus("Page Agent permanece desactivado.");
+        return;
+      }
+
+      setBusy(true);
+      setStatus("Cargando Page Agent verificado...");
+      try {
+        activationPromise ||= loadPageAgentScript();
+        await activationPromise;
+        agentReady = true;
+        setStatus("Page Agent listo para esta sesión.");
+      } catch (error) {
+        activationPromise = null;
+        setStatus(`Error Page Agent: ${error.message}`);
+      } finally {
+        setBusy(false);
+      }
+    });
+
+    panelButton.addEventListener("click", async () => {
       try {
         const agent = await waitForPageAgent();
         if (agent.panel && typeof agent.panel.show === "function") {
           agent.panel.show();
           setStatus("Panel oficial de Page Agent abierto.");
         } else {
-          setStatus("Page Agent está cargado, pero el panel oficial no está disponible en este bundle.");
+          setStatus("Page Agent está cargado, pero el panel oficial no está disponible.");
         }
       } catch (error) {
         setStatus(error.message);
@@ -282,14 +216,16 @@
         prompt.focus();
         return;
       }
+      if (!agentReady) {
+        setStatus("Activa el demo y acepta el aviso de privacidad antes de ejecutar.");
+        return;
+      }
 
       setBusy(true);
       setStatus("Ejecutando Page Agent...");
       try {
         const agent = await waitForPageAgent();
-        if (typeof agent.execute !== "function") {
-          throw new Error("La instancia de Page Agent no expone execute().");
-        }
+        if (typeof agent.execute !== "function") throw new Error("La instancia de Page Agent no expone execute().");
         const result = await agent.execute(command);
         const resultText = result ? ` Resultado: ${typeof result === "string" ? result : JSON.stringify(result)}` : "";
         setStatus(`Page Agent terminó.${resultText}`);
@@ -307,15 +243,8 @@
         runPrompt();
       }
     });
-
-    waitForPageAgent()
-      .then(() => setStatus("Page Agent listo."))
-      .catch((error) => setStatus(error.message));
   }
 
-  if (document.readyState === "loading") {
-    document.addEventListener("DOMContentLoaded", createBridge, { once: true });
-  } else {
-    createBridge();
-  }
+  if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", createBridge, { once: true });
+  else createBridge();
 })();
