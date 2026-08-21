@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 360 150" role="img" aria-labelledby="title desc">
+  <title id="title">NOUS by SERESARTE</title>
+  <desc id="desc">Black architectural arch above the NOUS wordmark.</desc>
+  <g fill="none" stroke="#101010" stroke-width="8" stroke-linecap="square">
+    <path d="M128 58V32c0-18 14-32 32-32h40c18 0 32 14 32 32v26" transform="translate(0 12)"/>
+    <path d="M144 58V38c0-10 8-18 18-18h36c10 0 18 8 18 18v20" transform="translate(0 12)"/>
+    <path d="M160 58V44c0-4 3-8 8-8h24c5 0 8 4 8 8v14" transform="translate(0 12)"/>
+  </g>
+  <text x="180" y="112" text-anchor="middle" font-family="Georgia, 'Times New Roman', serif" font-size="52" font-weight="700" letter-spacing="6" fill="#101010">NOUS</text>
+  <text x="180" y="140" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="13" letter-spacing="5" fill="#101010">BY SERESARTE</text>
+</svg>
