@@ -16,6 +16,7 @@ concurrency:
 
 jobs:
   deploy:
+    timeout-minutes: 15
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
@@ -25,6 +26,11 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v7
+        with:
+          persist-credentials: false
+
+      - name: Build allowlisted public site
+        run: bash scripts/build-pages-site.sh
 
       - name: Detect Pages configuration
         id: pages
@@ -65,9 +71,20 @@ jobs:
         if: steps.pages.outputs.deploy == 'true'
         uses: actions/upload-pages-artifact@v5
         with:
-          path: "."
+          path: "_site"
 
       - name: Deploy to GitHub Pages
         if: steps.pages.outputs.deploy == 'true'
         id: deployment
         uses: actions/deploy-pages@v5
+
+      - name: Report required one-time Pages setup
+        if: steps.pages.outputs.deploy != 'true'
+        run: |
+          echo "::warning title=GitHub Pages is disabled::Enable Pages with GitHub Actions as the source, or configure PAGES_ADMIN_TOKEN for one-time enablement."
+          {
+            echo "### GitHub Pages was not deployed"
+            echo
+            echo "The repository setting is disabled. CI stayed safe and did not upload the repository vault."
+            echo "Enable **Settings → Pages → Build and deployment → GitHub Actions**, then rerun this workflow."
+          } >> "${GITHUB_STEP_SUMMARY}"
