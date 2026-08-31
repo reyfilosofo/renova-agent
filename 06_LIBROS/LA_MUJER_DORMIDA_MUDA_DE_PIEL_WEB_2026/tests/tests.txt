@@ -1,0 +1,51 @@
+# Tests
+
+## Test 1 - Enter artwork, scroll and reveal caligram [sanity]
+Viewport: desktop (1280x800)
+Covers: intro entry, self-contained 120-skin serpent rendering, scroll-driven poem/caligram reveal, primary artwork experience
+Description: Verifies the visitor can enter the work and scrolling through the continuous serpent reveals animated poem-caligrams.
+Steps:
+1. Click the primary enter button in the opening portal
+2. Scroll until several numbered skins are visible
+3. Continue scrolling into a later skin
+Expected: The opening portal is dismissed, the continuous serpent is visible without missing external PDF resources, and poem/caligrams animate into view.
+
+## Test 2 - Hide and restore the complete control chrome
+Viewport: mobile (375x667)
+Covers: hideable controls, mobile header behavior, restore affordance
+Description: Verifies the interface can disappear completely and can be restored without losing the artwork.
+Steps:
+1. Tap the × control in the top toolbar
+2. Confirm the top toolbar disappears and the floating menu affordance appears
+3. Tap the floating menu affordance
+Expected: The full toolbar returns and remains functional.
+
+## Test 3 - Exercise visual transformation controls and language persistence
+Viewport: desktop (1280x800)
+Covers: day/night, binary, MUDAR, mirror, lens, multilingual UI, persistent local preferences
+Description: Verifies core visual transformations are interactive and language/day-night/binary preferences persist.
+Steps:
+1. Toggle DÍA/NOCHE, BINARIO, MUDAR, ESPEJO and LENTE
+2. Change the language selector from ES to EN
+3. Refresh the page
+Expected: Each visual control produces a visible transformation; English labels remain after refresh and persisted day/night/binary state is retained.
+
+## Test 4 - Open real Stripe purchase and support checkouts
+Viewport: desktop (1280x800)
+Covers: live Stripe purchase link, MXN 314 purchase CTA, live voluntary-support Stripe link
+Description: Verifies both monetization actions navigate to their dedicated live Stripe-hosted destinations.
+Steps:
+1. Click BUY / COMPRAR and verify a Stripe-hosted checkout opens
+2. Return to the artwork
+3. Click SUPPORT / APOYAR and verify a distinct Stripe-hosted support page opens
+Expected: Purchase opens the MX$314 live checkout and support opens the separate voluntary-contribution destination.
+
+## Test 5 - Use audio, auto-scroll, share and install affordances on mobile
+Viewport: mobile (375x667)
+Covers: generative/TTS audio, automatic scroll, Web Share API fallback, PWA install affordance
+Description: Verifies mobile utility controls work without blocking the artwork.
+Steps:
+1. Tap AUDIO and AUTO and observe their active states and automatic movement
+2. Stop AUTO and tap SHARE
+3. Tap ADD TO HOME
+Expected: Audio activates, AUTO starts and can stop, sharing invokes the platform share flow or copy fallback, and install invokes the prompt or explicit iPhone/iPad instructions.
