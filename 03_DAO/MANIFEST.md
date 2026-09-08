@@ -15,25 +15,32 @@ confidence: alta
 Proyecto matriz y corpus de ediciones/comentarios Dao De Jing y serie de Dao aplicados. Drive conserva PDFs, fuentes y derivados; GitHub conserva estructura, taxonomía, mapas y reglas.
 
 ## Estado canónico
-`INVENTARIADO DIRECTO`. El Canon registra 25 archivos Drive y un mapa operativo v3.
+`INVENTARIADO DIRECTO / CORE_RECONCILED`.
 
-## Núcleo verificado
-- `Dao_De_Jing_SERESARTE_ReyFilosofo_Edicion_Troncal_Ampliada.pdf` — edición troncal localizada.
-- `DaoDeJing_Mini.pdf` — localizado; rol editorial por determinar.
-- `CJGR-W000154` — edición v4.0 digital referida; debe reconciliarse con troncal y Mini.
+## Canon del Dao De Jing — corte 2026-09-08
+La reconciliación detallada vive en `DAO_DE_JING_CANON.md`.
+
+1. **v4.0 IMPRENTA** — `MASTER_CANDIDATE / EDITORIAL_MATRIX_CANDIDATE`.
+2. **Edición Troncal Ampliada** — `SOURCE / PREDECESSOR_MASTER_CANDIDATE`.
+3. **DaoDeJing_Mini** — `OMNIBUS / AGGREGATE_EXPORT`; no es master del núcleo.
+4. **v4.0 DIGITAL** — `REFERENCED_NOT_LOCATED`; no se equipara automáticamente a IMPRENTA.
+
+## Razón de la clasificación
+La v4.0 verificada tiene una arquitectura editorial más concentrada, separa explícitamente Daojing y Dejing y declara corregir la repetición de versiones anteriores. Sin embargo, su propio preflight todavía exige actos externos antes de venta pública impresa; por eso no se promueve aún a `MASTER`.
 
 ## Serie aplicada localizada
 Diplomacia, Vida, Muerte, Política, Negocios, AI, Mente, Economía, Tierra, Justicia y Derecho, Educación, Infancia, Arte, Verdad, Paz, Abraham, ℛenova y otras líneas.
 
 ## Regla de master
-`FINAL`, `Maestra`, `Monumental` y similares son etiquetas de filename, no autoridad canónica. Cada línea debe tener un rol explícito: `source | candidate | master_candidate | master | export | alternative`.
+`FINAL`, `Maestra`, `Monumental`, `Definitiva` y similares son etiquetas de archivo, no autoridad canónica. Cada línea debe tener un rol explícito: `source | candidate | master_candidate | master | export | alternative | omnibus`.
 
-## Quality gates
-1. Diff de v4.0 vs. Troncal vs. Mini.
-2. Identificar edición/traducción fuente y separar traducción, comentario, adaptación e interpretación.
-3. Auditoría bibliográfica y factual por dominio.
-4. Revisión especializada para contenidos clínicos, jurídicos, económicos, políticos o científicos.
+## Quality gates restantes
+1. Localizar/reconciliar la línea DIGITAL exacta si existe.
+2. Dictamen sinológico externo y revisión de fuentes/traducción.
+3. Auditoría bibliográfica/factual.
+4. Corrección final y preflight físico para versión de imprenta.
 5. Reconciliar IDs faltantes con ARCHIVO TOTAL antes de crear IDs nuevos.
+6. Issue ledger por cada Dao aplicado con revisión de dominio cuando corresponda.
 
 ## Próxima acción
-Crear issue ledger por cada Dao aplicado y resolver primero el canon del Dao De Jing troncal.
+Promover v4.0 sólo después de pasar gates externos; en paralelo, abrir issue ledgers por las líneas aplicadas de mayor prioridad editorial/comercial.
