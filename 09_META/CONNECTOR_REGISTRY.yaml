@@ -1,0 +1,66 @@
+version: 1
+orchestrator: "ChatGPT / CENTRO"
+repository_visibility: public
+
+connectors:
+  google_drive:
+    role: document_system_of_record
+    authority:
+      - masters
+      - binary_assets
+      - private_documents
+      - final_deliverables
+    data_classes_allowed: [P0, P1, P2]
+    write_policy: explicit_task_or_verified_workflow
+    raw_private_data_allowed: true
+    mirror_to_public_github: false
+
+  github:
+    repository: reyfilosofo/renova-agent
+    role: version_control_and_operational_memory
+    authority:
+      - code
+      - markdown
+      - prompts
+      - architecture
+      - decision_logs
+      - non_sensitive_automation
+    data_classes_allowed: [P0, P1_anonymized]
+    write_policy: small_verifiable_reversible_commits
+    raw_private_data_allowed: false
+    secrets_allowed: false
+
+  peach_whatsapp_business:
+    role: transactional_messaging_channel
+    authority:
+      - conversation_lookup
+      - contact_lookup
+      - contextual_reply
+    data_classes_allowed: [P1, P2_transient]
+    write_policy: send_only_when_user_or_governed_workflow_authorizes
+    raw_export_to_github: false
+    otp_handling: never_store_or_forward
+    system_sender_autoreply: disabled_by_policy
+
+policies:
+  source_selection:
+    files_and_masters: google_drive
+    code_and_rules: github
+    whatsapp_conversations: peach_whatsapp_business
+  minimization: true
+  verify_after_write: true
+  decision_log_for_structural_changes: true
+  bidirectional_bulk_sync: false
+  event_driven_selective_sync: preferred
+  pii_to_public_repo: forbidden
+  credentials_to_repo_or_chat: forbidden
+
+workflow_contract:
+  phases:
+    - discover
+    - classify
+    - read_minimum
+    - reason
+    - act
+    - verify
+    - record
