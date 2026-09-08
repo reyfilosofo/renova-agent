@@ -1,0 +1,43 @@
+version: 1
+updated: 2026-09-08
+project: P-SERESARTE
+policy:
+  public_url_requires_verification: true
+  stale_chat_reference_is_not_active_property: true
+  credentials_never_stored_here: true
+
+properties:
+  SERESARTE-ARCHIVO-VIVO:
+    name: "SERESARTE — Archivo Vivo"
+    type: website
+    status: ACTIVE_VERIFIED
+    public_url: "https://seresarte-archivo-vivo.seresarte.chatgpt.site"
+    platform: ChatGPT_site
+    verification_source: ChatGPT_Library_site_metadata
+    source_version_number: 5
+    projection_revision: 4
+    role: public_archive_and_catalog_candidate
+    next_action: "verify brand assets, commerce links, canonical navigation and ownership/footer metadata before declaring flagship institutional site"
+
+pending_properties:
+  - id: SERESARTE-INSTITUTIONAL-WEB
+    status: NEEDS_DISCOVERY
+    reason: "Other SERESARTE site versions are referenced historically but no single current public URL has been verified in this pass."
+  - id: REY-FILOSOFO-WEB
+    status: NEEDS_RECONCILIATION
+    reason: "EdgeOne/AppDeploy and other versions are referenced; active canonical deployment must be verified before registration."
+  - id: SERESARTE-HTML-COLLECTION
+    status: NEEDS_RECONCILIATION
+    reason: "Interactive HTML/art properties exist but require one-by-one public URL/source/deployment mapping."
+
+required_fields_for_new_property:
+  - canonical_name
+  - public_url
+  - platform_or_host
+  - source_repository_or_private_source_flag
+  - status
+  - last_verified_date
+  - brand_asset_version
+  - owner_or_operator
+  - supersedes_or_superseded_by
+  - rollback_or_recovery_source
