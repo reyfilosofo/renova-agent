@@ -1,0 +1,76 @@
+version: 1
+updated: 2026-09-08
+project: P-SERESARTE
+policy:
+  drive_is_binary_source_of_truth: true
+  github_stores_public_safe_metadata_only: true
+  newest_filename_does_not_equal_approved_master: true
+  generated_image_does_not_equal_brand_master: true
+  approval_required_for_current_asset: true
+
+assets:
+  SERESARTE-BRAND-GUIDE-200806:
+    name: "200806_Seresarte_Brandbook.pdf"
+    class: brand_guidelines
+    status: LEGACY_BASELINE_VERIFIED
+    evidence:
+      - two Drive copies located with same title
+      - Library copies expose sections for logo, primary/secondary marks, misuse, typography, colours and graphic principles
+    authority: historical_brand_system
+    current_master: false
+    note: "Use as historical design-system evidence; do not assume it contains the 2026 corrected wordmark."
+
+  SERESARTE-INSTITUTIONAL-DECK-2026:
+    name: "SERESARTE.2026.pdf"
+    class: institutional_capability_deck
+    status: VERIFIED_SOURCE
+    authority: institutional_narrative_candidate
+    current_brandbook: false
+    evidence:
+      - 35-page copies located
+      - describes SERESARTE mission, reason for being, programs and experiences
+    note: "Institutional deck, not a replacement brand guideline."
+
+  SERESARTE-WORDMARK-2026-CORRECTED:
+    name: "Corrected SERESARTE wordmark outputs"
+    class: wordmark
+    status: CURRENT_CANDIDATE
+    authority: candidate_visual_asset
+    current_master: false
+    evidence:
+      - latest 2026-09-08 Library outputs explicitly describe corrected wordmark
+      - black/white positive-negative variants exist
+      - vertical upward-reading application variants exist
+    blockers:
+      - select one exact source file as approved vector/raster master
+      - create checksum and canonical filename
+      - package transparent black/white SVG-or-vector-equivalent and PNG exports
+      - document minimum size, clearspace and misuse
+
+  SERESARTE-ARCH-S-MARK:
+    name: "SERESARTE arch / stylized S mark"
+    class: logo_mark
+    status: VERIFIED_SOURCE_CANDIDATE
+    authority: candidate_logo_mark
+    current_master: false
+    evidence:
+      - transparent arch/S asset located in Library
+    blockers:
+      - reconcile with brandbook primary/secondary mark
+      - confirm 2026 approval and master source
+
+status_vocabulary:
+  - LEGACY_BASELINE_VERIFIED
+  - VERIFIED_SOURCE
+  - CURRENT_CANDIDATE
+  - APPROVED_MASTER
+  - SUPERSEDED
+
+promotion_to_APPROVED_MASTER_requires:
+  - exact_file_selected
+  - approval_evidence
+  - checksum
+  - source_format_or_reproducible_vector
+  - black_white_positive_negative_exports
+  - usage_rules
+  - rollback_or_superseded_predecessor
