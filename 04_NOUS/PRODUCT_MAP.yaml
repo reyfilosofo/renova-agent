@@ -1,0 +1,170 @@
+version: 1
+updated: 2026-09-08
+project: P-NOUS
+source_policy:
+  private_offer_truth: "Google Drive — NOUS CRM y Modelo Financiero — Maestro 2026"
+  public_registry: github
+  pricing_public: false
+  client_data_public: false
+  proposal_does_not_prove_contract: true
+  contract_does_not_prove_payment: true
+  payment_requires_financial_source: true
+
+separation:
+  foundation: "Fundación SERESARTE — nonprofit/cultural mission"
+  professional_services: "NOUS by SERESARTE — strategic intelligence and advisory"
+  renova_products: "ℛenova-derived methods/systems; each needs its own claim/IP gate"
+  clients: "private Drive records only"
+
+offers:
+  MID-72:
+    name: "Founder Intelligence Sprint"
+    category: executive_intelligence
+    audience: [founder, director_general, board]
+    problem: urgent_decision_with_fragmented_information
+    deliverables: [executive_memo, judgments, risks, scenarios, briefing]
+    private_source_required: true
+    commercial_status: CATALOGUED
+    next_offer: [RIC, governance, retainer]
+
+  RIC-E:
+    name: "RIC Express"
+    category: cultural_strategic_intelligence
+    audience: [brand, institution, developer]
+    problem: understand_territory_narrative_or_sensitivity
+    deliverables: [cultural_map, actor_map, risks, opportunities, recommendation]
+    private_source_required: true
+    commercial_status: CATALOGUED
+    next_offer: [RIC-S]
+
+  RIC-S:
+    name: "RIC Strategic"
+    category: cultural_strategic_intelligence
+    audience: [corporate, foundation, government]
+    problem: complex_entry_legitimacy_or_programming
+    deliverables: [research, interviews, scenarios, map, executive_session]
+    private_source_required: true
+    commercial_status: CATALOGUED
+    next_offer: [PID]
+
+  RICO-L:
+    name: "RICO Light"
+    category: organizational_intelligence
+    audience: [company, nonprofit]
+    problem: rapid_culture_diagnosis
+    deliverables: [survey, interviews, narratives, risks, thirty_day_plan]
+    private_source_required: true
+    commercial_status: CATALOGUED
+    next_offer: [RICO-S]
+
+  RICO-S:
+    name: "RICO Standard"
+    category: organizational_intelligence
+    audience: [company, institution]
+    problem: fragmentation_and_internal_coherence_loss
+    deliverables: [integral_diagnosis, renova_matrix, workshop, ninety_day_plan]
+    private_source_required: true
+    commercial_status: CATALOGUED
+    next_offer: [transformation]
+
+  GOV-P:
+    name: "Governance Pulse"
+    category: governance
+    audience: [nonprofit, board, family_business]
+    problem: governance_vulnerability_before_crisis
+    deliverables: [checklist, interviews, map, priorities]
+    private_source_required: true
+    commercial_status: CATALOGUED
+    next_offer: [GOV-RX]
+
+  GOV-RX:
+    name: "Governance RX"
+    category: governance
+    audience: [board, foundation, company]
+    problem: diffuse_roles_weak_control_or_founder_dependency
+    deliverables: [governance_radiography, indices, thirty_sixty_ninety_plan, board_session]
+    private_source_required: true
+    commercial_status: CATALOGUED
+    next_offer: [governance_accompaniment]
+
+  LUCEM:
+    name: "LUCEM Dossier"
+    category: evidence_verification
+    audience: [board, communications, research]
+    problem: unverified_claims_reports_or_narratives
+    deliverables: [evidence_matrix, contradictions, confidence_assessment, red_team]
+    private_source_required: true
+    commercial_status: CATALOGUED
+    next_offer: [recurring_audit]
+
+  CIV-100:
+    name: "CIVITAS 100 Diagnostic"
+    category: continuity_and_legacy
+    audience: [business_family, family_office]
+    problem: continuity_succession_legitimacy_and_legacy
+    deliverables: [ICL_100, interviews, continuity_map, executive_brief]
+    private_source_required: true
+    commercial_status: CATALOGUED
+    next_offer: [ARC_100]
+
+  PID:
+    name: "Private Intelligence Desk"
+    category: recurring_intelligence
+    audience: [principal, board, family_office]
+    problem: recurring_decision_support_and_monitoring
+    deliverables: [briefs, alerts, scenarios, consultations, monthly_session]
+    private_source_required: true
+    commercial_status: CATALOGUED
+    next_offer: [annual_renewal]
+
+  CENTRO-I:
+    name: "CENTRO Institucional"
+    category: institutional_knowledge_access
+    audience: [institution, university, foundation]
+    problem: recurring_access_to_knowledge_and_community
+    deliverables: [institutional_access, archive, briefing, session]
+    private_source_required: true
+    commercial_status: CATALOGUED
+    next_offer: [custom_project]
+
+  IOB-30:
+    name: "NOUS BUSINESS — Diagnóstico IOB"
+    category: business_operations
+    audience: [owner, director_general, operations]
+    problem: inefficiency_cost_delay_or_control_without_baseline
+    deliverables: [executive_memo, operating_map, baseline, RACI, opportunities, scenarios, thirty_sixty_ninety_plan]
+    private_source_required: true
+    commercial_status: CATALOGUED
+    next_offer: [IOB-90]
+
+  IOB-90:
+    name: "NOUS OPERATIONS — Transformación 90"
+    category: business_operations
+    audience: [director_general, operations, finance]
+    problem: validated_opportunities_without_implementation_ownership_or_controls
+    deliverables: [redesign, automation, dashboard, manuals, training, governance]
+    private_source_required: true
+    commercial_status: CATALOGUED
+    next_offer: [OPS-DESK]
+
+  OPS-DESK:
+    name: "NOUS Operations Desk"
+    category: recurring_operations_intelligence
+    audience: [director_general, operations, board]
+    problem: operational_deviation_without_recurring_monitoring
+    deliverables: [dashboard, alerts, margin_capacity_incident_analysis, executive_session]
+    private_source_required: true
+    commercial_status: CATALOGUED
+    next_offer: [monthly_renewal]
+
+commercial_rules:
+  before_quoting:
+    - read_current_private_products_row
+    - verify_scope_and_version
+    - verify_client_context
+    - do_not_infer_price_from_old_proposal
+  before_claiming_client_or_case:
+    - verify_contract_or_authorized_case_status
+    - respect_confidentiality
+  before_claiming_payment:
+    - verify_financial_source
