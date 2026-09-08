@@ -1,0 +1,151 @@
+version: 1
+updated: 2026-09-08
+orchestrator: "ChatGPT / CENTRO"
+source_policy:
+  private_canonical_index: google_drive
+  public_operational_manifest: github
+  financial_truth: stripe
+  whatsapp_channel: peach
+  no_master_by_filename_only: true
+  no_bulk_bidirectional_sync: true
+
+promotion_states:
+  - DISCOVERED
+  - CANDIDATE
+  - VERIFIED_SOURCE
+  - MASTER_CANDIDATE
+  - MASTER
+  - COMMERCIAL_ACTIVE
+  - SUPERSEDED
+
+projects:
+  P-ORCAS:
+    name: ORCAS
+    ecosystem: "ℛenova Press / SERESARTE"
+    status: "COMERCIAL ACTIVO / CANON PARCIAL"
+    authority: "Drive private manifest + Canon Master Index + Stripe for sales"
+    public_repo_data_class: P0_P1_anonymized
+    master_policy: "commercial source does not imply editorial master"
+    blockers:
+      - reconcile_current_html_with_automation
+      - separate_editorial_master_from_commercial_product
+      - preserve_personalized_and_historical_editions
+    next_action: "functional/editorial diff before any source replacement"
+
+  P-RENOVA:
+    name: "ℛenova core"
+    ecosystem: "ℛenova"
+    status: "RECUPERACIÓN EN CURSO"
+    authority: "Drive corpus + ARCHIVO TOTAL IDs"
+    public_repo_data_class: P0_P1_anonymized
+    master_policy: "no global master confirmed"
+    blockers:
+      - corpus_hierarchy
+      - hashes_and_diffs
+      - scientific_and_bibliographic_audit
+      - preflight
+    next_action: "corpus graph + issue ledger per treatise"
+
+  P-DAO:
+    name: "DAO / DAO IAO"
+    ecosystem: "DAO / ℛenova"
+    status: "INVENTARIADO DIRECTO"
+    authority: "Drive corpus + Canon DAO map"
+    public_repo_data_class: P0_P1_anonymized
+    master_policy: "FINAL/Maestra/Monumental labels are non-authoritative"
+    blockers:
+      - citations_and_translations
+      - reconcile_v4_troncal_mini
+      - missing_ARCHIVO_TOTAL_ids
+      - domain_specific_reviews
+    next_action: "Dao De Jing diff + issue ledgers for applied Dao line"
+
+  P-SERESARTE:
+    name: "SERESARTE institucional"
+    ecosystem: SERESARTE
+    status: "REFERENCIADO / AUDITORÍA PENDIENTE"
+    authority: "Canon Master Index + verified Drive assets"
+    public_repo_data_class: P0_P1_anonymized
+    blockers:
+      - current_brandbook
+      - canonical_sitemap
+      - approved_2026_logo_wordmark_assets
+      - active_web_properties
+    next_action: "Brand Asset Manifest 2026 + digital property registry"
+
+  P-NOUS:
+    name: "NOUS by SERESARTE"
+    ecosystem: "SERESARTE INTELLIGENCE"
+    status: "REFERENCIADO / AUDITORÍA PENDIENTE"
+    authority: "Drive private folder + CRM/model"
+    public_repo_data_class: P0_P1_anonymized
+    blockers:
+      - official_sales_assets
+      - foundation_company_separation
+      - pricing_contracts_master_package
+    next_action: "product map + offer source-of-truth"
+
+  P-REY:
+    name: "Rey Filósofo"
+    ecosystem: "ReyFilosofo / SERESARTE"
+    status: "CANON WEB PENDIENTE"
+    public_repo_data_class: P0_P1_anonymized
+    next_action: "web property registry and deployment reconciliation"
+
+  P-LMD:
+    name: "LA MUJER DORMIDA MUDA DE PIEL"
+    ecosystem: SERESARTE
+    status: "ARCHIVOS LOCALIZADOS"
+    public_repo_data_class: P0
+    next_action: "hash/diff and distinguish work/edition/web experience"
+
+  P-CVO:
+    name: "CADA VEZ OTRO"
+    ecosystem: SERESARTE
+    status: "PDF DE VENTA LOCALIZADO"
+    public_repo_data_class: P0
+    next_action: "preflight + product reconciliation"
+
+  P-NHA:
+    name: "NO HAY AFUERA"
+    ecosystem: SERESARTE
+    status: "ORIGINAL PENDIENTE"
+    public_repo_data_class: P0
+    next_action: "locate exact original before reconstruction"
+
+  P-HD:
+    name: "Human Design / ANANDA"
+    ecosystem: SERESARTE
+    status: "AUDITORÍA PENDIENTE"
+    public_repo_data_class: P0_P1_anonymized
+    domain_policy: "symbolic; never label as empirically validated science"
+    next_action: "locate originals and label epistemic domain"
+
+private_projects:
+  policy: "client and confidential manifests live only in Drive; GitHub stores no raw client data"
+  entries:
+    - P-TAYGA
+    - C-LUCKY
+    - C-APL
+    - C-ALEMA
+    - C-GERI
+    - C-JAC
+
+systems:
+  SYS-AT:
+    name: "ARCHIVO TOTAL CJGR"
+    role: "upper ontology and canonical ID sequence"
+    rule: "do not mint IDs without sequence review"
+  SYS-FOUNDRY:
+    name: "SERESARTE — FOUNDRY IA"
+    role: "maturity/review pipeline"
+    rule: "do not recreate folders; router must be tested before migration"
+
+ready_for_automation_when:
+  - stable_project_id
+  - verified_document_source
+  - explicit_operational_or_master_source
+  - version_and_status
+  - delivery_rules_when_applicable
+  - blockers_explicit
+  - rollback_defined
