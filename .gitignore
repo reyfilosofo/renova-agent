@@ -9,6 +9,27 @@
 secrets/
 credentials/
 
+# Connector-private data: never commit raw personal/business records
+private/
+data/raw/
+data/private/
+exports/whatsapp/
+exports/gdrive/
+exports/contacts/
+exports/email/
+whatsapp_raw/
+gdrive_raw/
+*.contacts.json
+*.messages.json
+*.chat-export.*
+*.otp
+
+# Local connector state / caches
+.mcp-local/
+.connector-cache/
+.peach/
+.gdrive-cache/
+
 # Node
 node_modules/
 dist/
