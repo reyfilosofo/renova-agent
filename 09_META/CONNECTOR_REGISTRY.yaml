@@ -1,4 +1,4 @@
-version: 1
+version: 2
 orchestrator: "ChatGPT / CENTRO"
 repository_visibility: public
 
@@ -10,6 +10,7 @@ connectors:
       - binary_assets
       - private_documents
       - final_deliverables
+      - private_project_manifests
     data_classes_allowed: [P0, P1, P2]
     write_policy: explicit_task_or_verified_workflow
     raw_private_data_allowed: true
@@ -24,6 +25,7 @@ connectors:
       - prompts
       - architecture
       - decision_logs
+      - public_safe_project_manifests
       - non_sensitive_automation
     data_classes_allowed: [P0, P1_anonymized]
     write_policy: small_verifiable_reversible_commits
@@ -42,11 +44,34 @@ connectors:
     otp_handling: never_store_or_forward
     system_sender_autoreply: disabled_by_policy
 
+manifest_system:
+  private_drive_root: "SERESARTE_BRAIN — AI OPS 2026/09_META/PROJECT_MANIFESTS_PRIVATE"
+  private_index: "CENTRO — Project Manifest Index · Private · 2026-09-08"
+  public_index: "09_META/PROJECT_MANIFEST_INDEX.yaml"
+  public_project_manifests:
+    SERESARTE: "01_SERESARTE/MANIFEST.md"
+    RENOVA: "02_RENOVA/MANIFEST.md"
+    DAO: "03_DAO/MANIFEST.md"
+    NOUS: "04_NOUS/MANIFEST.md"
+    ORCAS: "06_LIBROS/ORCAS_MANIFEST.md"
+  update_rule: "private manifest may contain Drive references; public manifest must minimize/omit PII, private IDs, contracts, conversations and secrets"
+
+promotion_states:
+  - DISCOVERED
+  - CANDIDATE
+  - VERIFIED_SOURCE
+  - MASTER_CANDIDATE
+  - MASTER
+  - COMMERCIAL_ACTIVE
+  - SUPERSEDED
+
 policies:
   source_selection:
     files_and_masters: google_drive
     code_and_rules: github
     whatsapp_conversations: peach_whatsapp_business
+    project_status_private: google_drive
+    project_status_public_safe: github
   minimization: true
   verify_after_write: true
   decision_log_for_structural_changes: true
@@ -54,6 +79,8 @@ policies:
   event_driven_selective_sync: preferred
   pii_to_public_repo: forbidden
   credentials_to_repo_or_chat: forbidden
+  master_by_filename_only: forbidden
+  commercial_active_implies_editorial_master: false
 
 workflow_contract:
   phases:
@@ -64,3 +91,12 @@ workflow_contract:
     - act
     - verify
     - record
+
+project_ready_for_automation_when:
+  - stable_project_id
+  - verified_document_source
+  - explicit_master_or_operational_source
+  - version_and_status
+  - delivery_rules_when_applicable
+  - blockers_explicit
+  - rollback_defined
