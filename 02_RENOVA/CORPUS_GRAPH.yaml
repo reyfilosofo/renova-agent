@@ -1,0 +1,175 @@
+version: 1
+updated: 2026-09-08
+project: P-RENOVA
+policy:
+  no_automatic_merge: true
+  unknown_is_valid_state: true
+  filename_final_is_not_canonical: true
+  private_binaries_live_in_drive: true
+  public_repo_contains_only_safe_metadata: true
+
+nodes:
+  CJGR-S000004:
+    title: "ℛenova"
+    type: corpus_series
+    status: VERIFIED_SOURCE
+    role: corpus_matrix
+
+  CJGR-W000121:
+    title: "ℛENOVA (H): Hábitat, Herida y Horizonte"
+    type: treatise
+    version: V7.5
+    status: MASTER_CANDIDATE
+    evidence_status: file_verified
+    gates_pending: [hash_lineage, scientific_audit, bibliography, editorial_preflight]
+
+  CJGR-W000023:
+    title: "ℛenova (H)"
+    type: treatise_or_source
+    status: REFERENCED
+    relation_to_W000121: UNKNOWN_RELATION
+
+  CJGR-W000122:
+    title: "Filosofía Renovativa · Tratado de la vida que se abre"
+    type: treatise
+    version: V2.7
+    status: MASTER_CANDIDATE
+    gates_pending: [citation_audit, cover_isbn_proof, relation_to_corpus]
+
+  CJGR-W000155:
+    title: "ℛenova: Ciencia de la Vida"
+    type: philosophical_scientific_treatise
+    version: V8.0
+    status: CANDIDATE
+    gates_pending: [scientific_claim_classification, bibliography, preflight]
+
+  RENOVA-OMNIA-QUALIA:
+    title: "RENOVA OMNIA QUALIA — Tratado Maestro"
+    type: compilation_or_treatise_unknown
+    version: v3.0
+    status: VERIFIED_SOURCE
+    canonical_id: unresolved
+
+  RENOVA-QUALIA-V2:
+    title: "Qualia Renovativos"
+    type: sub_treatise
+    version: v2
+    status: VERIFIED_SOURCE
+    canonical_id: unresolved
+
+  RENOVA-TOTAL-QUALIA-V2:
+    title: "Renova Total Qualia Integrada"
+    type: compilation_or_edition
+    version: v2.0
+    status: VERIFIED_SOURCE
+    canonical_id: unresolved
+    duplicate_status: probable_same_size_copies_hash_pending
+
+  CJGR-W000024:
+    title: "Tratado Matemático y Lógico de la ℛenova / 32 ecuaciones"
+    type: formal_sub_treatise
+    version: V4.1
+    status: VERIFIED_SOURCE
+    gates_pending: [mathematical_review, empirical_claim_review, assumptions_and_evidence]
+
+  DAO-RENOVA-V2:
+    title: "El Dao de la ℛenova"
+    type: bridge_work
+    version: V2
+    status: VERIFIED_SOURCE
+    canonical_id: unresolved
+
+  CENTRO-RUNTIME:
+    title: "CENTRO Runtime"
+    type: operational_system
+    version: v1.2
+    status: VERIFIED_SOURCE
+    canonical_id: unresolved
+
+  RENOVA-AI-GOVERNANCE:
+    title: "Renova AI Governance"
+    type: commercial_system_product
+    status: ASSET_FAMILY_VERIFIED
+    canonical_id: unresolved
+
+edges:
+  - from: CJGR-S000004
+    to: CJGR-W000121
+    relation: contains_member
+    confidence: high
+  - from: CJGR-S000004
+    to: CJGR-W000122
+    relation: contains_member
+    confidence: high
+  - from: CJGR-S000004
+    to: CJGR-W000155
+    relation: contains_member
+    confidence: high
+  - from: CJGR-S000004
+    to: CJGR-W000024
+    relation: contains_member
+    confidence: high
+  - from: CJGR-S000004
+    to: RENOVA-OMNIA-QUALIA
+    relation: contains_member
+    confidence: high
+  - from: CJGR-S000004
+    to: RENOVA-QUALIA-V2
+    relation: contains_member
+    confidence: high
+  - from: CJGR-S000004
+    to: RENOVA-TOTAL-QUALIA-V2
+    relation: contains_member
+    confidence: high
+  - from: CJGR-W000023
+    to: CJGR-W000121
+    relation: unknown_relation
+    candidate_relations: [version_of, predecessor_of, independent_work]
+    confidence: unresolved
+  - from: RENOVA-OMNIA-QUALIA
+    to: RENOVA-QUALIA-V2
+    relation: unknown_relation
+    candidate_relations: [compiles, expands, independent_of]
+    confidence: unresolved
+  - from: RENOVA-OMNIA-QUALIA
+    to: RENOVA-TOTAL-QUALIA-V2
+    relation: unknown_relation
+    candidate_relations: [version_of, compiles, expands, independent_of]
+    confidence: unresolved
+  - from: RENOVA-OMNIA-QUALIA
+    to: CJGR-W000155
+    relation: unknown_relation
+    candidate_relations: [derives_from, expands, independent_of]
+    confidence: unresolved
+  - from: DAO-RENOVA-V2
+    to: CJGR-S000004
+    relation: bridge_to_corpus
+    confidence: high
+  - from: CENTRO-RUNTIME
+    to: CJGR-S000004
+    relation: operational_component_of_ecosystem
+    confidence: medium_high
+  - from: RENOVA-AI-GOVERNANCE
+    to: CJGR-S000004
+    relation: commercial_derivative_ecosystem
+    confidence: medium
+
+unresolved_nodes_referenced:
+  - "Tractatus ℛenovae"
+  - "Ars Renovare"
+  - "ℛENOVA HERMÉTICA"
+  - "ℛenova ℛeflexogenesis"
+  - "Renova Mayor"
+  - "CLARITAS"
+  - "RATIO"
+  - "VITA"
+  - "ℛ-Scorecard"
+  - "Constitución de IA"
+  - "Truth Protocol"
+  - "Life Protocol"
+
+next_actions:
+  - hash_and_diff_W000023_vs_W000121
+  - compare_qualia_family_by_index_and_text
+  - resolve_canonical_ids_before_minting_new_ids
+  - run_scientific_bibliographic_and_editorial_gates_per_treatise
