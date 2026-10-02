@@ -1,0 +1,30 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "MONEY Review Packet",
+  "type": "object",
+  "required": [
+    "schema_version",
+    "packet_id",
+    "reviewed_at_utc",
+    "status",
+    "independent_view",
+    "reason"
+  ],
+  "properties": {
+    "schema_version": {"type": "string", "const": "1.0"},
+    "packet_id": {"type": "string"},
+    "reviewed_at_utc": {"type": "string", "format": "date-time"},
+    "status": {
+      "type": "string",
+      "enum": ["ACCEPT FOR REVIEW", "REJECT", "WAIT", "EXPIRED", "CONFLICT"]
+    },
+    "freshness_ok": {"type": ["boolean", "null"]},
+    "price_or_odds_verified": {"type": ["boolean", "null"]},
+    "liquidity_checked": {"type": ["boolean", "null"]},
+    "costs_checked": {"type": ["boolean", "null"]},
+    "independent_view": {"type": "string"},
+    "conflicts": {"type": "array", "items": {"type": "string"}},
+    "reason": {"type": "string"}
+  },
+  "additionalProperties": true
+}
