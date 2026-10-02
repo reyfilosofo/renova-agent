@@ -1,0 +1,1 @@
+prediction_id,observed_at,platform,category,market_or_asset,contract_question,deadline,market_price,p_market,p_estimate,p_low,p_high,edge_gross,confidence,signal,catalyst,invalidation,validity_window,liquidity,spread,costs_notes,sources,outcome_0_1,resolved,brier_score,error_class
