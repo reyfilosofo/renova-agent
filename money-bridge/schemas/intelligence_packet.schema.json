@@ -1,0 +1,57 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Omega Predict Intelligence Packet",
+  "type": "object",
+  "required": [
+    "schema_version",
+    "packet_id",
+    "created_at_utc",
+    "expires_at_utc",
+    "source_system",
+    "market_type",
+    "asset_or_event",
+    "signal_classification",
+    "confidence",
+    "thesis",
+    "supporting_evidence",
+    "counter_evidence",
+    "sources"
+  ],
+  "properties": {
+    "schema_version": {"type": "string", "const": "1.0"},
+    "packet_id": {"type": "string", "minLength": 1},
+    "created_at_utc": {"type": "string", "format": "date-time"},
+    "expires_at_utc": {"type": "string", "format": "date-time"},
+    "source_system": {"type": "string"},
+    "market_type": {"type": "string"},
+    "platform": {"type": ["string", "null"]},
+    "asset_or_event": {"type": "string"},
+    "market_question": {"type": ["string", "null"]},
+    "current_price_or_odds": {},
+    "market_implied_probability": {"type": ["number", "null"], "minimum": 0, "maximum": 1},
+    "estimated_probability": {"type": ["number", "null"], "minimum": 0, "maximum": 1},
+    "uncertainty_range": {
+      "type": ["object", "null"],
+      "properties": {
+        "low": {"type": "number", "minimum": 0, "maximum": 1},
+        "high": {"type": "number", "minimum": 0, "maximum": 1}
+      },
+      "required": ["low", "high"],
+      "additionalProperties": false
+    },
+    "signal_classification": {
+      "type": "string",
+      "enum": ["NO PLAY", "WATCH", "POSSIBLE EDGE", "STRONG INFORMATIONAL EDGE", "DATA INSUFFICIENT"]
+    },
+    "confidence": {"type": "string"},
+    "thesis": {"type": "string"},
+    "supporting_evidence": {"type": "array", "items": {"type": "string"}},
+    "counter_evidence": {"type": "array", "items": {"type": "string"}},
+    "catalysts": {"type": "array", "items": {"type": "string"}},
+    "invalidation_conditions": {"type": "array", "items": {"type": "string"}},
+    "liquidity_notes": {"type": ["string", "null"]},
+    "fee_spread_slippage_notes": {"type": ["string", "null"]},
+    "sources": {"type": "array", "items": {"type": "string"}}
+  },
+  "additionalProperties": true
+}
