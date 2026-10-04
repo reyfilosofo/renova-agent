@@ -1,0 +1,29 @@
+{
+  "schema_version": "1.0.0",
+  "app_name": "MONEY",
+  "appdeploy_app_id": "money-z6epdn",
+  "live_url": "https://money-z6epdn.v2.appdeploy.ai/",
+  "deployed_at": "2026-10-04",
+  "surfaces": [
+    "pwa",
+    "website",
+    "web_app"
+  ],
+  "assets": [
+    "BTC",
+    "ETH",
+    "SOL",
+    "DOGE",
+    "XRP",
+    "BNB"
+  ],
+  "timeframes": [
+    "5m",
+    "15m",
+    "1h"
+  ],
+  "plugin_name": "money",
+  "plugin_version": "1.0.0",
+  "drive_bridge_document_id": "1dPrxCh88qwUZyXgRFrgfPdpunu258-Xu1lxEoBUKMik",
+  "security": "No secrets stored in repository."
+}
