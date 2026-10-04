@@ -1,5 +1,5 @@
 {
-  "schema_version": "1.0.0",
+  "schema_version": "1.0.1",
   "app_name": "MONEY",
   "appdeploy_app_id": "money-z6epdn",
   "live_url": "https://money-z6epdn.v2.appdeploy.ai/",
@@ -23,6 +23,7 @@
     "1h"
   ],
   "plugin_name": "money",
+  "plugin_id": "plugins_6ac2270854448191bbd51cc715d67af9",
   "plugin_version": "1.0.0",
   "drive_bridge_document_id": "1dPrxCh88qwUZyXgRFrgfPdpunu258-Xu1lxEoBUKMik",
   "security": "No secrets stored in repository."
