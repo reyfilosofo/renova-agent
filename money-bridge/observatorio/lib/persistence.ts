@@ -1,9 +1,39 @@
 import { env } from 'cloudflare:workers';
 import { ASSETS, getHistory } from './market-data.mjs';
 
-function database() {
+export function database() {
   if (!env.DB) throw new Error('Registro persistente no disponible');
   return env.DB;
+}
+
+export async function cachedPublicData(id:string) {
+  const row=await database().prepare('SELECT updated,payload FROM money_comparator_cache WHERE id=?').bind(id).first<{updated:number;payload:string}>();
+  return row ? {updated:row.updated,value:JSON.parse(row.payload)} : null;
+}
+export async function cachePublicData(id:string,updated:number,value:any) {
+  const payload=JSON.stringify(value);
+  if(payload.length>1500000)throw new Error('Cache de fuente excede límite');
+  await database().prepare('INSERT INTO money_comparator_cache(id,updated,payload) VALUES(?,?,?) ON CONFLICT(id) DO UPDATE SET updated=excluded.updated,payload=excluded.payload').bind(id,updated,payload).run();
+}
+export async function recordMarketMatrix(matrix:any) {
+  const db=database(),created=matrix.completedAt;
+  const statements=matrix.rows.filter((r:any)=>created>=r.startAt&&created<r.endAt).map((r:any)=>{
+    const id=`${r.asset}:${r.horizon}:${r.startAt}:${Math.floor(created/300000)}`;
+    const markets=r.markets.map((m:any)=>({provider:m.provider,status:m.status,id:m.id??null,title:m.title??null,startAt:m.startAt??null,
+      expiresAt:m.expiresAt??null,reference:m.reference??null,referenceLabel:m.referenceLabel??null,labelReference:m.labelReference??null,
+      precisionWarning:m.precisionWarning??null,rules:m.rules??null,decimalPrecision:m.decimalPrecision??null,url:m.url??null,
+      pMarket:m.pMarket??null,up:m.up??null,down:m.down??null,
+      feesEnabled:m.feesEnabled??null,feeSchedule:m.feeSchedule??null,feeRateBps:m.feeRateBps??null,spec:m.spec??null,
+      sourceAt:m.sourceAt??null,requestedAt:m.requestedAt??null,receivedAt:m.receivedAt??null,error:m.error??null,
+      costUp:m.costUp,costDown:m.costDown,contractProbability:null}));
+    return db.prepare('INSERT OR IGNORE INTO money_market_snapshots(id,asset,horizon,window_start,window_end,created,payload) VALUES(?,?,?,?,?,?,?)')
+      .bind(id,r.asset,r.horizon,r.startAt,r.endAt,created,JSON.stringify({created,markets,comparison:r.comparison,cutId:matrix.cutId}));
+  });
+  const results=statements.length?await db.batch(statements):[];
+  if(results.some(r=>r.success!==true||!Number.isFinite(r.meta?.changes)))throw new Error('Guardado de captura no verificado');
+  const inserted=results.reduce((n,r)=>n+r.meta.changes,0),existing=statements.length-inserted;
+  return {status:inserted===0?'EXISTENTE':existing>0?'PARCIAL':'GUARDADO',windows:inserted,attempted:statements.length,inserted,existing,
+    note:existing>0?'Se conserva la primera captura de este corte5m; las nuevas cuotas no reemplazaron registros existentes.':'Primera captura por activo/plazo/corte5m; no se reescribe. No es forecast ni cotización futura.'};
 }
 export async function historyFor(asset: string, now: number) {
   const db = database();
