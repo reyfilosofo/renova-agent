@@ -32,8 +32,8 @@ export async function recordMarketMatrix(matrix:any) {
   const results=statements.length?await db.batch(statements):[];
   if(results.some(r=>r.success!==true||!Number.isFinite(r.meta?.changes)))throw new Error('Guardado de captura no verificado');
   const inserted=results.reduce((n,r)=>n+r.meta.changes,0),existing=statements.length-inserted;
-  return {status:inserted===0?'EXISTENTE':existing>0?'PARCIAL':'GUARDADO',windows:inserted,attempted:statements.length,inserted,existing,
-    note:existing>0?'Se conserva la primera captura de este corte5m; las nuevas cuotas no reemplazaron registros existentes.':'Primera captura por activo/plazo/corte5m; no se reescribe. No es forecast ni cotización futura.'};
+  return {status:statements.length===0?'SIN CAPTURA':inserted===0?'EXISTENTE':existing>0?'PARCIAL':'GUARDADO',windows:inserted,attempted:statements.length,inserted,existing,
+    note:statements.length===0?'La consulta terminó fuera de todas las ventanas; no se registró una captura.':existing>0?'Se conserva la primera captura de este corte5m; las nuevas cuotas no reemplazaron registros existentes.':'Primera captura por activo/plazo/corte5m; no se reescribe. No es forecast ni cotización futura.'};
 }
 export async function historyFor(asset: string, now: number) {
   const db = database();
