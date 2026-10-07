@@ -1,0 +1,29 @@
+{
+  "asset_id": "ASSET-VAL-004",
+  "title": "RCV-01 BLINDED PILOT INSTRUMENT PACK v0.1",
+  "google_sheet_id": "1Ler8mxW0gzjKjAC8XqUVagKXv2nUUuE1tEN_FjGC6K0",
+  "freeze_checked_at": "2026-10-07T08:41:00-06:00",
+  "status": "STRUCTURE-VALIDATOR-FROZEN / CONFIRMATORY-DENIED",
+  "canonicalization": "Google Sheets FORMULA render; bounded A1 ranges; compact JSON values; FNV-1a-64 over UTF-16 code units. Integrity/change detector only, not cryptographic authenticity.",
+  "sheets": {
+    "GATES_README": {"range":"A1:Z30","rows_returned":26,"checksum_fnv1a64":"d724340bb380db3b"},
+    "CASE_DICTIONARY": {"range":"A1:Z20","rows_returned":6,"checksum_fnv1a64":"5352cff7d9efe431"},
+    "BLIND_SCORING": {"range":"A1:Z20","rows_returned":5,"checksum_fnv1a64":"c98aa61bc50ffc3d"},
+    "R5_HARM": {"range":"A1:Z20","rows_returned":6,"checksum_fnv1a64":"70a996775b0c0170"},
+    "EXCLUSIONS": {"range":"A1:Z20","rows_returned":5,"checksum_fnv1a64":"7b3cb4c9eaffc0f8"},
+    "MULTIVERSE": {"range":"A1:Z45","rows_returned":32,"checksum_fnv1a64":"2d1f860d599569c9"}
+  },
+  "invariants": {
+    "tabs": 6,
+    "multiverse_declared": 28,
+    "multiverse_executable_now": 27,
+    "blocked_branch": "MV-026",
+    "blocked_reason": "numeric decision-linked SESOI not frozen in v1.1",
+    "aggregate_rcv_score": "FORBIDDEN",
+    "confirmatory_data": "DENIED",
+    "external_adversarial_review": "BLOCKED-EXTERNAL",
+    "independent_raters": "OPEN",
+    "numeric_sesoi": "OPEN"
+  },
+  "epistemic_note": "Checksums and validator establish structural/provenance integrity only. They do not establish reliability, construct validity, causal validity, or scientific support for renewative capacity."
+}
