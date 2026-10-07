@@ -1,0 +1,90 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "MONEY Ω Opportunity",
+  "type": "object",
+  "required": [
+    "opportunity_id",
+    "provider",
+    "type",
+    "status",
+    "last_verified_at_utc",
+    "evidence"
+  ],
+  "properties": {
+    "opportunity_id": {
+      "type": "string"
+    },
+    "provider": {
+      "type": "string"
+    },
+    "type": {
+      "enum": [
+        "AIRDROP",
+        "CLAIM",
+        "WALLET_BENEFIT",
+        "QUEST",
+        "SURVEY",
+        "PAID_RESEARCH",
+        "BOUNTY",
+        "MICROTASK",
+        "AFFILIATE",
+        "REFERRAL",
+        "OTHER"
+      ]
+    },
+    "official_url": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "expected_gross_reward_usd": {
+      "type": [
+        "number",
+        "null"
+      ]
+    },
+    "reward_probability": {
+      "type": [
+        "number",
+        "null"
+      ],
+      "minimum": 0,
+      "maximum": 1
+    },
+    "expected_net_value_usd": {
+      "type": [
+        "number",
+        "null"
+      ]
+    },
+    "security_risk": {
+      "enum": [
+        "LOW",
+        "MEDIUM",
+        "HIGH",
+        "UNKNOWN"
+      ]
+    },
+    "status": {
+      "enum": [
+        "DO NOW",
+        "QUEUE",
+        "WATCH",
+        "SKIP",
+        "DATA INSUFFICIENT"
+      ]
+    },
+    "last_verified_at_utc": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "evidence": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    }
+  },
+  "additionalProperties": true
+}
