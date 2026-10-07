@@ -1,0 +1,27 @@
+{
+  "schema_version": "2.0",
+  "system": "MONEY Ω",
+  "projects": {
+    "chatgpt_project_id": "PENDING_USER_INPUT",
+    "codex_project_id": "PENDING_USER_INPUT"
+  },
+  "github": {
+    "repo": "reyfilosofo/renova-agent",
+    "branch": "main",
+    "url": "https://github.com/reyfilosofo/renova-agent"
+  },
+  "drive": {
+    "bridge_folder_id": "1qXleX72ff-1w-pkXc4uBZuods5GsON3V",
+    "operating_bridge_id": "1dPrxCh88qwUZyXgRFrgfPdpunu258-Xu1lxEoBUKMik"
+  },
+  "surfaces": {
+    "money_app": "https://money-z6epdn.v2.appdeploy.ai/",
+    "grok_site": "https://themoney.grok.me/",
+    "zealy_mcp_docs": "https://zealy.io/docs/integrations/mcp"
+  },
+  "direct_connections": {
+    "chatgpt_to_codex": false,
+    "grok_bot": false
+  },
+  "default_execution_mode": "READ_ONLY"
+}
