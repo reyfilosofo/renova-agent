@@ -2,7 +2,7 @@
   "schema_version": "1.0.0",
   "generated_at": "2026-10-08",
   "classification": "PUBLIC_SAFE",
-  "note": "Index of areas, not a claim of synchronized runtime, contracts, earnings or master-status",
+  "note": "Index of areas, not a claim of synchronized runtime, contracts, earnings or master-status; confidential clients, care and personal matters indexed only in private Drive bridge",
   "projects": [
     {
       "id": "P-NOUS",
@@ -48,12 +48,6 @@
       "integration": "REFERENCED"
     },
     {
-      "id": "P-TAYGA",
-      "name": "TAYGA",
-      "owner": "private_customer_file",
-      "integration": "PRIVATE_DRIVE_ONLY"
-    },
-    {
       "id": "P-OPERATIONS",
       "name": "NOUS OPERATIONS",
       "owner": "SERESARTE_INTELLIGENCE",
@@ -70,18 +64,6 @@
       "name": "La Cocina de Charlie",
       "owner": "separate_project",
       "integration": "REFERENCED"
-    },
-    {
-      "id": "P-VILLA",
-      "name": "Villa Jacarandas",
-      "owner": "separate_project",
-      "integration": "PRIVATE_ONLY"
-    },
-    {
-      "id": "P-CJGR",
-      "name": "Professional portfolio",
-      "owner": "individual",
-      "integration": "PRIVATE_ONLY"
     },
     {
       "id": "P-MONEY",
