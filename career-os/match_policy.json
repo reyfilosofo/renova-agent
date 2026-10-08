@@ -1,0 +1,30 @@
+{
+  "schema_version": "1.0",
+  "name": "CJGR Career OS Ω",
+  "track_A": {
+    "region": "Mexico",
+    "remote_only": true,
+    "min_guaranteed_published_base_MXN_month": 50000,
+    "open_required": true,
+    "verified_employer_required": true,
+    "official_url_required": true
+  },
+  "approval_gates": [
+    "external_email",
+    "ATS_submission",
+    "recruiter_DM",
+    "public_profile_edit",
+    "document_sharing",
+    "external_meeting_acceptance"
+  ],
+  "integrations": {
+    "executive": "cjgr-executive-os",
+    "career": "cjgr-career-os",
+    "organization": "seresarte-chief-of-staff",
+    "research": "nous-by-seresarte",
+    "drive": "private primary evidence store",
+    "github": "public code only"
+  },
+  "sensitive_files_policy": "NEVER_COMMIT_OR_EMBED",
+  "record_historical_metrics_as": "source_claims_not_independently_verified"
+}
