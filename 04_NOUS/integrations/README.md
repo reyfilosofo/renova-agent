@@ -37,7 +37,7 @@ No Wikipedia. The LUCEM fact/inference/hypothesis distinctions apply.
 - [ ] Only claim synchronized endpoints following an authenticated round-trip
 
 ## NOUS private plugin
-https://chatgpt.com/plugins/plugins_6ac7bf750330819180a3fa700ee1263e
+Private plugin identities and deployment URLs are indexed only in the internal Drive Operating Bridge.
 
 ## Read-only specialist links
 MONEY Ω technical module: `../../money-codex/`; `../../money-bridge/`.
