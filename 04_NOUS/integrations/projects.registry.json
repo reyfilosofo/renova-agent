@@ -1,0 +1,99 @@
+{
+  "schema_version": "1.0.0",
+  "generated_at": "2026-10-08",
+  "classification": "PUBLIC_SAFE",
+  "note": "Index of areas, not a claim of synchronized runtime, contracts, earnings or master-status",
+  "projects": [
+    {
+      "id": "P-NOUS",
+      "name": "NOUS",
+      "owner": "SERESARTE_INTELLIGENCE",
+      "authority": "04_NOUS/MANIFEST.md",
+      "integration": "PARTIAL"
+    },
+    {
+      "id": "P-SERESARTE",
+      "name": "SERESARTE",
+      "owner": "SERESARTE",
+      "integration": "REFERENCED"
+    },
+    {
+      "id": "P-RENOVA",
+      "name": "ℛenova",
+      "owner": "SERESARTE",
+      "integration": "REFERENCED"
+    },
+    {
+      "id": "P-DAO",
+      "name": "DAO IAO",
+      "owner": "SERESARTE",
+      "integration": "REFERENCED"
+    },
+    {
+      "id": "P-CENTRO",
+      "name": "CENTRO",
+      "owner": "SERESARTE",
+      "integration": "REFERENCED"
+    },
+    {
+      "id": "P-RPRESS",
+      "name": "ℛENOVA PRESS",
+      "owner": "SERESARTE",
+      "integration": "REFERENCED"
+    },
+    {
+      "id": "P-ORCAS",
+      "name": "El Secreto de Orcas",
+      "owner": "SERESARTE",
+      "integration": "REFERENCED"
+    },
+    {
+      "id": "P-TAYGA",
+      "name": "TAYGA",
+      "owner": "private_customer_file",
+      "integration": "PRIVATE_DRIVE_ONLY"
+    },
+    {
+      "id": "P-OPERATIONS",
+      "name": "NOUS OPERATIONS",
+      "owner": "SERESARTE_INTELLIGENCE",
+      "integration": "REFERENCED"
+    },
+    {
+      "id": "P-ANANDA",
+      "name": "ANANDA DESIGN",
+      "owner": "separate_project",
+      "integration": "REFERENCED"
+    },
+    {
+      "id": "P-CHARLIE",
+      "name": "La Cocina de Charlie",
+      "owner": "separate_project",
+      "integration": "REFERENCED"
+    },
+    {
+      "id": "P-VILLA",
+      "name": "Villa Jacarandas",
+      "owner": "separate_project",
+      "integration": "PRIVATE_ONLY"
+    },
+    {
+      "id": "P-CJGR",
+      "name": "Professional portfolio",
+      "owner": "individual",
+      "integration": "PRIVATE_ONLY"
+    },
+    {
+      "id": "P-MONEY",
+      "name": "MONEY Ω",
+      "owner": "separate_financial_rails",
+      "integration": "TECHNICAL_MODULE_EXISTING"
+    },
+    {
+      "id": "P-QUALIA",
+      "name": "𝒬ualia ℛenovae",
+      "owner": "SERESARTE",
+      "integration": "REFERENCED"
+    }
+  ]
+}
