@@ -18,14 +18,19 @@ permissions:
   id-token: write
 
 concurrency:
-  group: seresarte-agent-pages
-  cancel-in-progress: true
+  group: pages
+  cancel-in-progress: false
 
 jobs:
   build:
     runs-on: ubuntu-latest
+    outputs:
+      deploy: ${{ steps.pages.outputs.deploy }}
+      enablement: ${{ steps.pages.outputs.enablement }}
     steps:
       - uses: actions/checkout@v6
+        with:
+          persist-credentials: false
       - uses: actions/setup-python@v6
         with:
           python-version: "3.11"
@@ -40,18 +45,51 @@ jobs:
         run: |
           cp _site/seresarte-agent/index.html _site/index.html
           touch _site/.nojekyll
-      - uses: actions/configure-pages@v5
-      - uses: actions/upload-pages-artifact@v4
+      - name: Check GitHub Pages availability
+        id: pages
+        env:
+          API_TOKEN: ${{ secrets.PAGES_ADMIN_TOKEN || github.token }}
+          ADMIN_TOKEN: ${{ secrets.PAGES_ADMIN_TOKEN }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          status="$(curl -sS -o /tmp/pages-status.json -w '%{http_code}' \
+            -H "Authorization: Bearer ${API_TOKEN}" \
+            -H 'Accept: application/vnd.github+json' \
+            "${GITHUB_API_URL}/repos/${GITHUB_REPOSITORY}/pages")"
+          if [ "${status}" = "200" ]; then
+            echo "deploy=true" >> "${GITHUB_OUTPUT}"
+            echo "enablement=false" >> "${GITHUB_OUTPUT}"
+          elif [ "${status}" = "404" ] && [ -n "${ADMIN_TOKEN}" ]; then
+            echo "deploy=true" >> "${GITHUB_OUTPUT}"
+            echo "enablement=true" >> "${GITHUB_OUTPUT}"
+          elif [ "${status}" = "404" ]; then
+            echo "deploy=false" >> "${GITHUB_OUTPUT}"
+            echo "enablement=false" >> "${GITHUB_OUTPUT}"
+            echo "::warning title=GitHub Pages not enabled::Enable Settings > Pages > GitHub Actions or provide PAGES_ADMIN_TOKEN; publishing skipped."
+          else
+            cat /tmp/pages-status.json
+            echo "::error::Pages API returned HTTP ${status}"
+            exit 1
+          fi
+      - uses: actions/configure-pages@v6
+        if: steps.pages.outputs.deploy == 'true'
+        with:
+          enablement: ${{ steps.pages.outputs.enablement }}
+          token: ${{ secrets.PAGES_ADMIN_TOKEN || github.token }}
+      - uses: actions/upload-pages-artifact@v5
+        if: steps.pages.outputs.deploy == 'true'
         with:
           path: _site
 
   deploy:
+    if: needs.build.outputs.deploy == 'true'
+    needs: build
+    runs-on: ubuntu-latest
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
-    runs-on: ubuntu-latest
-    needs: build
     steps:
       - name: Deploy SERESARTE Agent feed
         id: deployment
-        uses: actions/deploy-pages@v4
+        uses: actions/deploy-pages@v5
