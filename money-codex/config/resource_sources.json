@@ -1,0 +1,210 @@
+{
+  "schema_version": "1.1",
+  "mode": "READ_ONLY",
+  "network": {
+    "allowed_hosts": [
+      "code4rena.com",
+      "www.code4rena.com",
+      "immunefi.com",
+      "www.immunefi.com",
+      "api.github.com",
+      "github.com",
+      "zealy.io",
+      "app.galxe.com",
+      "galxe.com",
+      "www.galxe.com",
+      "www.prolific.com",
+      "prolific.com",
+      "www.userinterviews.com",
+      "userinterviews.com",
+      "www.respondent.io",
+      "respondent.io"
+    ],
+    "timeout_seconds": 12,
+    "max_bytes": 1048576,
+    "max_redirects": 3,
+    "min_interval_seconds": 60,
+    "host_interval_seconds": 1
+  },
+  "allowed_github_repositories": [
+    "reyfilosofo/renova-agent",
+    "algora-io/algora"
+  ],
+  "category_coverage": {
+    "BOUNTY": "public catalogue and issues discovery implemented",
+    "QUEST": "public programme/campaign links; no account eligibility",
+    "PAID_RESEARCH": "public participant programme discovery; no paid assignment inferred",
+    "SURVEY": "public participant programme discovery; no responses submitted",
+    "AIRDROP": "not configured; requires official campaign registry and wallet eligibility",
+    "CLAIM": "not configured; no signatures or claims",
+    "WALLET_BENEFIT": "not configured",
+    "MICROTASK": "not configured",
+    "AFFILIATE": "not configured",
+    "REFERRAL": "not configured"
+  },
+  "sources": [
+    {
+      "source_id": "code4rena_audits",
+      "provider": "code4rena",
+      "name": "Code4rena audits",
+      "category": "BOUNTY",
+      "url": "https://code4rena.com/audits",
+      "allowed_hosts": [
+        "code4rena.com",
+        "www.code4rena.com"
+      ],
+      "parser": "catalogue",
+      "max_candidates": 20,
+      "enabled": true,
+      "method": "READ_ONLY",
+      "interval_seconds": 3600
+    },
+    {
+      "source_id": "code4rena_bounties",
+      "provider": "code4rena",
+      "name": "Code4rena bounties",
+      "category": "BOUNTY",
+      "url": "https://code4rena.com/bounties",
+      "allowed_hosts": [
+        "code4rena.com",
+        "www.code4rena.com"
+      ],
+      "parser": "catalogue",
+      "max_candidates": 20,
+      "enabled": true,
+      "method": "READ_ONLY",
+      "interval_seconds": 3600
+    },
+    {
+      "source_id": "immunefi_programs",
+      "provider": "immunefi",
+      "name": "Immunefi",
+      "category": "BOUNTY",
+      "url": "https://immunefi.com/bug-bounty/",
+      "allowed_hosts": [
+        "immunefi.com",
+        "www.immunefi.com"
+      ],
+      "parser": "catalogue",
+      "max_candidates": 20,
+      "enabled": true,
+      "method": "READ_ONLY",
+      "interval_seconds": 3600
+    },
+    {
+      "source_id": "github_renova_bounties",
+      "provider": "github",
+      "name": "GitHub canonical repo bounty issues",
+      "category": "BOUNTY",
+      "repository": "reyfilosofo/renova-agent",
+      "label": "bounty",
+      "url": "https://api.github.com/repos/reyfilosofo/renova-agent/issues?state=open&labels=bounty&per_page=30",
+      "allowed_hosts": [
+        "api.github.com",
+        "github.com"
+      ],
+      "parser": "github_issues",
+      "fallback_program": false,
+      "max_candidates": 20,
+      "enabled": true,
+      "method": "READ_ONLY",
+      "interval_seconds": 3600
+    },
+    {
+      "source_id": "github_algora_bounties",
+      "provider": "github",
+      "name": "GitHub Algora official bounty issues",
+      "category": "BOUNTY",
+      "repository": "algora-io/algora",
+      "label": "bounty",
+      "url": "https://api.github.com/repos/algora-io/algora/issues?state=open&labels=bounty&per_page=30",
+      "allowed_hosts": [
+        "api.github.com",
+        "github.com"
+      ],
+      "parser": "github_issues",
+      "fallback_program": false,
+      "max_candidates": 20,
+      "enabled": true,
+      "method": "READ_ONLY",
+      "interval_seconds": 3600
+    },
+    {
+      "source_id": "zealy_public",
+      "provider": "zealy",
+      "name": "Zealy",
+      "category": "QUEST",
+      "url": "https://zealy.io/",
+      "allowed_hosts": [
+        "zealy.io"
+      ],
+      "parser": "catalogue",
+      "max_candidates": 20,
+      "enabled": true,
+      "method": "READ_ONLY",
+      "interval_seconds": 7200
+    },
+    {
+      "source_id": "galxe_public",
+      "provider": "galxe",
+      "name": "Galxe Quest",
+      "category": "QUEST",
+      "url": "https://app.galxe.com/quest/explore/all",
+      "allowed_hosts": [
+        "app.galxe.com",
+        "galxe.com",
+        "www.galxe.com"
+      ],
+      "parser": "catalogue",
+      "max_candidates": 20,
+      "enabled": true,
+      "method": "READ_ONLY",
+      "interval_seconds": 7200
+    },
+    {
+      "source_id": "prolific_participants",
+      "provider": "prolific",
+      "name": "Prolific participant programme",
+      "category": "PAID_RESEARCH",
+      "url": "https://www.prolific.com/participants",
+      "allowed_hosts": [
+        "www.prolific.com",
+        "prolific.com"
+      ],
+      "parser": "program",
+      "enabled": true,
+      "method": "READ_ONLY",
+      "interval_seconds": 86400
+    },
+    {
+      "source_id": "userinterviews_participants",
+      "provider": "userinterviews",
+      "name": "User Interviews participant programme",
+      "category": "PAID_RESEARCH",
+      "url": "https://www.userinterviews.com/hello",
+      "allowed_hosts": [
+        "www.userinterviews.com",
+        "userinterviews.com"
+      ],
+      "parser": "program",
+      "enabled": true,
+      "method": "READ_ONLY",
+      "interval_seconds": 86400
+    },
+    {
+      "source_id": "respondent_participants",
+      "provider": "respondent",
+      "name": "Respondent participant programme",
+      "category": "PAID_RESEARCH",
+      "url": "https://www.respondent.io/become-a-participant",
+      "allowed_hosts": [
+        "www.respondent.io",
+        "respondent.io"
+      ],
+      "parser": "program",
+      "enabled": true,
+      "method": "READ_ONLY",
+      "interval_seconds": 86400
+    }
+  ]
+}

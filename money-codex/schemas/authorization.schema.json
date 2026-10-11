@@ -1,0 +1,183 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://money-omega.invalid/schemas/authorization/2.1",
+  "title": "MONEY Ω authorization record 2.1 — requires independently verified runtime context",
+  "type": "object",
+  "required": [
+    "authorization_id",
+    "issued_by",
+    "strategy_id",
+    "venue",
+    "account_scope",
+    "schema_version",
+    "authorization_version",
+    "status",
+    "issued_at_utc",
+    "expires_at_utc",
+    "allowed_assets",
+    "allowed_products",
+    "permissions",
+    "limits",
+    "kill_switch"
+  ],
+  "properties": {
+    "authorization_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "issued_by": {
+      "type": "string",
+      "minLength": 1
+    },
+    "strategy_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "venue": {
+      "type": "string",
+      "minLength": 1
+    },
+    "account_scope": {
+      "type": "string",
+      "minLength": 1
+    },
+    "schema_version": {
+      "const": "2.1"
+    },
+    "authorization_version": {
+      "type": "integer",
+      "minimum": 1
+    },
+    "status": {
+      "enum": [
+        "DRAFT",
+        "ACTIVE",
+        "SUSPENDED",
+        "REVOKED",
+        "EXPIRED"
+      ]
+    },
+    "issued_at_utc": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "expires_at_utc": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "revoked_at_utc": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "format": "date-time"
+    },
+    "allowed_assets": {
+      "type": "array",
+      "minItems": 1,
+      "uniqueItems": true,
+      "items": {
+        "type": "string",
+        "minLength": 1
+      }
+    },
+    "allowed_products": {
+      "type": "array",
+      "minItems": 1,
+      "uniqueItems": true,
+      "items": {
+        "type": "string",
+        "minLength": 1
+      }
+    },
+    "permissions": {
+      "type": "object",
+      "required": [
+        "read_market_data",
+        "read_account_state",
+        "place_orders",
+        "cancel_orders",
+        "wallet_sign",
+        "withdraw",
+        "external_transfer"
+      ],
+      "properties": {
+        "read_market_data": {
+          "type": "boolean"
+        },
+        "read_account_state": {
+          "type": "boolean"
+        },
+        "place_orders": {
+          "type": "boolean"
+        },
+        "cancel_orders": {
+          "type": "boolean"
+        },
+        "wallet_sign": {
+          "type": "boolean"
+        },
+        "withdraw": {
+          "type": "boolean"
+        },
+        "external_transfer": {
+          "type": "boolean"
+        }
+      },
+      "additionalProperties": false
+    },
+    "limits": {
+      "type": "object",
+      "required": [
+        "max_order_usd",
+        "max_gross_exposure_usd",
+        "max_daily_loss_usd",
+        "max_orders_per_hour"
+      ],
+      "properties": {
+        "max_order_usd": {
+          "type": "number",
+          "exclusiveMinimum": 0
+        },
+        "max_gross_exposure_usd": {
+          "type": "number",
+          "exclusiveMinimum": 0
+        },
+        "max_daily_loss_usd": {
+          "type": "number",
+          "exclusiveMinimum": 0
+        },
+        "max_orders_per_hour": {
+          "type": "integer",
+          "exclusiveMinimum": 0
+        }
+      },
+      "additionalProperties": false
+    },
+    "kill_switch": {
+      "type": "object",
+      "required": [
+        "state",
+        "required",
+        "observed_at_utc"
+      ],
+      "properties": {
+        "state": {
+          "enum": [
+            "RUN",
+            "HALT"
+          ]
+        },
+        "required": {
+          "const": true
+        },
+        "observed_at_utc": {
+          "type": "string",
+          "format": "date-time"
+        }
+      },
+      "additionalProperties": false
+    }
+  },
+  "additionalProperties": false
+}

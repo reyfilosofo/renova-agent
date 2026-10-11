@@ -1,0 +1,9 @@
+[project]
+name = "money-omega-codex"
+version = "0.3.0"
+description = "MONEY Ω resource discovery and safe cloud runtime"
+requires-python = ">=3.11"
+dependencies = []
+
+[project.scripts]
+money-omega = "money_codex.cli:main"

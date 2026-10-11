@@ -1,0 +1,60 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://money-omega.invalid/schemas/packet/2.1",
+  "title": "MONEY Ω immutable research envelope 2.1",
+  "description": "Runtime also verifies UTC timestamps, TTL <=24h, equal UUIDs, immutable metadata, strict JSON and digest. Digest is integrity, never authenticated producer identity. Legacy schemas need explicit migration.",
+  "type": "object",
+  "required": [
+    "object_type",
+    "producer",
+    "schema_version",
+    "packet_id",
+    "object_id",
+    "created_at_utc",
+    "updated_at_utc",
+    "valid_until_utc",
+    "payload",
+    "sha256"
+  ],
+  "properties": {
+    "object_type": {
+      "type": "string",
+      "minLength": 1
+    },
+    "producer": {
+      "type": "string",
+      "minLength": 1
+    },
+    "schema_version": {
+      "const": "2.1"
+    },
+    "packet_id": {
+      "type": "string",
+      "format": "uuid"
+    },
+    "object_id": {
+      "type": "string",
+      "format": "uuid"
+    },
+    "created_at_utc": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "updated_at_utc": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "valid_until_utc": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "payload": {
+      "type": "object"
+    },
+    "sha256": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    }
+  },
+  "additionalProperties": false
+}
