@@ -1,0 +1,117 @@
+name: MONEY resource discovery
+
+on:
+  schedule:
+    - cron: '17 */6 * * *'
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths: ['money-codex/**', '.github/workflows/money-resource-discovery.yml']
+  pull_request:
+    paths: ['money-codex/**', '.github/workflows/money-resource-discovery.yml']
+
+permissions:
+  contents: read
+
+concurrency:
+  group: money-resource-discovery-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Core, resource runtime and HTTP safety
+        working-directory: money-codex
+        run: python -B -m unittest discover -s tests -v
+
+  discover:
+    if: github.event_name != 'pull_request' && github.ref == 'refs/heads/main'
+    needs: test
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    permissions:
+      contents: write
+    env:
+      MONEY_EXECUTION_MODE: READ_ONLY
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Restore best-effort research state
+        id: restore_state
+        continue-on-error: true
+        uses: actions/cache/restore@v4
+        with:
+          path: ${{ runner.temp }}/money-resources/
+          key: money-resource-state-main-v1-${{ runner.os }}-${{ github.run_id }}-${{ github.run_attempt }}
+          restore-keys: |
+            money-resource-state-main-v1-${{ runner.os }}-
+      - name: Discover public opportunities
+        id: scan
+        working-directory: money-codex
+        run: python run.py scan --state-dir "$RUNNER_TEMP/money-resources" --config config/resource_sources.json --output "$RUNNER_TEMP/money-resources/scan-result.json"
+      - name: Verify current batch before replacing the public report
+        id: verify_scan
+        working-directory: money-codex
+        run: |
+          python - <<'PY'
+          import json
+          import os
+          import sys
+          from pathlib import Path
+          from money_codex.store import Store
+
+          directory = Path(os.environ['RUNNER_TEMP']) / 'money-resources'
+          batch = json.loads((directory / 'scan-result.json').read_text(encoding='utf-8'))
+          jobs = batch.get('jobs', [])
+          succeeded = sum(job.get('state') == 'SUCCEEDED' for job in jobs)
+          deferred_or_failed = sum(job.get('state') != 'SUCCEEDED' for job in jobs)
+          integrity = Store(directory).verify_ledger()
+          state = batch.get('state', 'UNKNOWN')
+          with open(os.environ['GITHUB_STEP_SUMMARY'], 'a', encoding='utf-8') as summary:
+              summary.write('## MONEY public research scan\n\n')
+              summary.write(f'Current batch: {state}. Successful sources: {succeeded}. Failed or deferred sources: {deferred_or_failed}.\n\n')
+              summary.write('Research only. Eligibility, net EV and income require separate evidence.\n\n')
+              summary.write('SQLite state is restored from a best-effort Actions cache; cache eviction can reset local history. Run artifacts retain evidence for 90 days.\n')
+          if not integrity or succeeded == 0:
+              print('::error::No successful current source scan or invalid ledger. The previous public report is retained.')
+              sys.exit(1)
+          if deferred_or_failed:
+              print('::warning::Some public sources failed or deferred. Their source status is preserved; no fallback rewards or income are invented.')
+          PY
+      - name: Export public results
+        working-directory: money-codex
+        run: python -m money_codex.public_report --state-dir "$RUNNER_TEMP/money-resources" --output ../money-resources/data/latest.json
+      - name: Save best-effort research state
+        if: always() && steps.scan.outcome != 'skipped' && steps.scan.outcome != ''
+        continue-on-error: true
+        uses: actions/cache/save@v4
+        with:
+          path: ${{ runner.temp }}/money-resources/
+          key: money-resource-state-main-v1-${{ runner.os }}-${{ github.run_id }}-${{ github.run_attempt }}
+      - name: Retain evidence and run state
+        if: always() && steps.scan.outcome != 'skipped' && steps.scan.outcome != ''
+        uses: actions/upload-artifact@v4
+        with:
+          name: money-resource-evidence-${{ github.run_id }}-${{ github.run_attempt }}
+          path: ${{ runner.temp }}/money-resources/
+          retention-days: 90
+          if-no-files-found: error
+      - name: Publish public discovery report
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add -- money-resources/data/latest.json
+          if git diff --cached --quiet; then exit 0; fi
+          git commit -m 'MONEY: refresh public resource discovery'
+          git pull --rebase origin main
+          git push origin HEAD:main

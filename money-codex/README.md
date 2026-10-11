@@ -1,29 +1,81 @@
 # MONEY Ω · CODEX
 
-Cloud engineering/orchestration node of MONEY Ω.
+Version 0.3.0 · 2026-10-11 · Python 3.11+ · standard library only.
 
-## Nodes
-- MONEY Ω · CHATGPT: research, evidence, screenshots, probability, RED TEAM and packets.
-- MONEY Ω · CODEX: engineering, automation, collectors, tests, deployment, runtime and reconciliation.
-- MONEY Ω · GROK: independent review/risk; operations only where real access and authorization exist.
-- Ω PREDICT: internal probabilistic module.
+The engineering node of MONEY Ω now operates a public resource discovery rail:
+ten configured sources for bounties, quests and paid research, a durable SQLite
+queue, evidence storage, an append-only ledger, EV assessment, packet exchange
+and a local dashboard. This rail runs in READ_ONLY and never submits claims,
+personal answers, wallet signatures or orders.
 
-## Canonical URLs
-- MONEY app: https://money-z6epdn.v2.appdeploy.ai/
-- MONEY Ω · GROK: https://themoney.grok.me/
-- GitHub: https://github.com/reyfilosofo/renova-agent
-- Drive bridge folder: https://drive.google.com/drive/folders/1qXleX72ff-1w-pkXc4uBZuods5GsON3V
-- Operating Bridge v2.1: https://docs.google.com/document/d/1dPrxCh88qwUZyXgRFrgfPdpunu258-Xu1lxEoBUKMik/edit
-- Ω PREDICT master: https://docs.google.com/document/d/14bONHnxprIRyBV-AKvWqVlSx82fgOJI7rAulwYRjjks/edit
-- Sync manifest: https://docs.google.com/document/d/1SYbkLkNEehDJK-dK-TyMx9SbOSLflfu5bO6X7rES_Zg/edit
-- Ledger: https://docs.google.com/spreadsheets/d/1IYmtpXaHecm6mxqtCNIh15OaG41ZR1Qk_njwhbUfd24/edit
-- Zealy MCP docs: https://zealy.io/docs/integrations/mcp
+## Run
 
-## Communication
-Direct ChatGPT↔Codex or Grok-bot connectivity is not assumed. Durable buses are GitHub, Drive, structured packets and runtime state. A project ID is an identifier, not proof of API access.
+From the repository root:
 
-## Default mode
-READ_ONLY / PAPER until an explicit active authorization object exists.
+```sh
+python3 money-codex/check.py
+python3 money-codex/run.py scan --state-dir .local-data/resources
+python3 money-codex/run.py serve --state-dir .local-data/resources --port 8787
+python3 money-codex/run.py status --state-dir .local-data/resources
+python3 money-codex/run.py export --state-dir .local-data/resources --output /tmp/money-review.json
+```
 
-## Security
-Never commit seed phrases, private keys, API secrets, passwords, recovery codes, session tokens, bearer tokens or OAuth refresh tokens.
+The local dashboard is `http://127.0.0.1:8787`. `serve` runs both HTTP and the
+scheduler; `worker` runs the scheduler alone. State survives process restarts.
+Use a service manager for a persistent host; a Codex task itself is not a 24/7
+service. [Deployment instructions](deploy/README.md) include Docker and systemd.
+
+The GitHub workflow `money-resource-discovery.yml` runs tests and discovery at
+00:17, 06:17, 12:17 and 18:17 UTC, on relevant main updates, or manually. GitHub
+may delay scheduled runs. Each run retains private evidence in an Actions
+artifact for 90 days and publishes an allowlisted public report. The static
+[resource dashboard](../money-resources/index.html) reads that report. Each cloud
+run restores SQLite and evidence from a best-effort Actions cache. Cache eviction
+can reset this history; local SQLite provides continuing history, while Git
+commits and Actions artifacts preserve cloud observations. Complete source
+failures retain the last published report and fail the run; partial failures
+remain visible as source statuses.
+
+## What the results mean
+
+Discovery is not confirmed eligibility or income. A working provider catalogue
+is a `PROGRAM_DISCOVERY` candidate; a bounty listing still needs examination.
+Unknown reward probabilities, expenses and costs stay `null`. EV deducts gas,
+fees, required spend, expected loss, time, capital lockup and security risk.
+Positive fully supported candidates enter `QUEUE` for review. Expired or
+unverifiable records cannot become actionable solely because a URL responds.
+
+The initial real scan on 11 October found 17 candidates across ten reachable
+sources. No receipt, reward probability, personal eligibility or net EV was
+confirmed. Configured category coverage is explicit in
+`config/resource_sources.json`; wallet claims, airdrops and other unconfigured
+categories remain pending.
+
+## Markets, authorization and packets
+
+Markets remain separate from resource discovery. `RENOVA_DESK_V0` and
+`MONEY_FIXED_WINDOW_ANALOG_PAPER_V1` remain PAPER. Contract equivalence precedes
+descriptive venue comparisons; Pmarket, experimental Pspot and Pcontract remain
+separate. No validated Pcontract estimator is introduced here.
+
+The authorization validator requires independently verified account context,
+revocation and kill-switch state, exact scope, expiry and risk limits. A validator
+is not an execution adapter: this runtime rejects LIVE and has no financial
+route, credentials, wallet signer or order adapter.
+
+Packets use schema 2.1 with finite JSON, expiry and SHA-256. A digest demonstrates
+integrity, not authenticated producer identity. Legacy packets need an explicit
+migration; they are not silently trusted. Import/export remains offline; direct
+ChatGPT↔Codex and Grok connections remain false until authenticated round trips.
+
+## Canonical sources and privacy
+
+GitHub main is technical truth; the current Drive Operating Bridge is documentary
+truth; confirmed accounts and fills take precedence for execution. Project IDs
+remain pending until supplied and verified. See `CONTEXT_INDEX.md` and
+`config/integrations.example.json` for existing MONEY sources.
+
+SQLite, raw evidence, receipts, account records and credentials must remain in
+runtime storage, outside Git and the public site. The public report uses a field
+allowlist and contains only discovery results and their public evidence links.
+Original bootstrap sources remain preserved in the local `upstream/` archive.

@@ -17,7 +17,11 @@
     "ruflo:init:quick": "npx ruflo@latest init",
     "codex:init": "npx claude-flow@alpha init --codex --full",
     "codex:mcp:list": "codex mcp list",
-    "codex:mcp:add": "codex mcp add claude-flow -- npx claude-flow mcp start"
+    "codex:mcp:add": "codex mcp add claude-flow -- npx claude-flow mcp start",
+    "resources:scan": "python3 money-codex/run.py scan --state-dir .local-data/resources",
+    "resources:dev": "python3 money-codex/run.py serve --state-dir .local-data/resources --port 8787",
+    "resources:status": "python3 money-codex/run.py status --state-dir .local-data/resources",
+    "resources:test": "python3 money-codex/check.py"
   },
   "keywords": [
     "seresarte",

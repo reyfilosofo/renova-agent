@@ -17,6 +17,8 @@ public_files=(
   app.js
   page-agent-bridge.js
   styles.css
+  money-resources/index.html
+  money-resources/data/latest.json
   seresarte-web-lab/README.md
   seresarte-web-lab/app.js
   seresarte-web-lab/data/projects.json

@@ -1,27 +1,41 @@
 {
-  "schema_version": "2.0",
   "system": "MONEY Ω",
-  "projects": {
-    "chatgpt_project_id": "PENDING_USER_INPUT",
-    "codex_project_id": "PENDING_USER_INPUT"
-  },
   "github": {
-    "repo": "reyfilosofo/renova-agent",
+    "repo_url": "https://github.com/reyfilosofo/renova-agent",
+    "repo_full_name": "reyfilosofo/renova-agent",
     "branch": "main",
+    "repo": "reyfilosofo/renova-agent",
     "url": "https://github.com/reyfilosofo/renova-agent"
   },
   "drive": {
     "bridge_folder_id": "1qXleX72ff-1w-pkXc4uBZuods5GsON3V",
-    "operating_bridge_id": "1dPrxCh88qwUZyXgRFrgfPdpunu258-Xu1lxEoBUKMik"
+    "operating_bridge_id": "1dPrxCh88qwUZyXgRFrgfPdpunu258-Xu1lxEoBUKMik",
+    "codex_cloud_bridge_id": "1G0XJnysMf-_47TLBpzWrI0p5LfYTIPY7Lp0Qg8m5RaE",
+    "operating_bridge_version": "2.1",
+    "master_protocol_id": "14bONHnxprIRyBV-AKvWqVlSx82fgOJI7rAulwYRjjks",
+    "sync_manifest_id": "1SYbkLkNEehDJK-dK-TyMx9SbOSLflfu5bO6X7rES_Zg",
+    "predict_ledger_id": "1IYmtpXaHecm6mxqtCNIh15OaG41ZR1Qk_njwhbUfd24",
+    "xrp_ledger_id": "1gTvQajiy6RbvgX31JJNe621yNi1MAmOMKfhiiR4Ezhw",
+    "money_daily_ledger_id": "1xwAbg8eun7YfG1clftiWl725RD9nJ5qC",
+    "centro_cash_engine_id": "198fs-XQBozSx_VulXR2pgPm08hri4eYV08twouaKkmY"
   },
   "surfaces": {
     "money_app": "https://money-z6epdn.v2.appdeploy.ai/",
     "grok_site": "https://themoney.grok.me/",
     "zealy_mcp_docs": "https://zealy.io/docs/integrations/mcp"
   },
-  "direct_connections": {
-    "chatgpt_to_codex": false,
-    "grok_bot": false
+  "projects": {
+    "chatgpt_project_id": "PENDING_USER_INPUT",
+    "codex_project_id": "PENDING_USER_INPUT",
+    "chatgpt_project_url": null,
+    "codex_project_url": null,
+    "grok_bot_endpoint": null
   },
+  "direct_connections": {
+    "chatgpt_bridge": false,
+    "grok_bot": false,
+    "chatgpt_to_codex": false
+  },
+  "schema_version": "2.1",
   "default_execution_mode": "READ_ONLY"
 }

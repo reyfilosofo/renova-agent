@@ -3,6 +3,10 @@
 Created: 2026-10-04
 Status: READY FOR INDEPENDENT REVIEW
 
+Reference reconciliation prepared on 2026-10-08 and integrated on 2026-10-11. MONEY skill 1.1.0 and Drive Operating Bridge 2.1 were first verified on 2026-10-08 and reverified through authenticated Drive reads on 2026-10-11T17:28:54Z. Codex Cloud Bridge remains v2.0 with pending project IDs; no automatic synchronization is inferred. This updates reference versions without asserting agent connectivity or financial execution authority. See [dated current state](CURRENT_STATE_2026-10-11.json).
+
+The separate resource scanner has completed a real 10-source discovery run (17 candidates, zero verified payouts). Its GitHub Actions schedule is prepared with deployment activation PENDING. AppDeploy metadata read on 2026-10-11 reports the market cron disabled with credits_exhausted and last run 2026-10-08T16:40:19Z; frontend READY is not active market-data proof.
+
 ## System
 
 MONEY Ω
@@ -19,7 +23,7 @@ money-z6epdn
 ## ChatGPT surface
 
 Plugin / skill:
-MONEY v1.0.0
+MONEY v1.1.0
 
 Plugin ID:
 plugins_6ac2270854448191bbd51cc715d67af9
@@ -33,7 +37,7 @@ Windows:
 5m, 15m, 1h
 
 Views:
-- live market desk
+- market research desk; freshness verified separately
 - countdown by window
 - spot consensus
 - Polymarket
@@ -61,7 +65,7 @@ Before interpreting cross-venue divergence as edge, independently verify:
 9. slippage
 10. liquidity
 
-Otherwise report CONTRACT MISMATCH.
+Otherwise report CONTRACT MISMATCH. Pcontract remains null and the fixed-window analogue model remains experimental/PAPER; a published percentage without a source tick is PUBLICADO, not LIVE.
 
 ## Wallet rule
 
@@ -93,7 +97,7 @@ GitHub:
 - omega-predict/MASTER_PROTOCOL.md
 
 Drive:
-MONEY — MARKET CONSENSUS ENGINE — OPERATING BRIDGE v2.0
+MONEY — MARKET CONSENSUS ENGINE — OPERATING BRIDGE v2.1
 Document ID:
 1dPrxCh88qwUZyXgRFrgfPdpunu258-Xu1lxEoBUKMik
 

@@ -29,6 +29,9 @@ gdrive_raw/
 .connector-cache/
 .peach/
 .gdrive-cache/
+.local-data/
+.private/
+.netlify/
 
 # Node
 node_modules/

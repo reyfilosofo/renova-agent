@@ -1,21 +1,34 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "title": "MONEY Ω Opportunity",
+  "$id": "https://money-omega.invalid/schemas/opportunity/2.1",
+  "title": "MONEY Ω evaluated resource opportunity 2.1",
   "type": "object",
   "required": [
     "opportunity_id",
     "provider",
     "type",
     "status",
-    "last_verified_at_utc",
-    "evidence"
+    "classification",
+    "expected_net_reward_usd",
+    "expected_net_value_usd",
+    "ev_status",
+    "evaluated_at_utc",
+    "execution_allowed",
+    "execution_authority",
+    "missing_data",
+    "blocking_reasons"
   ],
   "properties": {
+    "schema_version": {
+      "const": "2.1"
+    },
     "opportunity_id": {
-      "type": "string"
+      "type": "string",
+      "minLength": 1
     },
     "provider": {
-      "type": "string"
+      "type": "string",
+      "minLength": 1
     },
     "type": {
       "enum": [
@@ -29,34 +42,126 @@
         "MICROTASK",
         "AFFILIATE",
         "REFERRAL",
-        "OTHER"
+        "OTHER",
+        "PROGRAM_DISCOVERY"
       ]
     },
     "official_url": {
       "type": [
         "string",
         "null"
-      ]
+      ],
+      "format": "uri"
     },
-    "expected_gross_reward_usd": {
+    "source_evidence": {
       "type": [
-        "number",
-        "null"
-      ]
-    },
-    "reward_probability": {
-      "type": [
-        "number",
+        "object",
         "null"
       ],
-      "minimum": 0,
-      "maximum": 1
+      "properties": {
+        "url": {
+          "type": "string",
+          "format": "uri"
+        },
+        "observed_link": {
+          "type": "string",
+          "format": "uri"
+        },
+        "observed_at": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "http_status": {
+          "const": 200
+        },
+        "content_sha256": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$"
+        }
+      },
+      "required": [
+        "url",
+        "observed_at",
+        "http_status",
+        "content_sha256"
+      ],
+      "additionalProperties": true
     },
-    "expected_net_value_usd": {
+    "evidence": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1
+      }
+    },
+    "deadline_utc": {
       "type": [
-        "number",
+        "string",
+        "null"
+      ],
+      "format": "date-time"
+    },
+    "deadline_status": {
+      "enum": [
+        "KNOWN",
+        "UNKNOWN",
+        "NOT_APPLICABLE"
+      ]
+    },
+    "geography": {
+      "type": [
+        "string",
+        "array",
+        "null"
+      ],
+      "items": {
+        "type": "string"
+      }
+    },
+    "kyc_requirements": {
+      "type": [
+        "string",
         "null"
       ]
+    },
+    "eligibility_status": {
+      "enum": [
+        "VERIFIED",
+        "UNKNOWN",
+        "INELIGIBLE"
+      ]
+    },
+    "eligibility_basis": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "wallet_network": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "required_actions": {
+      "type": [
+        "array",
+        "null"
+      ],
+      "items": {
+        "type": "string",
+        "minLength": 1
+      }
+    },
+    "irreversible_actions": {
+      "type": [
+        "array",
+        "null"
+      ],
+      "items": {
+        "type": "string",
+        "minLength": 1
+      }
     },
     "security_risk": {
       "enum": [
@@ -65,6 +170,56 @@
         "HIGH",
         "UNKNOWN"
       ]
+    },
+    "tos_status": {
+      "enum": [
+        "VERIFIED",
+        "PARTIAL",
+        "UNKNOWN",
+        "CONFLICT"
+      ]
+    },
+    "repeatability": {
+      "type": [
+        "string",
+        "boolean",
+        "null"
+      ]
+    },
+    "invalidation": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "expected_net_reward_usd": {
+      "type": [
+        "number",
+        "null"
+      ]
+    },
+    "expected_net_value_usd": {
+      "type": [
+        "number",
+        "null"
+      ]
+    },
+    "ev_status": {
+      "enum": [
+        "CALCULATED",
+        "DATA INSUFFICIENT"
+      ]
+    },
+    "last_verified_at_utc": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "format": "date-time"
+    },
+    "evaluated_at_utc": {
+      "type": "string",
+      "format": "date-time"
     },
     "status": {
       "enum": [
@@ -75,15 +230,116 @@
         "DATA INSUFFICIENT"
       ]
     },
-    "last_verified_at_utc": {
-      "type": "string",
-      "format": "date-time"
+    "classification": {
+      "enum": [
+        "DO NOW",
+        "QUEUE",
+        "WATCH",
+        "SKIP",
+        "DATA INSUFFICIENT"
+      ]
     },
-    "evidence": {
+    "discovery_only": {
+      "type": "boolean"
+    },
+    "execution_allowed": {
+      "const": false
+    },
+    "execution_authority": {
+      "const": false
+    },
+    "missing_data": {
       "type": "array",
       "items": {
         "type": "string"
       }
+    },
+    "blocking_reasons": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "next_action": {
+      "type": "string"
+    },
+    "required_capital_usd": {
+      "type": [
+        "number",
+        "null"
+      ],
+      "minimum": 0
+    },
+    "gas_usd": {
+      "type": [
+        "number",
+        "null"
+      ],
+      "minimum": 0
+    },
+    "fees_usd": {
+      "type": [
+        "number",
+        "null"
+      ],
+      "minimum": 0
+    },
+    "required_spend_usd": {
+      "type": [
+        "number",
+        "null"
+      ],
+      "minimum": 0
+    },
+    "expected_loss_usd": {
+      "type": [
+        "number",
+        "null"
+      ],
+      "minimum": 0
+    },
+    "time_cost_usd": {
+      "type": [
+        "number",
+        "null"
+      ],
+      "minimum": 0
+    },
+    "capital_lockup_cost_usd": {
+      "type": [
+        "number",
+        "null"
+      ],
+      "minimum": 0
+    },
+    "security_risk_cost_usd": {
+      "type": [
+        "number",
+        "null"
+      ],
+      "minimum": 0
+    },
+    "time_cost_minutes": {
+      "type": [
+        "number",
+        "null"
+      ],
+      "minimum": 0
+    },
+    "expected_gross_reward_usd": {
+      "type": [
+        "number",
+        "null"
+      ],
+      "minimum": 0
+    },
+    "reward_probability": {
+      "type": [
+        "number",
+        "null"
+      ],
+      "minimum": 0,
+      "maximum": 1
     }
   },
   "additionalProperties": true

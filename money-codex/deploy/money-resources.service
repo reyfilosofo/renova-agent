@@ -1,0 +1,15 @@
+[Unit]
+Description=MONEY read-only resource research scheduler
+After=network-online.target
+[Service]
+Type=simple
+WorkingDirectory=/workspace/money/money-codex
+ExecStart=/usr/bin/python3 -m money_codex serve --host 127.0.0.1 --port 8787
+Environment=MONEY_EXECUTION_MODE=READ_ONLY
+Environment=MONEY_STATE_DIR=/workspace/money/.local-data/resources
+Restart=on-failure
+RestartSec=30
+NoNewPrivileges=true
+UMask=0077
+[Install]
+WantedBy=default.target
