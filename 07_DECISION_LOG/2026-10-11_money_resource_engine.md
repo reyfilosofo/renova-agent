@@ -25,7 +25,15 @@ El reporte público fue generado a las 2026-10-11T17:21:07.483601Z después de l
 
 Las fuentes y parsers aplican HTTPS, allowlist de dominios/repositorios, bloqueo de DNS privado, límites de tamaño/redirects/tiempo y abstención ante contenido bloqueado. El contenido público no se ejecuta como instrucciones. La prueba funcional no implica elegibilidad de wallets, firma de contratos ni identidad de encuestados.
 
-La definición GitHub Actions usa `17 */6 * * *` UTC, además de ejecución manual y cambios de código pertinentes. Su estado de activación remota es PENDING hasta observar un run correcto. Los jobs alojados por GitHub pueden demorarse; una tarea Codex o una configuración de cron no constituye por sí sola un daemon permanente.
+La definición GitHub Actions usa `17 */6 * * *` UTC, además de ejecución manual y cambios de código pertinentes. La activación remota está verificada: workflow 381442173 active y primera ejecución 38160287636 SUCCESS en test/discover, completada el 11-Oct17:35:53Z. Su reporte de producción se generó a las 17:35:47.468176Z con 10 fuentes verificadas, 17 pistas, ledger íntegro y ningún ingreso recibido confirmado. Los jobs alojados por GitHub pueden demorarse; una tarea Codex o una configuración de cron no constituye por sí sola un daemon permanente.
+
+## Activación verificada del 11-Oct
+
+El [PR55](https://github.com/reyfilosofo/renova-agent/pull/55) quedó integrado en 822c90f7ccdcc763b24d521d9127bd44796aa21c. El reporte automático posterior llegó a main fa09c8453467a31def3fe0c0bd6f731e1df94a09. [Run38160287636](https://github.com/reyfilosofo/renova-agent/actions/runs/38160287636) verificó la ejecución remota y conserva evidencia en el artifact11709839593: 90 días, con vencimiento 2027-01-09. La caché puede ser eliminada por GitHub; ni el runner ni el artifact constituyen almacenamiento garantizado permanente.
+
+El [panel de recursos](https://money-omega-recursos.seresarte.chatgpt.site) fue publicado privadamente con recibo SUCCEEDED del 11-Oct17:35:08.055005Z y acceso del propietario. has_mcp=false. Su hosting_project_id identifica el hosting, nunca un CODEX_PROJECT_ID. La activación GitHub Pages devolvió403; se conserva el límite de permisos sin inventar una publicación allí. El healthcheck local de recursos en127.0.0.1:8787 fue verificado RUNNING a las17:28:54Z, PID3152 en ese instante; depende del proceso/host temporal.
+
+Las adiciones operativas de ambos puentes de Drive fueron escritas el 11-Oct y su readback autenticado se verificó el 12-Oct. El runtime sigue sin un Drive writer autónomo ni sincronización continua.
 
 ## Relaciones conceptuales
 
@@ -44,7 +52,7 @@ Markets y Resources tienen stores y writers independientes. `collectMoney` conse
 
 ## Pendientes
 
-- Verificar la activación remota del workflow y la publicación del panel antes de afirmar descubrimiento programado operativo.
+- Monitorizar la próxima ejecución programada, el vencimiento de evidencia y la frescura del reporte; una ejecución exitosa no garantiza las siguientes.
 - Confirmar elegibilidad personal, geografías/KYC, requisitos, ToS, deadlines y todos los términos/costes de cada pista antes de elevar su clasificación.
 - Revalidar claims y snapshots históricos de octubre 6–7; sus fechas y wallets no quedan vigentes por importarlos.
 - Registrar writeback de Drive con recibo si se realiza. El runtime no tiene un Drive writer autónomo configurado y una lectura exitosa no prueba sincronización automática.

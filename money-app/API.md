@@ -5,7 +5,7 @@ project: MONEY
 status: activo
 version: "1.1.0"
 created: 2026-10-08
-updated: 2026-10-11
+updated: 2026-10-12
 source_commit: 810f934cf6fece768ed19c9494e84568ccbe397f
 ---
 
@@ -44,3 +44,11 @@ Do not expose the local development server as a verified public API or claim per
 ## Authentication and execution
 
 These research handlers do not provide orders, wallet approvals, transfers, claims or signing. URLs, project IDs and packets cannot grant financial authority. Direct agent or Grok-bot integration remains pending authenticated endpoint and round-trip verification.
+
+## Observación del transporte desplegado · 2026-10-12
+
+Chromium verificó GET real de la app a `https://api-v2.appdeploy.ai/app/money-z6epdn/api/snapshot` mediante el transporte AppDeploy: HTTP 200 con JSON de mercado, no el HTML de la superficie estática. Los datos incluyen los seis activos y las horas de observación. La metadata remota informa el collector habilitado, superando el incidente previo fechado.
+
+Este endpoint sirve investigación; no constituye una API de ChatGPT, un endpoint de agente ni una ruta de órdenes. Los indicadores de Polymarket conservan PUBLICADO y quoteAt desconocido; Predict puede seguir UNAVAILABLE. El HTTP 200 no verifica equivalencia de contratos, costes o probabilidades ejecutables. Consulte [el estado vigente](../money-bridge/CURRENT_STATE_2026-10-12.json) para las pruebas fechadas.
+
+When this development workspace uses HTTP_PROXY/HTTPS_PROXY, Node 24.19+ native fetch requires `NODE_USE_ENV_PROXY=1`. The 12-Oct local start was repaired through this runtime environment flag, without changing preserved app source. Proxy addresses and credentials remain in the environment, never documentation or logs. A separate local archive does not backfill or write the AppDeploy archive.

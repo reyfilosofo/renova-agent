@@ -1,5 +1,5 @@
 {
-  "schema_version": "1.0",
+  "schema_version": "1.1",
   "system": "MONEY Ω",
   "node": "MONEY Ω · CODEX",
   "date_utc": "2026-10-11",
@@ -9,7 +9,13 @@
     "repository": "https://github.com/reyfilosofo/renova-agent",
     "branch": "main",
     "integration_base_commit": "810f934cf6fece768ed19c9494e84568ccbe397f",
-    "status": "PREPARED_IN_CHECKOUT; REMOTE ACTIVATION PENDING"
+    "status": "CODE MERGED AND PRODUCTION DISCOVERY VERIFIED",
+    "merged_pr": 55,
+    "merged_pr_url": "https://github.com/reyfilosofo/renova-agent/pull/55",
+    "implementation_merge_commit": "822c90f7ccdcc763b24d521d9127bd44796aa21c",
+    "latest_observed_main_commit": "fa09c8453467a31def3fe0c0bd6f731e1df94a09",
+    "latest_observed_main_commit_kind": "AUTOMATED PUBLIC RESOURCE REPORT",
+    "documentation_update_status": "PREPARED_FOR_FINAL_DOCUMENTATION_PR"
   },
   "identity": {
     "chatgpt": "MONEY Ω · CHATGPT",
@@ -35,18 +41,27 @@
     "codex_cloud_bridge_version": "2.0",
     "access_status": "ACCESS VERIFIED",
     "observed_at_utc": "2026-10-11T17:28:54Z",
-    "scope": "Authenticated read of the two bridge documents and current version/project-ID references",
+    "scope": "Authenticated read/write of both bridge documents; operational additions dated 2026-10-11 preserved and read back on 2026-10-12",
     "runtime_drive_writer_configured": false,
     "continuous_automatic_sync_verified": false,
-    "latest_write_receipt": null
+    "latest_write_receipt": {
+      "status": "ACCESS VERIFIED",
+      "write_date_utc": "2026-10-11",
+      "readback_date_utc": "2026-10-12",
+      "documents": [
+        "Operating Bridge 2.1",
+        "Codex Cloud Bridge 2.0"
+      ],
+      "continuous_sync": false
+    }
   },
   "resource_engine": {
     "version": "0.3.0",
     "mode": "READ_ONLY",
     "local_scan_access_status": "ACCESS VERIFIED",
-    "report_generated_at_utc": "2026-10-11T17:31:12.982752Z",
-    "first_source_read_at_utc": "2026-10-11T17:20:29.608019Z",
-    "last_source_read_at_utc": "2026-10-11T17:20:35.573400Z",
+    "report_generated_at_utc": "2026-10-11T17:35:47.468176Z",
+    "first_source_read_at_utc": "2026-10-11T17:35:42.740307Z",
+    "last_source_read_at_utc": "2026-10-11T17:35:47.258816Z",
     "source_count": 10,
     "candidate_count": 17,
     "bounty_programme_links": 10,
@@ -66,7 +81,7 @@
         "provider": "code4rena",
         "url": "https://code4rena.com/audits",
         "enabled": true,
-        "last_scan_at_utc": "2026-10-11T17:20:29.608019Z",
+        "last_scan_at_utc": "2026-10-11T17:35:42.740307Z",
         "last_status": "ACCESS VERIFIED"
       },
       {
@@ -74,7 +89,7 @@
         "provider": "code4rena",
         "url": "https://code4rena.com/bounties",
         "enabled": true,
-        "last_scan_at_utc": "2026-10-11T17:20:30.539214Z",
+        "last_scan_at_utc": "2026-10-11T17:35:43.640566Z",
         "last_status": "ACCESS VERIFIED"
       },
       {
@@ -82,7 +97,7 @@
         "provider": "galxe",
         "url": "https://app.galxe.com/quest/explore/all",
         "enabled": true,
-        "last_scan_at_utc": "2026-10-11T17:20:31.122295Z",
+        "last_scan_at_utc": "2026-10-11T17:35:44.105878Z",
         "last_status": "ACCESS VERIFIED"
       },
       {
@@ -90,7 +105,7 @@
         "provider": "github",
         "url": "https://api.github.com/repos/algora-io/algora/issues?state=open&labels=bounty&per_page=30",
         "enabled": true,
-        "last_scan_at_utc": "2026-10-11T17:20:31.529091Z",
+        "last_scan_at_utc": "2026-10-11T17:35:44.358588Z",
         "last_status": "ACCESS VERIFIED"
       },
       {
@@ -98,7 +113,7 @@
         "provider": "github",
         "url": "https://api.github.com/repos/reyfilosofo/renova-agent/issues?state=open&labels=bounty&per_page=30",
         "enabled": true,
-        "last_scan_at_utc": "2026-10-11T17:20:32.486169Z",
+        "last_scan_at_utc": "2026-10-11T17:35:45.337540Z",
         "last_status": "ACCESS VERIFIED"
       },
       {
@@ -106,7 +121,7 @@
         "provider": "immunefi",
         "url": "https://immunefi.com/bug-bounty/",
         "enabled": true,
-        "last_scan_at_utc": "2026-10-11T17:20:33.216307Z",
+        "last_scan_at_utc": "2026-10-11T17:35:45.834256Z",
         "last_status": "ACCESS VERIFIED"
       },
       {
@@ -114,7 +129,7 @@
         "provider": "prolific",
         "url": "https://www.prolific.com/participants",
         "enabled": true,
-        "last_scan_at_utc": "2026-10-11T17:20:33.852305Z",
+        "last_scan_at_utc": "2026-10-11T17:35:46.214471Z",
         "last_status": "ACCESS VERIFIED"
       },
       {
@@ -122,7 +137,7 @@
         "provider": "respondent",
         "url": "https://www.respondent.io/become-a-participant",
         "enabled": true,
-        "last_scan_at_utc": "2026-10-11T17:20:34.580621Z",
+        "last_scan_at_utc": "2026-10-11T17:35:46.613552Z",
         "last_status": "ACCESS VERIFIED"
       },
       {
@@ -130,7 +145,7 @@
         "provider": "userinterviews",
         "url": "https://www.userinterviews.com/hello",
         "enabled": true,
-        "last_scan_at_utc": "2026-10-11T17:20:35.114876Z",
+        "last_scan_at_utc": "2026-10-11T17:35:46.819677Z",
         "last_status": "ACCESS VERIFIED"
       },
       {
@@ -138,10 +153,19 @@
         "provider": "zealy",
         "url": "https://zealy.io/",
         "enabled": true,
-        "last_scan_at_utc": "2026-10-11T17:20:35.573400Z",
+        "last_scan_at_utc": "2026-10-11T17:35:47.258816Z",
         "last_status": "ACCESS VERIFIED"
       }
-    ]
+    ],
+    "local_first_report_generated_at_utc": "2026-10-11T17:31:12.982752Z",
+    "local_first_source_read_range_utc": [
+      "2026-10-11T17:20:29.608019Z",
+      "2026-10-11T17:20:35.573400Z"
+    ],
+    "production_scan_access_status": "ACCESS VERIFIED",
+    "production_public_report_url": "https://raw.githubusercontent.com/reyfilosofo/renova-agent/fa09c8453467a31def3fe0c0bd6f731e1df94a09/money-resources/data/latest.json",
+    "production_public_report_sha256": "53f9f9936207de6e47de68e5f0d15a10804d373634aae9621c14f07783303a0c",
+    "production_run_url": "https://github.com/reyfilosofo/renova-agent/actions/runs/38160287636"
   },
   "resource_scheduler": {
     "platform": "GitHub Actions",
@@ -153,11 +177,19 @@
       "matching code pushes to main"
     ],
     "definition_present_in_checkout": true,
-    "deployment_activation": "PENDING",
-    "remote_schedule_enabled": null,
-    "successful_remote_run_verified": false,
-    "last_successful_remote_run_at_utc": null,
-    "limits": "Platform scheduling delays are possible; configuration is not proof of active automation."
+    "deployment_activation": "ACTIVE; FIRST PRODUCTION RUN VERIFIED",
+    "remote_schedule_enabled": true,
+    "successful_remote_run_verified": true,
+    "last_successful_remote_run_at_utc": "2026-10-11T17:35:53Z",
+    "limits": "First production run succeeded. Future scheduled runs depend on GitHub availability and scheduling; this is scheduled job execution, not a daemon uptime guarantee.",
+    "workflow_id": 381442173,
+    "workflow_state": "active",
+    "successful_remote_run_id": 38160287636,
+    "successful_remote_run_url": "https://github.com/reyfilosofo/renova-agent/actions/runs/38160287636",
+    "jobs_verified_success": [
+      "test",
+      "discover"
+    ]
   },
   "appdeploy_market_collector": {
     "app_id": "money-z6epdn",
@@ -242,17 +274,46 @@
     "Resource discovery results are distinct from eligibility, executable claims, predicted rewards and received income"
   ],
   "pending": [
-    "Verify remote deployment and successful GitHub resource workflow before claiming continuous scheduled discovery",
+    "Monitor the next scheduled workflow, data freshness and cache/artifact retention; first production success does not guarantee future runs",
     "No automatic Drive writer is configured in the runtime",
     "Verify user eligibility, geography/KYC, reward terms, deadlines and every EV cost before elevating discovered candidates",
     "Restore/reverify AppDeploy market data separately if credits/platform availability permit",
     "Project IDs and real authenticated agent endpoints remain unavailable"
   ],
   "resource_dashboard_hosting": {
-    "status": "PENDING",
-    "live_url": null,
+    "status": "PUBLISHED; PRIVATE OWNER ACCESS",
+    "live_url": "https://money-omega-recursos.seresarte.chatgpt.site",
     "github_pages_enable_http_status": 403,
     "github_pages_activation_access_status": "ACCESS UNAVAILABLE",
-    "note": "GitHub integration cannot currently enable Pages; the dashboard source and public-report export are implemented, but actual hosting is not verified."
+    "note": "The resource dashboard is published privately in Sites. GitHub Pages activation remains unavailable (HTTP 403); the Sites hosting ID does not identify a Codex project or establish programmatic agent access.",
+    "platform": "ChatGPT Sites",
+    "publication_status": "SUCCEEDED",
+    "publication_receipt_at_utc": "2026-10-11T17:35:08.055005Z",
+    "hosting_project_id": "appgprj_6acbc836e4f08191adcd4185507c9d69",
+    "hosting_project_id_is_codex_project_id": false,
+    "visibility": "PRIVATE_OWNER",
+    "has_mcp": false,
+    "verification_scope": "Successful platform publication receipt; owner/private access, not an authenticated agent endpoint"
+  },
+  "updated_at_utc": "2026-10-11T17:40:17.004462Z",
+  "resource_cloud_state": {
+    "evidence_artifact_id": 11709839593,
+    "evidence_retention_days": 90,
+    "evidence_expires_on_utc": "2027-01-09",
+    "cache_restore": "BEST EFFORT",
+    "permanent_persistence_guaranteed": false,
+    "note": "Runner state is not permanent storage. Evidence artifacts have the platform retention deadline; caches can be evicted and a later job can rebuild state."
+  },
+  "resource_local_runtime": {
+    "access_status": "ACCESS VERIFIED",
+    "observed_at_utc": "2026-10-11T17:28:54Z",
+    "health_url": "http://127.0.0.1:8787",
+    "process_id_at_observation": 3152,
+    "state_at_observation": "RUNNING",
+    "source_count": 10,
+    "candidate_count": 17,
+    "mode": "READ_ONLY",
+    "availability_scope": "LOCAL WORKSPACE PROCESS; TEMPORARY HOST CONTEXT",
+    "persistent_host_uptime_verified": false
   }
 }

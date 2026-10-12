@@ -5,7 +5,7 @@ project: MONEY
 status: activo
 version: "1.1.0"
 created: 2026-10-04
-updated: 2026-10-11
+updated: 2026-10-12
 source_commit: 810f934cf6fece768ed19c9494e84568ccbe397f
 ---
 
@@ -57,6 +57,14 @@ Direct ChatGPT↔Codex/Grok-bot connections remain unverified until a real autho
 
 ## Resource discovery
 
-The separate [resource rail](../money-resources/README.md) uses MONEY Ω · CODEX 0.3.0 and public GET requests. Its real 2026-10-11 scan observed 10 sources and 17 discovery candidates: 10 Immunefi bounty programmes and 7 programme/catalogue pages. Eligibility, expected net reward and received income remain unverified. The intended GitHub Actions schedule runs every six hours, subject to platform delays; deployment activation remains PENDING until a successful remote run is observed. It does not resume the AppDeploy market collector.
+The separate [resource rail](../money-resources/README.md) uses MONEY Ω · CODEX 0.3.0 and public GET requests. Its real 2026-10-11 scan observed 10 sources and 17 discovery candidates: 10 Immunefi bounty programmes and 7 programme/catalogue pages. Eligibility, expected net reward and received income remain unverified. The GitHub Actions schedule is active every six hours, subject to platform delays. [The first production run](https://github.com/reyfilosofo/renova-agent/actions/runs/38160287636) passed its test and discovery jobs on 2026-10-11 at 17:35:53Z and published a real 17-candidate report. The resource dashboard is [published privately in Sites](https://money-omega-recursos.seresarte.chatgpt.site), with owner access and no MCP endpoint. It does not resume the AppDeploy market collector.
 
 No secrets, session credentials, private conversations or personal financial screenshots belong in the public repository.
+
+## Verificación operativa del 12-Oct
+
+El [estado actual verificado](../money-bridge/CURRENT_STATE_2026-10-12.json) registra tres ejecuciones programadas de recursos con SUCCESS. La más reciente terminó el 12-Oct15:22:24Z y publicó 17 candidatos de 10 fuentes, con ledger íntegro y ningún ingreso confirmado. El cron solicita una cadencia de seis horas; hubo demoras reales de GitHub y no se garantiza ese intervalo. El panel privado de Sites sigue activo para el propietario.
+
+Una nueva lectura autenticada de AppDeploy el 12-Oct informa el collector de mercados habilitado y un run reciente exitoso. Esa observación supera el estado deshabilitado del 11-Oct; los incidentes históricos se preservan. Codex no cambió el cron ni compró créditos. El snapshot de la app devuelve datos actuales, pero una cuota PUBLICADO sin quoteAt verificado no es LIVE ni demuestra edge.
+
+Los dos puentes de Drive tienen las adiciones operativas del 11-Oct y su lectura autenticada se verificó otra vez el 12-Oct. Eso acredita actualizaciones documentales, no un Drive writer continuo ni comunicación directa entre agentes.

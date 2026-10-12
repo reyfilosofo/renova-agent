@@ -1,0 +1,407 @@
+{
+  "schema_version": "1.1",
+  "system": "MONEY Ω",
+  "node": "MONEY Ω · CODEX",
+  "date_utc": "2026-10-12",
+  "prepared_at_utc": "2026-10-12T16:47:06.345453Z",
+  "mode": "READ_ONLY",
+  "technical_truth": {
+    "repository": "https://github.com/reyfilosofo/renova-agent",
+    "branch": "main",
+    "integration_base_commit": "810f934cf6fece768ed19c9494e84568ccbe397f",
+    "status": "CODE MERGED AND PRODUCTION DISCOVERY VERIFIED",
+    "merged_pr": 55,
+    "merged_pr_url": "https://github.com/reyfilosofo/renova-agent/pull/55",
+    "implementation_merge_commit": "822c90f7ccdcc763b24d521d9127bd44796aa21c",
+    "latest_observed_main_commit": "d4c56ca170c7a02fe53a5f7e58f78bfb5d760a14",
+    "latest_observed_main_commit_kind": "AUTOMATED PUBLIC RESOURCE REPORT",
+    "documentation_update_status": "OPERATIONAL STATE RECORDED; source commit provides publication provenance",
+    "latest_observed_at_utc": "2026-10-12T16:47:06.345453Z"
+  },
+  "identity": {
+    "chatgpt": "MONEY Ω · CHATGPT",
+    "codex": "MONEY Ω · CODEX",
+    "grok": "MONEY Ω · GROK",
+    "probabilistic_module": "Ω PREDICT",
+    "probabilistic_module_is_internal": true
+  },
+  "reference_versions": {
+    "money_skill": "1.1.0",
+    "money_app_source_contract": "1.1.0",
+    "money_codex_runtime": "0.3.0",
+    "runtime_packet_schema": "2.1",
+    "runtime_opportunity_schema": "2.1",
+    "historical_bridge_packet_schema": "1.0",
+    "bootstrap_package": "2.0.1",
+    "bootstrap_packet_schema": "2.0"
+  },
+  "documentary_truth": {
+    "operating_bridge_url": "https://docs.google.com/document/d/1dPrxCh88qwUZyXgRFrgfPdpunu258-Xu1lxEoBUKMik/edit",
+    "operating_bridge_version": "2.1",
+    "codex_cloud_bridge_url": "https://docs.google.com/document/d/1G0XJnysMf-_47TLBpzWrI0p5LfYTIPY7Lp0Qg8m5RaE/edit",
+    "codex_cloud_bridge_version": "2.0",
+    "access_status": "ACCESS VERIFIED",
+    "observed_at_utc": null,
+    "scope": "Authenticated read/write of both bridge documents; operational additions dated 2026-10-11 preserved and read back on 2026-10-12",
+    "runtime_drive_writer_configured": false,
+    "continuous_automatic_sync_verified": false,
+    "latest_write_receipt": {
+      "status": "ACCESS VERIFIED",
+      "write_date_utc": "2026-10-12",
+      "readback_date_utc": "2026-10-12",
+      "documents": [
+        "Operating Bridge 2.1",
+        "Codex Cloud Bridge 2.0"
+      ],
+      "continuous_sync": false,
+      "readback_status": "ACCESS VERIFIED",
+      "addition_heading": "MONEY Ω — VERIFIED FOLLOW-UP · 2026-10-12"
+    },
+    "observed_date_utc": "2026-10-12"
+  },
+  "resource_engine": {
+    "version": "0.3.0",
+    "mode": "READ_ONLY",
+    "local_scan_access_status": "ACCESS VERIFIED",
+    "report_generated_at_utc": "2026-10-12T15:22:16.824808Z",
+    "first_source_read_at_utc": "2026-10-12T15:22:11.955740Z",
+    "last_source_read_at_utc": "2026-10-12T15:22:16.582696Z",
+    "source_count": 10,
+    "candidate_count": 17,
+    "bounty_programme_links": 10,
+    "programme_or_catalogue_pages": 7,
+    "queued_action_count": 0,
+    "eligibility_verified_count": 0,
+    "verified_income_usd": null,
+    "income_status": "NO VERIFIED RECEIPTS",
+    "expected_net_reward_status": "DATA INSUFFICIENT",
+    "verification_scope": "PUBLIC PAGE DISCOVERY; NO ACCOUNT OR WALLET ELIGIBILITY",
+    "ledger_integrity_verified": true,
+    "public_report": "../money-resources/data/latest.json",
+    "source_registry": "../money-codex/config/resource_sources.json",
+    "sources": [
+      {
+        "source_id": "code4rena_audits",
+        "provider": "code4rena",
+        "url": "https://code4rena.com/audits",
+        "enabled": true,
+        "last_scan_at_utc": "2026-10-12T15:22:11.955740Z",
+        "last_status": "ACCESS VERIFIED"
+      },
+      {
+        "source_id": "code4rena_bounties",
+        "provider": "code4rena",
+        "url": "https://code4rena.com/bounties",
+        "enabled": true,
+        "last_scan_at_utc": "2026-10-12T15:22:12.761841Z",
+        "last_status": "ACCESS VERIFIED"
+      },
+      {
+        "source_id": "galxe_public",
+        "provider": "galxe",
+        "url": "https://app.galxe.com/quest/explore/all",
+        "enabled": true,
+        "last_scan_at_utc": "2026-10-12T15:22:13.143131Z",
+        "last_status": "ACCESS VERIFIED"
+      },
+      {
+        "source_id": "github_algora_bounties",
+        "provider": "github",
+        "url": "https://api.github.com/repos/algora-io/algora/issues?state=open&labels=bounty&per_page=30",
+        "enabled": true,
+        "last_scan_at_utc": "2026-10-12T15:22:13.299573Z",
+        "last_status": "ACCESS VERIFIED"
+      },
+      {
+        "source_id": "github_renova_bounties",
+        "provider": "github",
+        "url": "https://api.github.com/repos/reyfilosofo/renova-agent/issues?state=open&labels=bounty&per_page=30",
+        "enabled": true,
+        "last_scan_at_utc": "2026-10-12T15:22:14.334683Z",
+        "last_status": "ACCESS VERIFIED"
+      },
+      {
+        "source_id": "immunefi_programs",
+        "provider": "immunefi",
+        "url": "https://immunefi.com/bug-bounty/",
+        "enabled": true,
+        "last_scan_at_utc": "2026-10-12T15:22:14.779519Z",
+        "last_status": "ACCESS VERIFIED"
+      },
+      {
+        "source_id": "prolific_participants",
+        "provider": "prolific",
+        "url": "https://www.prolific.com/participants",
+        "enabled": true,
+        "last_scan_at_utc": "2026-10-12T15:22:15.071603Z",
+        "last_status": "ACCESS VERIFIED"
+      },
+      {
+        "source_id": "respondent_participants",
+        "provider": "respondent",
+        "url": "https://www.respondent.io/become-a-participant",
+        "enabled": true,
+        "last_scan_at_utc": "2026-10-12T15:22:15.450724Z",
+        "last_status": "ACCESS VERIFIED"
+      },
+      {
+        "source_id": "userinterviews_participants",
+        "provider": "userinterviews",
+        "url": "https://www.userinterviews.com/hello",
+        "enabled": true,
+        "last_scan_at_utc": "2026-10-12T15:22:15.949898Z",
+        "last_status": "ACCESS VERIFIED"
+      },
+      {
+        "source_id": "zealy_public",
+        "provider": "zealy",
+        "url": "https://zealy.io/",
+        "enabled": true,
+        "last_scan_at_utc": "2026-10-12T15:22:16.582696Z",
+        "last_status": "ACCESS VERIFIED"
+      }
+    ],
+    "local_first_report_generated_at_utc": "2026-10-11T17:31:12.982752Z",
+    "local_first_source_read_range_utc": [
+      "2026-10-11T17:20:29.608019Z",
+      "2026-10-11T17:20:35.573400Z"
+    ],
+    "production_scan_access_status": "ACCESS VERIFIED",
+    "production_public_report_url": "https://raw.githubusercontent.com/reyfilosofo/renova-agent/d4c56ca170c7a02fe53a5f7e58f78bfb5d760a14/money-resources/data/latest.json",
+    "production_public_report_sha256": "0c5c9f846f39269baba287349fa22109ee14d7ed1ac9491879d4c47502666975",
+    "production_run_url": "https://github.com/reyfilosofo/renova-agent/actions/runs/38269686527"
+  },
+  "resource_scheduler": {
+    "platform": "GitHub Actions",
+    "workflow": ".github/workflows/money-resource-discovery.yml",
+    "cron_utc": "17 */6 * * *",
+    "target_interval_seconds": 21600,
+    "also_triggered_by": [
+      "workflow_dispatch",
+      "matching code pushes to main"
+    ],
+    "definition_present_in_checkout": true,
+    "deployment_activation": "ACTIVE; THREE SCHEDULED RUNS VERIFIED",
+    "remote_schedule_enabled": true,
+    "successful_remote_run_verified": true,
+    "last_successful_remote_run_at_utc": "2026-10-12T15:22:24Z",
+    "limits": "Observed scheduling delays are material; cron requests a six-hour cadence but actual intervals vary. No daemon or guaranteed six-hour delivery is claimed.",
+    "workflow_id": 381442173,
+    "workflow_state": "active",
+    "successful_remote_run_id": 38269686527,
+    "successful_remote_run_url": "https://github.com/reyfilosofo/renova-agent/actions/runs/38269686527",
+    "jobs_verified_success": [
+      "test",
+      "discover"
+    ],
+    "scheduled_run_count_verified": 3,
+    "scheduled_runs": [
+      {
+        "id": 38269686527,
+        "event": "schedule",
+        "conclusion": "success",
+        "created_at": "2026-10-12T15:21:52Z",
+        "updated_at": "2026-10-12T15:22:24Z",
+        "html_url": "https://github.com/reyfilosofo/renova-agent/actions/runs/38269686527"
+      },
+      {
+        "id": 38210088291,
+        "event": "schedule",
+        "conclusion": "success",
+        "created_at": "2026-10-12T05:55:26Z",
+        "updated_at": "2026-10-12T05:55:51Z",
+        "html_url": "https://github.com/reyfilosofo/renova-agent/actions/runs/38210088291"
+      },
+      {
+        "id": 38178442652,
+        "event": "schedule",
+        "conclusion": "success",
+        "created_at": "2026-10-11T21:57:01Z",
+        "updated_at": "2026-10-11T21:57:27Z",
+        "html_url": "https://github.com/reyfilosofo/renova-agent/actions/runs/38178442652"
+      }
+    ]
+  },
+  "appdeploy_market_collector": {
+    "app_id": "money-z6epdn",
+    "public_url": "https://money-z6epdn.v2.appdeploy.ai/",
+    "platform_metadata_access_status": "ACCESS VERIFIED",
+    "observed_date_utc": "2026-10-12",
+    "observed_at_utc": null,
+    "observed_at_precision": "DATE; authenticated platform metadata read during 16:43–16:45 UTC",
+    "frontend_deployment_status": "READY",
+    "cron_name": "money-five-minute-cuts",
+    "cron": "*/5 * * * *",
+    "timezone": "America/Mexico_City",
+    "handler": "collectMoney",
+    "enabled": true,
+    "disabled_reason": null,
+    "last_run_at_utc": "2026-10-12T16:40:20Z",
+    "last_run_reported_status": "success",
+    "failure_count": 0,
+    "current_market_snapshot_verified": true,
+    "current_venue_quotes_verified": false,
+    "archive_readback_verified": true,
+    "collector_restored_by_this_change": false,
+    "history": [
+      "APPDEPLOY_CODEX_PARALLEL_HANDOFF_2026-10-08.md",
+      "APPDEPLOY_CREDIT_INCIDENT_AND_CANDIDATES_2026-10-08.md"
+    ],
+    "note": "Fresh metadata supersedes the earlier credit suspension. The platform reports the collector enabled; no cron mutation or credits purchase was performed by Codex. Snapshot verification is recorded separately.",
+    "backend_access_status": "ACCESS VERIFIED",
+    "backend_transport_host": "api-v2.appdeploy.ai",
+    "snapshot_as_of_utc": "2026-10-12T16:45:17.202000Z",
+    "snapshot_window_utc": [
+      "2026-10-12T16:45:00Z",
+      "2026-10-12T16:50:00Z"
+    ],
+    "snapshot_asset_count": 6,
+    "health_access_status": "ACCESS VERIFIED",
+    "source_tick_verification": "POLYMARKET PUBLICADO; quoteAt=null. Predict NO_VERIFICADO. Coinbase/Kalshi UNAVAILABLE.",
+    "archive_verified_at_utc": "2026-10-12T16:47:15.874211Z",
+    "archive_scope": [
+      {
+        "asset": "BTC",
+        "timeframe": "1h",
+        "capture_count": 11,
+        "window_count": 24,
+        "future_rows_with_capture": 0
+      },
+      {
+        "asset": "BTC",
+        "timeframe": "5m",
+        "capture_count": 130,
+        "window_count": 288,
+        "future_rows_with_capture": 0
+      }
+    ],
+    "evidence_content_sha256": "7069856a4f897b9e92104ee7b7c630d218394d7e05e01cc75b1902e958367f8c"
+  },
+  "intermodel_connections": {
+    "direct_chatgpt_to_codex": false,
+    "direct_grok_bot_connected": false,
+    "authenticated_round_trip_receipt": null,
+    "bus": [
+      "GitHub",
+      "Drive",
+      "structured packets",
+      "runtime state"
+    ]
+  },
+  "canonical_project_fields": {
+    "CHATGPT_PROJECT_ID": null,
+    "CHATGPT_PROJECT_URL": null,
+    "CODEX_PROJECT_ID": null,
+    "CODEX_PROJECT_URL": null,
+    "GROK_BOT_ENDPOINT": null,
+    "status": "PENDING_USER_INPUT; an ID alone would not verify programmatic access"
+  },
+  "financial_execution": {
+    "account_truth_access_status": "ACCESS UNAVAILABLE",
+    "verified_active_authorizations_in_inspected_scope": 0,
+    "orders_enabled": false,
+    "wallet_signing_enabled": false,
+    "withdrawals_enabled": false,
+    "external_transfers_enabled": false,
+    "claim_execution_enabled": false,
+    "live_execution_adapter_implemented": false,
+    "financial_transactions_performed": false
+  },
+  "strategies": {
+    "RENOVA_DESK_V0": {
+      "frozen": true,
+      "asset": "BTC-USD",
+      "method": "EMA12/EMA26",
+      "timeframe": "1H",
+      "backtest_window_days": 14,
+      "mode": "PAPER"
+    },
+    "MONEY_FIXED_WINDOW_ANALOG_PAPER_V1": {
+      "experimental": true,
+      "mode": "PAPER",
+      "calibrated": false,
+      "Pcontract": null
+    },
+    "MONEY_SOL_5M_V1": {
+      "status": "HISTORICAL CLAIM REQUIRES ACCOUNT/AUTHORIZATION RECONCILIATION; NO AUTHORITY GRANTED"
+    }
+  },
+  "conflicts_reconciled": [
+    "Current docs now reference MONEY skill 1.1.0 and Operating Bridge 2.1; original Oct4 DEPLOYMENT.json remains historical",
+    "An earlier enabled AppDeploy cron was superseded by its credit suspension; current metadata reports disabled",
+    "Runtime packet 2.1, bootstrap packet 2.0 and historical bridge 1.0 are distinct contracts, with no automatic legacy import",
+    "Resource discovery results are distinct from eligibility, executable claims, predicted rewards and received income",
+    "AppDeploy market cron disabled on Oct11 and enabled on Oct12 are dated observations; no historical credit incident is deleted."
+  ],
+  "pending": [
+    "Monitor the next scheduled workflow, data freshness and cache/artifact retention; first production success does not guarantee future runs",
+    "No automatic Drive writer is configured in the runtime",
+    "Verify user eligibility, geography/KYC, reward terms, deadlines and every EV cost before elevating discovered candidates",
+    "Project IDs and real authenticated agent endpoints remain unavailable"
+  ],
+  "resource_dashboard_hosting": {
+    "status": "PUBLISHED; PRIVATE OWNER ACCESS",
+    "live_url": "https://money-omega-recursos.seresarte.chatgpt.site",
+    "github_pages_enable_http_status": 403,
+    "github_pages_activation_access_status": "ACCESS UNAVAILABLE",
+    "note": "The resource dashboard is published privately in Sites. GitHub Pages activation remains unavailable (HTTP 403); the Sites hosting ID does not identify a Codex project or establish programmatic agent access.",
+    "platform": "ChatGPT Sites",
+    "publication_status": "SUCCEEDED",
+    "publication_receipt_at_utc": "2026-10-11T17:35:08.055005Z",
+    "hosting_project_id": "appgprj_6acbc836e4f08191adcd4185507c9d69",
+    "hosting_project_id_is_codex_project_id": false,
+    "visibility": "PRIVATE_OWNER",
+    "has_mcp": false,
+    "verification_scope": "Successful platform publication receipt; owner/private access, not an authenticated agent endpoint",
+    "observed_date_utc": "2026-10-12",
+    "current_site_status": "active",
+    "current_user_role": "owner",
+    "owner_only_access_verified": true
+  },
+  "updated_at_utc": "2026-10-12T16:52:21.960900Z",
+  "resource_cloud_state": {
+    "evidence_artifact_id": 11756755000,
+    "evidence_retention_days": 90,
+    "evidence_expires_on_utc": "2027-01-10",
+    "cache_restore": "BEST EFFORT",
+    "permanent_persistence_guaranteed": false,
+    "note": "Runner state is not permanent storage. Evidence artifacts have the platform retention deadline; caches can be evicted and a later job can rebuild state."
+  },
+  "resource_local_runtime": {
+    "access_status": "ACCESS VERIFIED",
+    "observed_at_utc": "2026-10-12T16:44:48.720625Z",
+    "health_url": "http://127.0.0.1:8787",
+    "process_id_at_observation": 715,
+    "state_at_observation": "RUNNING",
+    "source_count": 10,
+    "candidate_count": 17,
+    "mode": "READ_ONLY",
+    "availability_scope": "LOCAL WORKSPACE PROCESS; TEMPORARY HOST CONTEXT",
+    "persistent_host_uptime_verified": false,
+    "completed_jobs": 89,
+    "ledger_integrity": true
+  },
+  "previous_state": "CURRENT_STATE_2026-10-11.json",
+  "validation": {
+    "module_tests_passed": 104,
+    "imported_app_integrity_tests_passed": 25,
+    "imported_app_local_tests_passed": 9,
+    "typecheck_and_build": "PASS",
+    "canonical_root_tests_passed": 2,
+    "production_workflow_test_job": "SUCCESS",
+    "browser_desktop_mobile": "PASS; real public report and market reads",
+    "last_code_change": "822c90f7ccdcc763b24d521d9127bd44796aa21c"
+  },
+  "local_market_runtime": {
+    "observed_date_utc": "2026-10-12",
+    "access_status": "ACCESS VERIFIED",
+    "frontend_url": "http://127.0.0.1:5173",
+    "collector_enabled": true,
+    "last_automatic_cut_utc": "2026-10-12T16:50:00Z",
+    "cut_completed_at_utc": "2026-10-12T16:50:01.872Z",
+    "captured_assets_with_spot_usd": 6,
+    "storage_scope": "LOCAL STORE; no AppDeploy archive writes",
+    "network_fix": "NODE_USE_ENV_PROXY=1 on Node24.19+",
+    "availability_scope": "LOCAL WORKSPACE PROCESS; temporary host context"
+  }
+}
