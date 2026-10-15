@@ -1,3 +1,5 @@
+> **UPDATE v0.2 (15 Oct 2026):** [See v0.2 research README](README_V0_2.md). The new offline reference-monitor simulator, independent event metrics, adversarial tests, and CI checks are in this branch. **No real human authorization, production-tool enforcement, scientific mitigation, or AGI safety claims.**
+
 # ℛenova × SERESARTE AI Safety Lab — research candidate 0.1
 
 **Status: offline proof of concept only. NOT deployed, NOT independently validated, NOT AGI alignment or containment.**
