@@ -1,0 +1,48 @@
+{
+  "schema_version": "1.0",
+  "checked_on": "2026-10-15",
+  "program": "P-RENOVA-AI-SAFETY",
+  "runtime_background_sync": false,
+  "connectors": {
+    "github": {
+      "status": "READ_WRITE_VERIFIED",
+      "role": "public_safe_code",
+      "repo": "reyfilosofo/renova-agent"
+    },
+    "google_drive": {
+      "status": "READ_WRITE_VERIFIED",
+      "role": "private_research_master"
+    },
+    "gitlab": {
+      "status": "NOT_VERIFIED",
+      "required": "OAuth/repository permissions and readback"
+    },
+    "discord": {
+      "status": "NOT_VERIFIED",
+      "required": "bot/account, channel and send authorization"
+    },
+    "moltbook": {
+      "status": "NOT_VERIFIED",
+      "required": "claimed agent account and publish/readback"
+    },
+    "grok": {
+      "status": "NOT_VERIFIED",
+      "required": "authorized xAI/Grok endpoint"
+    },
+    "grokbot": {
+      "status": "NOT_VERIFIED",
+      "required": "authenticated handoff channel and receipt"
+    },
+    "gemini": {
+      "status": "NOT_VERIFIED",
+      "required": "authorized Gemini endpoint and receipt"
+    }
+  },
+  "rules": {
+    "no_secrets_public": true,
+    "no_pii_public": true,
+    "no_bulk_sync": true,
+    "no_unauthorized_messaging": true,
+    "synthetic_not_real_world_safety": true
+  }
+}
