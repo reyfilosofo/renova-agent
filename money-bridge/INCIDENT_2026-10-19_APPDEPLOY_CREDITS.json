@@ -1,0 +1,98 @@
+{
+  "schema_version": "1.0",
+  "packet_type": "MONEY_MARKET_COLLECTOR_INCIDENT",
+  "packet_id": "MONEY-APPDEPLOY-20261019-CREDITS-001",
+  "source_node": "MONEY Ω · CHATGPT",
+  "system": "MONEY Ω",
+  "generated_date_utc": "2026-10-19",
+  "privacy": "PUBLIC_TECHNICAL_ONLY_NO_ACCOUNT_DATA",
+  "classification": "DATA INSUFFICIENT",
+  "confidence": "ALTA para cron disabled; BAJA para cobertura histórica",
+  "app": {
+    "app_id": "money-z6epdn",
+    "frontend": "https://money-z6epdn.v2.appdeploy.ai/",
+    "deployment_status": "ready",
+    "backend_data_healthy_verified": false
+  },
+  "evidence": [
+    {
+      "category": "HECHO VERIFICADO",
+      "source": "AppDeploy authenticated get_app_status",
+      "observed_date_utc": "2026-10-19",
+      "observed_at_utc": null,
+      "cron": {
+        "name": "money-five-minute-cuts",
+        "enabled": false,
+        "disabled_reason": "credits_exhausted",
+        "schedule": "*/5 * * * *",
+        "timezone": "America/Mexico_City",
+        "handler": "collectMoney",
+        "last_run_at_utc": "2026-10-19T13:40:20Z",
+        "last_status": "success",
+        "failure_count": 0
+      },
+      "note": "A successful previous run is not a completeness audit. READY is frontend deployment state."
+    },
+    {
+      "category": "INFORMACIÓN REPORTADA",
+      "source": "User-provided D incident report",
+      "checked_at_utc": "2026-10-19T14:31:43Z",
+      "backend_http_status": 402,
+      "error_code": "APP_TEMPORARILY_UNAVAILABLE",
+      "daily_excel_generated": false,
+      "independent_backend_402_reproduced": false
+    },
+    {
+      "category": "HECHO VERIFICADO",
+      "source": "GitHub main money-app/DATA_CONTRACT.md and API.md",
+      "requirement": "One collectMoney writer; keep actual asOf; first capture per window; no synthetic backfill; /api/capture read-only."
+    }
+  ],
+  "unavailable": [
+    "AppDeploy balance/renewal check (account overview tool unavailable in this session)",
+    "Readback of persisted market archive at incident date",
+    "Current market odds / source quote ticks",
+    "Coverage and missing cuts by asset/timeframe"
+  ],
+  "impacted_date_cdmx": "2026-10-19",
+  "window_universe": {
+    "assets": [
+      "BTC",
+      "ETH",
+      "SOL",
+      "DOGE",
+      "XRP",
+      "BNB"
+    ],
+    "horizons": [
+      "5m",
+      "15m",
+      "1h"
+    ],
+    "expected_per_asset_per_full_local_day": 408,
+    "expected_full_local_day_total": 2448,
+    "actual_verified_captures": null,
+    "actual_verified_missing": null
+  },
+  "constraints": {
+    "no_billing_changes": true,
+    "no_cron_changes": true,
+    "no_financial_execution": true,
+    "no_secondary_archive_writer": true,
+    "no_synthetic_or_backdated_captures": true
+  },
+  "recovery_gate": [
+    "Billing/credits available verified in official dashboard",
+    "Backend health and source-bearing snapshot verified",
+    "Cron re-enabled and two subsequent scheduled cuts observed",
+    "Readback 18 asset-timeframe sets and reconcile persisted captures",
+    "Excel export with provenance and missing-value markers"
+  ],
+  "canonical_refs": {
+    "issue": "https://github.com/reyfilosofo/renova-agent/issues/61",
+    "technical_data_contract": "https://github.com/reyfilosofo/renova-agent/blob/main/money-app/DATA_CONTRACT.md",
+    "api_contract": "https://github.com/reyfilosofo/renova-agent/blob/main/money-app/API.md",
+    "documentary_bridge": "https://docs.google.com/document/d/1dPrxCh88qwUZyXgRFrgfPdpunu258-Xu1lxEoBUKMik/edit"
+  },
+  "execution_result": "No cron/code/billing/financial mutation. GitHub issue recorded. Dated state packet created."
+}
