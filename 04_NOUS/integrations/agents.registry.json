@@ -1,0 +1,135 @@
+{
+  "schema_version": "1.0.0",
+  "generated_at": "2026-10-08",
+  "visibility": "PUBLIC_SAFE",
+  "operating_mode": "MANUAL_BRIDGE_NO_BACKGROUND_RUNTIME",
+  "nodes": [
+    {
+      "id": "NOUS",
+      "name": "NOUS by SERESARTE",
+      "role": "strategic_intelligence_consulting",
+      "control": "specialist",
+      "plugin_metadata_verified": true,
+      "agent_direct_connection": false,
+      "plugin_reference": "PRIVATE_DRIVE_BRIDGE"
+    },
+    {
+      "id": "CJGR_EXECUTIVE_TWIN",
+      "name": "CJGR Executive Twin Ω",
+      "role": "executive_orchestrator",
+      "control": "executive",
+      "plugin_metadata_verified": true,
+      "agent_direct_connection": false,
+      "plugin_reference": "PRIVATE_DRIVE_BRIDGE"
+    },
+    {
+      "id": "SERESARTE_CHIEF_OF_STAFF",
+      "name": "SERESARTE Chief of Staff Ω",
+      "role": "seresarte_ops",
+      "control": "institutional",
+      "plugin_metadata_verified": false,
+      "agent_direct_connection": false,
+      "plugin_reference": "PRIVATE_DRIVE_BRIDGE"
+    },
+    {
+      "id": "CODEX",
+      "name": "Codex",
+      "role": "coding_engineering_review",
+      "control": "scoped_jobs",
+      "plugin_metadata_verified": false,
+      "agent_direct_connection": false,
+      "plugin_reference": "PRIVATE_DRIVE_BRIDGE"
+    },
+    {
+      "id": "GROK",
+      "name": "Grok / GrokBot",
+      "role": "independent_review_external",
+      "control": "external",
+      "plugin_metadata_verified": false,
+      "agent_direct_connection": false,
+      "plugin_reference": "PRIVATE_DRIVE_BRIDGE"
+    },
+    {
+      "id": "MONEY_OMEGA",
+      "name": "MONEY Ω",
+      "role": "separate_financial_system",
+      "control": "financial_security_policy",
+      "plugin_metadata_verified": false,
+      "agent_direct_connection": false,
+      "plugin_reference": "PRIVATE_DRIVE_BRIDGE"
+    },
+    {
+      "id": "MONEY_CHATGPT",
+      "name": "MONEY Ω · CHATGPT",
+      "role": "financial_research",
+      "control": "research_only",
+      "plugin_metadata_verified": false,
+      "agent_direct_connection": false,
+      "plugin_reference": "PRIVATE_DRIVE_BRIDGE"
+    },
+    {
+      "id": "MONEY_CODEX",
+      "name": "MONEY Ω · CODEX",
+      "role": "financial_engineering",
+      "control": "read_only_paper_default",
+      "plugin_metadata_verified": false,
+      "agent_direct_connection": false,
+      "plugin_reference": "PRIVATE_DRIVE_BRIDGE"
+    },
+    {
+      "id": "MONEY_GROK",
+      "name": "MONEY Ω · GROK",
+      "role": "financial_independent_review",
+      "control": "separate",
+      "plugin_metadata_verified": false,
+      "agent_direct_connection": false,
+      "plugin_reference": "PRIVATE_DRIVE_BRIDGE"
+    },
+    {
+      "id": "OMEGA_PREDICT",
+      "name": "Ω PREDICT",
+      "role": "money_internal_probability_module",
+      "control": "research_only",
+      "plugin_metadata_verified": false,
+      "agent_direct_connection": false,
+      "plugin_reference": "PRIVATE_DRIVE_BRIDGE"
+    }
+  ],
+  "connectors": [
+    {
+      "id": "google-drive",
+      "status": "WRITE_VERIFIED",
+      "scope": "NOUS operating document created/readback via authorized connector; no general sync"
+    },
+    {
+      "id": "github",
+      "status": "WRITE_VERIFIED",
+      "scope": "Isolated branch, five files and draft PR #52; main not modified"
+    },
+    {
+      "id": "gmail-seresarte",
+      "status": "READ_VERIFIED",
+      "scope": "Inbox label access; no email written/sent"
+    },
+    {
+      "id": "gmail-iao",
+      "status": "READ_VERIFIED",
+      "scope": "Inbox label access; no email written/sent"
+    },
+    {
+      "id": "google-calendar",
+      "status": "READ_VERIFIED",
+      "scope": "Calendar list; no events written"
+    },
+    {
+      "id": "grok-bot",
+      "status": "DISCOVERED",
+      "scope": "No authenticated endpoint/round-trip"
+    },
+    {
+      "id": "codex-cloud-project",
+      "status": "DISCOVERED",
+      "scope": "Repository workflow only; no verified direct job API"
+    }
+  ]
+}

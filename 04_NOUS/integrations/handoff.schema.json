@@ -1,0 +1,146 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "NOUS Federation Packet",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "packet_id",
+    "created_at_utc",
+    "source_node",
+    "target_node",
+    "project_id",
+    "action",
+    "classification",
+    "execution_mode",
+    "authorization",
+    "evidence",
+    "state"
+  ],
+  "properties": {
+    "schema_version": {
+      "type": "string",
+      "const": "1.0.0"
+    },
+    "packet_id": {
+      "type": "string",
+      "minLength": 8
+    },
+    "created_at_utc": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "expires_at_utc": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "format": "date-time"
+    },
+    "source_node": {
+      "type": "string"
+    },
+    "target_node": {
+      "type": "string"
+    },
+    "project_id": {
+      "type": "string"
+    },
+    "action": {
+      "type": "string"
+    },
+    "classification": {
+      "type": "string",
+      "enum": [
+        "PUBLICO",
+        "RESERVADO_MIEMBROS",
+        "CONFIDENCIAL_CLIENTE"
+      ]
+    },
+    "execution_mode": {
+      "type": "string",
+      "enum": [
+        "READ_ONLY",
+        "PAPER",
+        "DRAFT",
+        "APPROVED_WRITE"
+      ]
+    },
+    "authorization": {
+      "type": "object",
+      "required": [
+        "required",
+        "approved"
+      ],
+      "properties": {
+        "required": {
+          "type": "boolean"
+        },
+        "approved": {
+          "type": "boolean"
+        },
+        "approved_by": {
+          "type": [
+            "string",
+            "null"
+          ]
+        }
+      }
+    },
+    "evidence": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "source",
+          "status"
+        ],
+        "properties": {
+          "source": {
+            "type": "string"
+          },
+          "status": {
+            "type": "string",
+            "enum": [
+              "VERIFIED",
+              "USER_REPORTED",
+              "INFERENCE",
+              "HYPOTHESIS",
+              "PENDING"
+            ]
+          },
+          "checked_at": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "format": "date-time"
+          }
+        }
+      }
+    },
+    "state": {
+      "type": "string",
+      "enum": [
+        "DRAFT",
+        "READY_FOR_REVIEW",
+        "AUTHORIZED",
+        "EXECUTED",
+        "RECONCILED",
+        "BLOCKED"
+      ]
+    },
+    "result_ref": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "notes": {
+      "type": [
+        "string",
+        "null"
+      ]
+    }
+  }
+}
