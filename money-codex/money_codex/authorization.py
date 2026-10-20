@@ -14,6 +14,9 @@ PERMISSIONS = {"read_market_data", "read_account_state", "place_orders", "cancel
 FRESH_SECONDS = 30
 PAPER_ONLY_STRATEGIES = {"RENOVA_DESK_V0", "MONEY_FIXED_WINDOW_ANALOG_PAPER_V1"}
 
+def _scope_identifier(value):
+    return isinstance(value, str) and bool(value) and value == value.strip() and value.isprintable()
+
 def validate_live_authorization(auth: dict, now: datetime | None = None, *, context: dict | None = None) -> tuple[bool, list[str]]:
     reasons = []
     if not isinstance(auth, dict):
@@ -32,7 +35,7 @@ def validate_live_authorization(auth: dict, now: datetime | None = None, *, cont
     if set(auth) - set(REQUIRED_LIVE_FIELDS) - {"revoked_at_utc"}:
         reasons.append("unknown_authorization_fields")
     for key in ("authorization_id", "issued_by", "strategy_id", "venue", "account_scope"):
-        if not isinstance(auth.get(key), str) or not auth[key].strip():
+        if not _scope_identifier(auth.get(key)):
             reasons.append("invalid:" + key)
     if auth.get("schema_version") != "2.1":
         reasons.append("unsupported_authorization_schema")
@@ -54,7 +57,7 @@ def validate_live_authorization(auth: dict, now: datetime | None = None, *, cont
         reasons.append("invalid_authorization_timestamps")
     for key in ("allowed_products", "allowed_assets"):
         values = auth.get(key)
-        if not isinstance(values, list) or not values or any(not isinstance(x, str) or not x.strip() for x in values) or len(set(x for x in values if isinstance(x, str))) != len(values):
+        if not isinstance(values, list) or not values or any(not _scope_identifier(x) for x in values) or len(set(x for x in values if isinstance(x, str))) != len(values):
             reasons.append("invalid:" + key)
     permissions = auth.get("permissions")
     if not isinstance(permissions, dict) or set(permissions) != PERMISSIONS or any(type(value) is not bool for value in permissions.values()):
@@ -108,7 +111,7 @@ def validate_live_authorization(auth: dict, now: datetime | None = None, *, cont
     if context.get("authorization_id") != auth.get("authorization_id"):
         reasons.append("authorization_id_mismatch")
     trusted = context.get("trusted_issuers")
-    if context.get("issuer_verified") is not True or not isinstance(trusted, list) or any(not isinstance(x, str) for x in trusted) or auth.get("issued_by") not in trusted:
+    if context.get("issuer_verified") is not True or not isinstance(trusted, list) or any(not _scope_identifier(x) for x in trusted) or auth.get("issued_by") not in trusted:
         reasons.append("issuer_unverified")
     if type(context.get("authorization_version")) is not int or context["authorization_version"] != auth.get("authorization_version"):
         reasons.append("authorization_version_mismatch")
@@ -120,7 +123,7 @@ def validate_live_authorization(auth: dict, now: datetime | None = None, *, cont
             reasons.append("scope_mismatch:" + key)
     if context.get("action") != "place_orders":
         reasons.append("unsupported_action")
-    if not isinstance(context.get("idempotency_key"), str) or not context["idempotency_key"].strip():
+    if not _scope_identifier(context.get("idempotency_key")):
         reasons.append("missing_idempotency_key")
     for key in ("risk_gate_passed", "data_fresh", "costs_verified", "liquidity_verified", "account_state_verified", "exposure_includes_order", "reconciliation_healthy", "revocation_checked", "kill_switch_verified"):
         if context.get(key) is not True:

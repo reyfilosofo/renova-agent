@@ -14,6 +14,7 @@ import json
 import math
 import re
 import uuid
+from urllib.parse import parse_qsl, unquote, urlsplit
 
 from .models import parse_utc, utc_now
 
@@ -26,7 +27,8 @@ FORBIDDEN_KEYS = {
     "seedphrase", "privatekey", "apisecret", "apikey", "password",
     "recoveryphrase", "sessiontoken", "bearertoken", "oauthrefreshtoken",
     "refreshtoken", "accesstoken", "sessioncookie", "authorization",
-    "credentials", "clientsecret", "cookie", "env",
+    "credentials", "clientsecret", "cookie", "env", "apitoken", "authtoken",
+    "authorizationheader", "secretaccesskey",
 }
 _SECRET_VALUE = re.compile(
     r"-----BEGIN(?: [A-Z0-9]+)* PRIVATE KEY-----"
@@ -37,6 +39,30 @@ _SECRET_VALUE = re.compile(
     re.IGNORECASE,
 )
 _FIELDS = {"schema_version", "packet_id", "object_id", "object_type", "producer", "created_at_utc", "updated_at_utc", "valid_until_utc", "payload", "sha256"}
+
+
+def _has_secret_value(value: str) -> bool:
+    # Inspect common URL encodings as well as literal text. Neither URL userinfo
+    # nor credential query parameters belong in a research packet or its logs.
+    decoded = value
+    for _ in range(3):
+        if _SECRET_VALUE.search(decoded):
+            return True
+        for match in re.finditer(r"https?://[^\s<>\"']+", decoded, re.IGNORECASE):
+            try:
+                url = urlsplit(match.group())
+                if url.username is not None or url.password is not None:
+                    return True
+                for key, _value in parse_qsl(url.query, keep_blank_values=True):
+                    if re.sub(r"[^a-z0-9]", "", key.casefold()) in FORBIDDEN_KEYS:
+                        return True
+            except ValueError:
+                continue
+        expanded = unquote(decoded)
+        if expanded == decoded:
+            break
+        decoded = expanded
+    return False
 
 
 def assert_no_secret_keys(obj, *, _depth: int = 0, _ancestors: frozenset | None = None):
@@ -64,7 +90,7 @@ def assert_no_secret_keys(obj, *, _depth: int = 0, _ancestors: frozenset | None 
         for value in obj:
             assert_no_secret_keys(value, _depth=_depth + 1, _ancestors=ancestors)
     elif isinstance(obj, str):
-        if _SECRET_VALUE.search(obj):
+        if _has_secret_value(obj):
             raise ValueError("forbidden_secret_value")
     elif type(obj) is float:
         if not math.isfinite(obj):
@@ -126,7 +152,10 @@ def envelope(object_type: str, producer: str, payload: dict,
     if type(ttl_seconds) is not int or not 0 < ttl_seconds <= MAX_TTL_SECONDS:
         raise ValueError("invalid_packet_ttl")
     current = utc_now(now)
-    expiry = parse_utc(valid_until_utc) if valid_until_utc is not None else current + timedelta(seconds=ttl_seconds)
+    try:
+        expiry = parse_utc(valid_until_utc) if valid_until_utc is not None else current + timedelta(seconds=ttl_seconds)
+    except (ValueError, OverflowError) as exc:
+        raise ValueError("invalid_packet_ttl") from exc
     if not 0 < (expiry - current).total_seconds() <= MAX_TTL_SECONDS:
         raise ValueError("invalid_packet_ttl")
     canonical_json(payload)

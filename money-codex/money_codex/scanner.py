@@ -6,6 +6,7 @@ Catalogue evidence proves discovery, never eligibility or expected payout.
 from __future__ import annotations
 
 import hashlib
+import http.client
 import ipaddress
 import json
 import math
@@ -40,6 +41,7 @@ EV_FIELDS = (
 _RATE_TIMES: dict[str, float] = {}
 _RATE_LOCK = threading.Lock()
 _REDIRECT_CODES = {301, 302, 303, 307, 308}
+_RSC_MAX_BYTES = 4194304
 
 
 class SourceError(ValueError):
@@ -99,6 +101,7 @@ def _policy(config: dict, source: dict) -> dict:
         "max_redirects": int(_number(network.get("max_redirects"), 3, 0, 5)),
         "min_interval_seconds": _number(network.get("min_interval_seconds"), 60, 1, 3600),
         "host_interval_seconds": _number(network.get("host_interval_seconds"), 1, 0.1, 5),
+        "source_budget_seconds": _number(source.get("source_budget_seconds", network.get("source_budget_seconds")), 110, 5, 115),
     }
 
 
@@ -159,6 +162,8 @@ def _reserve_rate(url: str, policy: dict) -> None:
             raise SourceError("SOURCE_RATE_LIMIT")
         last_host = _RATE_TIMES.get("host:" + str(host), -math.inf)
         delay = max(0, policy["host_interval_seconds"] - (current - last_host))
+        if policy.get("deadline_monotonic", math.inf) - current <= delay:
+            raise SourceError("SOURCE_BUDGET_EXHAUSTED")
         # Reserve before releasing the lock so simultaneous jobs cannot burst.
         _RATE_TIMES["url:" + url] = current + delay
         _RATE_TIMES["host:" + str(host)] = current + delay
@@ -166,9 +171,48 @@ def _reserve_rate(url: str, policy: dict) -> None:
         time.sleep(delay)
 
 
+def _remaining_timeout(policy: dict) -> float:
+    remaining = policy.get("deadline_monotonic", math.inf) - time.monotonic()
+    if remaining <= 0:
+        raise SourceError("SOURCE_BUDGET_EXHAUSTED")
+    return min(policy["timeout_seconds"], remaining)
+
+
+def _read_response(response, policy: dict) -> bytes:
+    """Check the shared source budget between bounded socket reads.
+
+    Real urllib HTTPS responses expose read1, which performs at most one raw
+    read; read(n) can otherwise wait for n bytes while a peer trickles data.
+    """
+    if not isinstance(response, http.client.HTTPResponse):
+        # Also supports small substituted openers used by local tests.
+        body = response.read(policy["max_bytes"] + 1)
+        _remaining_timeout(policy)
+        return body
+    chunks, size = [], 0
+    while True:
+        if response.isclosed():
+            return b"".join(chunks)
+        timeout = _remaining_timeout(policy)
+        try:
+            response.fp.raw._sock.settimeout(timeout)
+        except (AttributeError, OSError) as exc:
+            raise SourceError("DEADLINE_UNSUPPORTED_TRANSPORT") from exc
+        chunk = response.read1(min(65536, policy["max_bytes"] + 1 - size))
+        _remaining_timeout(policy)
+        if not chunk:
+            return b"".join(chunks)
+        size += len(chunk)
+        if size > policy["max_bytes"]:
+            raise SourceError("RESPONSE_TOO_LARGE")
+        chunks.append(chunk)
+
+
 def _fetch(source: dict, policy: dict) -> dict:
     """urllib inherits configured proxies; TLS verification is always enabled."""
+    _remaining_timeout(policy)
     url = _validate_url(source.get("url"), policy)
+    _remaining_timeout(policy)
     context = ssl.create_default_context()
     opener = urllib.request.build_opener(_NoRedirect(), urllib.request.HTTPSHandler(context=context))
     for redirect in range(policy["max_redirects"] + 1):
@@ -179,7 +223,7 @@ def _fetch(source: dict, policy: dict) -> dict:
             "Accept-Encoding": "identity",
         })
         try:
-            response = opener.open(request, timeout=policy["timeout_seconds"])
+            response = opener.open(request, timeout=_remaining_timeout(policy))
         except urllib.error.HTTPError as exc:
             if exc.code in _REDIRECT_CODES:
                 location = exc.headers.get("Location")
@@ -205,7 +249,10 @@ def _fetch(source: dict, policy: dict) -> dict:
             length = response.headers.get("Content-Length")
             if length and (not length.isdigit() or int(length) > policy["max_bytes"]):
                 raise SourceError("RESPONSE_TOO_LARGE")
-            body = response.read(policy["max_bytes"] + 1)
+            try:
+                body = _read_response(response, policy)
+            except (OSError, TimeoutError) as exc:
+                raise SourceError("NETWORK_UNAVAILABLE") from exc
             if len(body) > policy["max_bytes"]:
                 raise SourceError("RESPONSE_TOO_LARGE")
             if not body:
@@ -229,6 +276,8 @@ class _Page(HTMLParser):
         self._in_h1 = False
         self.scripts: list[str] = []
         self._in_script = False
+        self.title: list[str] = []
+        self._in_title = False
 
     def handle_starttag(self, tag, attrs):
         values = dict(attrs)
@@ -238,6 +287,8 @@ class _Page(HTMLParser):
             self._in_script = True
         if tag == "h1":
             self._in_h1 = True
+        if tag == "title":
+            self._in_title = True
         if tag == "a" and not self._hidden:
             self._anchor = {"href": values.get("href", ""), "parts": []}
         if tag == "img" and self._anchor:
@@ -250,6 +301,8 @@ class _Page(HTMLParser):
             self._in_script = False
         if tag == "h1":
             self._in_h1 = False
+        if tag == "title":
+            self._in_title = False
         if tag == "a" and self._anchor:
             self.links.append({"href": self._anchor["href"], "title": _text(" ".join(self._anchor["parts"]))})
             self._anchor = None
@@ -264,6 +317,8 @@ class _Page(HTMLParser):
             self._anchor["parts"].append(data)
         if self._in_h1:
             self.h1.append(data)
+        if self._in_title:
+            self.title.append(data)
 
 
 def _permalink(url: str, source: dict, policy: dict) -> str | None:
@@ -298,14 +353,15 @@ def _aware_time(value: object) -> datetime | None:
         return None
 
 
-def _code4rena_details(page: _Page) -> dict[str, dict]:
-    """Decode public Next/RSC JSON data, never evaluate scripts.
+def _next_json_values(page: _Page) -> list:
+    """Read JSON Flight rows and skip byte-framed text, never evaluate JS.
 
-    Record dates are used only for an exact slug already linked by the page;
-    dates from adjacent cards or unlabelled text never become a deadline.
+    Text rows can contain arbitrary programme descriptions and fake JSON. Their
+    UTF-8 byte lengths must be respected before reading the next record.
     """
     decoder = json.JSONDecoder()
     chunks = []
+    total = 0
     for script in page.scripts:
         for marker in re.finditer(r"self\.__next_f\.push\(", script):
             try:
@@ -314,42 +370,88 @@ def _code4rena_details(page: _Page) -> dict[str, dict]:
                 continue
             if isinstance(item, list) and len(item) > 1 and isinstance(item[1], str):
                 chunks.append(item[1])
-    payload = "".join(chunks)[:4194304]
-    records: dict[str, dict] = {}
-
-    def visit(value, depth=0):
-        if depth > 32:
-            return
-        if isinstance(value, dict):
-            slug = value.get("slug")
-            if (isinstance(slug, str) and re.fullmatch(r"[a-z0-9-]+", slug)
-                    and "endTime" in value and "status" in value):
-                records[slug] = value
-            for child in value.values():
-                if isinstance(child, (dict, list)):
-                    visit(child, depth + 1)
-        elif isinstance(value, list):
-            for child in value:
-                visit(child, depth + 1)
-
-    for marker in re.finditer(r"(?:^|\n)[0-9a-f]+:(?=[\[{])", payload):
-        try:
-            item, _ = decoder.raw_decode(payload, marker.end())
-        except (ValueError, RecursionError):
+                total += len(item[1])
+                if total > _RSC_MAX_BYTES:
+                    raise SourceError("RSC_SIZE_LIMIT")
+    payload = "".join(chunks).encode("utf-8")
+    if len(payload) > _RSC_MAX_BYTES:
+        raise SourceError("RSC_SIZE_LIMIT")
+    values, cursor = [], 0
+    while cursor < len(payload) and len(values) < 2000:
+        while cursor < len(payload) and payload[cursor] in b"\r\n":
+            cursor += 1
+        if cursor == len(payload):
+            break
+        header = re.match(rb"[0-9a-f]{0,16}:", payload[cursor:])
+        if not header:
+            break
+        cursor += header.end()
+        text = re.match(rb"T([0-9a-f]{1,8}),", payload[cursor:])
+        if text:
+            cursor += text.end() + int(text[1], 16)
+            if cursor > len(payload):
+                raise SourceError("RSC_TRUNCATED_TEXT")
             continue
-        visit(item)
+        tag = re.match(rb"[A-Z]+(?=[\[{])", payload[cursor:])
+        if tag:
+            cursor += tag.end()
+        try:
+            tail = payload[cursor:].decode("utf-8")
+            item, end = decoder.raw_decode(tail)
+        except (ValueError, UnicodeError, RecursionError):
+            newline = payload.find(b"\n", cursor)
+            if newline < 0:
+                break
+            cursor = newline + 1
+            continue
+        values.append(item)
+        cursor += len(tail[:end].encode("utf-8"))
+    return values
+
+
+def _object_nodes(value, depth=0):
+    if depth > 32:
+        return
+    if isinstance(value, dict):
+        yield value
+        for child in value.values():
+            if isinstance(child, (dict, list)):
+                yield from _object_nodes(child, depth + 1)
+    elif isinstance(value, list):
+        for child in value:
+            yield from _object_nodes(child, depth + 1)
+
+
+def _code4rena_details(page: _Page) -> dict[str, dict]:
+    """Read dates only from exact-slug JSON objects already linked by the page."""
+    records = {}
+    for value in _next_json_values(page):
+        for item in _object_nodes(value):
+            slug = item.get("slug")
+            if (isinstance(slug, str) and re.fullmatch(r"[a-z0-9-]+", slug)
+                    and "endTime" in item and "status" in item):
+                records[slug] = item
     return records
 
 
-def _html_candidates(source: dict, fetched: dict, policy: dict, now: datetime | None = None) -> list[dict]:
+def _readable_page(body: bytes) -> tuple[_Page, str]:
     page = _Page()
-    page.feed(fetched["body"].decode("utf-8", errors="replace"))
+    page.feed(body.decode("utf-8", errors="replace"))
     visible = _text(" ".join(page.parts), 200000)
-    if re.search(r"(?i)(verify you are human|just a moment|access denied|captcha challenge)", visible[:3000]):
+    heading = _text(" ".join([*page.h1, *page.title]), 1000)
+    if re.search(r"(?i)(verify (?:you are|that you.re) human|just a moment|access denied|captcha challenge|checking your browser|enable javascript and cookies to continue)", visible[:3000]):
         raise SourceError("BLOCKED_CONTENT")
-    # A login shell or application shell does not prove a paid assignment.
+    if re.match(r"(?i)^(?:404\b|page not found\b|not found\b|this page (?:could not be found|does not exist|isn.t available))", heading):
+        raise SourceError("PAGE_NOT_FOUND")
+    if not visible or len(visible) < 40 and not page.h1 and not page.links:
+        raise SourceError("SPA_CONTENT_UNAVAILABLE")
     if len(visible) < 100 and re.search(r"(?i)\b(sign in|log in)\b", visible):
         raise SourceError("AUTHENTICATION_REQUIRED")
+    return page, visible
+
+
+def _html_candidates(source: dict, fetched: dict, policy: dict, now: datetime | None = None) -> list[dict]:
+    page, visible = _readable_page(fetched["body"])
     if source.get("parser") == "program":
         return [{"title": _text(" ".join(page.h1)) or source["name"], "url": fetched["url"],
                  "type": "PROGRAM_DISCOVERY", "category": source["category"], "provider_status": "MEMBERSHIP_ONLY"}]
@@ -434,22 +536,106 @@ def _rss_candidates(source: dict, fetched: dict, policy: dict) -> list[dict]:
     return candidates
 
 
+def _opportunity_id(source: dict, url: str) -> str:
+    provider = str(source["provider"]).lower().replace(" ", "")
+    digest = hashlib.sha256((provider + "\n" + url).encode()).hexdigest()
+    return "resource_" + digest[:24]
+
+
+def _proof(source_id: str, fetched: dict, requested_url: str) -> dict:
+    return {
+        "evidence_id": "evidence_" + hashlib.sha256((source_id + fetched["observed_at"] + fetched["content_sha256"]).encode()).hexdigest()[:24],
+        "source_id": source_id, "url": fetched["url"], "requested_url": requested_url,
+        "observed_at": fetched["observed_at"], "retrieved_at": fetched["observed_at"],
+        "http_status": fetched["http_status"], "content_type": fetched["content_type"],
+        "content_sha256": fetched["content_sha256"], "hash_basis": "HTTP_RESPONSE_BYTES",
+        "byte_count": len(fetched["body"]),
+    }
+
+
+def _immunefi_information(source: dict, candidate: dict, fetched: dict, policy: dict) -> tuple[dict, str | None]:
+    """Extract public programme terms, never a user's eligibility or EV.
+
+    Only the JSON bounty whose official URL and slug match this fetched detail
+    page can supply terms. A maximum bounty is not an expected gross reward.
+    """
+    page, visible = _readable_page(fetched["body"])
+    identity = candidate["url"]
+    slug = urllib.parse.urlsplit(identity).path.strip("/").split("/")[-2]
+    matches = []
+    for value in _next_json_values(page):
+        for record in _object_nodes(value):
+            if (record.get("slug") == slug and "maxBounty" in record
+                    and _permalink(record.get("url", ""), source, policy) == identity):
+                if record not in matches:
+                    matches.append(record)
+    if len(matches) != 1 or _permalink(fetched["url"], source, policy) != identity:
+        raise SourceError("PROGRAM_IDENTITY_UNVERIFIED")
+    record = matches[0]
+    if not all(field in record for field in ("pausedAt", "endDate", "launchDate", "updatedDate")):
+        raise SourceError("PROGRAM_STATE_INCOMPLETE")
+    if not page.h1 or not isinstance(record.get("project"), str) or not record["project"].strip():
+        raise SourceError("PROGRAM_IDENTITY_UNVERIFIED")
+    if _text(page.h1[0]).casefold() != _text(record["project"]).casefold():
+        raise SourceError("PROGRAM_IDENTITY_CONFLICT")
+    observed = _aware_time(fetched["observed_at"])
+    if observed is None:
+        raise SourceError("INVALID_OBSERVATION_TIME")
+    parsed = {}
+    for field in ("pausedAt", "endDate", "launchDate", "updatedDate"):
+        value = record.get(field)
+        parsed[field] = _aware_time(value)
+        if value is not None and parsed[field] is None:
+            raise SourceError("PROGRAM_DATE_UNVERIFIED")
+    if parsed["updatedDate"] and parsed["updatedDate"] > observed:
+        raise SourceError("PROGRAM_FUTURE_TIMESTAMP")
+    inactive = ("PROGRAM_PAUSED" if record["pausedAt"] is not None else
+                "PROGRAM_ENDED" if parsed["endDate"] and parsed["endDate"] <= observed else
+                "PROGRAM_NOT_STARTED" if parsed["launchDate"] and parsed["launchDate"] > observed else None)
+    if not inactive and not re.search(r"(?i)\bSubmit a Bug\b", visible):
+        raise SourceError("PROGRAM_SUBMISSION_STATE_UNVERIFIED")
+    maximum = record.get("maxBounty")
+    if type(maximum) not in (int, float) or not math.isfinite(maximum) or not 0 <= maximum <= 1e12:
+        raise SourceError("PROGRAM_REWARD_UNVERIFIED")
+    advertised = None
+    display = re.search(r"\bMaximum Bounty\s+\$\s*([0-9][0-9,]*(?:\.[0-9]+)?)(?![A-Za-z0-9,.])", visible)
+    if display:
+        advertised = float(display[1].replace(",", ""))
+        if advertised != maximum:
+            raise SourceError("PROGRAM_REWARD_CONFLICT")
+    enriched = {**candidate, "title": _text(record["project"]),
+                "detail_status": "INACTIVE" if inactive else "ACTIVE",
+                "detail_verified_at_utc": fetched["observed_at"],
+                "verification_scope": "PUBLIC_PROGRAM_TERMS_ONLY",
+                "advertised_max_reward_usd": advertised,
+                "programme_launch_at_utc": _iso(parsed["launchDate"]) if parsed["launchDate"] else None,
+                "programme_updated_at_utc": _iso(parsed["updatedDate"]) if parsed["updatedDate"] else None,
+                "deadline_utc": _iso(parsed["endDate"]) if parsed["endDate"] else None,
+                "provider_status": "PUBLIC PROGRAMME TERMS VERIFIED; PERSONAL ELIGIBILITY UNKNOWN"}
+    if type(record.get("kyc")) is bool:
+        enriched["kyc_requirements"] = "REQUIRED BY PROGRAMME" if record["kyc"] else "PROGRAMME DECLARES KYC NOT REQUIRED"
+    return enriched, inactive
+
+
 def _opportunity(source: dict, candidate: dict, proof: dict) -> dict:
     # Provider+canonical permalink survives multiple catalogues and jobs.
-    provider = str(source["provider"]).lower().replace(" ", "")
-    digest = hashlib.sha256((provider + "\n" + candidate["url"]).encode()).hexdigest()
     source_evidence = {**proof, "observed_link": candidate["url"],
                        "reference_basis": "DIRECT_PAGE" if proof["url"] == candidate["url"] else "OBSERVED_CATALOG_LINK"}
     return {
-        "opportunity_id": "resource_" + digest[:24], "source_id": source["source_id"],
+        "opportunity_id": _opportunity_id(source, candidate["url"]), "source_id": source["source_id"],
         "provider": source["name"], "type": candidate["type"], "category": candidate["category"],
         "title": candidate["title"], "official_url": candidate["url"], "source_evidence": source_evidence,
         "evidence": [proof["evidence_id"], proof["url"]], "last_verified_at_utc": proof["observed_at"],
-        "last_verified_at": proof["observed_at"], "verification_scope": "PUBLIC_PAGE_DISCOVERY_ONLY",
+        "last_verified_at": proof["observed_at"], "verification_scope": candidate.get("verification_scope", "PUBLIC_PAGE_DISCOVERY_ONLY"),
         "discovery_only": True,
         "deadline_utc": candidate.get("deadline_utc"), "starts_at_utc": candidate.get("starts_at_utc"),
         "provider_declared_status": candidate.get("provider_declared_status"),
-        "geography": None, "kyc_requirements": None,
+        "advertised_max_reward_usd": candidate.get("advertised_max_reward_usd"),
+        "programme_launch_at_utc": candidate.get("programme_launch_at_utc"),
+        "programme_updated_at_utc": candidate.get("programme_updated_at_utc"),
+        "detail_status": candidate.get("detail_status"),
+        "detail_verified_at_utc": candidate.get("detail_verified_at_utc"),
+        "geography": None, "kyc_requirements": candidate.get("kyc_requirements"),
         "eligibility_status": "UNKNOWN", "eligibility": None, "wallet_network": None,
         "required_capital_usd": None, "required_actions": [], "irreversible_actions": [],
         "actions_verified": False, "time_cost_minutes": None, "capital_lockup": None,

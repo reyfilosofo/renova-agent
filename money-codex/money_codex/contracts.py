@@ -1,6 +1,6 @@
 """Conservative identity checks, never a conversion of spot bias into contract odds."""
-from datetime import datetime, timezone
 import math
+from .models import parse_utc, utc_now
 
 IDENTITY_FIELDS = (
     "asset", "quote_currency", "window_start_utc", "window_end_utc",
@@ -11,36 +11,52 @@ COST_FIELDS = ("fees", "spread", "slippage", "liquidity")
 
 
 def _timestamp(value):
-    if not isinstance(value, str):
-        raise ValueError("timestamp required")
-    result = datetime.fromisoformat(value.replace("Z", "+00:00"))
-    if result.tzinfo is None:
-        raise ValueError("timezone required")
-    return result.astimezone(timezone.utc)
+    return parse_utc(value)
 
 
 def _number(value):
-    return type(value) in (int, float) and math.isfinite(value) and value >= 0
+    try:
+        return type(value) in (int, float) and math.isfinite(value) and value >= 0
+    except (OverflowError, ValueError):
+        return False
 
 
 def compare_contracts(left, right, now=None):
     """Return equivalence and descriptive divergence only; never an executable edge."""
-    now = now or datetime.now(timezone.utc)
+    try:
+        now = utc_now(now)
+    except ValueError:
+        return {"classification": "DATA INSUFFICIENT", "equivalent": False,
+                "reasons": ["invalid_clock"], "divergence_pp": None}
     if not isinstance(left, dict) or not isinstance(right, dict):
         return {"classification": "DATA INSUFFICIENT", "equivalent": False,
                 "reasons": ["contracts_must_be_objects"], "divergence_pp": None}
-    missing = [f"{side}:{key}" for side, row in (("left", left), ("right", right))
-               for key in IDENTITY_FIELDS if key not in row or row[key] is None or row[key] == ""]
-    mismatches = [key for key in IDENTITY_FIELDS if key not in ("window_start_utc", "window_end_utc")
-                  and left.get(key) is not None and right.get(key) is not None
-                  and left[key] != right[key]]
-    for key in ("window_start_utc", "window_end_utc"):
-        if key in left and key in right and left[key] and right[key]:
-            try:
-                if _timestamp(left[key]) != _timestamp(right[key]):
-                    mismatches.append(key)
-            except (ValueError, TypeError):
-                missing.append("invalid:" + key)
+    missing, identities = [], {}
+    for side, row in (("left", left), ("right", right)):
+        identity = {}
+        for key in IDENTITY_FIELDS:
+            value = row.get(key)
+            if key in ("window_start_utc", "window_end_utc"):
+                try:
+                    identity[key] = _timestamp(value)
+                except ValueError:
+                    missing.append(f"{side}:{key}")
+            elif key == "reference":
+                if _number(value) and value > 0:
+                    identity[key] = value
+                else:
+                    missing.append(f"{side}:{key}")
+            elif isinstance(value, str) and value and value == value.strip() and value.isprintable():
+                identity[key] = value
+            else:
+                missing.append(f"{side}:{key}")
+        if ("window_start_utc" in identity and "window_end_utc" in identity
+                and identity["window_end_utc"] <= identity["window_start_utc"]):
+            missing.append(f"{side}:invalid_window_interval")
+        identities[side] = identity
+    identity_complete = not missing
+    mismatches = [key for key in IDENTITY_FIELDS if key in identities["left"] and key in identities["right"]
+                  and identities["left"][key] != identities["right"][key]]
     if mismatches:
         return {"classification": "CONTRACT MISMATCH", "equivalent": False,
                 "reasons": mismatches, "divergence_pp": None}
@@ -62,7 +78,7 @@ def compare_contracts(left, right, now=None):
         if row.get("price_kind") != "executable_offer":
             missing.append(side + ":offer_not_executable")
     if missing:
-        return {"classification": "DATA INSUFFICIENT", "equivalent": not any(x.split(":")[-1] in IDENTITY_FIELDS for x in missing),
+        return {"classification": "DATA INSUFFICIENT", "equivalent": identity_complete,
                 "reasons": sorted(set(missing)), "divergence_pp": None}
     return {"classification": "WATCH", "equivalent": True,
             "reasons": ["difference_is_descriptive_not_validated_edge"],

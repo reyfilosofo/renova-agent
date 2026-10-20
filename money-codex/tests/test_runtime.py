@@ -271,6 +271,260 @@ class RuntimeTests(unittest.TestCase):
         with self.assertRaises(ValueError): self.store.save_scan(scan)
         self.assertEqual(self.store.status()['counts']['evidence'], 0)
 
+    def packet(self, scan=None, now=NOW, **overrides):
+        from money_codex.packets import envelope
+        payload = {'rail': 'RESOURCES', **(fixture(now) if scan is None else scan)}
+        payload.update(overrides)
+        return envelope('RESOURCE_RESEARCH', 'TEST_RESEARCH_NODE', payload, now=now)
+
+    def test_import_requires_explicit_resource_schema_and_no_connection_claims(self):
+        from money_codex.packets import envelope
+        base = {'rail': 'RESOURCES', **fixture()}
+        cases = []
+        for field in ('rail', 'mode', 'opportunities', 'source_status', 'evidence'):
+            changed = dict(base)
+            changed.pop(field)
+            cases.append(envelope('RESOURCE_RESEARCH', 'TEST', changed, now=NOW))
+        cases.append(envelope('AUTHORIZATION', 'TEST', base, now=NOW))
+        cases.append(self.packet(direct_bot_connected=True))
+        cases.append(self.packet(source_status=[False]))
+        cases.append(self.packet(detail_status=[]))
+        for candidate in cases:
+            with self.subTest(fields=set(candidate['payload']), kind=candidate['object_type']):
+                with self.assertRaises(ValueError): self.store.import_packet(candidate, now=NOW)
+        self.assertEqual(self.store.status()['counts']['receipts'], 0)
+        self.assertEqual(self.store.status()['counts']['opportunities'], 0)
+
+    def test_import_detects_resigned_packet_id_collision_without_writes(self):
+        from copy import deepcopy
+        from money_codex.packets import canonical_json, verify_envelope
+        packet = self.packet()
+        self.store.import_packet(packet, now=NOW)
+        before = self.store.status()['counts']
+        changed = deepcopy(packet)
+        changed['payload']['opportunities'][0]['title'] = 'Different claimed observation'
+        changed.pop('sha256')
+        changed['sha256'] = hashlib.sha256(canonical_json(changed)).hexdigest()
+        self.assertTrue(verify_envelope(changed, now=NOW)[0])
+        with self.assertRaises(ValueError): self.store.import_packet(changed, now=NOW)
+        self.assertEqual(self.store.status()['counts'], before)
+
+    def test_import_never_freshens_or_reconfigures_local_source_or_overwrites_direct_read(self):
+        self.store.save_scan(fixture(), now=NOW)
+        baseline = self.store.list_sources()[0]
+        later = NOW + timedelta(seconds=20)
+        scan = fixture(later)
+        scan['opportunities'][0]['title'] = 'Untrusted replacement'
+        scan['source_status'][0].update(config={'url': 'https://example.org/unreviewed'}, enabled=False)
+        packet = self.packet(scan, now=later)
+        received = self.store.import_packet(packet, now=later)
+        self.assertFalse(received['authenticated_channel_verified'])
+        self.assertEqual(self.store.list_sources()[0], baseline)
+        item = self.store.opportunities(now=later)[0]
+        self.assertEqual(item['last_verified_at_utc'], fixture()['opportunities'][0]['last_verified_at_utc'])
+        self.assertNotEqual(item.get('title'), 'Untrusted replacement')
+        with self.store._connect() as db:
+            receipt = json.loads(db.execute('SELECT payload FROM receipts').fetchone()['payload'])
+        self.assertEqual(receipt['packet_sha256'], packet['sha256'])
+        self.assertEqual(receipt['packet'], packet)
+
+    def test_import_is_evidence_for_review_without_direct_access_authority(self):
+        received = self.store.import_packet(self.packet(), now=NOW)
+        self.assertEqual(received['stored']['sources'], 0)
+        self.assertIsNone(self.store.list_sources()[0].get('last_scan_at_utc'))
+        item = self.store.opportunities(now=NOW)[0]
+        self.assertEqual(item['origin'], 'OFFLINE_PACKET')
+        self.assertEqual(item['classification'], 'DATA INSUFFICIENT')
+        self.assertFalse(item['authenticated_channel_verified'])
+        self.assertIn('offline_packet_identity_not_verified', item['blocking_reasons'])
+
+    def test_older_direct_snapshot_cannot_replace_a_newer_observation(self):
+        newer = NOW + timedelta(seconds=30)
+        scan = fixture(newer)
+        scan['opportunities'][0]['title'] = 'Fresh observed title'
+        self.store.save_scan(scan, now=newer)
+        self.store.save_scan(fixture(), now=newer + timedelta(seconds=5))
+        item = self.store.opportunities(now=newer + timedelta(seconds=5))[0]
+        self.assertEqual(item['title'], 'Fresh observed title')
+        self.assertEqual(item['last_verified_at_utc'], scan['opportunities'][0]['last_verified_at_utc'])
+
+    def test_source_failure_immediately_invalidates_previous_review_classification(self):
+        self.store.save_scan(fixture(), now=NOW)
+        later = NOW + timedelta(seconds=10)
+        for status, access in [('UNAVAILABLE', 'ACCESS UNAVAILABLE'), ('PARSE_UNAVAILABLE', 'ACCESS PARTIAL')]:
+            self.store.save_scan({'source_status': [{'source_id': SOURCE['source_id'], 'status': status, 'access_status': access}]}, now=later)
+            item = self.store.opportunities(now=later)[0]
+            self.assertEqual(item['classification'], 'DATA INSUFFICIENT')
+            self.assertIn('source_revalidation_failed', item['blocking_reasons'])
+            self.assertEqual(item['last_verified_at_utc'], fixture()['opportunities'][0]['last_verified_at_utc'])
+        self.store.save_scan(fixture(later), now=later)
+        self.assertEqual(self.store.opportunities(now=later)[0]['classification'], 'WATCH')
+
+    def detail(self, state='INACTIVE', now=None):
+        when = now or NOW + timedelta(seconds=5)
+        proof = fixture(when)['evidence'][0]
+        proof['url'] = fixture()['opportunities'][0]['official_url']
+        return {'source_id': SOURCE['source_id'], 'opportunity_id': 'fixture_opportunity',
+                'url': proof['url'], 'status': state, 'observed_at': proof['observed_at'],
+                'http_status': 200 if state != 'UNAVAILABLE' else 403,
+                'source_evidence': proof if state != 'UNAVAILABLE' else None,
+                'reason': 'PAUSED' if state == 'INACTIVE' else 'HTTP_403' if state == 'UNAVAILABLE' else 'ACTIVE'}
+
+    def test_only_explicit_primary_inactive_tombstone_retires_cached_opportunity(self):
+        self.store.save_scan(fixture(), now=NOW)
+        # An empty bounded catalogue cannot establish that a programme closed.
+        self.store.save_scan({'source_status': [{'source_id': SOURCE['source_id'], 'status': 'NO_PUBLIC_CANDIDATES', 'access_status': 'ACCESS VERIFIED'}]}, now=NOW + timedelta(seconds=1))
+        self.assertEqual(self.store.opportunities(now=NOW + timedelta(seconds=2))[0]['classification'], 'WATCH')
+        detail = self.detail()
+        self.store.save_scan({'detail_status': [detail]}, now=NOW + timedelta(seconds=5))
+        item = self.store.opportunities(now=NOW + timedelta(seconds=6))[0]
+        self.assertEqual(item['classification'], 'SKIP')
+        self.assertEqual(item['availability_reason'], 'PAUSED')
+        self.assertEqual(item['availability_evidence'], detail['source_evidence'])
+        self.assertIn('OPPORTUNITY_REVALIDATED', [row['kind'] for row in self.store.ledger()])
+
+    def test_unavailable_detail_is_not_mistaken_for_closed_and_later_read_recovers(self):
+        self.store.save_scan(fixture(), now=NOW)
+        self.store.save_scan({'detail_status': [self.detail('UNAVAILABLE')]}, now=NOW + timedelta(seconds=5))
+        item = self.store.opportunities(now=NOW + timedelta(seconds=6))[0]
+        self.assertEqual(item['classification'], 'DATA INSUFFICIENT')
+        self.assertIn('opportunity_revalidation_unavailable', item['blocking_reasons'])
+        later = NOW + timedelta(seconds=20)
+        self.store.save_scan(fixture(later), now=later)
+        self.assertEqual(self.store.opportunities(now=later)[0]['classification'], 'WATCH')
+
+    def test_invalid_primary_tombstone_rolls_back_source_and_evidence_writes(self):
+        self.store.save_scan(fixture(), now=NOW)
+        before = self.store.status()['counts']
+        detail = self.detail()
+        detail['source_evidence'] = None
+        scan = {'source_status': [{'source_id': SOURCE['source_id'], 'status': 'NO_PUBLIC_CANDIDATES'}],
+                'detail_status': [detail], 'evidence': [fixture(NOW + timedelta(seconds=5))['evidence'][0]]}
+        with self.assertRaises(ValueError): self.store.save_scan(scan, now=NOW + timedelta(seconds=5))
+        self.assertEqual(self.store.status()['counts'], before)
+        self.assertEqual(self.store.opportunities(now=NOW + timedelta(seconds=6))[0]['classification'], 'WATCH')
+
+    def test_removed_source_stays_disabled_despite_new_observation_metadata(self):
+        self.store.save_scan(fixture(), now=NOW)
+        Runtime({'sources': []}, self.store)
+        status = fixture()['source_status'][0]
+        status['enabled'] = True
+        status['config'] = SOURCE
+        self.store.save_scan({'source_status': [status]}, now=NOW)
+        registered = self.store.list_sources()[0]
+        self.assertIs(registered['enabled'], False)
+        self.assertIs(registered['config']['enabled'], False)
+        self.assertIn('source_not_configured', self.store.opportunities(now=NOW)[0]['blocking_reasons'])
+
+    def test_http_code_fallback_applies_pause_and_success_clears_it(self):
+        def blocked(config, now):
+            return {'source_status': [{'source_id': SOURCE['source_id'], 'status': 'UNAVAILABLE',
+                                      'access_status': 'ACCESS UNAVAILABLE', 'http_status': None, 'error_code': 'HTTP_403'}]}
+        runtime = Runtime({'sources': [SOURCE]}, self.store, scanner=blocked)
+        runtime.schedule_due(NOW)
+        runtime.run_once(NOW)
+        self.assertGreaterEqual(self.store.joblist()[0]['due'], timestamp(NOW) + 900)
+        later = NOW + timedelta(seconds=901)
+        healthy = Runtime({'sources': [SOURCE]}, self.store, scanner=lambda config, now: fixture(now))
+        healthy.run_once(later)
+        self.assertEqual(self.store.list_sources()[0]['retry_after_seconds'], 0)
+        healthy.schedule_due(later + timedelta(seconds=61))
+        self.assertEqual(len(self.store.joblist()), 2)
+
+    def test_cli_all_failed_batch_returns_nonzero_and_preserves_failure_json(self):
+        import contextlib
+        import io
+        from money_codex.cli import main
+        config = Path(self.temp.name) / 'failure-config.json'
+        config.write_text(json.dumps({'sources': [SOURCE]}))
+        output = Path(self.temp.name) / 'failure-result.json'
+        failed = {'source_status': [{'source_id': SOURCE['source_id'], 'status': 'UNAVAILABLE', 'access_status': 'ACCESS UNAVAILABLE'}]}
+        with patch('money_codex.scanner.scan_sources', return_value=failed), contextlib.redirect_stdout(io.StringIO()):
+            code = main(['scan', '--config', str(config), '--state-dir', str(self.state), '--output', str(output)])
+        self.assertEqual(code, 2)
+        self.assertEqual(json.loads(output.read_text())['jobs'][0]['state'], 'RETRY')
+
+    def test_cli_incomplete_shutdown_is_not_a_success(self):
+        import contextlib
+        import io
+        from unittest.mock import Mock
+        from money_codex.cli import main
+        worker = Mock()
+        worker._stop.wait.return_value = True
+        worker.stop.return_value = False
+        with patch('money_codex.cli.Runtime', return_value=worker), patch('money_codex.cli.load_runtime_config', return_value={'sources': []}), contextlib.redirect_stdout(io.StringIO()), contextlib.redirect_stderr(io.StringIO()) as error:
+            code = main(['worker', '--state-dir', str(self.state)])
+        self.assertEqual(code, 1)
+        self.assertEqual(json.loads(error.getvalue())['state'], 'INCOMPLETE_SHUTDOWN')
+
+    def test_stopping_worker_keeps_lock_until_finished_and_refuses_new_scans(self):
+        entered, release = threading.Event(), threading.Event()
+        def pending(config, now):
+            entered.set()
+            release.wait(2)
+            return fixture(now)
+        runtime = Runtime({'sources': [SOURCE]}, self.store, scanner=pending)
+        other = Runtime({'sources': [SOURCE]}, Store(self.state), scanner=pending)
+        runtime.start_scheduler()
+        try:
+            self.assertTrue(entered.wait(2))
+            self.assertFalse(runtime.stop(timeout=0))
+            with self.assertRaises(RuntimeError): runtime.start_scheduler()
+            with self.assertRaises(RuntimeError): runtime.scan_now()
+            with self.assertRaises(RuntimeError): other.start_scheduler()
+        finally:
+            release.set()
+            self.assertTrue(runtime.stop(timeout=2))
+            other.stop()
+        self.assertTrue(self.store.verify_ledger())
+
+    def test_crashed_process_lock_metadata_does_not_prevent_restart(self):
+        import os
+        import subprocess
+        import sys
+        directory = str(Path(self.temp.name) / 'crashed')
+        script = "from money_codex.runtime import Runtime; from money_codex.store import Store; import os; runtime=Runtime({'sources':[]},Store(" + repr(directory) + ")); runtime.start_scheduler(); os._exit(0)"
+        subprocess.run([sys.executable, '-c', script], check=True, capture_output=True, timeout=5)
+        metadata = json.loads((Path(directory) / '.scheduler.lock').read_text())
+        self.assertNotEqual(metadata['pid'], os.getpid())
+        restarted = Runtime({'sources': []}, Store(directory))
+        try:
+            restarted.start_scheduler()
+            self.assertTrue(restarted.status()['scheduler']['running'])
+        finally:
+            restarted.stop()
+
+    def test_invalid_ledger_json_reports_failed_integrity_without_crashing_health(self):
+        self.store.save_scan(fixture(), now=NOW)
+        with sqlite3.connect(self.store.path) as db:
+            db.execute('DROP TRIGGER ledger_no_update')
+            db.execute("UPDATE ledger SET payload='{' WHERE seq=1")
+        self.assertFalse(self.store.verify_ledger())
+        self.assertFalse(self.store.status()['ledger_integrity'])
+
+    def test_waiting_batch_is_not_lost_behind_a_thousand_newer_jobs(self):
+        old = self.store.enqueue(SOURCE['source_id'], 'old-recoverable', now=NOW - timedelta(days=1))
+        with sqlite3.connect(self.store.path) as db:
+            db.executemany('INSERT INTO jobs(id,dedupe_key,source_id,state,due,created,updated) VALUES(?,?,?,?,?,?,?)',
+                           [(f'history_{i}', f'history:{i}', 'historical-fixture-source', 'SUCCEEDED', timestamp(NOW), timestamp(NOW), timestamp(NOW)) for i in range(1001)])
+        runtime = Runtime({'sources': [SOURCE]}, self.store, scanner=lambda config, now: fixture(now))
+        result = runtime.scan_now(wait=True)
+        self.assertEqual(result['job_ids'], [old])
+        self.assertEqual(result['jobs'][0]['state'], 'SUCCEEDED')
+
+    def test_thread_start_failure_releases_process_lock(self):
+        runtime = Runtime({'sources': []}, self.store)
+        other = Runtime({'sources': []}, Store(self.state))
+        with patch('money_codex.runtime.threading.Thread.start', side_effect=RuntimeError('test thread creation failure')):
+            with self.assertRaises(RuntimeError): runtime.start_scheduler()
+        try:
+            other.start_scheduler()
+            self.assertTrue(other.status()['scheduler']['running'])
+            self.assertIsNone(runtime._lock_file)
+        finally:
+            other.stop()
+            runtime.stop()
+
 
 if __name__ == '__main__':
     unittest.main()

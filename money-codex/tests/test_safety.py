@@ -88,6 +88,36 @@ class AuthorizationSafetyTests(unittest.TestCase):
             auth, context = complete_fixture(); auth['permissions'][key] = True
             self.assertFalse(validate_live_authorization(auth, NOW, context=context)[0])
 
+    def test_paper_freeze_and_scope_cannot_be_bypassed_with_noncanonical_ids(self):
+        for strategy in ('RENOVA_DESK_V0 ', ' RENOVA_DESK_V0', 'MONEY_FIXED_WINDOW_ANALOG_PAPER_V1\n',
+                         'RENOVA_DESK_V0\u200b'):
+            auth, context = complete_fixture()
+            auth['strategy_id'] = context['strategy_id'] = strategy
+            with self.subTest(strategy=strategy):
+                self.assertFalse(validate_live_authorization(auth, NOW, context=context)[0])
+        for key in ('authorization_id', 'issued_by', 'venue', 'account_scope'):
+            auth, context = complete_fixture()
+            auth[key] = ' ' + auth[key]
+            context[key] = auth[key]
+            context['trusted_issuers'] = [auth['issued_by']]
+            with self.subTest(key=key):
+                self.assertFalse(validate_live_authorization(auth, NOW, context=context)[0])
+        for key in ('allowed_assets', 'allowed_products'):
+            auth, context = complete_fixture()
+            auth[key][0] += ' '
+            context['asset' if key == 'allowed_assets' else 'product'] = auth[key][0]
+            self.assertFalse(validate_live_authorization(auth, NOW, context=context)[0])
+
+    def test_extreme_timestamp_offsets_cannot_escape_gate(self):
+        for key in ('issued_at_utc', 'expires_at_utc'):
+            auth, context = complete_fixture()
+            auth[key] = '9999-12-31T23:59:59-01:00'
+            with self.subTest(key=key):
+                self.assertFalse(validate_live_authorization(auth, NOW, context=context)[0])
+        auth, context = complete_fixture()
+        context['revocation_checked_at_utc'] = '0001-01-01T00:00:00+01:00'
+        self.assertFalse(validate_live_authorization(auth, NOW, context=context)[0])
+
 class PacketSafetyTests(unittest.TestCase):
     def packet(self): return envelope('TEST','SYNTHETIC_PUBLISHER',{'x':1},now=NOW)
     def rehash(self, packet):
@@ -135,5 +165,29 @@ class PacketSafetyTests(unittest.TestCase):
             with self.assertRaises(ValueError): canonical_json(data)
         packet=self.packet();packet['payload']['x']=float('nan')
         self.assertFalse(verify_envelope(packet,NOW)[0])
+
+    def test_url_credentials_and_encoded_secret_queries_are_rejected(self):
+        for value in ('https://test_user:TEST_ONLY_NOT_A_SECRET@example.org/',
+                      'See https://example.org/?%61pi_key=TEST_ONLY_NOT_A_SECRET',
+                      'https://example.org/?%2561pi_key=TEST_ONLY_NOT_A_SECRET',
+                      'https://example.org/?apiToken=TEST_ONLY_NOT_A_SECRET',
+                      'https%3A%2F%2Ftest_user%3ATEST_ONLY_NOT_A_SECRET%40example.org%2F'):
+            with self.subTest(value=value):
+                with self.assertRaises(ValueError) as raised:
+                    envelope('TEST', 'P', {'url': value}, now=NOW)
+                self.assertNotIn('TEST_ONLY_NOT_A_SECRET', str(raised.exception))
+        for key in ('apiToken', 'auth_token', 'secretAccessKey', 'Authorization-Header'):
+            with self.subTest(key=key), self.assertRaises(ValueError):
+                assert_no_secret_keys({key: 'TEST_ONLY_NOT_A_SECRET'})
+        packet = envelope('TEST', 'P', {'url': 'https://example.org/token-launch?chain=ethereum', 'token_symbol': 'BTC'}, now=NOW)
+        self.assertTrue(verify_envelope(packet, NOW)[0])
+
+    def test_timestamp_overflow_remains_a_rejection_not_receiver_crash(self):
+        packet = self.packet()
+        packet['created_at_utc'] = packet['updated_at_utc'] = '9999-12-31T23:59:59-01:00'
+        self.rehash(packet)
+        self.assertFalse(verify_envelope(packet, NOW)[0])
+        with self.assertRaises(ValueError):
+            envelope('TEST', 'P', {}, now=datetime.max.replace(tzinfo=timezone.utc))
 
 if __name__ == '__main__': unittest.main()

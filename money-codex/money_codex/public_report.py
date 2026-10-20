@@ -15,6 +15,7 @@ from urllib.parse import parse_qsl, unquote, urlencode, urlsplit, urlunsplit
 from .packets import assert_no_secret_keys
 from .scanner import PROVIDER_HOSTS
 from .store import Store
+from .models import SOURCE_MAX_AGE_SECONDS, utc_now
 
 OFFICIAL_HOSTS = frozenset(host for hosts in PROVIDER_HOSTS.values() for host in hosts)
 PUBLIC_TYPES = {'AIRDROP', 'CLAIM', 'WALLET_BENEFIT', 'QUEST', 'SURVEY', 'PAID_RESEARCH', 'BOUNTY', 'MICROTASK', 'AFFILIATE', 'REFERRAL', 'OTHER', 'PROGRAM_DISCOVERY'}
@@ -52,8 +53,24 @@ def _timestamp(value):
         if parsed.tzinfo is None or parsed.utcoffset() is None:
             return None
         return parsed.astimezone(timezone.utc).isoformat().replace('+00:00', 'Z')
-    except ValueError:
+    except (ValueError, OverflowError):
         return None
+
+
+def _age(value, now):
+    normalized = _timestamp(value)
+    if normalized is None:
+        return None
+    return (now - datetime.fromisoformat(normalized.replace('Z', '+00:00'))).total_seconds()
+
+
+def _freshness(value, now):
+    age = _age(value, now)
+    if age is None:
+        return 'UNKNOWN'
+    if age < 0:
+        return 'FUTURE'
+    return 'FRESH' if age <= SOURCE_MAX_AGE_SECONDS else 'STALE'
 
 
 def safe_url(value, allowed_hosts=OFFICIAL_HOSTS):
@@ -113,9 +130,10 @@ def _proof(proof, official_url, allowed_hosts):
     return {'url': url, 'observed_at_utc': observed, 'content_sha256': digest, 'http_status': 200}
 
 
-def make_public_report(store):
+def make_public_report(store, now=None):
     # Read only these three summaries. Do not read accounts, receipts, the
     # raw evidence collection, the event ledger or private packet payloads.
+    clock = utc_now(now)
     sources, registered = [], {}
     for source in store.list_sources():
         if not isinstance(source, dict):
@@ -133,12 +151,17 @@ def make_public_report(store):
             continue
         registered[sid] = (provider, allowed)
         status = source.get('access_status', source.get('last_status'))
+        scanned = _timestamp(source.get('last_scan_at_utc', source.get('last_scan_at')))
+        fresh = _freshness(scanned, clock)
+        public_status = status if isinstance(status, str) and status in PUBLIC_ACCESS else 'ACCESS UNAVAILABLE'
+        if public_status == 'ACCESS VERIFIED' and fresh != 'FRESH':
+            public_status = 'ACCESS STALE' if fresh == 'STALE' else 'ACCESS UNAVAILABLE'
         sources.append({'source_id': sid, 'provider': provider, 'url': url,
                         'enabled': config.get('enabled') is True,
-                        'last_scan_at_utc': _timestamp(source.get('last_scan_at_utc', source.get('last_scan_at'))),
-                        'last_status': status if isinstance(status, str) and status in PUBLIC_ACCESS else 'ACCESS UNAVAILABLE'})
+                        'last_scan_at_utc': scanned, 'observation_freshness': fresh,
+                        'last_status': public_status})
     rows = []
-    for record in store.opportunities(limit=1000):
+    for record in store.opportunities(limit=1000, now=clock):
         if not isinstance(record, dict) or record.get('privacy') in ('PRIVATE', 'CONFIDENTIAL') or record.get('private') is True:
             continue
         sid = record.get('source_id')
@@ -165,6 +188,21 @@ def make_public_report(store):
                'last_verified_at_utc': _timestamp(record.get('last_verified_at_utc')),
                'classification': classification, 'ev_status': ev if ev in ('CALCULATED', 'DATA INSUFFICIENT') else 'DATA INSUFFICIENT',
                'discovery_only': record.get('discovery_only') is True, 'source_evidence': [proof]}
+        freshness = _freshness(proof['observed_at_utc'], clock)
+        row['evidence_freshness'] = freshness
+        if freshness != 'FRESH' and row['classification'] != 'SKIP':
+            row['classification'] = 'DATA INSUFFICIENT'
+        # An advertised ceiling is never used as the expected reward or EV.
+        row['advertised_max_reward_usd'] = _number(record.get('advertised_max_reward_usd'))
+        for field in ('detail_verified_at_utc', 'programme_launch_at_utc', 'programme_updated_at_utc', 'availability_checked_at_utc'):
+            row[field] = _timestamp(record.get(field))
+        for field, allowed_values in (
+            ('verification_scope', ('PROGRAM_DETAIL', 'PUBLIC_PROGRAM_TERMS_ONLY', 'PUBLIC_CLAIM_TERMS_ONLY', 'PROGRAM_CATALOGUE', 'CATALOGUE_LINK', 'PROGRAM_DISCOVERY')),
+            ('detail_status', ('VERIFIED', 'ACTIVE', 'INACTIVE', 'UNAVAILABLE', 'NOT_CHECKED')),
+            ('availability_status', ('ACTIVE', 'INACTIVE', 'UNAVAILABLE', 'UNKNOWN')),
+        ):
+            value = record.get(field)
+            row[field] = value if isinstance(value, str) and value in allowed_values else None
         for key in PUBLIC_NUMBERS:
             row[key] = _number(record.get(key), probability=key == 'reward_probability', nonnegative=key != 'expected_net_reward_usd')
         for key in PUBLIC_CODES:
@@ -174,12 +212,29 @@ def make_public_report(store):
     # status() is a summary. Export only its typed integrity boolean.
     status = store.status()
     integrity = status.get('ledger_integrity', status.get('ledger_valid')) if isinstance(status, dict) else None
-    return {'schema_version': '1.0', 'system': 'MONEY Ω', 'rail': 'RESOURCE',
-            'generated_at_utc': datetime.now(timezone.utc).isoformat().replace('+00:00', 'Z'),
+    enabled = [source for source in sources if source['enabled']]
+    fresh_sources = sum(source['last_status'] == 'ACCESS VERIFIED' for source in enabled)
+    stale = sum(row['evidence_freshness'] != 'FRESH' for row in rows)
+    missing_ev = sum(row['expected_net_reward_usd'] is None for row in rows)
+    classes = {value: sum(row['classification'] == value for row in rows) for value in sorted(PUBLIC_CLASSIFICATIONS)}
+    quality = {
+        'status': 'HEALTHY' if integrity is True and enabled and fresh_sources == len(enabled) else 'DEGRADED',
+        'decision_readiness': 'DATA INSUFFICIENT' if not classes['QUEUE'] else 'REVIEW REQUIRED',
+        'enabled_sources': len(enabled), 'fresh_verified_sources': fresh_sources,
+        'unavailable_or_stale_sources': len(enabled) - fresh_sources,
+        'stale_or_undated_candidates': stale, 'missing_ev_candidates': missing_ev,
+        'detail_verified_candidates': sum(row['verification_scope'] in ('PROGRAM_DETAIL', 'PUBLIC_PROGRAM_TERMS_ONLY', 'PUBLIC_CLAIM_TERMS_ONLY') and row['evidence_freshness'] == 'FRESH' for row in rows),
+        'provider_count': len({source['provider'] for source in enabled}),
+        'classification_counts': classes,
+        'source_max_age_seconds': SOURCE_MAX_AGE_SECONDS,
+    }
+    return {'schema_version': '1.1', 'system': 'MONEY Ω', 'rail': 'RESOURCE',
+            'generated_at_utc': clock.isoformat().replace('+00:00', 'Z'),
             'mode': 'READ_ONLY', 'verified_income_usd': None, 'income_status': 'NO VERIFIED RECEIPTS',
             'schedule': 'Every six hours, plus code updates and manual runs; platform delays possible',
             'opportunities': rows, 'sources': sources, 'opportunity_count': len(rows),
             'queue_count': sum(row['classification'] == 'QUEUE' for row in rows),
+            'quality': quality,
             'ledger_integrity': integrity if type(integrity) is bool else None,
             'direct_chatgpt_to_codex': False, 'direct_grok_bot_connected': False}
 
@@ -190,6 +245,8 @@ def main():
     parser.add_argument('--output', required=True)
     args = parser.parse_args()
     report = make_public_report(Store(args.state_dir))
+    if report['ledger_integrity'] is not True:
+        raise SystemExit('Public export rejected: ledger integrity is not verified')
     destination = Path(args.output)
     destination.parent.mkdir(parents=True, exist_ok=True)
     destination.write_text(json.dumps(report, ensure_ascii=False, indent=2, allow_nan=False) + '\n')

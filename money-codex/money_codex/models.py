@@ -3,6 +3,7 @@ from __future__ import annotations
 from copy import deepcopy
 from dataclasses import asdict, dataclass
 from datetime import datetime, timezone
+import ipaddress
 import math
 from urllib.parse import urlsplit
 
@@ -17,17 +18,20 @@ def parse_utc(value: object) -> datetime:
         raise ValueError("timestamp must be a nonempty timezone-aware string")
     try:
         parsed = datetime.fromisoformat(value.replace("Z", "+00:00"))
-    except (ValueError, TypeError) as exc:
-        raise ValueError("invalid timestamp") from exc
-    if parsed.tzinfo is None or parsed.utcoffset() is None:
-        raise ValueError("timestamp timezone is required")
-    return parsed.astimezone(timezone.utc)
+        if parsed.tzinfo is None or parsed.utcoffset() is None:
+            raise ValueError("timestamp timezone is required")
+        return parsed.astimezone(timezone.utc)
+    except (ValueError, TypeError, OverflowError) as exc:
+        raise ValueError("invalid timezone-aware timestamp") from exc
 
 def utc_now(now: datetime | None = None) -> datetime:
     value = datetime.now(timezone.utc) if now is None else now
     if not isinstance(value, datetime) or value.tzinfo is None or value.utcoffset() is None:
         raise ValueError("now must be timezone-aware")
-    return value.astimezone(timezone.utc)
+    try:
+        return value.astimezone(timezone.utc)
+    except (ValueError, OverflowError) as exc:
+        raise ValueError("invalid timezone-aware clock") from exc
 
 def nonnegative_number(value: object, field: str) -> float:
     if type(value) not in (int, float):
@@ -110,11 +114,28 @@ class Opportunity:
         return expected_net_reward(self.to_dict())
 
 def _https_url(value) -> bool:
-    if not isinstance(value, str):
+    if not isinstance(value, str) or len(value) > 2048 or "\\" in value or any(c.isspace() or ord(c) < 32 for c in value):
         return False
     try:
         parsed = urlsplit(value)
-        return bool(parsed.scheme == "https" and parsed.hostname and not parsed.username and not parsed.password and not parsed.fragment)
+        host = parsed.hostname
+        if (parsed.scheme != "https" or not host or parsed.username is not None or parsed.password is not None
+                or parsed.port not in (None, 443) or parsed.fragment
+                or host in ("localhost", "localhost.localdomain") or host.endswith((".localhost", ".local", ".internal"))):
+            return False
+        try:
+            address = ipaddress.ip_address(host)
+        except ValueError:
+            if "." not in host or host.endswith(".") or host.replace(".", "").isdigit():
+                return False
+        else:
+            if not address.is_global or address.is_multicast:
+                return False
+        # Storage and packets use this same credential guard. The local import
+        # avoids a module cycle; this function never performs DNS or HTTP I/O.
+        from .packets import assert_no_secret_keys
+        assert_no_secret_keys(value)
+        return True
     except ValueError:
         return False
 
@@ -205,6 +226,31 @@ def evaluate_opportunity(data: dict, now: datetime | None = None) -> dict:
         result.setdefault(field, None)
         if data.get(field) is None:
             missing.append(field)
+    for field in ("kyc_requirements", "wallet_network", "invalidation"):
+        value = data.get(field)
+        if value is not None:
+            if not isinstance(value, str):
+                blocking.append("invalid_metadata:" + field)
+            elif not value.strip():
+                missing.append(field)
+    geography = data.get("geography")
+    if geography is not None:
+        if isinstance(geography, str):
+            if not geography.strip():
+                missing.append("geography")
+        elif isinstance(geography, list):
+            if not geography:
+                missing.append("geography")
+            elif any(not isinstance(item, str) or not item.strip() for item in geography):
+                blocking.append("invalid_metadata:geography")
+        else:
+            blocking.append("invalid_metadata:geography")
+    repeatability = data.get("repeatability")
+    if repeatability is not None:
+        if not isinstance(repeatability, str) and type(repeatability) is not bool:
+            blocking.append("invalid_metadata:repeatability")
+        elif isinstance(repeatability, str) and not repeatability.strip():
+            missing.append("repeatability")
     for field in ("required_capital_usd", "time_cost_minutes"):
         if data.get(field) is not None:
             try:

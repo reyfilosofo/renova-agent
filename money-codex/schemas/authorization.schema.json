@@ -23,23 +23,33 @@
   "properties": {
     "authorization_id": {
       "type": "string",
-      "minLength": 1
+      "minLength": 1,
+      "pattern": "^\\S(?:[^\\r\\n\\t\\x00-\\x1f\\x7f]*\\S)?$(?![\\s\\S])",
+      "description": "Canonical scoped identifier; runtime also rejects Unicode nonprintable characters."
     },
     "issued_by": {
       "type": "string",
-      "minLength": 1
+      "minLength": 1,
+      "pattern": "^\\S(?:[^\\r\\n\\t\\x00-\\x1f\\x7f]*\\S)?$(?![\\s\\S])",
+      "description": "Canonical scoped identifier; runtime also rejects Unicode nonprintable characters."
     },
     "strategy_id": {
       "type": "string",
-      "minLength": 1
+      "minLength": 1,
+      "pattern": "^\\S(?:[^\\r\\n\\t\\x00-\\x1f\\x7f]*\\S)?$(?![\\s\\S])",
+      "description": "Canonical scoped identifier; runtime also rejects Unicode nonprintable characters."
     },
     "venue": {
       "type": "string",
-      "minLength": 1
+      "minLength": 1,
+      "pattern": "^\\S(?:[^\\r\\n\\t\\x00-\\x1f\\x7f]*\\S)?$(?![\\s\\S])",
+      "description": "Canonical scoped identifier; runtime also rejects Unicode nonprintable characters."
     },
     "account_scope": {
       "type": "string",
-      "minLength": 1
+      "minLength": 1,
+      "pattern": "^\\S(?:[^\\r\\n\\t\\x00-\\x1f\\x7f]*\\S)?$(?![\\s\\S])",
+      "description": "Canonical scoped identifier; runtime also rejects Unicode nonprintable characters."
     },
     "schema_version": {
       "const": "2.1"
@@ -78,7 +88,8 @@
       "uniqueItems": true,
       "items": {
         "type": "string",
-        "minLength": 1
+        "minLength": 1,
+        "pattern": "^\\S(?:[^\\r\\n\\t\\x00-\\x1f\\x7f]*\\S)?$(?![\\s\\S])"
       }
     },
     "allowed_products": {
@@ -87,7 +98,8 @@
       "uniqueItems": true,
       "items": {
         "type": "string",
-        "minLength": 1
+        "minLength": 1,
+        "pattern": "^\\S(?:[^\\r\\n\\t\\x00-\\x1f\\x7f]*\\S)?$(?![\\s\\S])"
       }
     },
     "permissions": {

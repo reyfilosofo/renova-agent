@@ -1,7 +1,7 @@
 """Arithmetic and discovery behavior; no accounts or financial adapters."""
 import unittest
 from datetime import datetime, timezone, timedelta
-from money_codex.models import Opportunity, COST_FIELDS, EV_FIELDS, evaluate_opportunity, expected_net_reward
+from money_codex.models import Opportunity, COST_FIELDS, EV_FIELDS, evaluate_opportunity, expected_net_reward, parse_utc, utc_now
 from money_codex.authorization import validate_live_authorization
 from money_codex.packets import envelope, verify_envelope
 
@@ -100,6 +100,39 @@ class MoneyCodexTests(unittest.TestCase):
         data.update({field: 1e308 for field in COST_FIELDS})
         with self.assertRaises(ValueError): expected_net_reward(data)
         self.assertIsNone(evaluate_opportunity(data, NOW)['expected_net_reward_usd'])
+
+    def test_missing_personal_eligibility_metadata_never_becomes_known(self):
+        for field in ('geography', 'kyc_requirements', 'wallet_network', 'repeatability', 'invalidation'):
+            for value in ('', '   ', [], {}, 1):
+                data = {**opportunity(), field: value}
+                with self.subTest(field=field, value=value):
+                    self.assertNotEqual(evaluate_opportunity(data, NOW)['classification'], 'QUEUE')
+        # A known jurisdiction list and explicitly non-repeatable programme are
+        # meaningful values; they do not authorize an account or any action.
+        result = evaluate_opportunity({**opportunity(), 'geography': ['Test jurisdiction'], 'repeatability': False}, NOW)
+        self.assertEqual(result['classification'], 'QUEUE')
+        self.assertFalse(result['execution_allowed'])
+
+    def test_only_public_https_without_embedded_credentials_can_supply_evidence(self):
+        for url in ('https://localhost:65536/', 'https://localhost/', 'https://169.254.169.254/',
+                    'https://127.1/', 'https://[::1]/', 'https://service.internal/', 'https://example.org:8443/',
+                    'https://@example.org/', 'https://example.org/path with space',
+                    'https://example.org/?%61pi_key=TEST_ONLY_NOT_A_SECRET'):
+            data = opportunity()
+            data['official_url'] = data['source_evidence']['url'] = url
+            with self.subTest(url=url):
+                result = evaluate_opportunity(data, NOW)
+                self.assertEqual(result['classification'], 'DATA INSUFFICIENT')
+                self.assertFalse(result['execution_authority'])
+
+    def test_out_of_range_utc_offsets_raise_controlled_validation_error(self):
+        for stamp in ('9999-12-31T23:59:59-01:00', '0001-01-01T00:00:00+01:00'):
+            with self.subTest(stamp=stamp), self.assertRaises(ValueError):
+                parse_utc(stamp)
+            data = {**opportunity(), 'deadline_utc': stamp}
+            self.assertEqual(evaluate_opportunity(data, NOW)['classification'], 'DATA INSUFFICIENT')
+        with self.assertRaises(ValueError):
+            utc_now(datetime.max.replace(tzinfo=timezone(-timedelta(hours=1))))
 
     def test_draft_auth_and_old_weak_active_rejected(self):
         self.assertFalse(validate_live_authorization({'status': 'DRAFT'}, NOW)[0])
