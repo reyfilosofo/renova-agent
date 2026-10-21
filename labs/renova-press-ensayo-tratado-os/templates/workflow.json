@@ -1,0 +1,24 @@
+{
+  "phases": [
+    "INGESTA",
+    "FILOLOGIA",
+    "TESIS",
+    "FUENTES",
+    "REVISION",
+    "MAQUETACION",
+    "PREIMPRESION",
+    "AUTORIZACION",
+    "LANZAMIENTO"
+  ],
+  "never_publish_unverified": true,
+  "required_review_roles": [
+    "AUTHOR",
+    "SOURCE_AUDITOR",
+    "LAYOUT_QA"
+  ],
+  "layouts": [
+    "reader_digital",
+    "print_6x9"
+  ],
+  "distribution": "MANUAL_APPROVAL"
+}
