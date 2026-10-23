@@ -2,7 +2,7 @@ import { createHash, createHmac } from 'node:crypto';
 import { getStore } from '@netlify/blobs';
 const ALLOWED_PAYMENT_LINKS = new Set(['plink_1U84edGYktVBPuyCfPf3vPwm','plink_1U7sU4GYktVBPuyCTse426AJ']);
 const VERSION='2.2';
-const TEXT='Confirmo que cuento con autorización para compartir las imágenes proporcionadas y permito su uso exclusivamente para crear y entregarme mi edición personalizada de Secreto de Orcas mediante herramientas digitales y de inteligencia artificial. Las imágenes no se utilizarán para publicidad ni difusión pública sin autorización adicional. Las copias operativas bajo control de la editorial se eliminarán dentro de los 30 días posteriores a la entrega, conforme al aviso de privacidad.';
+const TEXT='Confirmo que cuento con autorización para compartir las imágenes proporcionadas y permito su uso exclusivamente para crear y entregarme mi edición personalizada de Secreto de Orcas mediante herramientas digitales y de inteligencia artificial. Las imágenes no se utilizarán para publicidad ni difusión pública sin autorización adicional. Las copias operativas bajo control de la editorial se eliminarán dentro de los 30 días posteriores a la entrega, conforme al aviso de privacidad. Acepto y declaro contar con facultades legales suficientes para ello.';
 const digest=createHash('sha256').update(TEXT).digest('hex');
 const env=k=>Netlify.env.get(k);
 const ready=()=>!!(env('STRIPE_SECRET_KEY')&&env('ORCAS_CONSENT_HASH_KEY')&&env('ORCAS_PRIVACY_URL'));
