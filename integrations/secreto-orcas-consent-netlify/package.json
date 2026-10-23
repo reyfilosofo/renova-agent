@@ -1,0 +1,1 @@
+{"name":"secreto-orcas-consentimiento","version":"2.2.0","type":"module","private":true,"dependencies":{"@netlify/blobs":"^9.0.0"},"scripts":{"test":"node --test tests/*.test.mjs"}}
