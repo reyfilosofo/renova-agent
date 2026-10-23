@@ -7,7 +7,7 @@ Versión 2.1 · 23 de octubre de 2026
 
 **Autorización para personalizar con IA**
 
-Declaro ser madre, padre o tutor legal del menor, o contar con facultades suficientes, y tener permiso para compartir la fotografía. Autorizo a Carlos Jonathan González Rodríguez (ℛenova Press & SERESARTE) a recibirla y utilizar ChatGPT (OpenAI) únicamente para transformarla en una ilustración, integrarla en **Secreto de Orcas** y entregarme el archivo digital. No autorizo publicidad, publicación ni reutilización de la imagen. Las fotografías y copias operativas bajo control editorial se eliminarán en un máximo de **30 días desde la entrega**; los proveedores y destinatarios pueden conservar copias conforme a sus propias políticas. Conozco el aviso de privacidad y los medios para ejercer mis derechos ARCO.
+Declaro ser madre, padre o tutor legal del menor y tener permiso para compartir la fotografía. Autorizo a Carlos Jonathan González Rodríguez (ℛenova Press & SERESARTE) a recibirla y utilizar ChatGPT (OpenAI) únicamente para transformarla en una ilustración, integrarla en **Secreto de Orcas** y entregarme el archivo digital. No autorizo publicidad, publicación ni reutilización de la imagen. Las fotografías y copias operativas bajo control editorial se eliminarán en un máximo de **30 días desde la entrega**; los proveedores y destinatarios pueden conservar copias conforme a sus propias políticas. Conozco el aviso de privacidad y los medios para ejercer mis derechos ARCO.
 
 **[Sí, autorizo y continuar]** (acción afirmativa de un clic, NO preseleccionada)
 
