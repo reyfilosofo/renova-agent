@@ -1,0 +1,160 @@
+{
+  "schema_version": "1.0.0",
+  "system": "MONEY Ω",
+  "updated_on": "2026-10-23",
+  "intent": "SINGLE_SITE_CANONICAL",
+  "canonical_site": {
+    "provider": "ChatGPT Sites",
+    "site_id": null,
+    "url": null,
+    "selection_status": "PENDING_EXISTING_SITE_INSPECTION",
+    "new_site_allowed": false,
+    "reason": "Reuse one of three pre-existing Sites; do not create a fourth"
+  },
+  "legacy_sites": [
+    {
+      "name": "MONEY Ω · Recursos",
+      "url": "https://money-omega-recursos.seresarte.chatgpt.site",
+      "merge_status": "PENDING_CONTENT_AND_DB_EXPORT",
+      "preserve_data": true
+    },
+    {
+      "name": "MONEY Ω · Earn Engine",
+      "url": null,
+      "merge_status": "PENDING_SOURCE_ACCESS",
+      "preserve_data": true
+    },
+    {
+      "name": "MONEY Ω · Observatorio",
+      "url": null,
+      "merge_status": "PENDING_SOURCE_ACCESS",
+      "preserve_data": true
+    }
+  ],
+  "modules": [
+    {
+      "id": "home",
+      "label": "Inicio / Oportunidades priorizadas",
+      "role": "single_action_queue"
+    },
+    {
+      "id": "income",
+      "label": "Earn Engine",
+      "role": "discover_verify_prioritize_execute_manual_claim_receipt"
+    },
+    {
+      "id": "web3",
+      "label": "Wallets y Rewards",
+      "role": "wallet_account_visibility_and_eligibility_only_no_signer"
+    },
+    {
+      "id": "markets",
+      "label": "Observatorio / Ω PREDICT",
+      "role": "market_research_paper_risk_checked"
+    },
+    {
+      "id": "resources",
+      "label": "Recursos",
+      "role": "verified_sources_tools_guides"
+    },
+    {
+      "id": "ledger",
+      "label": "Ingresos, gastos y resultados",
+      "role": "unique_idempotent_receipt_ledger"
+    },
+    {
+      "id": "system",
+      "label": "Fuentes, sincronización y riesgos",
+      "role": "freshness_health_access_matrices"
+    }
+  ],
+  "canonical_technical_truth": "https://github.com/reyfilosofo/renova-agent/tree/main",
+  "documentary_truth": "https://docs.google.com/document/d/1dPrxCh88qwUZyXgRFrgfPdpunu258-Xu1lxEoBUKMik/edit",
+  "feeds": [
+    {
+      "id": "public_resource_discovery",
+      "url": "https://raw.githubusercontent.com/reyfilosofo/renova-agent/main/money-resources/data/latest.json",
+      "status": "EXISTING_SOURCE_NOT_YET_SITE_INTEGRATED",
+      "type": "PUBLIC_READ_ONLY",
+      "cadence": "requested 6h GitHub Actions, not guaranteed"
+    },
+    {
+      "id": "market_app",
+      "url": "https://money-z6epdn.v2.appdeploy.ai/",
+      "status": "EXISTING_SEPARATE_MARKET_SURFACE_NOT_YET_INTEGRATED",
+      "type": "SOURCE_OR_LINK_NOT_EXCLUSIVE_MARKET_WRITER"
+    }
+  ],
+  "integrations": [
+    {
+      "id": "github",
+      "desired": "read_public_reports_versioned_code",
+      "status": "ACCESS_VERIFIED_THIS_SESSION_FOR_REPOSITORY"
+    },
+    {
+      "id": "drive",
+      "desired": "document_bridge_reports_private_data_only_via_scoped_auth",
+      "status": "ACCESS_VERIFIED_THIS_SESSION_FOR_DOCUMENTS_NOT_SITE"
+    },
+    {
+      "id": "metamask",
+      "desired": "wallet_connect_public_address_then_opt_in_scoped_read",
+      "status": "NOT_CONNECTED_TO_SITE"
+    },
+    {
+      "id": "coinbase_wallet",
+      "desired": "wallet_connect_public_address_then_opt_in_scoped_read",
+      "status": "NOT_CONNECTED_TO_SITE"
+    },
+    {
+      "id": "grok",
+      "desired": "independent_review_packet_reconciliation",
+      "status": "DIRECT_ENDPOINT_UNVERIFIED"
+    },
+    {
+      "id": "sites",
+      "desired": "update_one_existing_site_without_creating_fourth",
+      "status": "NO_WRITE_TOOL_AVAILABLE_IN_THIS_CHAT"
+    }
+  ],
+  "financial_execution": {
+    "mode": "READ_ONLY_PAPER",
+    "order_execution": false,
+    "wallet_signatures": false,
+    "transfers": false,
+    "claims": false,
+    "require_live_authorization_object": true,
+    "risk_checks": true,
+    "kill_switch": true
+  },
+  "priority_order": [
+    "eligibility",
+    "verified_reward",
+    "probability_of_payment",
+    "net_EV",
+    "time_cost",
+    "risk",
+    "deadline",
+    "liquidity"
+  ],
+  "opportunity_states": [
+    "DISCOVERED",
+    "VERIFIED",
+    "ELIGIBLE",
+    "ACTIONABLE",
+    "ACTION_PENDING_USER",
+    "COMPLETED_UNPAID",
+    "PAID_VERIFIED",
+    "EXPIRED",
+    "REJECTED"
+  ],
+  "hard_rules": [
+    "Do not invent earnings or confirmed eligibility",
+    "Never request or store wallet secrets",
+    "No duplicate site or independent ledgers",
+    "Do not conflate a wallet route with an execution venue",
+    "Missing value is null, not zero",
+    "No writer duplication",
+    "Retire old sites only after content/database/URL migration and verified readback"
+  ]
+}
