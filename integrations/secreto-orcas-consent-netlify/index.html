@@ -1,0 +1,23 @@
+<!doctype html><html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="noindex,nofollow,noarchive"><title>Secreto de Orcas · Autorización</title>
+<style>:root{font-family:system-ui,-apple-system,Segoe UI,Arial,sans-serif;color:#092a4b}*{box-sizing:border-box}body{margin:0;min-height:100vh;display:grid;place-items:center;padding:20px;background:radial-gradient(ellipse at 50% 5%,#255579,#061831 90%)}.paper{max-width:570px;width:100%;background:#faf1db;border:1.5px solid #d3b677;border-radius:20px;padding:clamp(22px,5vw,42px);box-shadow:0 22px 50px #001b36a8}.imprint{text-align:center;font:italic 20px Georgia,serif;color:#9b7639}h1{text-align:center;font:700 clamp(30px,7vw,44px) Georgia,serif;line-height:1.1;letter-spacing:.02em;margin:18px 0 12px}h2{text-align:center;font-weight:500;font-size:18px;margin:0 0 22px}p{line-height:1.66;font-size:15px}label{display:flex;align-items:flex-start;gap:12px;padding:14px 10px;border-top:1px solid #d1bc90;border-bottom:1px solid #d1bc90;font-size:14px;cursor:pointer;font-weight:600}input{accent-color:#082c51;min-width:22px;width:22px;height:22px;margin:0}button{border:0;border-radius:12px;background:#082d51;color:white;width:100%;min-height:55px;font-weight:700;font-size:16px;margin-top:20px;cursor:pointer}button:disabled{background:#728398;cursor:not-allowed}small{display:block;font-size:12px;color:#425a70;line-height:1.6;margin-top:12px}a{color:#0a4068}#status{min-height:24px}footer{text-align:center;font:italic 14px Georgia,serif;color:#7c633e;margin-top:25px}</style></head>
+<body><main class="paper"><div class="imprint">ℛenova Press &amp; SERESARTE</div><h1>Secreto de Orcas</h1><h2>Consentimiento de personalización</h2>
+<p>Confirmo que cuento con autorización para compartir las imágenes proporcionadas y permito su uso exclusivamente para crear y entregarme mi edición personalizada de <em>Secreto de Orcas</em> mediante herramientas digitales y de inteligencia artificial.</p>
+<p>Las imágenes no se utilizarán para publicidad ni difusión pública sin autorización adicional. Las copias operativas bajo control de la editorial se eliminarán dentro de los 30 días posteriores a la entrega, conforme al aviso de privacidad.</p>
+<label><input id="consent" type="checkbox" disabled><span>Sí, autorizo el uso de las imágenes para personalizar mi edición y declaro contar con facultades legales para hacerlo.</span></label>
+<button id="accept" type="button" disabled>Autorizar y continuar</button><small id="status" role="status">Comprobando compra…</small><small>Antes de autorizar, consulta el <a id="privacy" href="#" target="_blank" rel="noopener noreferrer">aviso de privacidad</a>.</small><footer>Rey Filósofo by SERESARTE</footer></main>
+<script>
+'use strict';const q=new URLSearchParams(location.search),sid=q.get('session_id'),status=document.querySelector('#status'),privacy=document.querySelector('#privacy'),ck=document.querySelector('#consent'),button=document.querySelector('#accept');const api='/api/orcas-consent';
+async function start(){
+if(!sid||!/^cs_(live_|test_)[A-Za-z0-9]+$/.test(sid)){status.textContent='Accede desde la confirmación de tu compra en Stripe.';return;}
+try{const r=await fetch(api+'?session_id='+encodeURIComponent(sid),{cache:'no-store'}),d=await r.json();
+if(!r.ok||!d.ready||!d.paid){status.textContent='La compra no pudo verificarse o falta configurar el servicio.';return;}
+if(!d.privacy_url?.startsWith('https://')){status.textContent='Falta publicar el aviso de privacidad.';return;}
+privacy.href=d.privacy_url;if(d.previously_authorized){status.textContent='Ya quedó registrada la autorización de este pedido.';return;}
+ck.disabled=false;status.textContent='Marca la casilla y confirma.';ck.onchange=()=>button.disabled=!ck.checked;
+button.onclick=async()=>{if(!ck.checked)return;button.disabled=true;status.textContent='Registrando autorización…';
+try{const x=await fetch(api,{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify({session_id:sid,authorize:true,declares_legal_authority:true,version:'2.2'})}),d=await x.json();if(!x.ok||!d.recorded)throw Error('not-recorded');
+status.textContent='Autorización registrada. Puedes volver al sitio para completar tu edición.';button.textContent='Volver a Secreto de Orcas';button.disabled=false;button.onclick=()=>location.assign('https://secretodeorcas.seresarte.chatgpt.site/?checkout=success&edition=premium&session_id='+encodeURIComponent(sid)+'#gracias');
+}catch{status.textContent='No pudimos registrar la autorización. No envíes fotografías todavía.';button.disabled=false;}};
+}catch{status.textContent='No se pudo verificar tu compra.';}}
+start();
+</script></body></html>
