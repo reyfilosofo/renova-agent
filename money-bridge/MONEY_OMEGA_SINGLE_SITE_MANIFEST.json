@@ -7,7 +7,7 @@
     "provider": "ChatGPT Sites",
     "site_id": "appgprj_6ac169e9eed48191a46429c70adabaf7",
     "url": "https://money-omega-observatorio.seresarte.chatgpt.site",
-    "selection_status": "SOURCE_IMPLEMENTED_PENDING_DEPLOYMENT",
+    "selection_status": "PUBLISHED_VERIFIED",
     "new_site_allowed": false,
     "reason": "Reuse one of three pre-existing Sites; do not create a fourth",
     "candidate_project_ids": [
@@ -17,50 +17,58 @@
     ],
     "expected_origin_count": 1,
     "selection_reason": "Existing Worker and five market tables retained in place; private user-owned ledger added",
-    "audience_preserved": "public"
+    "audience_preserved": "public",
+    "version_number": 5,
+    "deployment_id": "appgdep_6adcdd579ac88191b65524cedb4dcfda",
+    "source_commit": "fd707e8c5cacda3af20707bb645931ac57603180",
+    "published_at_utc": "2026-10-24T16:31:27.133321Z"
   },
   "legacy_sites": [
     {
       "name": "MONEY Ω · Recursos",
       "project_id": "appgprj_6acbc836e4f08191adcd4185507c9d69",
       "url": "https://money-omega-recursos.seresarte.chatgpt.site",
-      "source_version_number": 1,
+      "source_version_number": 2,
       "site_active": true,
-      "library_role": "editor",
+      "library_role": "owner",
       "metadata_verified": "2026-10-24",
       "code_readback_verified": true,
       "database_export_verified": false,
-      "merge_status": "IMPLEMENTED_PENDING_DEPLOYMENT",
+      "merge_status": "MIGRATION_NOTICE_PUBLISHED",
       "preserve_data": true,
       "source_backup_verified": true,
-      "data_handling": "No server database in static source; only public report imported"
+      "data_handling": "No server database in static source; only public report imported",
+      "source_commit": "73a3f65c171797b916dc54eeb9cb176ea97992d4",
+      "audience_preserved": "owner-private"
     },
     {
       "name": "MONEY Ω · Earn Engine",
       "project_id": "appgprj_6ac5214987948191aae2761cd626e297",
       "url": "https://money-omega-earn-engine.seresarte.chatgpt.site",
-      "source_version_number": 1,
+      "source_version_number": 3,
       "site_active": true,
-      "library_role": "editor",
+      "library_role": "owner",
       "metadata_verified": "2026-10-24",
       "code_readback_verified": true,
       "database_export_verified": false,
-      "merge_status": "IMPLEMENTED_PENDING_DEPLOYMENT",
+      "merge_status": "MIGRATION_NOTICE_PUBLISHED",
       "preserve_data": true,
       "source_backup_verified": true,
-      "data_handling": "Browser-local records remain on original origin; consented export/import preserves dates unknown and pending payments"
+      "data_handling": "Browser-local records remain on original origin; consented export/import preserves dates unknown and pending payments",
+      "source_commit": "e3d231f834d8b1292e27f18911e8d1ed02601e42",
+      "local_data_migration": "EXPORT_PREVIEW_CONSENTED_IMPORT; unknown whether this device has legacy records"
     },
     {
       "name": "MONEY Ω · Observatorio",
       "project_id": "appgprj_6ac169e9eed48191a46429c70adabaf7",
       "url": "https://money-omega-observatorio.seresarte.chatgpt.site",
-      "source_version_number": 4,
+      "source_version_number": 5,
       "site_active": true,
-      "library_role": "editor",
+      "library_role": "owner",
       "metadata_verified": "2026-10-24",
       "code_readback_verified": true,
       "database_export_verified": false,
-      "merge_status": "IMPLEMENTED_PENDING_DEPLOYMENT",
+      "merge_status": "CANONICAL_INTEGRATED",
       "preserve_data": true,
       "source_backup_verified": true,
       "data_handling": "D1 DB retained in place; five original tables unchanged; one additive ledger migration"
@@ -109,14 +117,14 @@
     {
       "id": "public_resource_discovery",
       "url": "https://raw.githubusercontent.com/reyfilosofo/renova-agent/main/money-resources/data/latest.json",
-      "status": "EXISTING_SOURCE_NOT_YET_SITE_INTEGRATED",
+      "status": "INTEGRATED_PUBLIC_READ_ONLY",
       "type": "PUBLIC_READ_ONLY",
       "cadence": "requested 6h GitHub Actions, not guaranteed"
     },
     {
       "id": "market_app",
       "url": "https://money-z6epdn.v2.appdeploy.ai/",
-      "status": "EXISTING_SEPARATE_MARKET_SURFACE_NOT_YET_INTEGRATED",
+      "status": "CANONICAL_GET_WITH_PUBLIC_HTML_FALLBACK_ON_402_5XX_NETWORK; archive may be unavailable",
       "type": "SOURCE_OR_LINK_NOT_EXCLUSIVE_MARKET_WRITER"
     }
   ],
@@ -149,7 +157,7 @@
     {
       "id": "sites",
       "desired": "update_one_existing_site_without_creating_fourth",
-      "status": "NO_WRITE_TOOL_AVAILABLE_IN_THIS_CHAT"
+      "status": "ACCESS VERIFIED"
     }
   ],
   "financial_execution": {
@@ -211,12 +219,23 @@
     "build": "PASS",
     "visual_browser_qa": "ACCESS UNAVAILABLE",
     "account_truth": "ACCESS UNAVAILABLE",
-    "financial_execution_enabled": false
+    "financial_execution_enabled": false,
+    "production_html": "HTTP 200",
+    "production_market_matrix": "HTTP 200; 18 rows; no LIVE ticks",
+    "anonymous_ledger": "HTTP 401",
+    "authenticated_ledger_write": "NOT VERIFIED",
+    "market_history": "HTTP 200; original archive readable",
+    "d1_tables": "five existing plus additive private ledger",
+    "income_received": "NO VERIFIED RECEIPTS",
+    "ci_url": "https://github.com/reyfilosofo/renova-agent/actions/runs/40111957898",
+    "ci_status": "SUCCESS"
   },
   "source_of_truth": {
     "technical": "GitHub main",
     "site_source": "money-site/",
     "documentary": "Drive Operating Bridge v2.1",
     "private_records": "Site D1, per authenticated user"
-  }
+  },
+  "product_interface_count": 1,
+  "hosting_records_retained_for_recovery": 3
 }

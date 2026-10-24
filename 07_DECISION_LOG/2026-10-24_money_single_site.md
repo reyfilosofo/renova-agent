@@ -64,3 +64,24 @@ publicar y leer la versión integrada; sus respaldos se conservan.
 - Metadatos Sites, lectura de fuente y overview D1 del 24-Oct.
 - Scanner 24-Oct: diez fuentes, diez detalles Immunefi, 17 pistas, 20 evidencias.
 - Operating Bridge v2.1; MONEY skill 1.1.0.
+
+
+## Resultado verificado
+
+El Site maestro se publicó con SUCCEEDED el 24-Oct16:31:27Z, versión5, en su URL
+original. HTTP confirmó los siete módulos, matriz de 18 filas sin cotizaciones
+LIVE, el archivo anterior legible y el registro privado protegido con 401 para
+anónimos. D1 conserva cinco tablas de mercados y añade la sexta del registro.
+La escritura autenticada por el usuario y el QA visual de navegador no se
+realizaron. No se afirma una exportación completa de filas D1 previa al cambio.
+
+Los dos accesos antiguos publicaron avisos de traslado con SUCCEEDED a las
+16:33:47Z y16:33:58Z. El prototipo Earn conserva exportación de datos del
+navegador y el maestro ofrece previsualización/importación consentida. Los tres
+proyectos de hosting se conservan para recuperar fuentes; hay un solo producto.
+Se aprobaron 179 tests Python,59 de Site,6 de panel,8 de adapter y2 raíz, además
+de TypeScript/build y CI remoto. Ver recibos y límites en el estado fechado.
+
+El plan30–90d se incorpora como flujos de servicios, empleo y producto autoral.
+Metas y tarifas privadas no se publican ni se cuentan como ingresos. Los PDFs
+adjuntos se inventariaron en archivo privado y no se subieron al sitio o Git.
