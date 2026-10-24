@@ -1,0 +1,137 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="color-scheme" content="dark"><title>MONEY Ω · Income Intelligence System</title>
+<meta name="description" content="Sistema consolidado de descubrimiento de ingresos, recursos, wallets y observatorio con evidencia.">
+<style>
+:root{--bg:#090d13;--panel:#111923;--panel2:#17212e;--line:#293544;--ink:#f2f3f0;--muted:#a2aebd;--gold:#dfb66e;--mint:#92dcbd;--danger:#f0a1a1;--max:1450px;color-scheme:dark}
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:radial-gradient(circle at 92% 0%,#17283b 0,transparent 30%),var(--bg);font:15px/1.5 -apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;color:var(--ink)}
+button,input,select{font:inherit}button{cursor:pointer}a{color:var(--mint);text-underline-offset:3px}a:hover{color:#d5ffef}button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible{outline:3px solid var(--gold);outline-offset:3px}
+.app{max-width:var(--max);min-height:100vh;margin:auto;display:grid;grid-template-columns:245px 1fr}.sidebar{padding:25px 17px;border-right:1px solid var(--line);position:sticky;top:0;height:100vh}.brand{padding:9px 11px 21px;border-bottom:1px solid var(--line)}.brand h1{font-size:27px;letter-spacing:.12em;margin:0;font-weight:700}.brand h1 span{color:var(--gold)}.brand small{font-size:10px;letter-spacing:.16em;color:var(--muted)}.nav{display:grid;gap:7px;margin:24px 0}
+.nav button{border:1px solid transparent;border-radius:10px;padding:12px;color:var(--muted);background:none;text-align:left;font-size:13px}.nav button[aria-selected="true"]{background:var(--panel2);border-color:var(--line);color:var(--ink);font-weight:650}.nav button:hover{color:var(--ink);border-color:var(--line)}
+.side-note{font-size:12px;color:var(--muted);line-height:1.7;margin:30px 10px}.side-note strong{color:var(--gold)}.content{padding:30px 35px 60px;min-width:0}.top{display:flex;align-items:start;justify-content:space-between;gap:18px;margin-bottom:35px}.kicker{font-size:11px;letter-spacing:.19em;color:var(--gold);font-weight:700;text-transform:uppercase}.top h2{font-size:clamp(26px,3.1vw,45px);line-height:1.16;margin:10px 0;font-weight:600;letter-spacing:-.035em}.description{color:var(--muted);max-width:760px}.tag{font:11px/1.3 -apple-system,sans-serif;letter-spacing:.05em;display:inline-block;padding:6px 9px;background:var(--panel2);border:1px solid var(--line);border-radius:30px;color:var(--muted)}.tag.warn{color:var(--gold)}.tag.green{color:var(--mint)}.tag.red{color:var(--danger)}
+.card{border:1px solid var(--line);border-radius:17px;background:linear-gradient(155deg,#151f2a,#10171f);padding:19px;min-width:0}.metrics{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px;margin:22px 0}.metric small{color:var(--muted);display:block}.metric strong{font-size:30px;line-height:1.2;display:block;margin:10px 0 5px;font-weight:550;letter-spacing:-.02em}.metric .meta{color:var(--muted);font-size:11px}
+.section-head{display:flex;justify-content:space-between;align-items:center;gap:16px;margin-top:35px;margin-bottom:14px}.section-head h3{font-size:20px;margin:0;font-weight:600}.section-head p{margin:3px 0;color:var(--muted);font-size:12px}
+table{border-collapse:collapse;width:100%;font-size:13px}th{color:var(--muted);font-weight:600;text-align:left;padding:13px 12px;border-bottom:1px solid var(--line)}td{padding:15px 12px;border-bottom:1px solid #26323e;vertical-align:top}tr:last-child td{border-bottom:0}td strong{display:block;font-size:13px;font-weight:650}td small{display:block;color:var(--muted);margin-top:5px}
+.controls{display:flex;align-items:center;gap:10px;flex-wrap:wrap}.controls input,.controls select{background:var(--panel);border:1px solid var(--line);border-radius:9px;padding:10px 12px;color:var(--ink);max-width:100%}.controls input{min-width:210px;flex:1}
+.btn{display:inline-flex;align-items:center;gap:7px;border:1px solid #4b605d;border-radius:9px;padding:10px 13px;color:var(--mint);background:#172824;text-decoration:none;font-size:12px}.btn:hover{background:#244139}.btn.secondary{background:var(--panel);border-color:var(--line);color:var(--ink)}
+.notice{padding:17px 19px;border-left:3px solid var(--gold);border-radius:8px;background:#1d2024;color:#e0dfd8;font-size:13px}.notice p{margin:3px 0 0;color:var(--muted)}.two{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}.three{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}.view[hidden]{display:none!important}.view h3{font-size:22px}.stack{display:grid;gap:14px}.action{display:flex;gap:12px;align-items:start;justify-content:space-between}.action p{margin:4px 0;color:var(--muted)}.action strong{font-size:15px}
+.links{display:flex;flex-wrap:wrap;gap:10px}.links a{font-size:12px}.fine{font-size:12px;color:var(--muted)}.status-list{display:grid;gap:12px}.status-list>div{display:flex;justify-content:space-between;gap:10px;padding:13px 0;border-bottom:1px solid var(--line)}.status-list>div:last-child{border-bottom:0}.status-list span:last-child{text-align:right;color:var(--muted)}.wallet{padding:19px;min-height:175px;display:flex;flex-direction:column;justify-content:space-between}.wallet .name{font-weight:650}.wallet p{color:var(--muted);font-size:12px}.footer{border-top:1px solid var(--line);padding-top:20px;margin-top:40px;color:var(--muted);font-size:11px}.icon{font-size:17px;margin-right:7px;color:var(--gold)}
+@media(max-width:1050px){.metrics{grid-template-columns:repeat(2,1fr)}.app{grid-template-columns:205px 1fr}.content{padding:25px}.sidebar{padding:18px 10px}}
+@media(max-width:690px){.app{display:block}.sidebar{position:sticky;z-index:20;top:0;height:auto;border-right:0;border-bottom:1px solid var(--line);padding:8px 13px;background:#090d13}.brand{padding:4px 8px 6px;display:flex;align-items:center;justify-content:space-between}.brand h1{font-size:20px}.brand small{font-size:8px}.nav{display:flex;overflow-x:auto;gap:5px;margin:5px 0}.nav button{white-space:nowrap;padding:9px 10px;font-size:11px}.side-note{display:none}.content{padding:20px 15px}.top{margin-bottom:20px}.top h2{font-size:30px}.metrics,.two,.three{grid-template-columns:1fr 1fr}.metric strong{font-size:25px}.section-head{align-items:start;flex-direction:column}.table-wrap{overflow-x:auto}.table-wrap table{min-width:650px}}@media(max-width:420px){.metrics,.two,.three{grid-template-columns:1fr}.top{display:block}}
+</style>
+</head>
+<body>
+<div class="app">
+<aside class="sidebar">
+ <div class="brand"><h1>MONEY <span>Ω</span></h1><small>INCOME INTELLIGENCE SYSTEM</small></div>
+ <nav class="nav" role="tablist" aria-label="Secciones MONEY Ω">
+  <button role="tab" aria-selected="true" data-view="inicio">01 · Centro ejecutivo</button>
+  <button role="tab" aria-selected="false" data-view="earn">02 · Earn Engine</button>
+  <button role="tab" aria-selected="false" data-view="observatorio">03 · Observatorio</button>
+  <button role="tab" aria-selected="false" data-view="recursos">04 · Recursos</button>
+  <button role="tab" aria-selected="false" data-view="wallets">05 · Wallets & Rewards</button>
+  <button role="tab" aria-selected="false" data-view="ledger">06 · Finanzas y cobros</button>
+  <button role="tab" aria-selected="false" data-view="sistema">07 · Integraciones</button>
+ </nav>
+ <p class="side-note"><strong>Mandato:</strong> ingresos reales verificados. Toda lectura es trazable; ningún clic realiza una orden, firma, claim ni transferencia.</p>
+</aside>
+<main class="content">
+ <header class="top"><div><span class="kicker">MONEY Ω / UNIFIED OPERATIONS</span><h2 id="view-title">Centro ejecutivo</h2><p class="description" id="view-description">Una sola visión de ingresos, oportunidades, fuentes, mercados y control de riesgos.</p></div><span class="tag warn">READ ONLY · PAPER</span></header>
+ <section class="view" id="inicio">
+  <div class="notice" id="source-banner" role="status"><strong>Conectando con el informe público verificado…</strong><p>No se muestran ingresos ni oportunidades sintéticas mientras no exista una respuesta válida de fuente.</p></div>
+  <div class="metrics">
+   <div class="card metric"><small>Descubrimientos</small><strong id="m-discover">—</strong><span class="meta">No equivalen a empleos confirmados</span></div>
+   <div class="card metric"><small>Fuentes reportadas</small><strong id="m-source">—</strong><span class="meta">Evidencia del último informe</span></div>
+   <div class="card metric"><small>Accionables validados</small><strong id="m-action">—</strong><span class="meta">Elegibilidad + coste + riesgo</span></div>
+   <div class="card metric"><small>Ingresos acreditados</small><strong id="m-income">No verificados</strong><span class="meta">Sin acceso a recibos privados</span></div>
+  </div>
+  <div class="section-head"><div><h3>Prioridades económicas</h3><p>Orden estratégico; no se afirma disponibilidad personal.</p></div></div>
+  <div class="three">
+   <div class="card"><span class="tag green">01 · FIAT</span><h3>Estudios remunerados</h3><p class="fine">Buscar convocatorias pagadas concretas, elegibilidad México y fecha de pago. Los catálogos generales sólo son pistas.</p><a href="https://www.prolific.com/participants" target="_blank" rel="noopener noreferrer">Prolific ↗</a></div>
+   <div class="card"><span class="tag green">02 · SERVICIOS</span><h3>Contratos y clientes</h3><p class="fine">Prospectos reales, propuesta aprobada, siguiente acción comercial y confirmación de factura/pago.</p><a href="https://github.com/reyfilosofo/renova-agent/issues/65" target="_blank" rel="noopener noreferrer">Plan operativo ↗</a></div>
+   <div class="card"><span class="tag warn">03 · WEB3</span><h3>Rewards y bounties</h3><p class="fine">Validar recompensa, elegibilidad, capital requerido, gas, costes y riesgo antes de realizar cualquier acción.</p><a href="https://immunefi.com/bug-bounty/" target="_blank" rel="noopener noreferrer">Programas verificados ↗</a></div>
+  </div>
+  <div class="section-head"><h3>Últimos descubrimientos</h3><span class="fine" id="lastdate">Sin informe consultado</span></div>
+  <div class="card table-wrap"><table><thead><tr><th>Oportunidad</th><th>Origen</th><th>Condición</th><th>EV neto</th><th>Fuente</th></tr></thead><tbody id="home-rows"><tr><td colspan="5">Consultando fuentes…</td></tr></tbody></table></div>
+ </section>
+ <section class="view" id="earn" hidden>
+  <div class="notice"><strong>Flujo económico: descubrir → verificar → elegibilidad → actuar → cobrar.</strong><p>Las páginas de registro y catálogos no son tareas pagadas confirmadas. No se envían encuestas ni solicitudes automáticamente.</p></div>
+  <div class="section-head"><h3>Explorador de oportunidades</h3><button class="btn secondary" id="refresh" type="button">↻ Actualizar informe</button></div>
+  <div class="controls"><input id="q" placeholder="Buscar programa, categoría o proveedor" aria-label="Buscar"><select id="kind" aria-label="Filtrar categoría"><option value="">Todas las categorías</option><option value="BOUNTY">Bounties</option><option value="PROGRAM_DISCOVERY">Catálogos</option><option value="QUEST">Quests</option><option value="PAID_RESEARCH">Estudios</option></select></div>
+  <div class="card table-wrap" style="margin-top:15px"><table><thead><tr><th>Oportunidad</th><th>Proveedor</th><th>Clasificación</th><th>Ingreso estimable</th><th>Evidencia</th></tr></thead><tbody id="earn-rows"><tr><td colspan="5">Todavía sin resultados.</td></tr></tbody></table></div>
+ </section>
+ <section class="view" id="observatorio" hidden>
+  <div class="notice"><strong>Mercados separados de ingresos cobrados.</strong><p>Sin feed de contratos actuales verificado en este Site. No se presentan cuotas en vivo, arbitraje ni rentabilidad histórica inexistente. Pcontract permanece desconocida donde no exista modelo contractual calibrado.</p></div>
+  <div class="metrics">
+   <div class="card metric"><small>Activos observados por MONEY 1.1</small><strong>6</strong><span class="meta">BTC · ETH · SOL · XRP · BNB · DOGE</span></div>
+   <div class="card metric"><small>Horizontes</small><strong>5 / 15 / 60</strong><span class="meta">Minutos; ventanas fijas UTC</span></div>
+   <div class="card metric"><small>Señales ejecutables</small><strong>Sin confirmar</strong><span class="meta">Requiere contratos, spread, fees y liquidez</span></div>
+   <div class="card metric"><small>Modo</small><strong>PAPER</strong><span class="meta">No se realizan operaciones</span></div>
+  </div>
+  <div class="card"><h3>Integridad de mercado</h3><p class="fine">Un 70 % en una plataforma y 59 % en otra no constituye edge sin identidad contractual, strike, ventana, criterio de liquidación, timestamp y costes coincidentes. Las wallets no aportan confirmaciones independientes del mercado subyacente.</p><div class="links"><a href="https://money-z6epdn.v2.appdeploy.ai/" target="_blank" rel="noopener noreferrer">Abrir infraestructura de mercados existente ↗</a><a href="https://themoney.grok.me/" target="_blank" rel="noopener noreferrer">Ver evaluación externa (sin conexión autenticada) ↗</a></div></div>
+ </section>
+ <section class="view" id="recursos" hidden>
+  <div class="section-head"><h3>Fuentes e integridad</h3><button class="btn secondary" id="refresh2" type="button">↻ Recargar datos</button></div>
+  <div class="notice"><strong>Una lista de proveedores no demuestra ingresos disponibles.</strong><p>La columna de estado informa el resultado de lectura registrado por el recolector. Una lectura pasada no garantiza vigencia presente ni elegibilidad.</p></div>
+  <div class="card table-wrap" style="margin-top:18px"><table><thead><tr><th>Fuente</th><th>Estado informado</th><th>Última captura</th><th>Enlace</th></tr></thead><tbody id="source-rows"><tr><td colspan="4">Sin reporte.</td></tr></tbody></table></div>
+ </section>
+ <section class="view" id="wallets" hidden>
+  <div class="notice"><strong>Conectar no significa autorizar firmas.</strong><p>Esta versión sólo expone el estado real de integración; no solicita secretos, no firma transacciones y no realiza airdrop claims. Las conexiones requerirán permisos explícitos en el Site de destino y prueba de lectura.</p></div>
+  <div class="three" style="margin-top:20px">
+   <div class="card wallet"><div><span class="name">MetaMask</span><p>Cuenta, red y elegibilidad sólo tras consentimiento.</p></div><span class="tag warn">NO CONECTADA</span></div>
+   <div class="card wallet"><div><span class="name">Coinbase Wallet</span><p>Separar wallet on-chain de Coinbase Advanced.</p></div><span class="tag warn">NO CONECTADA</span></div>
+   <div class="card wallet"><div><span class="name">Trust Wallet / otras</span><p>Lectura con alcance limitado cuando exista integración.</p></div><span class="tag warn">NO CONECTADA</span></div>
+  </div>
+  <div class="section-head"><h3>Política de seguridad</h3></div>
+  <div class="card fine">Nunca almacenar seed phrase, private key, contraseña, recovery phrase, session token o claves API en el frontend, en GitHub ni en prompts. No considerar un token inesperado como ingreso. Verificar contrato, red, coste y autenticidad antes de interactuar.</div>
+ </section>
+ <section class="view" id="ledger" hidden>
+  <div class="notice"><strong>Libro mayor de cobros: todavía no conectado a la base privada.</strong><p>Sin evidencia de transacciones no se registra $0 ni se inventan recibos. Las ganancias netas requieren importe, moneda, comisiones, origen e identificador verificable.</p></div>
+  <div class="two" style="margin-top:20px">
+   <div class="card"><h3>Cobrado</h3><strong style="font-size:28px">No verificado</strong><p class="fine">Se verifica contra recibo del procesador o cuenta autorizada.</p></div>
+   <div class="card"><h3>Por cobrar</h3><strong style="font-size:28px">No verificado</strong><p class="fine">Las recompensas potenciales no son cuentas por cobrar.</p></div>
+  </div>
+  <div class="section-head"><h3>Principios contables</h3></div><div class="card fine">Una operación tiene un identificador único, moneda original, importe bruto, comisiones, conversión fechada y referencia de pago. Un mismo recibo no se duplica en distintas categorías. El ledger público no expone cuentas personales.</div>
+ </section>
+ <section class="view" id="sistema" hidden>
+  <div class="section-head"><h3>Integraciones y límites de acceso</h3></div>
+  <div class="card status-list">
+   <div><span>GitHub · fuente pública</span><span id="st-gh">Pendiente de lectura</span></div>
+   <div><span>Drive · archivo documental</span><span>Vínculo documental; Site no conectado</span></div>
+   <div><span>ChatGPT Sites · migración de tres sitios</span><span>NO PUBLICADA</span></div>
+   <div><span>MetaMask y Coinbase Wallet</span><span>NO CONECTADAS</span></div>
+   <div><span>Grok · revisión independiente</span><span>Sin ida y vuelta autenticada</span></div>
+   <div><span>AppDeploy · mercado</span><span>Estado del recolector requiere readback reciente</span></div>
+  </div>
+  <div class="section-head"><h3>Ingeniería canónica</h3></div>
+  <div class="links"><a href="https://github.com/reyfilosofo/renova-agent/issues/65" target="_blank" rel="noopener noreferrer">Issue P0: tres Sites → uno ↗</a><a href="https://github.com/reyfilosofo/renova-agent/blob/main/money-bridge/site-unification/MONEY_OMEGA_SITE_MERGE_EXECUTION.md" target="_blank" rel="noopener noreferrer">Runbook de migración ↗</a><a href="https://docs.google.com/document/d/1dPrxCh88qwUZyXgRFrgfPdpunu258-Xu1lxEoBUKMik/edit" target="_blank" rel="noopener noreferrer">Operating Bridge ↗</a></div>
+ </section>
+ <footer class="footer">MONEY Ω · Sistema de apoyo a decisiones. Sin compra, transmisión de fondos ni aprobación de operaciones. UTC para evidencias; CDMX para presentación. <span id="footer-time">Sin captura verificada.</span></footer>
+</main>
+</div>
+<script type="module">
+const REPORT_URL="https://raw.githubusercontent.com/reyfilosofo/renova-agent/main/money-resources/data/latest.json";
+const titles={inicio:["Centro ejecutivo","Visión priorizada de ingresos, oportunidades y riesgo."],earn:["Earn Engine","Investigar, filtrar y verificar oportunidades económicas concretas."],observatorio:["Observatorio","Análisis contractual y probabilístico en modo PAPER."],recursos:["Recursos","Fuentes primarias con procedencia y vigencia visibles."],wallets:["Wallets & Rewards","Permisos explícitos, elegibilidad y seguridad Web3."],ledger:["Finanzas y cobros","Registro de recursos efectivamente recibidos."],sistema:["Integraciones","Estado de conexiones y trazabilidad del sistema."]};
+const $=id=>document.getElementById(id);
+let current=null;
+function dt(v){const d=new Date(v||"");return Number.isFinite(d.getTime())?d.toLocaleString("es-MX",{timeZone:"America/Mexico_City",dateStyle:"medium",timeStyle:"short"})+" CDMX":"Desconocida"}
+function text(tag,value,cls){const n=document.createElement(tag);n.textContent=value==null?"—":String(value);if(cls)n.className=cls;return n}
+function safeUrl(value){try{const u=new URL(value);if(u.protocol!=="https:"||u.username||u.password)return null;return u.href}catch{return null}}
+function link(url,label){const safe=safeUrl(url);if(!safe)return text("span","No verificado");const a=text("a",label);a.href=safe;a.rel="noopener noreferrer";a.target="_blank";return a}
+function cell(row,content){const c=document.createElement("td");c.append(typeof content==="string"?document.createTextNode(content):content);row.append(c)}
+function tableBody(id,rows,empty){const body=$(id);body.replaceChildren();if(!rows.length){const tr=document.createElement("tr");const td=text("td",empty);td.colSpan=5;tr.append(td);body.append(tr);return}for(const tr of rows)body.append(tr)}
+function render(){if(!current)return;const data=current;const items=data.opportunities||[];$("m-discover").textContent=String(items.length);$("m-source").textContent=String(data.sources.length);$("m-action").textContent="0 verificados";$("m-income").textContent="No verificados";const stamp=dt(data.generated_at_utc);$("lastdate").textContent="Informe: "+stamp;$("footer-time").textContent="Fuente recursos: "+stamp;const age=Date.now()-Date.parse(data.generated_at_utc);const stale=!Number.isFinite(age)||age< -300000||age>12*3600000;const b=$("source-banner");b.replaceChildren(text("strong",stale?"Informe desactualizado o reloj incompatible":"Informe público obtenido"));b.append(text("p","Generado "+stamp+". Contiene descubrimientos, no cobros confirmados. "+(stale?"No tratar como oportunidades vigentes sin revalidar.":"Revisar cada elegibilidad y recompensa.")));$("st-gh").textContent=stale?"ACCESS STALE":"ACCESS VERIFIED · informe leído";const sorted=[...items].sort((a,b)=>priority(b)-priority(a));const home=sorted.slice(0,6).map(item=>{const tr=document.createElement("tr");const first=document.createElement("div");first.append(text("strong",item.title||"Sin título"),text("small",item.type||"Categoría desconocida"));cell(tr,first);cell(tr,item.provider||"Sin proveedor");cell(tr,text("span",item.classification||"DATA INSUFFICIENT","tag warn"));cell(tr,typeof item.expected_net_reward_usd==="number"?String(item.expected_net_reward_usd)+" USD":"Desconocido");cell(tr,link(item.official_url,"Revisar ↗"));return tr});tableBody("home-rows",home,"No se encontraron registros.");
+const q=$("q").value.toLocaleLowerCase("es");const kind=$("kind").value;const filtered=sorted.filter(x=>(!kind||x.type===kind)&&(!q||[x.title,x.type,x.provider].join(" ").toLocaleLowerCase("es").includes(q)));const earn=filtered.map(item=>{const tr=document.createElement("tr");const first=document.createElement("div");first.append(text("strong",item.title||"Sin título"),text("small",dt(item.last_verified_at_utc)));cell(tr,first);cell(tr,item.provider||"—");cell(tr,text("span",item.classification||"DATA INSUFFICIENT","tag warn"));cell(tr,typeof item.expected_net_reward_usd==="number"?String(item.expected_net_reward_usd)+" USD":"No calculable");cell(tr,link(item.official_url,"Fuente oficial ↗"));return tr});tableBody("earn-rows",earn,"No hay registros para estos filtros.");
+const src=data.sources.map(s=>{const tr=document.createElement("tr");cell(tr,s.provider||s.source_id||"—");cell(tr,s.last_status||"Sin estado");cell(tr,dt(s.last_scan_at_utc));cell(tr,link(s.url,"Ver fuente ↗"));return tr});const sb=$("source-rows");sb.replaceChildren(...src);if(!src.length){const tr=document.createElement("tr"),td=text("td","No hay fuentes en el informe.");td.colSpan=4;tr.append(td);sb.append(tr)}
+}
+function priority(r){return r.type==="PAID_RESEARCH"||r.type==="SURVEY"||r.provider==="prolific"||r.provider==="respondent"||r.provider==="userinterviews"?5:r.type==="BOUNTY"?2:1}
+async function refresh(){const b=$("source-banner");try{const response=await fetch(REPORT_URL+"?fetch="+Date.now(),{cache:"no-store"});if(!response.ok)throw Error("HTTP "+response.status);const data=await response.json();if(!data||data.mode!=="READ_ONLY"||!Array.isArray(data.opportunities)||!Array.isArray(data.sources)||!Number.isFinite(Date.parse(data.generated_at_utc)))throw Error("Invalid source format");current=data;render()}catch(e){b.replaceChildren(text("strong","No fue posible leer el informe público"));b.append(text("p","Estado: ACCESS UNAVAILABLE. No se rellenarán huecos ni se presentarán registros antiguos como actuales."));$("st-gh").textContent="ACCESS UNAVAILABLE";if(!current){$("home-rows").replaceChildren();$("earn-rows").replaceChildren();$("source-rows").replaceChildren()}}}
+function navigate(id){for(const b of document.querySelectorAll("[data-view]")){const active=b.dataset.view===id;b.setAttribute("aria-selected",active?"true":"false")}for(const v of document.querySelectorAll("section.view"))v.hidden=v.id!==id;$("view-title").textContent=titles[id][0];$("view-description").textContent=titles[id][1];window.history.replaceState(null,"","#"+id);window.scrollTo({top:0,behavior:"instant"})}
+for(const b of document.querySelectorAll("[data-view]"))b.addEventListener("click",()=>navigate(b.dataset.view));
+$("q").addEventListener("input",render);$("kind").addEventListener("change",render);$("refresh").addEventListener("click",refresh);$("refresh2").addEventListener("click",refresh);
+const requested=location.hash.replace("#","");if(Object.hasOwn(titles,requested))navigate(requested);
+refresh();
+</script>
+</body></html>
