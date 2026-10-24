@@ -1,33 +1,60 @@
 {
-  "schema_version": "1.0.0",
+  "schema_version": "1.1.0",
   "system": "MONEY Ω",
-  "updated_on": "2026-10-23",
+  "updated_on": "2026-10-24",
   "intent": "SINGLE_SITE_CANONICAL",
   "canonical_site": {
     "provider": "ChatGPT Sites",
     "site_id": null,
     "url": null,
-    "selection_status": "PENDING_EXISTING_SITE_INSPECTION",
+    "selection_status": "PENDING_SOURCE_AND_DATABASE_AUDIT",
     "new_site_allowed": false,
-    "reason": "Reuse one of three pre-existing Sites; do not create a fourth"
+    "reason": "Reuse one of three pre-existing Sites; do not create a fourth",
+    "candidate_project_ids": [
+      "appgprj_6acbc836e4f08191adcd4185507c9d69",
+      "appgprj_6ac5214987948191aae2761cd626e297",
+      "appgprj_6ac169e9eed48191a46429c70adabaf7"
+    ],
+    "expected_origin_count": 1
   },
   "legacy_sites": [
     {
       "name": "MONEY Ω · Recursos",
+      "project_id": "appgprj_6acbc836e4f08191adcd4185507c9d69",
       "url": "https://money-omega-recursos.seresarte.chatgpt.site",
-      "merge_status": "PENDING_CONTENT_AND_DB_EXPORT",
+      "source_version_number": 1,
+      "site_active": true,
+      "library_role": "editor",
+      "metadata_verified": "2026-10-24",
+      "code_readback_verified": false,
+      "database_export_verified": false,
+      "merge_status": "PENDING_SOURCE_DB_INSPECTION",
       "preserve_data": true
     },
     {
       "name": "MONEY Ω · Earn Engine",
-      "url": null,
-      "merge_status": "PENDING_SOURCE_ACCESS",
+      "project_id": "appgprj_6ac5214987948191aae2761cd626e297",
+      "url": "https://money-omega-earn-engine.seresarte.chatgpt.site",
+      "source_version_number": 1,
+      "site_active": true,
+      "library_role": "editor",
+      "metadata_verified": "2026-10-24",
+      "code_readback_verified": false,
+      "database_export_verified": false,
+      "merge_status": "PENDING_SOURCE_DB_INSPECTION",
       "preserve_data": true
     },
     {
       "name": "MONEY Ω · Observatorio",
-      "url": null,
-      "merge_status": "PENDING_SOURCE_ACCESS",
+      "project_id": "appgprj_6ac169e9eed48191a46429c70adabaf7",
+      "url": "https://money-omega-observatorio.seresarte.chatgpt.site",
+      "source_version_number": 4,
+      "site_active": true,
+      "library_role": "editor",
+      "metadata_verified": "2026-10-24",
+      "code_readback_verified": false,
+      "database_export_verified": false,
+      "merge_status": "PENDING_SOURCE_DB_INSPECTION",
       "preserve_data": true
     }
   ],
@@ -156,5 +183,14 @@
     "Missing value is null, not zero",
     "No writer duplication",
     "Retire old sites only after content/database/URL migration and verified readback"
-  ]
+  ],
+  "last_resource_scan": {
+    "generated_at_utc": "2026-10-24T04:34:51.547033Z",
+    "candidate_count": 18,
+    "source_count": 10,
+    "net_ev_known_count": 0,
+    "verified_income_usd": null,
+    "read_status": "GITHUB_REPORT_VERIFIED",
+    "warning": "Candidates are not verified payouts or personal eligibility"
+  }
 }
