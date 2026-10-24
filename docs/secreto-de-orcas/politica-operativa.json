@@ -1,0 +1,17 @@
+{
+  "product": "Secreto de Orcas",
+  "author": "Carlos Jonathan González Rodríguez",
+  "signature": "Rey Filósofo by SERESARTE",
+  "publisher": "ℛenova Press & SERESARTE",
+  "revision": "2026-10-23 v2.0",
+  "guardianAffirmativeConsentRequiredBeforeAI": true,
+  "photoMaxDaysSinceDelivery": 30,
+  "pdfMaxDaysSinceDelivery": 30,
+  "customerImagesAllowedInRepository": false,
+  "marketingSeparateOptIn": true,
+  "formsDeployed": false,
+  "deletionAutomationVerified": false,
+  "controllerTaxIdentity": "PENDIENTE",
+  "privacyEmail": "PENDIENTE",
+  "aiProviderMode": "POR VALIDAR"
+}
