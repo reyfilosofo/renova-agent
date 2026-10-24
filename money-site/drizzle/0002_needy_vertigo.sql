@@ -1,0 +1,2 @@
+CREATE INDEX `money_forecasts_daily_idx` ON `money_forecasts` (`horizon`,`origin`,`created`);--> statement-breakpoint
+CREATE INDEX `money_market_snapshots_daily_idx` ON `money_market_snapshots` (`horizon`,`window_start`,`created`);

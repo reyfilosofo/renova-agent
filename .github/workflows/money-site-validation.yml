@@ -1,0 +1,39 @@
+name: MONEY unified site validation
+on:
+  pull_request:
+    paths: ['money-site/**', '.github/workflows/money-site-validation.yml', 'money-bridge/site-unification/**']
+  push:
+    branches: [main]
+    paths: ['money-site/**', '.github/workflows/money-site-validation.yml', 'money-bridge/site-unification/**']
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+      - uses: pnpm/action-setup@v4
+        with:
+          version: '11.25.0'
+          run_install: false
+      - name: Verify shared feed provenance
+        run: cmp money-site/lib/unified-feed.mjs money-bridge/site-unification/unified-feed.mjs
+      - name: Install the existing pinned dependencies
+        working-directory: money-site
+        run: npm run install:ci
+      - name: Test read-only markets, private ledger and resource integrity
+        working-directory: money-site
+        run: node --test tests/*.test.mjs
+      - name: Typecheck
+        working-directory: money-site
+        run: node node_modules/typescript/bin/tsc --noEmit
+      - name: Build the existing Sites worker
+        working-directory: money-site
+        run: npm run build

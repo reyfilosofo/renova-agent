@@ -1,3 +1,5 @@
+> Execution update — 2026-10-24: all three source repositories were inspected and backed up. Observatorio is retained in place, with its five D1 market tables and a new user-owned ledger. Earn browser-local data uses explicit export/preview/import; unknown dates and pending flags remain unknown/pending. The source implementation is at `money-site/`; publication and subsequent receipts are in the canonical manifest and dated current state. Historical blocking statements below describe the earlier chat surface.
+
 # MONEY Ω — Existing ChatGPT Sites Consolidation · EXECUTION RUNBOOK
 **Source of truth:** user instruction (2026-10-24). **Status:** ENGINEERING PACKAGE PREPARED; SITE EDIT/DB MERGE NOT YET PERFORMED. **Risk mode:** READ_ONLY / PAPER until explicit financial authorization.
 

@@ -1,0 +1,34 @@
+{
+  "version": "7",
+  "dialect": "sqlite",
+  "entries": [
+    {
+      "idx": 0,
+      "version": "6",
+      "when": 1791061046643,
+      "tag": "0000_noisy_true_believers",
+      "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "6",
+      "when": 1791106837430,
+      "tag": "0001_yummy_morph",
+      "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "6",
+      "when": 1791106883518,
+      "tag": "0002_needy_vertigo",
+      "breakpoints": true
+    },
+    {
+      "idx": 3,
+      "version": "6",
+      "when": 1792823855635,
+      "tag": "0003_loud_xavin",
+      "breakpoints": true
+    }
+  ]
+}

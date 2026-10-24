@@ -5,9 +5,9 @@
   "intent": "SINGLE_SITE_CANONICAL",
   "canonical_site": {
     "provider": "ChatGPT Sites",
-    "site_id": null,
-    "url": null,
-    "selection_status": "PENDING_SOURCE_AND_DATABASE_AUDIT",
+    "site_id": "appgprj_6ac169e9eed48191a46429c70adabaf7",
+    "url": "https://money-omega-observatorio.seresarte.chatgpt.site",
+    "selection_status": "SOURCE_IMPLEMENTED_PENDING_DEPLOYMENT",
     "new_site_allowed": false,
     "reason": "Reuse one of three pre-existing Sites; do not create a fourth",
     "candidate_project_ids": [
@@ -15,7 +15,9 @@
       "appgprj_6ac5214987948191aae2761cd626e297",
       "appgprj_6ac169e9eed48191a46429c70adabaf7"
     ],
-    "expected_origin_count": 1
+    "expected_origin_count": 1,
+    "selection_reason": "Existing Worker and five market tables retained in place; private user-owned ledger added",
+    "audience_preserved": "public"
   },
   "legacy_sites": [
     {
@@ -26,10 +28,12 @@
       "site_active": true,
       "library_role": "editor",
       "metadata_verified": "2026-10-24",
-      "code_readback_verified": false,
+      "code_readback_verified": true,
       "database_export_verified": false,
-      "merge_status": "PENDING_SOURCE_DB_INSPECTION",
-      "preserve_data": true
+      "merge_status": "IMPLEMENTED_PENDING_DEPLOYMENT",
+      "preserve_data": true,
+      "source_backup_verified": true,
+      "data_handling": "No server database in static source; only public report imported"
     },
     {
       "name": "MONEY Ω · Earn Engine",
@@ -39,10 +43,12 @@
       "site_active": true,
       "library_role": "editor",
       "metadata_verified": "2026-10-24",
-      "code_readback_verified": false,
+      "code_readback_verified": true,
       "database_export_verified": false,
-      "merge_status": "PENDING_SOURCE_DB_INSPECTION",
-      "preserve_data": true
+      "merge_status": "IMPLEMENTED_PENDING_DEPLOYMENT",
+      "preserve_data": true,
+      "source_backup_verified": true,
+      "data_handling": "Browser-local records remain on original origin; consented export/import preserves dates unknown and pending payments"
     },
     {
       "name": "MONEY Ω · Observatorio",
@@ -52,10 +58,12 @@
       "site_active": true,
       "library_role": "editor",
       "metadata_verified": "2026-10-24",
-      "code_readback_verified": false,
+      "code_readback_verified": true,
       "database_export_verified": false,
-      "merge_status": "PENDING_SOURCE_DB_INSPECTION",
-      "preserve_data": true
+      "merge_status": "IMPLEMENTED_PENDING_DEPLOYMENT",
+      "preserve_data": true,
+      "source_backup_verified": true,
+      "data_handling": "D1 DB retained in place; five original tables unchanged; one additive ledger migration"
     }
   ],
   "modules": [
@@ -192,5 +200,23 @@
     "verified_income_usd": null,
     "read_status": "GITHUB_REPORT_VERIFIED",
     "warning": "Candidates are not verified payouts or personal eligibility"
+  },
+  "verification": {
+    "core_python_tests": 179,
+    "site_tests": 59,
+    "public_dashboard_tests": 6,
+    "shared_adapter_tests": 8,
+    "root_tests": 2,
+    "typecheck": "PASS",
+    "build": "PASS",
+    "visual_browser_qa": "ACCESS UNAVAILABLE",
+    "account_truth": "ACCESS UNAVAILABLE",
+    "financial_execution_enabled": false
+  },
+  "source_of_truth": {
+    "technical": "GitHub main",
+    "site_source": "money-site/",
+    "documentary": "Drive Operating Bridge v2.1",
+    "private_records": "Site D1, per authenticated user"
   }
 }
