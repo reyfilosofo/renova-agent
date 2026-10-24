@@ -1,6 +1,6 @@
 # MONEY Ω · CODEX
 
-Version 0.4.0 · 2026-10-20 · Python 3.11+ · standard library only.
+Version 0.4.0 · 2026-10-24 · Python 3.11+ · standard library only.
 
 The engineering node of MONEY Ω now operates a public resource discovery rail:
 ten configured sources for bounties, quests and paid research, a durable SQLite

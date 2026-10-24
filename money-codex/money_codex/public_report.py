@@ -8,6 +8,8 @@ from datetime import datetime, timezone
 import argparse
 import json
 import math
+import os
+import tempfile
 from pathlib import Path
 import re
 from urllib.parse import parse_qsl, unquote, urlencode, urlsplit, urlunsplit
@@ -251,8 +253,20 @@ def main():
     if report['ledger_integrity'] is not True:
         raise SystemExit('Public export rejected: ledger integrity is not verified')
     destination = Path(args.output)
+    if destination.is_symlink():
+        raise ValueError('Public report output must not be a symlink')
+    encoded = json.dumps(report, ensure_ascii=False, indent=2, allow_nan=False) + '\n'
     destination.parent.mkdir(parents=True, exist_ok=True)
-    destination.write_text(json.dumps(report, ensure_ascii=False, indent=2, allow_nan=False) + '\n')
+    descriptor, temporary = tempfile.mkstemp(prefix='.money-public-report-', dir=destination.parent)
+    os.close(descriptor)
+    try:
+        # Publish independently from market monitoring without exposing a
+        # truncated resource report if this write fails midway.
+        Path(temporary).write_text(encoded, encoding='utf-8')
+        os.replace(temporary, destination)
+    finally:
+        if os.path.exists(temporary):
+            os.unlink(temporary)
     print(json.dumps({'public_opportunity_count': report['opportunity_count']}))
 
 if __name__ == '__main__':

@@ -5,7 +5,7 @@ project: MONEY
 status: activo
 version: "0.4.0"
 created: 2026-10-11
-updated: 2026-10-20
+updated: 2026-10-24
 tags: [money, recursos, discovery]
 ---
 
@@ -87,7 +87,12 @@ del cron ni cubre todos los archivos. La lectura autenticada del 20-Oct informa
 cron habilitado y ejecución exitosa; el incidente del 19-Oct se preserva como
 observación histórica. No se compraron créditos ni se modificó el cron.
 
-La versión se verifica con 175 tests Python del módulo, seis pruebas del panel
+La versión se verifica con 179 tests Python del módulo, seis pruebas del panel
 y los dos tests raíz. Los resultados operativos y recibos de publicación
 figuran en el estado fechado del 20-Oct y en el historial GitHub. Los datos de
 fuentes cambian: consulte la fecha real de cada reporte.
+
+
+La unificación del 24-Oct se implementa en el Site Observatorio existente, como MONEY Ω.
+Este directorio conserva el feed público y las fuentes técnicas; no es un producto independiente.
+Véase `../money-bridge/MONEY_OMEGA_SINGLE_SITE_MANIFEST.json`.
