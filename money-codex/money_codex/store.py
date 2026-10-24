@@ -79,6 +79,8 @@ class Store:
                 CREATE TABLE IF NOT EXISTS outbox(packet_id TEXT PRIMARY KEY,payload TEXT NOT NULL,state TEXT NOT NULL DEFAULT 'EXPORTED',created REAL NOT NULL);
                 CREATE TABLE IF NOT EXISTS receipts(packet_id TEXT PRIMARY KEY,payload TEXT NOT NULL,created REAL NOT NULL);
             ''')
+            # Serialize migration inspection with other processes starting up.
+            db.execute('BEGIN IMMEDIATE')
             columns = {r['name'] for r in db.execute('PRAGMA table_info(jobs)')}
             if 'lease_token' not in columns:
                 db.execute('ALTER TABLE jobs ADD COLUMN lease_token TEXT')
@@ -111,7 +113,7 @@ class Store:
         digest = hashlib.sha256(canonical({'event_id': event_id, 'kind': kind, 'payload': payload, 'created': at, 'previous_hash': previous_hash}).encode()).hexdigest()
         db.execute('INSERT INTO ledger(event_id,kind,payload,created,previous_hash,hash) VALUES(?,?,?,?,?,?)', (event_id, kind, body, at, previous_hash, digest))
 
-    def register_sources(self, sources, now=None):
+    def register_sources(self, sources, now=None, deactivate_missing=False):
         at = timestamp(now)
         with self._transaction() as db:
             for source in sources:
@@ -123,6 +125,14 @@ class Store:
                 payload.update({'source_id': sid, 'config': source, 'enabled': source.get('enabled', True), 'mode': 'READ_ONLY'})
                 payload.setdefault('status', 'NOT_CHECKED')
                 db.execute('INSERT INTO sources VALUES(?,?,?) ON CONFLICT(id) DO UPDATE SET payload=excluded.payload,updated=excluded.updated', (sid, canonical(payload), at))
+            if deactivate_missing:
+                configured = {source.get('source_id') or source.get('id') for source in sources}
+                for row in db.execute('SELECT id,payload FROM sources').fetchall():
+                    if row['id'] not in configured:
+                        payload = json.loads(row['payload'])
+                        payload['enabled'] = False
+                        payload['config'] = {**payload.get('config', {}), 'enabled': False}
+                        db.execute('UPDATE sources SET payload=?,updated=? WHERE id=?', (canonical(payload), at, row['id']))
 
     def enqueue(self, source_id, dedupe_key, now=None, due=None, max_attempts=3):
         at = timestamp(now)
@@ -196,10 +206,15 @@ class Store:
         if not isinstance(result, dict) or result.get('mode', 'READ_ONLY') != 'READ_ONLY':
             raise ValueError('Only READ_ONLY scans can be stored')
         canonical(result)
-        prepared = {**result, 'opportunities': []}
-        for key in ('opportunities', 'source_status', 'evidence'):
+        prepared = {**json.loads(canonical(result)), 'opportunities': []}
+        for key in ('opportunities', 'source_status', 'evidence', 'detail_status'):
             if not isinstance(result.get(key, []), list) or len(result.get(key, [])) > 2000:
                 raise ValueError('Bounded scan arrays required')
+            if any(not isinstance(item, dict) for item in result.get(key, [])):
+                raise ValueError('Scan entries must be objects')
+        for source in result.get('source_status', []):
+            if not isinstance(source.get('source_id') or source.get('id'), str) or not (source.get('source_id') or source.get('id')):
+                raise ValueError('Source status id required')
         for opportunity in result.get('opportunities', []):
             payload = evaluate_opportunity(opportunity, now=moment(at))
             if not isinstance(payload.get('opportunity_id'), str) or not payload['opportunity_id']:
@@ -209,7 +224,7 @@ class Store:
         return prepared
 
     @staticmethod
-    def _save_scan(db, result, at):
+    def _save_scan(db, result, at, imported=False):
         counts = {'opportunities': 0, 'evidence': 0, 'sources': 0}
         for evidence in result.get('evidence', []):
             if not isinstance(evidence, dict):
@@ -218,27 +233,112 @@ class Store:
             eid = hashlib.sha256(body.encode()).hexdigest()
             sid = str(evidence.get('source_id') or evidence.get('provider') or 'connector-import')
             counts['evidence'] += db.execute('INSERT OR IGNORE INTO evidence VALUES(?,?,?,?)', (eid, sid, body, at)).rowcount
-        for source in result.get('source_status', []):
+        for source in ([] if imported else result.get('source_status', [])):
             sid = str(source.get('source_id') or source.get('id') or '')
             if not sid:
                 raise ValueError('Source status id required')
             previous = db.execute('SELECT payload FROM sources WHERE id=?', (sid,)).fetchone()
             payload = json.loads(previous['payload']) if previous else {}
-            payload.update(source)
+            payload.update({key: value for key, value in source.items() if key not in ('config', 'enabled', 'mode', 'last_scan_at_utc')})
+            payload.setdefault('enabled', False)
+            if source.get('access_status') == 'ACCESS VERIFIED' and source.get('status') not in ('UNAVAILABLE', 'PARSE_UNAVAILABLE', 'ERROR', 'FAILED', 'BLOCKED'):
+                payload['retry_after_seconds'] = source.get('retry_after_seconds', 0)
             payload.update({'source_id': sid, 'mode': 'READ_ONLY', 'last_scan_at_utc': utc(at)})
             db.execute('INSERT INTO sources VALUES(?,?,?) ON CONFLICT(id) DO UPDATE SET payload=excluded.payload,updated=excluded.updated', (sid, canonical(payload), at))
             counts['sources'] += 1
         for payload in result.get('opportunities', []):
             oid = payload['opportunity_id']
             sid = str(payload.get('source_id') or payload.get('provider') or 'unknown')
-            body = canonical(payload)
             old = db.execute('SELECT payload FROM opportunities WHERE id=?', (oid,)).fetchone()
+            previous = json.loads(old['payload']) if old else None
+            if imported:
+                # Integrity is not channel authentication: never replace direct
+                # local observations with claims supplied in an offline packet.
+                payload = {**payload, 'origin': 'OFFLINE_PACKET', 'authenticated_channel_verified': False}
+                if previous and previous.get('origin') != 'OFFLINE_PACKET':
+                    continue
+            incoming_at = Store._observed_at(payload, at)
+            previous_at = Store._observed_at(previous, at) if previous else None
+            if previous_at is not None and (incoming_at is None or incoming_at < previous_at):
+                continue
+            body = canonical(payload)
             db.execute('INSERT INTO opportunities VALUES(?,?,?,?) ON CONFLICT(id) DO UPDATE SET source_id=excluded.source_id,payload=excluded.payload,updated=excluded.updated', (oid, sid, body, at))
             if not old or old['payload'] != body:
                 Store._event(db, 'OPPORTUNITY_OBSERVED', {'opportunity_id': oid, 'source_id': sid, 'payload_sha256': hashlib.sha256(body.encode()).hexdigest(), 'classification': payload.get('classification')}, at)
             counts['opportunities'] += 1
+        if not imported:
+            Store._apply_detail_status(db, result.get('detail_status', []), at)
         Store._event(db, 'SCAN_STORED', counts, at)
         return counts
+
+    @staticmethod
+    def _observed_at(payload, at):
+        try:
+            observed = timestamp(payload.get('last_verified_at_utc')) if payload and payload.get('last_verified_at_utc') else None
+            return observed if observed is not None and observed <= at else None
+        except (TypeError, ValueError, OverflowError):
+            return None
+
+    @staticmethod
+    def _apply_detail_status(db, statuses, at):
+        for detail in statuses:
+            oid, sid = detail.get('opportunity_id'), detail.get('source_id')
+            disposition = detail.get('status')
+            if not isinstance(oid, str) or not isinstance(sid, str) or disposition not in ('ACTIVE', 'INACTIVE', 'UNAVAILABLE'):
+                raise ValueError('Invalid detail status identity')
+            if not isinstance(detail.get('observed_at'), str):
+                raise ValueError('Detail observation timestamp required')
+            observed = timestamp(detail['observed_at'])
+            if observed > at:
+                raise ValueError('Detail status timestamp is in the future')
+            row = db.execute('SELECT source_id,payload FROM opportunities WHERE id=?', (oid,)).fetchone()
+            if not row or row['source_id'] != sid:
+                continue
+            payload = json.loads(row['payload'])
+            if detail.get('url') != payload.get('official_url'):
+                raise ValueError('Detail status URL mismatch')
+            old_checked = payload.get('availability_checked_at_utc')
+            if (old_checked and timestamp(old_checked) > observed) or (Store._observed_at(payload, at) or 0) > observed:
+                continue
+            proof = detail.get('source_evidence')
+            if disposition in ('ACTIVE', 'INACTIVE'):
+                if (not isinstance(proof, dict) or proof.get('source_id') != sid or proof.get('url') != detail['url']
+                        or proof.get('http_status') != 200 or not isinstance(proof.get('content_sha256'), str)
+                        or not re.fullmatch('[0-9a-f]{64}', proof['content_sha256'])
+                        or not isinstance(proof.get('observed_at'), str) or timestamp(proof['observed_at']) != observed):
+                    raise ValueError('Direct primary evidence required for availability')
+            payload.update(availability_status=disposition, availability_checked_at_utc=utc(observed),
+                           availability_evidence=proof, availability_reason=detail.get('reason') or detail.get('error_code'))
+            db.execute('UPDATE opportunities SET payload=?,updated=? WHERE id=?', (canonical(payload), at, oid))
+            Store._event(db, 'OPPORTUNITY_REVALIDATED', {'opportunity_id': oid, 'source_id': sid,
+                         'availability_status': disposition, 'observed_at': utc(observed)}, at)
+
+    @staticmethod
+    def _opportunity_view(row, at):
+        from .models import evaluate_opportunity
+        payload = evaluate_opportunity(json.loads(row['payload']), now=moment(at))
+        source = json.loads(row['source_payload']) if row['source_payload'] else None
+        reasons = []
+        disposition = payload.get('availability_status')
+        if disposition == 'INACTIVE':
+            reasons.append('official_opportunity_inactive')
+            payload.update(classification='SKIP', status='SKIP', next_action='Do not pursue')
+        elif disposition == 'UNAVAILABLE':
+            reasons.append('opportunity_revalidation_unavailable')
+        if source:
+            payload['source_access_status'] = source.get('access_status')
+            payload['source_last_attempt_at_utc'] = source.get('last_scan_at_utc')
+            if source.get('enabled') is False:
+                reasons.append('source_not_configured')
+            if source.get('access_status') == 'ACCESS UNAVAILABLE' or source.get('status') in ('UNAVAILABLE', 'PARSE_UNAVAILABLE', 'ERROR', 'FAILED', 'BLOCKED'):
+                reasons.append('source_revalidation_failed')
+        if payload.get('origin') == 'OFFLINE_PACKET':
+            payload['authenticated_channel_verified'] = False
+            reasons.append('offline_packet_identity_not_verified')
+        if reasons and payload['classification'] != 'SKIP':
+            payload.update(classification='DATA INSUFFICIENT', status='DATA INSUFFICIENT', next_action='Verify missing evidence')
+        payload['blocking_reasons'] = list(dict.fromkeys(payload.get('blocking_reasons', []) + reasons))
+        return payload
 
     def save_scan(self, result, now=None):
         at = timestamp(now)
@@ -257,24 +357,25 @@ class Store:
             row = self._leased(db, job_id, owner, lease_token, at)
             if (any(s.get('source_id') != row['source_id'] for s in prepared.get('source_status', []))
                     or any(o.get('source_id') != row['source_id'] for o in prepared.get('opportunities', []))
-                    or any(e.get('source_id') != row['source_id'] for e in prepared.get('evidence', []))):
+                    or any(e.get('source_id') != row['source_id'] for e in prepared.get('evidence', []))
+                    or any(d.get('source_id') != row['source_id'] for d in prepared.get('detail_status', []))):
                 raise ValueError('Worker result belongs to another source')
             counts = self._save_scan(db, prepared, at)
             state = self._finish(db, row, counts, error, at, retry_seconds)
         return state, counts
 
     def opportunities(self, limit=100, classification=None, source_id=None, now=None):
-        from .models import evaluate_opportunity
-        query = 'SELECT payload FROM opportunities'
+        at = timestamp(now)
+        query = 'SELECT o.payload,s.payload source_payload FROM opportunities o LEFT JOIN sources s ON o.source_id=s.id'
         args = []
         if source_id:
-            query += ' WHERE source_id=?'
+            query += ' WHERE o.source_id=?'
             args.append(source_id)
-        query += ' ORDER BY updated DESC LIMIT ?'
+        query += ' ORDER BY o.updated DESC LIMIT ?'
         args.append(min(max(int(limit), 1), 1000))
         with self._connect() as db:
             rows = db.execute(query, args).fetchall()
-        payloads = [evaluate_opportunity(json.loads(row['payload']), now=moment(now)) for row in rows]
+        payloads = [self._opportunity_view(row, at) for row in rows]
         return [p for p in payloads if classification is None or p.get('classification') == classification]
 
     def list_sources(self):
@@ -284,6 +385,13 @@ class Store:
     def joblist(self, limit=100):
         with self._connect() as db:
             rows = db.execute('SELECT * FROM jobs ORDER BY created DESC LIMIT ?', (min(max(int(limit), 1), 1000),)).fetchall()
+            return [{**dict(row), 'result': json.loads(row['result']) if row['result'] else None} for row in rows]
+
+    def jobs_by_ids(self, job_ids):
+        if not isinstance(job_ids, list) or not 1 <= len(job_ids) <= 100 or any(not isinstance(jid, str) for jid in job_ids):
+            raise ValueError('A bounded job id list is required')
+        with self._connect() as db:
+            rows = db.execute('SELECT * FROM jobs WHERE id IN (' + ','.join('?' for _ in job_ids) + ')', job_ids).fetchall()
             return [{**dict(row), 'result': json.loads(row['result']) if row['result'] else None} for row in rows]
 
     def evidence(self, evidence_id=None, limit=100):
@@ -299,12 +407,15 @@ class Store:
 
     def verify_ledger(self):
         previous = '0' * 64
-        with self._connect() as db:
-            for r in db.execute('SELECT * FROM ledger ORDER BY seq'):
-                data = {'event_id': r['event_id'], 'kind': r['kind'], 'payload': json.loads(r['payload']), 'created': r['created'], 'previous_hash': r['previous_hash']}
-                if r['previous_hash'] != previous or hashlib.sha256(canonical(data).encode()).hexdigest() != r['hash']:
-                    return False
-                previous = r['hash']
+        try:
+            with self._connect() as db:
+                for r in db.execute('SELECT * FROM ledger ORDER BY seq'):
+                    data = {'event_id': r['event_id'], 'kind': r['kind'], 'payload': json.loads(r['payload']), 'created': r['created'], 'previous_hash': r['previous_hash']}
+                    if r['previous_hash'] != previous or hashlib.sha256(canonical(data).encode()).hexdigest() != r['hash']:
+                        return False
+                    previous = r['hash']
+        except (ValueError, TypeError, sqlite3.DatabaseError):
+            return False
         return True
 
     def status(self):
@@ -326,20 +437,30 @@ class Store:
 
     def import_packet(self, packet, now=None):
         from .packets import verify_envelope
-        ok, reasons = verify_envelope(packet, now=moment(now))
+        at = timestamp(now)
+        ok, reasons = verify_envelope(packet, now=moment(at))
         if not ok:
             raise ValueError('Invalid evidence envelope: ' + ', '.join(reasons))
         canonical(packet)
-        payload = packet.get('payload', {})
-        if payload.get('mode', 'READ_ONLY') != 'READ_ONLY' or payload.get('rail', 'RESOURCES') != 'RESOURCES':
-            raise ValueError('Only READ_ONLY resource evidence can be imported')
+        payload = packet['payload']
+        required = {'mode', 'rail', 'opportunities', 'source_status', 'evidence'}
+        if (packet['object_type'] != 'RESOURCE_RESEARCH' or not required <= set(payload)
+                or set(payload) - (required | {'direct_bot_connected'})
+                or payload['mode'] != 'READ_ONLY' or payload['rail'] != 'RESOURCES'
+                or payload.get('direct_bot_connected', False) is not False):
+            raise ValueError('Explicit READ_ONLY resource research schema required')
         packet_id = packet['packet_id']
-        at = timestamp(now)
         prepared = self._prepared_scan(payload, at)
         with self._transaction() as db:
-            if db.execute('SELECT 1 FROM receipts WHERE packet_id=?', (packet_id,)).fetchone():
-                return {'state': 'EXISTING', 'packet_id': packet_id}
-            counts = self._save_scan(db, prepared, at)
-            db.execute('INSERT INTO receipts VALUES(?,?,?)', (packet_id, canonical({'packet_id': packet_id, 'producer': packet['producer'], 'verification': 'integrity_and_ttl', 'authenticated_channel_verified': False}), at))
+            previous = db.execute('SELECT payload FROM receipts WHERE packet_id=?', (packet_id,)).fetchone()
+            if previous:
+                receipt = json.loads(previous['payload'])
+                if not isinstance(receipt, dict) or receipt.get('packet_sha256') != packet['sha256']:
+                    raise ValueError('Packet id collision or unverified legacy receipt')
+                return {'state': 'EXISTING', 'packet_id': packet_id, 'authenticated_channel_verified': False}
+            counts = self._save_scan(db, prepared, at, imported=True)
+            receipt = {'packet_id': packet_id, 'packet_sha256': packet['sha256'], 'producer': packet['producer'],
+                       'verification': 'integrity_and_ttl', 'authenticated_channel_verified': False, 'packet': packet}
+            db.execute('INSERT INTO receipts VALUES(?,?,?)', (packet_id, canonical(receipt), at))
             self._event(db, 'PACKET_IMPORTED', {'packet_id': packet_id, 'producer': packet['producer'], 'delivery': 'offline', 'authenticated_channel_verified': False}, at)
         return {'state': 'IMPORTED', 'packet_id': packet_id, 'stored': counts, 'authenticated_channel_verified': False}

@@ -11,6 +11,7 @@ import json
 import math
 import re
 import secrets
+import socket
 from datetime import datetime, timezone
 from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
 from pathlib import Path
@@ -83,14 +84,20 @@ def _plain(value, depth=0):
 
 
 def _url(value):
-    if not isinstance(value, str) or len(value) > 2000:
+    if (not isinstance(value, str) or len(value) > 2000
+            or re.search(r"[\s\\\x00-\x1f\x7f]", value)):
         return None
     try:
         url = urlsplit(value)
-        keys = {key.lower() for key in parse_qs(url.query)}
-        if (url.scheme != "https" or not url.hostname or url.username or url.password
+        # Treat common spelling variants alike, including blank query values.
+        keys = {re.sub(r"[^a-z0-9]", "", key.casefold())
+                for key in parse_qs(url.query, keep_blank_values=True, max_num_fields=100)}
+        private = {re.sub(r"[^a-z0-9]", "", key) for key in PRIVATE_KEYS}
+        private.update({"token", "key", "wallet", "account", "secret", "session",
+                        "accesstoken", "refreshtoken", "apitoken", "authtoken", "clientsecret"})
+        if (url.scheme != "https" or not url.hostname or url.username is not None or url.password is not None
                 or url.port not in (None, 443) or url.fragment
-                or keys & (PRIVATE_KEYS | {"token", "key", "wallet", "account", "secret"})):
+                or keys & private):
             return None
         host = url.hostname.lower()
         if host == "localhost" or host.endswith((".localhost", ".local", ".internal")) or host.endswith("."):
@@ -98,7 +105,13 @@ def _url(value):
         try:
             address = ipaddress.ip_address(host)
         except ValueError:
-            if "." not in host:
+            # Browsers also interpret inet-style IPv4 (127.1, octal and hex).
+            # inet_aton parses literals only; it performs no DNS/network lookup.
+            try:
+                address = ipaddress.IPv4Address(socket.inet_aton(host))
+            except OSError:
+                address = None
+            if (address is not None and not address.is_global) or "." not in host:
                 return None
         else:
             if not address.is_global:
@@ -176,6 +189,9 @@ def _opportunity_view(record):
 
 def _assert_public_packet(value, depth=0):
     """Reject unsafe exports rather than alter a packet's checksum/provenance."""
+    if depth == 0:
+        from .packets import assert_no_secret_keys
+        assert_no_secret_keys(value)
     if depth > 16:
         raise ValueError("Packet nesting exceeds limit")
     if isinstance(value, dict):
@@ -356,14 +372,15 @@ def create_server(store, runtime, host="127.0.0.1", port=8787):
                 return self._fail(404, "Ruta no disponible")
             if query:
                 return self._fail(400, "Parámetros locales inválidos")
-            if not secrets.compare_digest(self.headers.get("X-Money-CSRF", ""), self.server.csrf_token):
+            csrf = self.headers.get("X-Money-CSRF", "")
+            if not csrf.isascii() or not secrets.compare_digest(csrf, self.server.csrf_token):
                 return self._fail(403, "Recarga el panel antes de buscar")
             if len(self.headers.get_all("X-Money-CSRF", [])) != 1 or len(self.headers.get_all("Content-Length", [])) != 1:
                 return self._fail(400, "Cabeceras de cuerpo inválidas")
             if self.headers.get("Transfer-Encoding"):
                 return self._fail(400, "Transporte de cuerpo no admitido")
             declared = self.headers.get("Content-Length", "")
-            if not declared.isdigit() or len(declared) > 9:
+            if not declared.isascii() or not declared.isdigit() or len(declared) > 9:
                 return self._fail(411, "Se requiere tamaño del cuerpo")
             size = int(declared)
             if size > MAX_BODY:
@@ -398,7 +415,7 @@ def create_server(store, runtime, host="127.0.0.1", port=8787):
                        "status": result.get("state", "QUEUED"), "created_at": _utc_now(),
                        "sources_in_cooldown": cooling}
                 return self._send(202 if ids else 200, {"job": _plain(job), "mode": "READ_ONLY", "financial_execution": False})
-            except (ValueError, TypeError, UnicodeDecodeError):
+            except (ValueError, TypeError, UnicodeDecodeError, RecursionError):
                 return self._fail(400, "Solicitud de búsqueda inválida")
             except TimeoutError:
                 return self._fail(408, "Tiempo de lectura agotado")

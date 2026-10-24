@@ -3,6 +3,10 @@ from __future__ import annotations
 
 import http.client
 import json
+from pathlib import Path
+import re
+import shutil
+import subprocess
 import tempfile
 import threading
 import time
@@ -144,6 +148,27 @@ class ServerHTTPTests(unittest.TestCase):
         self.assertNotIn("never-export", raw.decode())
         self.assertNotIn("private-wallet", raw.decode())
 
+    def test_nonpublic_and_credential_links_are_not_returned_as_official_urls(self):
+        unsafe = [
+            "https://127.1/", "https://0177.0.0.1/", "https://0x7f.0.0.1/",
+            "https://example.com\t.evil.test/", "https://example.com\\@evil.test/",
+            "https://example.com/?api-key=example", "https://example.com/?access_token=example",
+            "https://example.com/?session-token=example", "https://example.com/?wallet_address=example",
+            "https://example.com/?api_key=", "https://example.com/?session=example",
+        ]
+        for url in unsafe:
+            with self.subTest(url=url):
+                self.store.rows[0]["official_url"] = url
+                self.store.rows[0]["source_evidence"]["observed_link"] = url
+                status, _, raw = self.request("/api/opportunities")
+                self.assertEqual(status, 200)
+                row = json.loads(raw)["items"][0]
+                self.assertIsNone(row["official_url"])
+                self.assertIsNone(row["source_evidence"]["observed_link"])
+        self.store.rows[0]["official_url"] = "https://immunefi.com/bug-bounty/?utm_source=money"
+        row = json.loads(self.request("/api/opportunities")[2])["items"][0]
+        self.assertEqual(row["official_url"], self.store.rows[0]["official_url"])
+
     def test_scan_enqueues_only_registered_sources_and_maps_batch(self):
         status, _, raw = self.post({"source_ids": ["official"]})
         self.assertEqual(status, 202)
@@ -193,6 +218,14 @@ class ServerHTTPTests(unittest.TestCase):
         self.assertEqual(self.post({}, {"Content-Type": "text/plain"})[0], 415)
         self.assertEqual(self.runtime.calls, [])
 
+    def test_nonascii_headers_and_deep_json_fail_without_disconnect_or_enqueue(self):
+        self.assertEqual(self.post({}, {"X-Money-CSRF": "\N{LATIN SMALL LETTER E WITH ACUTE}"})[0], 403)
+        self.assertEqual(self.post({}, {"Content-Length": "\N{SUPERSCRIPT TWO}"})[0], 411)
+        nested = b'{"source_ids":' + b'[' * 1500 + b'0' + b']' * 1500 + b'}'
+        self.assertLess(len(nested), MAX_BODY)
+        self.assertEqual(self.post(nested)[0], 400)
+        self.assertEqual(self.runtime.calls, [])
+
     def test_unknown_methods_filters_and_financial_routes_fail(self):
         for route in ("/api/buy", "/api/order", "/api/claim", "/api/wallet", "/api/import", "/api/secrets"):
             self.assertEqual(self.request(route)[0], 404)
@@ -211,6 +244,14 @@ class ServerHTTPTests(unittest.TestCase):
         status, _, raw = self.request("/api/export")
         self.assertEqual(status, 400)
         self.assertNotIn("private", raw.decode())
+
+    def test_export_rejects_normalized_credentials_without_mutating_the_packet(self):
+        packet = {"payload": {"official_url": "https://example.com/?access_token=example"}}
+        self.store.export_packet = lambda **kwargs: packet
+        status, _, raw = self.request("/api/export")
+        self.assertEqual(status, 400)
+        self.assertNotIn("access_token", raw.decode())
+        self.assertEqual(packet["payload"]["official_url"], "https://example.com/?access_token=example")
 
     def test_html_content_security_policy_and_text_only_dom_rendering(self):
         status, headers, raw = self.request("/")
@@ -306,6 +347,69 @@ class ServerHTTPTests(unittest.TestCase):
                 other.shutdown()
                 other.server_close()
                 worker.join(timeout=2)
+
+
+class DashboardValueTests(unittest.TestCase):
+    """Run the dashboard's real pure functions without mocking their logic."""
+
+    def run_javascript(self, assertions):
+        node = shutil.which("node")
+        if node is None:
+            self.skipTest("Node required to exercise dashboard JavaScript")
+        html = (Path(__file__).resolve().parents[1] / "web/index.html").read_text()
+        script = re.search(r"<script>(.*?)</script>", html, re.S).group(1)
+        # The declarations before officialLink don't access the DOM until called.
+        pure = script[script.index("const $ ="):script.index("function officialLink")]
+        pure += script[script.index("function sourceMatches"):script.index("function updateFilters")]
+        result = subprocess.run([node, "-e", "const assert=require('node:assert/strict');\n" + pure + assertions],
+                                capture_output=True, text=True, timeout=10)
+        self.assertEqual(result.returncode, 0, result.stderr)
+
+    def test_impossible_timestamps_are_unknown_not_normalized(self):
+        self.run_javascript("""
+          for(const value of ['2026-02-30T12:00:00Z','2026-04-31T12:00:00Z',
+              '2026-10-15T24:00:00Z','2026-10-15T12:00:00',null,true]) {
+            assert.equal(dateValue(value),null);
+            assert.equal(dateText(value),'Desconocida');
+          }
+          assert.equal(dateValue('2024-02-29T12:00:00.123456Z'),Date.parse('2024-02-29T12:00:00.123456Z'));
+          assert.equal(dateValue('2026-10-15T12:00:00-06:00'),Date.parse('2026-10-15T18:00:00Z'));
+        """)
+
+    def test_explicit_source_ids_win_and_ambiguous_provider_is_not_a_source(self):
+        self.run_javascript("""
+          state.sources=[{source_id:'A',provider:'Shared'},{source_id:'B',provider:'Shared'}];
+          assert.equal(sourceMatches({source_id:'A',provider:'Shared'},'A'),true);
+          assert.equal(sourceMatches({source_id:'A',provider:'Shared'},'B'),false);
+          assert.equal(sourceMatches({provider:'Shared'},'B'),false);
+          state.sources=[{source_id:'A',provider:'Unique'}];
+          assert.equal(sourceMatches({provider:'Unique'},'A'),true);
+        """)
+
+    def test_origin_observation_never_fills_an_unknown_verification(self):
+        self.run_javascript("""
+          const stamp='2026-10-15T12:00:00Z';
+          const item={last_verified_at_utc:null,observed_at:stamp};
+          assert.equal(verifiedAt(item),null);
+          assert.equal(observedAt(item),stamp);
+          assert.equal(verifiedAt({observed_at:stamp}),null);
+          assert.equal(observedAt({last_verified_at_utc:stamp}),null);
+          assert.equal(observedAt({source_evidence:{observed_at:stamp},observed_at:'other'}),stamp);
+          assert.equal(label('INELIGIBLE'),'No elegible');
+          assert.equal(money(null),'Desconocido');
+          assert.notEqual(money(0),'Desconocido');
+        """)
+
+    def test_links_reject_credentials_control_characters_and_loopback_aliases(self):
+        self.run_javascript("""
+          for(const value of ['https://127.1/','https://0177.0.0.1/','https://0x7f.0.0.1/',
+              'https://example.org/?access_token=example','https://example.org/?api-key=example',
+              'https://example.org/?session=example','https://example.org/?wallet_address=example',
+              'https://example.org/?session_token=','https://service.internal/','javascript:alert(1)']) {
+            assert.equal(safeURL(value),null);
+          }
+          assert.equal(safeURL('https://example.org/?utm_source=money').hostname,'example.org');
+        """)
 
 
 if __name__ == "__main__":

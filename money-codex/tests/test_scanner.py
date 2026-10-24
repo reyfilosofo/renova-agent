@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import hashlib
+import http.client
 import json
 import socket
 import urllib.error
@@ -15,7 +16,8 @@ from money_codex import scanner
 class ScannerTests(unittest.TestCase):
     def setUp(self):
         self.config = json.loads((Path(__file__).resolve().parents[1] / "config/resource_sources.json").read_text())
-        self.source = next(s for s in self.config["sources"] if s["source_id"] == "immunefi_programs")
+        self.source = {**next(s for s in self.config["sources"] if s["source_id"] == "immunefi_programs"),
+                       "detail_parser": None}
         self.policy = scanner._policy(self.config, self.source)
         self.now = datetime(2026, 10, 11, 16, 0, tzinfo=timezone.utc)
         scanner._RATE_TIMES.clear()
@@ -257,6 +259,176 @@ class ScannerTests(unittest.TestCase):
         source = next(s for s in self.config["sources"] if s["provider"] == "github")
         with self.assertRaisesRegex(scanner.SourceError, "REPOSITORY_NOT_ALLOWLISTED"):
             scanner._policy({**self.config, "allowed_github_repositories": []}, source)
+
+    def programme(self, slug="ens", **changes):
+        record = {"slug": slug, "project": slug.upper(), "url": f"/bug-bounty/{slug}/information/",
+                  "maxBounty": 250000, "pausedAt": None, "endDate": None,
+                  "launchDate": "2024-05-10T03:11:00Z", "updatedDate": "2026-10-10T12:00:00Z", "kyc": True}
+        record.update(changes)
+        return record
+
+    def programme_html(self, record, payload_prefix="", heading=None, displayed_max=250000):
+        payload = payload_prefix + 'a:' + json.dumps(["$", "Component", None, {"bounty": record}])
+        script = 'self.__next_f.push(' + json.dumps([1, payload]) + ')'
+        return (f'<h1>{heading or record["project"]}</h1><p>Maximum Bounty ${displayed_max:,} '
+                'Live Since 10 May 2024 Last Updated 10 October 2026 KYC required Submit a Bug</p>'
+                f'<script>{script}</script>')
+
+    def deep_scan(self, records=None, *, bodies=None, limit=10, fetch_failure=None):
+        records = records or [self.programme()]
+        source = {**self.source, "detail_parser": "immunefi_information", "max_detail_pages": limit}
+        catalogue = ''.join(f'<a href="/bug-bounty/{r["slug"]}/information/">{r["project"]}</a>' for r in records)
+        pages = {f'https://immunefi.com/bug-bounty/{r["slug"]}/information/': self.programme_html(r) for r in records}
+        pages.update(bodies or {})
+
+        def fetch(chosen, policy):
+            url = chosen['url']
+            if url == source['url']:
+                return self.fetched(catalogue, url)
+            if fetch_failure:
+                raise scanner.SourceError(fetch_failure)
+            return self.fetched(pages[url], url)
+        with patch.object(scanner, '_fetch', side_effect=fetch) as called:
+            report = scanner.scan_sources({**self.config, 'sources': [source]}, self.now)
+        return report, called
+
+    def test_deep_primary_evidence_ceiling_never_becomes_ev(self):
+        report, fetch = self.deep_scan()
+        opp = report['opportunities'][0]
+        self.assertEqual(fetch.call_count, 2)
+        self.assertEqual(opp['advertised_max_reward_usd'], 250000)
+        self.assertTrue(all(opp[field] is None for field in scanner.EV_FIELDS))
+        self.assertEqual(opp['eligibility_status'], 'UNKNOWN')
+        self.assertEqual(opp['verification_scope'], 'PUBLIC_PROGRAM_TERMS_ONLY')
+        self.assertEqual(opp['source_evidence']['url'], opp['official_url'])
+        self.assertEqual(opp['source_evidence']['reference_basis'], 'DIRECT_PAGE')
+        self.assertEqual(opp['source_evidence']['observed_at'], opp['detail_verified_at_utc'])
+        self.assertEqual(opp['detail_status'], 'ACTIVE')
+        self.assertEqual(opp['kyc_requirements'], 'REQUIRED BY PROGRAMME')
+        self.assertEqual(len(report['evidence']), 2)
+        self.assertIn(self.source['url'], opp['evidence'])
+        self.assertIsNone(opp['deadline_utc'])
+        self.assertFalse(opp['execution_allowed'])
+
+    def test_wrong_slug_url_or_heading_is_not_primary_verification(self):
+        official = 'https://immunefi.com/bug-bounty/ens/information/'
+        for record, heading in [(self.programme(slug='cosmos'), 'COSMOS'),
+                                (self.programme(url='/bug-bounty/cosmos/information/'), 'ENS'),
+                                (self.programme(), 'Other programme')]:
+            with self.subTest(record=record, heading=heading):
+                report, _ = self.deep_scan(bodies={official: self.programme_html(record, heading=heading)})
+                self.assertEqual(report['opportunities'], [])
+                self.assertEqual(report['detail_status'][0]['status'], 'UNAVAILABLE')
+                self.assertEqual(report['source_status'][0]['access_status'], 'ACCESS PARTIAL')
+
+    def test_paused_ended_and_future_programmes_have_primary_inactive_receipts(self):
+        for changes, reason in [({'pausedAt': '2026-10-10T00:00:00Z'}, 'PROGRAM_PAUSED'),
+                                ({'endDate': '2026-10-11T16:00:00Z'}, 'PROGRAM_ENDED'),
+                                ({'launchDate': '2026-10-12T00:00:00Z'}, 'PROGRAM_NOT_STARTED')]:
+            with self.subTest(changes=changes):
+                report, _ = self.deep_scan([self.programme(**changes)])
+                self.assertEqual(report['opportunities'], [])
+                receipt = report['detail_status'][0]
+                self.assertEqual(receipt['status'], 'INACTIVE')
+                self.assertEqual(receipt['reason'], reason)
+                self.assertEqual(receipt['source_evidence']['url'], receipt['url'])
+                self.assertEqual(receipt['observed_at'], receipt['source_evidence']['observed_at'])
+                self.assertEqual(receipt['http_status'], 200)
+                self.assertEqual(report['errors'], [])
+
+    def test_invalid_maximum_types_or_conflicting_display_do_not_create_watch(self):
+        for value in [True, '250000', float('inf'), -1, 10 ** 400]:
+            with self.subTest(value_type=type(value).__name__):
+                report, _ = self.deep_scan([self.programme(maxBounty=value)])
+                self.assertEqual(report['opportunities'], [])
+                self.assertEqual(report['detail_status'][0]['error_code'], 'PROGRAM_REWARD_UNVERIFIED')
+        url = 'https://immunefi.com/bug-bounty/ens/information/'
+        report, _ = self.deep_scan(bodies={url: self.programme_html(self.programme(), displayed_max=100000)})
+        self.assertEqual(report['opportunities'], [])
+        self.assertEqual(report['detail_status'][0]['error_code'], 'PROGRAM_REWARD_CONFLICT')
+
+    def test_bad_or_future_programme_dates_fail_closed(self):
+        for key, value in [('endDate', '2026-10-30'), ('updatedDate', '2026-11-01T00:00:00Z'),
+                           ('pausedAt', False), ('launchDate', 'unknown')]:
+            with self.subTest(key=key, value=value):
+                report, _ = self.deep_scan([self.programme(**{key: value})])
+                self.assertEqual(report['opportunities'], [])
+                self.assertEqual(report['detail_status'][0]['status'], 'UNAVAILABLE')
+
+    def test_200_challenge_not_found_and_spa_shell_are_not_terms(self):
+        url = 'https://immunefi.com/bug-bounty/ens/information/'
+        for body, code in [('<h1>Just a moment</h1>Verify you are human', 'BLOCKED_CONTENT'),
+                           ('<title>404: This page could not be found</title><h1>404</h1>', 'PAGE_NOT_FOUND'),
+                           ('<div id="root"></div><script>window.data={}</script>', 'SPA_CONTENT_UNAVAILABLE')]:
+            with self.subTest(code=code):
+                report, _ = self.deep_scan(bodies={url: body})
+                self.assertEqual(report['opportunities'], [])
+                self.assertEqual(report['detail_status'][0]['error_code'], code)
+
+    def test_raw_flight_text_cannot_inject_another_bounty_record(self):
+        fake = 'évidence\nb:' + json.dumps(self.programme(maxBounty=999999)) + '\n'
+        prefix = f'1:T{len(fake.encode("utf-8")):x},' + fake
+        url = 'https://immunefi.com/bug-bounty/ens/information/'
+        report, _ = self.deep_scan(bodies={url: self.programme_html(self.programme(), payload_prefix=prefix)})
+        self.assertEqual(report['opportunities'][0]['advertised_max_reward_usd'], 250000)
+
+    def test_detail_cap_is_real_network_bound_and_no_unverified_fallback(self):
+        records = [self.programme(slug=name) for name in ['ens', 'cosmos', 'hedera']]
+        report, fetched = self.deep_scan(records, limit=2)
+        self.assertEqual(fetched.call_count, 3)  # One catalogue plus two details.
+        self.assertEqual(len(report['opportunities']), 2)
+        self.assertEqual(report['detail_status'][2]['error_code'], 'DETAIL_LIMIT_REACHED')
+        self.assertEqual(report['source_status'][0]['coverage'], 'FIRST PUBLIC CATALOGUE PAGE; BOUNDED DETAIL READS; NOT EXHAUSTIVE')
+        for limit in [True, '2', 0, 11]:
+            with self.subTest(limit=limit):
+                report, _ = self.deep_scan(limit=limit)
+                self.assertEqual(report['opportunities'], [])
+                self.assertEqual(report['errors'][0]['error_code'], 'INVALID_DETAIL_LIMIT')
+
+    def test_provider_block_stops_other_details_and_sets_cooldown(self):
+        records = [self.programme(slug=name) for name in ['ens', 'cosmos']]
+        report, fetched = self.deep_scan(records, fetch_failure='HTTP_429')
+        self.assertEqual(fetched.call_count, 2)
+        self.assertEqual(report['opportunities'], [])
+        self.assertEqual(report['detail_status'][0]['http_status'], 429)
+        self.assertEqual(report['detail_status'][1]['error_code'], 'NOT_FETCHED_AFTER_PROVIDER_BLOCK')
+        self.assertEqual(report['source_status'][0]['retry_after_seconds'], 900)
+
+    def test_budget_exhausted_after_catalogue_prevents_all_detail_requests(self):
+        clock = [1000.0]
+        source = {**self.source, 'detail_parser': 'immunefi_information', 'max_detail_pages': 10,
+                  'source_budget_seconds': 110}
+        def fetch(chosen, policy):
+            clock[0] += 111
+            return self.fetched('<a href="/bug-bounty/ens/information/">ENS</a>', chosen['url'])
+        with patch.object(scanner.time, 'monotonic', side_effect=lambda: clock[0]), patch.object(scanner, '_fetch', side_effect=fetch) as fetched:
+            report = scanner.scan_sources({**self.config, 'sources': [source]}, self.now)
+        self.assertEqual(fetched.call_count, 1)
+        self.assertEqual(report['opportunities'], [])
+        self.assertEqual(report['detail_status'][0]['error_code'], 'SOURCE_BUDGET_EXHAUSTED')
+
+    def test_socket_read_timeout_shrinks_with_total_budget(self):
+        response = MagicMock(spec=http.client.HTTPResponse)
+        response.fp = MagicMock()
+        response.isclosed.return_value = False
+        clock = [0.0]
+        chunks = iter([b'a', b'b'])
+        def read1(size):
+            value = next(chunks)
+            clock[0] += 2
+            return value
+        response.read1.side_effect = read1
+        with patch.object(scanner.time, 'monotonic', side_effect=lambda: clock[0]):
+            with self.assertRaisesRegex(scanner.SourceError, 'SOURCE_BUDGET_EXHAUSTED'):
+                scanner._read_response(response, {**self.policy, 'deadline_monotonic': 3})
+        self.assertEqual([call.args[0] for call in response.fp.raw._sock.settimeout.call_args_list], [3, 1])
+
+    def test_catalogue_http_errors_preserve_status_for_runtime_backoff(self):
+        for code in [403, 429, 451]:
+            with self.subTest(code=code), patch.object(scanner, '_fetch', side_effect=scanner.SourceError(f'HTTP_{code}')):
+                report = scanner.scan_sources({**self.config, 'sources': [self.source]}, self.now)
+                self.assertEqual(report['source_status'][0]['http_status'], code)
+                self.assertEqual(report['opportunities'], [])
 
 
 if __name__ == "__main__":

@@ -6,9 +6,9 @@ on:
   workflow_dispatch:
   push:
     branches: [main]
-    paths: ['money-codex/**', '.github/workflows/money-resource-discovery.yml']
+    paths: ['money-codex/**', 'money-resources/**', '!money-resources/data/**', '.github/workflows/money-resource-discovery.yml']
   pull_request:
-    paths: ['money-codex/**', '.github/workflows/money-resource-discovery.yml']
+    paths: ['money-codex/**', 'money-resources/**', '!money-resources/data/**', '.github/workflows/money-resource-discovery.yml']
 
 permissions:
   contents: read
@@ -31,6 +31,8 @@ jobs:
       - name: Core, resource runtime and HTTP safety
         working-directory: money-codex
         run: python -B -m unittest discover -s tests -v
+      - name: Public dashboard safety and freshness
+        run: node --test money-resources/tests/dashboard.test.mjs
 
   discover:
     if: github.event_name != 'pull_request' && github.ref == 'refs/heads/main'
@@ -61,6 +63,7 @@ jobs:
         run: python run.py scan --state-dir "$RUNNER_TEMP/money-resources" --config config/resource_sources.json --output "$RUNNER_TEMP/money-resources/scan-result.json"
       - name: Verify current batch before replacing the public report
         id: verify_scan
+        if: always() && steps.scan.outcome != 'skipped' && steps.scan.outcome != ''
         working-directory: money-codex
         run: |
           python - <<'PY'
@@ -89,8 +92,25 @@ jobs:
               print('::warning::Some public sources failed or deferred. Their source status is preserved; no fallback rewards or income are invented.')
           PY
       - name: Export public results
+        id: export
         working-directory: money-codex
         run: python -m money_codex.public_report --state-dir "$RUNNER_TEMP/money-resources" --output ../money-resources/data/latest.json
+      - name: Observe market data independently of resource discovery
+        id: market_monitor
+        if: always() && !cancelled()
+        working-directory: money-codex
+        run: |
+          python -m money_codex.monitoring --output ../money-resources/data/market-health.json
+          python - <<'PY'
+          import json
+          import os
+          from pathlib import Path
+          report = json.loads(Path('../money-resources/data/market-health.json').read_text())
+          with open(os.environ['GITHUB_STEP_SUMMARY'], 'a', encoding='utf-8') as summary:
+              summary.write('\n## Independent public market observation\n\n')
+              summary.write(f"Status: {report['status']}. Archive sample: BTC 5m only. Cron configuration is not checked by public GETs.\n")
+              summary.write('Missing captures are reported without manufacturing historical snapshots.\n')
+          PY
       - name: Save best-effort research state
         if: always() && steps.scan.outcome != 'skipped' && steps.scan.outcome != ''
         continue-on-error: true
@@ -107,10 +127,11 @@ jobs:
           retention-days: 90
           if-no-files-found: error
       - name: Publish public discovery report
+        if: always() && !cancelled() && (steps.export.outcome == 'success' || steps.market_monitor.outcome == 'success')
         run: |
           git config user.name 'github-actions[bot]'
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
-          git add -- money-resources/data/latest.json
+          git add -- money-resources/data/latest.json money-resources/data/market-health.json
           if git diff --cached --quiet; then exit 0; fi
           git commit -m 'MONEY: refresh public resource discovery'
           git pull --rebase origin main

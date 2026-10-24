@@ -1,0 +1,44 @@
+{
+  "schema_version": "1.0",
+  "system": "MONEY Ω",
+  "mode": "READ_ONLY",
+  "generated_at_utc": "2026-10-24T16:25:43.668460Z",
+  "status": "DEGRADED",
+  "archive_scope": "BTC 5m only",
+  "archive_date": "2026-10-24",
+  "endpoints": {
+    "health": {
+      "http_status": 402,
+      "access_status": "ACCESS UNAVAILABLE",
+      "method": "GET",
+      "error_code": "http_unavailable",
+      "inspection": {
+        "state": "UNAVAILABLE"
+      }
+    },
+    "snapshot": {
+      "http_status": 402,
+      "access_status": "ACCESS UNAVAILABLE",
+      "method": "GET",
+      "error_code": "http_unavailable",
+      "inspection": {
+        "state": "UNAVAILABLE"
+      }
+    },
+    "archive": {
+      "http_status": 402,
+      "access_status": "ACCESS UNAVAILABLE",
+      "method": "GET",
+      "error_code": "http_unavailable",
+      "inspection": {
+        "state": "UNAVAILABLE"
+      }
+    }
+  },
+  "financial_execution_enabled": false,
+  "account_access_verified": false,
+  "cron_status": "NOT CHECKED",
+  "direct_chatgpt_to_codex": false,
+  "direct_grok_bot_connected": false,
+  "notice": "Public endpoint reads do not verify cron configuration, other asset archives, agent connectivity or executable edge."
+}

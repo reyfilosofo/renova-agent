@@ -5,6 +5,7 @@ import argparse
 import json
 import os
 import signal
+import sqlite3
 import sys
 import tempfile
 from pathlib import Path
@@ -96,7 +97,10 @@ def main(argv=None):
             _write_json(store.import_packet(packet))
         elif args.cmd == 'scan':
             runtime = Runtime(load_runtime_config(args.config), store)
-            _write_json(runtime.scan_now(source_ids=args.source_id, wait=True), args.output)
+            batch = runtime.scan_now(source_ids=args.source_id, wait=True)
+            _write_json(batch, args.output)
+            if batch.get('state') != 'COOLDOWN' and not any(job.get('state') == 'SUCCEEDED' for job in batch.get('jobs', [])):
+                return 2
         else:
             runtime = Runtime(load_runtime_config(args.config), store)
             previous_handlers = {}
@@ -121,11 +125,14 @@ def main(argv=None):
             finally:
                 if server:
                     server.server_close()
-                runtime.stop()
+                stopped = runtime.stop()
                 for sig, handler in previous_handlers.items():
                     signal.signal(sig, handler)
+                if not stopped:
+                    print(json.dumps({'state': 'INCOMPLETE_SHUTDOWN', 'mode': 'READ_ONLY'}), file=sys.stderr)
+                    return 1
         return 0
-    except (ValueError, OSError, TypeError, KeyError) as exc:
+    except (ValueError, OSError, TypeError, KeyError, RuntimeError, sqlite3.Error) as exc:
         # Do not echo configs, URLs, packet contents or arbitrary exception text.
         print(json.dumps({'state': 'ERROR', 'error': type(exc).__name__, 'mode': 'READ_ONLY'}), file=sys.stderr)
         return 1

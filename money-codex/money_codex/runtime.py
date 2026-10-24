@@ -55,7 +55,7 @@ class Runtime:
             if isinstance(interval, bool) or not isinstance(interval, (int, float)) or not math.isfinite(interval) or not 60 <= interval <= 86400:
                 raise ValueError('Source interval must be 60..86400 seconds')
             ids.append(sid)
-        self.store.register_sources(self.config['sources'])
+        self.store.register_sources(self.config['sources'], deactivate_missing=True)
 
     def _enabled(self):
         return [s for s in self.config['sources'] if s.get('enabled', True)]
@@ -64,6 +64,8 @@ class Runtime:
         return next((s for s in self.config['sources'] if (s.get('source_id') or s.get('id')) == sid), None)
 
     def scan_now(self, source_ids=None, wait=False):
+        if self._stop.is_set():
+            raise RuntimeError('Runtime is stopping')
         enabled = {s.get('source_id') or s.get('id') for s in self._enabled()}
         ids = sorted(enabled) if source_ids is None else list(source_ids)
         if not ids or len(ids) > 100 or any(not isinstance(s, str) or s not in enabled for s in ids):
@@ -92,11 +94,11 @@ class Runtime:
             # There may already be due work in the durable queue. Drain available
             # work until this batch finishes or its retries are scheduled later.
             for _ in range(200):
-                jobs = {j['id']: j for j in self.store.joblist(1000)}
+                jobs = {j['id']: j for j in self.store.jobs_by_ids(job_ids)}
                 selected = [jobs[jid] for jid in job_ids]
                 if all(j['state'] in ('SUCCEEDED', 'FAILED') for j in selected) or not self.run_once():
                     break
-            jobs = {j['id']: j for j in self.store.joblist(1000)}
+            jobs = {j['id']: j for j in self.store.jobs_by_ids(job_ids)}
             selected = [jobs[jid] for jid in job_ids]
             terminal = all(j['state'] in ('SUCCEEDED', 'FAILED') for j in selected)
             return {'state': 'COMPLETED' if terminal else 'RETRY_SCHEDULED', 'job_ids': job_ids,
@@ -131,6 +133,9 @@ class Runtime:
             result = scan({**self.config, 'sources': [source]}, now=moment(at))
             statuses = result.get('source_status', [])
             for item in statuses:
+                code = item.get('error_code', '')
+                if item.get('http_status') is None and code in ('HTTP_403', 'HTTP_429', 'HTTP_451'):
+                    item['http_status'] = int(code[-3:])
                 if item.get('http_status') in [403, 429, 451]:
                     item['retry_after_seconds'] = max(item.get('retry_after_seconds', 0), 3600 if item.get('http_status') == 451 else 900)
             failed = bool(result.get('errors')) or not statuses or any(s.get('access_status') == 'ACCESS UNAVAILABLE' or s.get('status') in ['ACCESS UNAVAILABLE', 'UNAVAILABLE', 'ERROR', 'FAILED', 'BLOCKED'] for s in statuses)
@@ -158,7 +163,10 @@ class Runtime:
             self._wake.clear()
 
     def start_scheduler(self):
-        if self._thread and self._thread.is_alive(): return
+        if self._thread and self._thread.is_alive():
+            if self._stop.is_set():
+                raise RuntimeError('The previous scheduler is still stopping')
+            return
         lock_path = self.store.state_dir / '.scheduler.lock'
         if lock_path.is_symlink(): raise ValueError('Scheduler lock must not use symlinks')
         lock = open(lock_path, 'a+', encoding='utf-8')
@@ -173,12 +181,21 @@ class Runtime:
         self._lock_file = lock
         self._stop.clear()
         self._thread = threading.Thread(target=self._loop, name='money-resource-scheduler', daemon=True)
-        self._thread.start()
+        try:
+            self._thread.start()
+        except BaseException:
+            self._thread = None
+            fcntl.flock(lock, fcntl.LOCK_UN)
+            lock.close()
+            self._lock_file = None
+            raise
 
-    def stop(self):
+    def stop(self, timeout=30):
+        if type(timeout) not in (int, float) or not math.isfinite(timeout) or not 0 <= timeout <= 60:
+            raise ValueError('Bounded shutdown timeout required')
         self._stop.set(); self._wake.set()
         if self._thread:
-            self._thread.join(timeout=30)
+            self._thread.join(timeout=timeout)
             if self._thread.is_alive(): return False
         if self._lock_file:
             fcntl.flock(self._lock_file, fcntl.LOCK_UN)

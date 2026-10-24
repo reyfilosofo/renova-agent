@@ -4,6 +4,7 @@
   "title": "MONEY Ω evaluated resource opportunity 2.1",
   "type": "object",
   "required": [
+    "schema_version",
     "opportunity_id",
     "provider",
     "type",
@@ -115,14 +116,21 @@
         "null"
       ],
       "items": {
-        "type": "string"
-      }
+        "type": "string",
+        "minLength": 1,
+        "pattern": "\\S"
+      },
+      "minLength": 1,
+      "minItems": 1,
+      "pattern": "\\S"
     },
     "kyc_requirements": {
       "type": [
         "string",
         "null"
-      ]
+      ],
+      "minLength": 1,
+      "pattern": "\\S"
     },
     "eligibility_status": {
       "enum": [
@@ -141,7 +149,9 @@
       "type": [
         "string",
         "null"
-      ]
+      ],
+      "minLength": 1,
+      "pattern": "\\S"
     },
     "required_actions": {
       "type": [
@@ -184,13 +194,17 @@
         "string",
         "boolean",
         "null"
-      ]
+      ],
+      "minLength": 1,
+      "pattern": "\\S"
     },
     "invalidation": {
       "type": [
         "string",
         "null"
-      ]
+      ],
+      "minLength": 1,
+      "pattern": "\\S"
     },
     "expected_net_reward_usd": {
       "type": [

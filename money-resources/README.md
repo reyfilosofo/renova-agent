@@ -3,9 +3,9 @@ title: "MONEY Ω — Descubrimiento de recursos"
 type: proyecto
 project: MONEY
 status: activo
-version: "0.3.0"
+version: "0.4.0"
 created: 2026-10-11
-updated: 2026-10-12
+updated: 2026-10-24
 tags: [money, recursos, discovery]
 ---
 
@@ -64,3 +64,35 @@ El [estado actual verificado](../money-bridge/CURRENT_STATE_2026-10-12.json) reg
 Una nueva lectura autenticada de AppDeploy el 12-Oct informa el collector de mercados habilitado y un run reciente exitoso. Esa observación supera el estado deshabilitado del 11-Oct; los incidentes históricos se preservan. Codex no cambió el cron ni compró créditos. El snapshot de la app devuelve datos actuales, pero una cuota PUBLICADO sin quoteAt verificado no es LIVE ni demuestra edge.
 
 Los dos puentes de Drive tienen las adiciones operativas del 11-Oct y su lectura autenticada se verificó otra vez el 12-Oct. Eso acredita actualizaciones documentales, no un Drive writer continuo ni comunicación directa entre agentes.
+
+
+## Actualización 0.4.0 — 20-Oct
+
+La búsqueda ahora comprueba hasta diez páginas oficiales de detalle de Immunefi
+por ejecución, con presupuesto de 110 segundos por fuente. Revisa identidad,
+fechas y estado del programa. Un bloqueo, pausa o cierre se conserva como
+incertidumbre o indisponibilidad; no se inventa una bounty activa. La ausencia
+de un programa del conjunto acotado tampoco acredita su cierre.
+
+El máximo premio anunciado aparece separado del valor esperado neto. Los diez
+programas revisados mantienen pendientes la elegibilidad, la probabilidad de
+cobro y los costes personales. El panel vuelve a evaluar fechas, advierte si
+muestra el informe incluido en la publicación y evita presentar paquetes
+importados como consultas propias verificadas.
+
+El [monitor público de mercados](data/market-health.json) se ejecuta por separado.
+Sólo observa health, snapshot 5m y el archivo BTC 5m del día CDMX. Cuenta
+capturas reales y huecos sin fabricar datos históricos; no demuestra el estado
+del cron ni cubre todos los archivos. La lectura autenticada del 20-Oct informa
+cron habilitado y ejecución exitosa; el incidente del 19-Oct se preserva como
+observación histórica. No se compraron créditos ni se modificó el cron.
+
+La versión se verifica con 179 tests Python del módulo, seis pruebas del panel
+y los dos tests raíz. Los resultados operativos y recibos de publicación
+figuran en el estado fechado del 20-Oct y en el historial GitHub. Los datos de
+fuentes cambian: consulte la fecha real de cada reporte.
+
+
+La unificación del 24-Oct se implementa en el Site Observatorio existente, como MONEY Ω.
+Este directorio conserva el feed público y las fuentes técnicas; no es un producto independiente.
+Véase `../money-bridge/MONEY_OMEGA_SINGLE_SITE_MANIFEST.json`.

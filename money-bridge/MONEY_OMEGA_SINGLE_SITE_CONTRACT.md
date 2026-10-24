@@ -1,3 +1,5 @@
+> Implementation update — 2026-10-24: source integration, typecheck, build and tests now complete in the existing Observatorio Site. Deployment receipts and legacy redirects are recorded in the current manifest/state once verified. Earlier pending-access descriptions below are preserved as historical context, not current capability claims. No fourth Site was created.
+
 # MONEY Ω — SINGLE SITE / SINGLE ENGINE · Canonical integration contract
 
 Status: **SITE IDENTITIES VERIFIED / IMPLEMENTATION REQUIRED**, not yet merged or published. Decision recorded 2026-10-23; ownership identities verified 2026-10-24.

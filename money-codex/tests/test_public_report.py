@@ -1,10 +1,14 @@
 from copy import deepcopy
 from datetime import datetime, timezone
 import json
+import contextlib
+import io
+import tempfile
+from pathlib import Path
 import unittest
-from unittest.mock import Mock
+from unittest.mock import Mock, patch
 
-from money_codex.public_report import make_public_report, safe_url
+from money_codex.public_report import main, make_public_report, safe_url
 
 STAMP='2026-10-11T17:00:00Z'
 
@@ -97,5 +101,53 @@ class PublicReportTests(unittest.TestCase):
         self.assertEqual(result['sources'][0]['last_status'],'ACCESS UNAVAILABLE')
         serialized=json.dumps(result)
         self.assertNotIn('SENTINEL',serialized)
+
+    def export_cli(self, destination):
+        report = {'ledger_integrity': True, 'opportunity_count': 0, 'mode': 'READ_ONLY'}
+        with patch('sys.argv', ['public_report', '--state-dir', str(destination.parent / 'state'), '--output', str(destination)]), patch('money_codex.public_report.Store'), patch('money_codex.public_report.make_public_report', return_value=report), contextlib.redirect_stdout(io.StringIO()):
+            main()
+        return report
+
+    def test_cli_failed_write_keeps_previous_public_report_and_cleans_temporary_file(self):
+        original_write = Path.write_text
+        with tempfile.TemporaryDirectory() as directory:
+            output = Path(directory) / 'latest.json'
+            previous = '{"previous":true}\n'
+            output.write_text(previous)
+            def incomplete(path, text, *args, **kwargs):
+                original_write(path, text[:10], *args, **kwargs)
+                raise OSError('simulated interrupted filesystem write')
+            with patch.object(Path, 'write_text', incomplete):
+                with self.assertRaises(OSError): self.export_cli(output)
+            self.assertEqual(output.read_text(), previous)
+            self.assertEqual(list(Path(directory).iterdir()), [output])
+
+    def test_cli_failed_atomic_replace_keeps_previous_public_report(self):
+        with tempfile.TemporaryDirectory() as directory:
+            output = Path(directory) / 'latest.json'
+            previous = '{"previous":true}\n'
+            output.write_text(previous)
+            with patch('money_codex.public_report.os.replace', side_effect=OSError('simulated replacement failure')):
+                with self.assertRaises(OSError): self.export_cli(output)
+            self.assertEqual(output.read_text(), previous)
+            self.assertEqual(list(Path(directory).iterdir()), [output])
+
+    def test_cli_publishes_complete_json_after_successful_atomic_write(self):
+        with tempfile.TemporaryDirectory() as directory:
+            output = Path(directory) / 'latest.json'
+            output.write_text('{"previous":true}\n')
+            expected = self.export_cli(output)
+            self.assertEqual(json.loads(output.read_text()), expected)
+            self.assertEqual(list(Path(directory).iterdir()), [output])
+
+    def test_cli_never_follows_an_output_symlink(self):
+        with tempfile.TemporaryDirectory() as directory:
+            target = Path(directory) / 'retained.json'
+            target.write_text('{"retained":true}\n')
+            output = Path(directory) / 'latest.json'
+            output.symlink_to(target)
+            with self.assertRaises(ValueError): self.export_cli(output)
+            self.assertEqual(target.read_text(), '{"retained":true}\n')
+            self.assertTrue(output.is_symlink())
 
 if __name__=='__main__': unittest.main()
