@@ -1,0 +1,10 @@
+import test from "node:test";import assert from "node:assert/strict";
+import{normalizeReceipt,reconcileReceipts}from"./revenue-ledger.mjs";
+const r={provider:"stripe",external_transaction_id:"ch_12345",currency:"MXN",gross_amount:150,fees:8,refund_amount:0,source_type:"ACCOUNT_VERIFIED",status:"SETTLED",readback_verified:true,observed_at_utc:"2026-10-24T12:00:00Z"};
+test("verified settled receipts calculate net only in original currency",()=>{const v=reconcileReceipts([r]);assert.equal(v.verified_receipt_count,1);assert.equal(v.totals.MXN.net,142);});
+test("duplicate receipt is idempotent",()=>assert.equal(reconcileReceipts([r,r]).verified_receipt_count,1));
+test("conflicting duplicate fails closed",()=>assert.throws(()=>reconcileReceipts([r,{...r,fees:10}]),/CONFLICTING/));
+test("unverified or pending receipts cannot become paid",()=>{assert.throws(()=>normalizeReceipt({...r,readback_verified:false}),/UNVERIFIED/);assert.throws(()=>normalizeReceipt({...r,status:"PENDING"}),/UNVERIFIED/);});
+test("fees and refunds cannot exceed gross",()=>assert.throws(()=>normalizeReceipt({...r,fees:160}),/COSTS_EXCEED_GROSS/));
+test("multiple currency totals cannot be conflated",()=>{const v=reconcileReceipts([r,{...r,external_transaction_id:"ch_67890",currency:"USD",gross_amount:20,fees:1}]);assert.equal(v.totals.MXN.net,142);assert.equal(v.totals.USD.net,19);});
+test("no invoice or pending opportunity is a payment receipt",()=>assert.throws(()=>normalizeReceipt({source_type:"PROGRAM_DISCOVERY"}),/INVALID_RECEIPT_IDENTITY/));
