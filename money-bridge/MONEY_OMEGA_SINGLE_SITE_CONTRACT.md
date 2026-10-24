@@ -1,6 +1,6 @@
 # MONEY Ω — SINGLE SITE / SINGLE ENGINE · Canonical integration contract
 
-Status: **IMPLEMENTATION REQUIRED**, not yet merged or published. Decision recorded 2026-10-23.
+Status: **SITE IDENTITIES VERIFIED / IMPLEMENTATION REQUIRED**, not yet merged or published. Decision recorded 2026-10-23; ownership identities verified 2026-10-24.
 
 ## Owner instruction and correction
 The user explicitly requires **one existing ChatGPT Site**, not three parallel Sites or a fourth newly generated Site. Prior artifact separation ("MONEY Ω · Recursos", "MONEY Ω · Earn Engine", "MONEY Ω · Observatorio") was an architectural mistake. Treat them as modules of the single **MONEY Ω** product.
@@ -10,7 +10,7 @@ The user explicitly requires **one existing ChatGPT Site**, not three parallel S
 ## Current evidence and blockers
 - Screenshot dated 2026-10-19 shows three ChatGPT Sites listed under "De tu propiedad".
 - GitHub money-app/README.md confirms private Resources Site URL: https://money-omega-recursos.seresarte.chatgpt.site
-- The exact Sites edit IDs, source, database schemas and URL for Earn Engine / Observatorio are not available to this chat. No ChatGPT Sites editor/write tool is exposed here, so there is **no claim of a completed merge**.
+- All three ChatGPT Site identities and published URLs were verified using Library Site metadata on 2026-10-24 (editor role). Their project IDs: Recursos `appgprj_6acbc836e4f08191adcd4185507c9d69`; Earn Engine `appgprj_6ac5214987948191aae2761cd626e297`; Observatorio `appgprj_6ac169e9eed48191a46429c70adabaf7`. URLs are in the manifest. **These are Site metadata, not source/database readback or permission to deploy from this chat.** No ChatGPT Sites editor/write tool is exposed here: there is **no claim of a completed merge**.
 - Existing GitHub resource scanner and AppDeploy market collector are separate execution rails with different freshness/failure models. They must not be silently treated as synchronized.
 - A site refresh only re-reads the last published observations; it cannot guarantee a new scan or verified wallet/account balance.
 
@@ -52,3 +52,9 @@ Wallet flow: opt-in wallet connect, read-only public address/chain, eligibility 
 - Official ChatGPT Sites edit workflow: https://help.openai.com/en/articles/20001339-creating-and-using-chatgpt-sites
 
 See the machine-readable manifest: [MONEY_OMEGA_SINGLE_SITE_MANIFEST.json](MONEY_OMEGA_SINGLE_SITE_MANIFEST.json).
+
+## Current operational report (2026-10-24)
+The latest GitHub public resource report at `money-resources/data/latest.json` was generated 2026-10-24T04:34:51.547033Z, representing 18 discoveries from 10 sources. Exactly zero opportunities have calculable net EV; verified income remains `null` (not zero). Do not present catalogue/programme pages as job offers, personally eligible quests or payable claims.
+
+## Site editor boundary
+ChatGPT Sites must be edited using the existing Site editing context in ChatGPT Work/Codex. Its Library projection can confirm project IDs/URLs but cannot inspect complete Site source or databases, export data, or publish a revision. First audit code, records, and access in each of the three Site editors. Site publication can change database state even before a successful live publish; create backup and verify migrations before version publish. Restoring a prior code version is not a database rollback. Source: https://help.openai.com/en/articles/20001339-creating-and-using-chatgpt-sites
