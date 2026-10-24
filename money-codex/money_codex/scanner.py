@@ -94,6 +94,9 @@ def _policy(config: dict, source: dict) -> dict:
             raise SourceError("INVALID_GITHUB_REPOSITORY")
         if repo not in config.get("allowed_github_repositories", []):
             raise SourceError("REPOSITORY_NOT_ALLOWLISTED")
+    budget = source.get("source_budget_seconds", network.get("source_budget_seconds", 110))
+    if type(budget) not in (int, float) or not math.isfinite(budget) or not 5 <= budget <= 115:
+        raise SourceError("INVALID_SOURCE_BUDGET")
     return {
         "provider": provider, "allowed_hosts": specific, "repository": repo,
         "timeout_seconds": _number(network.get("timeout_seconds"), 12, 1, 30),
@@ -101,7 +104,7 @@ def _policy(config: dict, source: dict) -> dict:
         "max_redirects": int(_number(network.get("max_redirects"), 3, 0, 5)),
         "min_interval_seconds": _number(network.get("min_interval_seconds"), 60, 1, 3600),
         "host_interval_seconds": _number(network.get("host_interval_seconds"), 1, 0.1, 5),
-        "source_budget_seconds": _number(source.get("source_budget_seconds", network.get("source_budget_seconds")), 110, 5, 115),
+        "source_budget_seconds": budget,
     }
 
 
@@ -595,7 +598,7 @@ def _immunefi_information(source: dict, candidate: dict, fetched: dict, policy: 
     if not inactive and not re.search(r"(?i)\bSubmit a Bug\b", visible):
         raise SourceError("PROGRAM_SUBMISSION_STATE_UNVERIFIED")
     maximum = record.get("maxBounty")
-    if type(maximum) not in (int, float) or not math.isfinite(maximum) or not 0 <= maximum <= 1e12:
+    if type(maximum) not in (int, float) or not 0 <= maximum <= 1e12 or not math.isfinite(maximum):
         raise SourceError("PROGRAM_REWARD_UNVERIFIED")
     advertised = None
     display = re.search(r"\bMaximum Bounty\s+\$\s*([0-9][0-9,]*(?:\.[0-9]+)?)(?![A-Za-z0-9,.])", visible)
@@ -651,6 +654,66 @@ def _opportunity(source: dict, candidate: dict, proof: dict) -> dict:
     }
 
 
+def _verify_details(source: dict, candidates: list[dict], catalogue_proof: dict,
+                    policy: dict, result: dict, state: dict) -> list[tuple[dict, dict]]:
+    """Bound primary-page reads and emit availability evidence for old records.
+
+    Unreviewed, blocked or incomplete details produce no WATCH fallback. The
+    catalogue remains evidence of discovery, not of current programme terms.
+    """
+    limit = source.get("max_detail_pages", 10)
+    if type(limit) is not int or not 1 <= limit <= 10:
+        raise SourceError("INVALID_DETAIL_LIMIT")
+    state.update(detail_pages_requested=0, detail_pages_verified=0, detail_unavailable_count=0,
+                 coverage="FIRST PUBLIC CATALOGUE PAGE; BOUNDED DETAIL READS; NOT EXHAUSTIVE")
+    verified = []
+    blocked = None
+    for index, candidate in enumerate(candidates):
+        status = {"source_id": source["source_id"],
+                  "opportunity_id": _opportunity_id(source, candidate["url"]),
+                  "url": candidate["url"], "status": "UNAVAILABLE", "observed_at": _iso(_utc_now()),
+                  "http_status": None, "source_evidence": None}
+        result["detail_status"].append(status)
+        fetched = primary_proof = None
+        try:
+            if index >= limit:
+                raise SourceError("DETAIL_LIMIT_REACHED")
+            if blocked:
+                raise SourceError("NOT_FETCHED_AFTER_PROVIDER_BLOCK")
+            _remaining_timeout(policy)
+            state["detail_pages_requested"] += 1
+            fetched = _fetch({**source, "url": candidate["url"]}, policy)
+            primary_proof = _proof(source["source_id"], fetched, candidate["url"])
+            result["evidence"].append(primary_proof)
+            status.update(observed_at=fetched["observed_at"], http_status=fetched["http_status"])
+            enriched, inactive = _immunefi_information(source, candidate, fetched, policy)
+            status.update(status="INACTIVE" if inactive else "ACTIVE", source_evidence=primary_proof,
+                          reason=inactive or "PUBLIC_PROGRAMME_TERMS_VERIFIED")
+            state["detail_pages_verified"] += 1
+            if not inactive:
+                enriched["catalogue_evidence"] = catalogue_proof
+                verified.append((enriched, primary_proof))
+        except (SourceError, ValueError, TypeError, OverflowError, RecursionError) as exc:
+            code = exc.code if isinstance(exc, SourceError) else "DETAIL_PARSE_ERROR"
+            status.update(error_code=code, reason=code)
+            if primary_proof and primary_proof["url"] == candidate["url"]:
+                status["source_evidence"] = primary_proof
+            if re.fullmatch(r"HTTP_[0-9]{3}", code):
+                status["http_status"] = int(code[-3:])
+                if status["http_status"] in (403, 429, 451):
+                    blocked = status["http_status"]
+                    state["detail_http_status"] = blocked
+                    state["retry_after_seconds"] = 3600 if blocked == 451 else 900
+            if code == "SOURCE_BUDGET_EXHAUSTED":
+                state["retry_after_seconds"] = max(state.get("retry_after_seconds", 0), 900)
+            state["detail_unavailable_count"] += 1
+            state["access_status"] = "ACCESS PARTIAL"
+            state["error_code"] = code
+            result["errors"].append({"source_id": source["source_id"],
+                                     "opportunity_id": status["opportunity_id"], "error_code": code})
+    return verified
+
+
 def scan_sources(config: dict, now: datetime | None = None) -> dict:
     """GET enabled allowlisted sources once, returning evidence and candidates.
 
@@ -662,7 +725,7 @@ def scan_sources(config: dict, now: datetime | None = None) -> dict:
     if config.get("mode", "READ_ONLY") != "READ_ONLY":
         raise ValueError("resource source config requires READ_ONLY mode")
     result = {"as_of": _iso(now or _utc_now()), "mode": "READ_ONLY", "opportunities": [],
-              "source_status": [], "evidence": [], "errors": []}
+              "source_status": [], "evidence": [], "detail_status": [], "errors": []}
     seen_sources: set[str] = set()
     seen_opportunities: set[str] = set()
     for original in config["sources"][:50]:
@@ -688,16 +751,13 @@ def scan_sources(config: dict, now: datetime | None = None) -> dict:
             if not all(isinstance(source.get(k), str) and source[k] for k in ("name", "category", "url")):
                 raise SourceError("INVALID_SOURCE_CONFIG")
             policy = _policy(config, source)
+            detail_parser = source.get("detail_parser")
+            if detail_parser not in (None, "immunefi_information") or detail_parser and policy["provider"] != "immunefi":
+                raise SourceError("UNSUPPORTED_DETAIL_PARSER")
+            policy["deadline_monotonic"] = time.monotonic() + policy["source_budget_seconds"]
             state["url"] = _validate_url(source["url"], policy, resolve=False)
             fetched = _fetch(source, policy)
-            proof = {
-                "evidence_id": "evidence_" + hashlib.sha256((source_id + fetched["observed_at"] + fetched["content_sha256"]).encode()).hexdigest()[:24],
-                "source_id": source_id, "url": fetched["url"], "requested_url": state["url"],
-                "observed_at": fetched["observed_at"], "retrieved_at": fetched["observed_at"],
-                "http_status": fetched["http_status"], "content_type": fetched["content_type"],
-                "content_sha256": fetched["content_sha256"], "hash_basis": "HTTP_RESPONSE_BYTES",
-                "byte_count": len(fetched["body"]),
-            }
+            proof = _proof(source_id, fetched, state["url"])
             result["evidence"].append(proof)
             state.update(access_status="ACCESS VERIFIED", status="FETCHED", observed_at=proof["observed_at"], http_status=proof["http_status"])
             if source.get("parser") == "github_issues":
@@ -707,7 +767,7 @@ def scan_sources(config: dict, now: datetime | None = None) -> dict:
             else:
                 candidates = _html_candidates(source, fetched, policy, now)
             limit = int(_number(source.get("max_candidates"), 20, 1, 50))
-            if not candidates and source.get("fallback_program", True) and source.get("parser") != "github_issues":
+            if not candidates and source.get("fallback_program", True) and source.get("parser") != "github_issues" and not detail_parser:
                 candidates = [{"title": source["name"] + " public program catalogue", "url": fetched["url"],
                                "type": "PROGRAM_DISCOVERY", "category": source["category"],
                                "provider_status": "CATALOGUE_ONLY; NO INDIVIDUAL OPPORTUNITY VERIFIED"}]
@@ -721,20 +781,27 @@ def scan_sources(config: dict, now: datetime | None = None) -> dict:
                     source_seen.add(candidate["url"])
             state["candidate_count"] = len(unique)
             state["duplicate_count"] = 0
-            for candidate in unique[:limit]:
-                opportunity = _opportunity(source, candidate, proof)
+            reviewed = (_verify_details(source, unique[:limit], proof, policy, result, state)
+                        if detail_parser else [(candidate, proof) for candidate in unique[:limit]])
+            for candidate, candidate_proof in reviewed:
+                opportunity = _opportunity(source, candidate, candidate_proof)
+                if candidate.get("catalogue_evidence"):
+                    opportunity["evidence"].extend([proof["evidence_id"], proof["url"]])
                 if opportunity["opportunity_id"] in seen_opportunities:
                     state["duplicate_count"] += 1
                     continue
                 seen_opportunities.add(opportunity["opportunity_id"])
                 result["opportunities"].append(opportunity)
                 state["opportunity_count"] += 1
-            state["status"] = ("DISCOVERED" if state["opportunity_count"] else
+            state["status"] = ("PARTIAL_DISCOVERY" if state.get("detail_unavailable_count") else
+                               "DISCOVERED" if state["opportunity_count"] else
                                "DEDUPLICATED" if state["duplicate_count"] else "NO_PUBLIC_CANDIDATES")
         except (SourceError, ValueError, TypeError, ET.ParseError) as exc:
             code = exc.code if isinstance(exc, SourceError) else "PARSE_OR_CONFIG_ERROR"
             # Error text never includes response bodies, cookies or credentials.
             state.update(status="UNAVAILABLE" if not state["observed_at"] else "PARSE_UNAVAILABLE", error_code=code)
+            if re.fullmatch(r"HTTP_[0-9]{3}", code):
+                state["http_status"] = int(code[-3:])
             if state["observed_at"]:
                 state["access_status"] = "ACCESS PARTIAL"
             result["errors"].append({"source_id": source_id, "error_code": code})

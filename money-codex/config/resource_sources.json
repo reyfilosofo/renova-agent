@@ -1,5 +1,5 @@
 {
-  "schema_version": "1.1",
+  "schema_version": "1.2",
   "mode": "READ_ONLY",
   "network": {
     "allowed_hosts": [
@@ -24,7 +24,8 @@
     "max_bytes": 1048576,
     "max_redirects": 3,
     "min_interval_seconds": 60,
-    "host_interval_seconds": 1
+    "host_interval_seconds": 1,
+    "source_budget_seconds": 110
   },
   "allowed_github_repositories": [
     "reyfilosofo/renova-agent",
@@ -89,7 +90,12 @@
       "max_candidates": 20,
       "enabled": true,
       "method": "READ_ONLY",
-      "interval_seconds": 3600
+      "interval_seconds": 3600,
+      "detail_parser": "immunefi_information",
+      "max_detail_pages": 10,
+      "source_budget_seconds": 110,
+      "fallback_program": false,
+      "coverage": "First public catalogue page; at most 10 primary programme pages per scan; not exhaustive"
     },
     {
       "source_id": "github_renova_bounties",

@@ -1,0 +1,86 @@
+{
+  "schema_version": "1.0",
+  "system": "MONEY Ω",
+  "mode": "READ_ONLY",
+  "generated_at_utc": "2026-10-20T00:15:31.496659Z",
+  "status": "DEGRADED",
+  "archive_scope": "BTC 5m only",
+  "archive_date": "2026-10-19",
+  "endpoints": {
+    "health": {
+      "http_status": 200,
+      "access_status": "ACCESS VERIFIED",
+      "method": "GET",
+      "byte_count": 149,
+      "body_sha256": "c8928c74ddf2bfcc9e163b92dd91aed5a830bdcc5325e73d4e9d169219a9798a",
+      "inspection": {
+        "state": "VERIFIED",
+        "cron_status": "NOT CHECKED"
+      }
+    },
+    "snapshot": {
+      "http_status": 200,
+      "access_status": "ACCESS VERIFIED",
+      "method": "GET",
+      "byte_count": 30971,
+      "body_sha256": "b108f39d6dd01443aa493be7c174672210a7f179779bb72e7529eb297771ce32",
+      "inspection": {
+        "scope": "SIX_ASSETS_5m_SNAPSHOT",
+        "state": "FRESH",
+        "as_of_utc": "2026-10-20T00:15:23.202000Z",
+        "expires_at_utc": "2026-10-20T00:16:08.202000Z",
+        "window_start_utc": "2026-10-20T00:15:00Z",
+        "window_end_utc": "2026-10-20T00:20:00Z",
+        "snapshot_age_seconds": 8.294,
+        "paper_flags_verified": true,
+        "venue_readings": 18,
+        "source_tick_count": 0,
+        "fresh_source_tick_count": 0,
+        "reported_live_count": 0,
+        "unverified_live_claim_count": 0,
+        "published_without_tick_count": 6,
+        "issues": []
+      }
+    },
+    "archive": {
+      "http_status": 200,
+      "access_status": "ACCESS VERIFIED",
+      "method": "GET",
+      "byte_count": 324888,
+      "body_sha256": "0a89813fbbc4832d52be102820519622e9a708ac560ba87b9e246e685c6487d8",
+      "inspection": {
+        "scope": "BTC_5m_ARCHIVE_ONLY",
+        "timezone": "America/Mexico_City",
+        "utc_offset_minutes": -360,
+        "date": "2026-10-19",
+        "state": "DEGRADED",
+        "as_of_utc": "2026-10-20T00:15:30.393000Z",
+        "as_of_age_seconds": 1.103,
+        "freshness": "FRESH",
+        "captured_count": 95,
+        "missing_past_count": 125,
+        "future_count": 68,
+        "pending_current_count": 0,
+        "invalid_capture_count": 0,
+        "paper_flags_verified": true,
+        "gap_group_count": 1,
+        "gaps": [
+          {
+            "start_utc": "2026-10-19T13:40:00Z",
+            "end_utc_exclusive": "2026-10-20T00:05:00Z",
+            "window_count": 125
+          }
+        ],
+        "issues": [
+          "archive_gaps"
+        ]
+      }
+    }
+  },
+  "financial_execution_enabled": false,
+  "account_access_verified": false,
+  "cron_status": "NOT CHECKED",
+  "direct_chatgpt_to_codex": false,
+  "direct_grok_bot_connected": false,
+  "notice": "Public endpoint reads do not verify cron configuration, other asset archives, agent connectivity or executable edge."
+}

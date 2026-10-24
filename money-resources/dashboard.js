@@ -3,6 +3,9 @@
   'use strict';
   const REMOTE = 'https://raw.githubusercontent.com/reyfilosofo/renova-agent/main/money-resources/data/latest.json';
   const MAX_AGE = 86400_000;
+  const PUBLIC_HOSTS = new Set(['code4rena.com','www.code4rena.com','immunefi.com','www.immunefi.com',
+    'api.github.com','github.com','zealy.io','app.galxe.com','galxe.com','www.galxe.com',
+    'www.prolific.com','prolific.com','www.userinterviews.com','userinterviews.com','www.respondent.io','respondent.io']);
   const labels = {WATCH:'Por verificar', QUEUE:'Revisar condiciones', 'DATA INSUFFICIENT':'Faltan datos',
     SKIP:'Descartado', PROGRAM_DISCOVERY:'Programa por explorar', BOUNTY:'Bounty', QUEST:'Quest',
     PAID_RESEARCH:'Investigación remunerada', AIRDROP:'Airdrop', CLAIM:'Claim'};
@@ -29,7 +32,7 @@
   function safeURL(value) {
     try {
       const url = new URL(value);
-      return url.protocol === 'https:' && !url.username && !url.password && !url.hash && (!url.port || url.port === '443') ? url.href : null;
+      return url.protocol === 'https:' && PUBLIC_HOSTS.has(url.hostname) && !url.username && !url.password && !url.hash && (!url.port || url.port === '443') ? url.href : null;
     } catch { return null; }
   }
   function link(value, text) {

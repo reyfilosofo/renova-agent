@@ -20,6 +20,7 @@ public_files=(
   money-resources/index.html
   money-resources/dashboard.js
   money-resources/data/latest.json
+  money-resources/data/market-health.json
   seresarte-web-lab/README.md
   seresarte-web-lab/app.js
   seresarte-web-lab/data/projects.json

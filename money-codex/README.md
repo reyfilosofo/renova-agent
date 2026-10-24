@@ -1,6 +1,6 @@
 # MONEY Ω · CODEX
 
-Version 0.3.0 · 2026-10-11 · Python 3.11+ · standard library only.
+Version 0.4.0 · 2026-10-20 · Python 3.11+ · standard library only.
 
 The engineering node of MONEY Ω now operates a public resource discovery rail:
 ten configured sources for bounties, quests and paid research, a durable SQLite
@@ -50,6 +50,39 @@ sources. No receipt, reward probability, personal eligibility or net EV was
 confirmed. Configured category coverage is explicit in
 `config/resource_sources.json`; wallet claims, airdrops and other unconfigured
 categories remain pending.
+
+## Hardening in 0.4.0
+
+Immunefi discovery follows at most ten exact programme detail links per scan,
+within a 110-second source budget. Identity, active/paused status and dates must
+agree before a record can remain WATCH. Evidence names the actual detail page;
+the advertised maximum bounty is a separate ceiling, never expected income.
+Catalogue coverage is bounded: absence from the first ten results is not proof
+that a previously observed programme closed. Authoritative failures or inactive
+observations invalidate availability without deleting history.
+
+Public report schema 1.1 adds source freshness, detail scope and data-quality
+counts. The dashboard checks timestamps against the display clock, warns when
+using a bundled fallback and renders untrusted provider text safely. A freshly
+exported report does not refresh old evidence. Imported offline packets cannot
+be exported as verified direct public observations. Replay collisions, future
+observations and stale or invalid input fail closed.
+
+For independent public market monitoring, from this directory:
+
+```sh
+python3 -m money_codex.monitoring --output ../money-resources/data/market-health.json
+```
+
+The workflow runs this separately from discovery. It checks only three fixed
+public GET endpoints: health, the six-asset 5m snapshot, and BTC 5m archive for
+the current CDMX date. Its sanitised report counts actual captures and gaps,
+checks PAPER flags, and distinguishes source ticks from publication time.
+HTTP outages produce DEGRADED rather than fabricated observations. This sample
+does not audit all assets/timeframes, check cron configuration, repair historical
+gaps, or establish execution or agent connectivity. Discovery failures retain
+the previous discovery report; a successful independent market monitor can
+still publish its own current health result.
 
 ## Markets, authorization and packets
 

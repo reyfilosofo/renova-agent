@@ -1,4 +1,4 @@
-# MONEY Ω · CODEX research runtime · 2026-10-11
+# MONEY Ω · CODEX research runtime · 2026-10-20
 
 Python 3.11 or newer runs this stdlib service without installing packages.
 From `money-codex/`:
@@ -24,3 +24,17 @@ docker run --network host --mount type=bind,src=/absolute/path/to/private-state,
 ```
 
 The container retains loopback binding; it does not publish the dashboard on the internet. Keep state volumes private. The package accepts no financial routes, secrets, wallet signatures, claims, paid purchases or survey submissions. Research packets may be exported or imported offline; checksum/TTL validation does not authenticate another model or establish an agent connection.
+
+
+## Operational observation
+
+Version 0.4.0 also exposes a separate read-only CLI monitor:
+
+```sh
+python3 -m money_codex.monitoring --output /absolute/private/path/market-health.json
+```
+
+GitHub runs it independently of resource discovery and publishes its allowlisted
+metrics at `money-resources/data/market-health.json`. A failed or stale market
+endpoint degrades that observation; it does not authorize repair, backfill or
+financial action. Cron status requires a separate authenticated metadata read.

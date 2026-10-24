@@ -525,6 +525,40 @@ class RuntimeTests(unittest.TestCase):
             other.stop()
             runtime.stop()
 
+    def test_legacy_receipt_cache_remains_readable_without_guessing_its_digest(self):
+        packet = self.packet()
+        legacy = {'packet_id': packet['packet_id'], 'producer': packet['producer'],
+                  'verification': 'integrity_and_ttl', 'authenticated_channel_verified': False}
+        with self.store._connect() as db:
+            db.execute('INSERT INTO receipts VALUES(?,?,?)', (packet['packet_id'], canonical(legacy), timestamp(NOW)))
+        restarted = Store(self.state)
+        before = restarted.status()['counts']
+        with self.assertRaises(ValueError): restarted.import_packet(packet, now=NOW)
+        self.assertEqual(restarted.status()['counts'], before)
+        with restarted._connect() as db:
+            kept = json.loads(db.execute('SELECT payload FROM receipts WHERE packet_id=?', (packet['packet_id'],)).fetchone()['payload'])
+        self.assertEqual(kept, legacy)
+        fresh = self.packet()
+        self.assertEqual(restarted.import_packet(fresh, now=NOW)['state'], 'IMPORTED')
+        self.assertTrue(restarted.verify_ledger())
+
+    def test_non_object_historic_receipt_fails_closed_without_attribute_error(self):
+        packet = self.packet()
+        with self.store._connect() as db:
+            db.execute('INSERT INTO receipts VALUES(?,?,?)', (packet['packet_id'], '[]', timestamp(NOW)))
+        with self.assertRaises(ValueError): self.store.import_packet(packet, now=NOW)
+        self.assertEqual(self.store.status()['counts']['opportunities'], 0)
+
+    def test_primary_tombstone_proof_must_match_the_configured_source_identity(self):
+        self.store.save_scan(fixture(), now=NOW)
+        before = self.store.status()['counts']
+        detail = self.detail()
+        detail['source_evidence']['source_id'] = 'different_source'
+        with self.assertRaises(ValueError):
+            self.store.save_scan({'detail_status': [detail]}, now=NOW + timedelta(seconds=5))
+        self.assertEqual(self.store.status()['counts'], before)
+        self.assertEqual(self.store.opportunities(now=NOW + timedelta(seconds=6))[0]['classification'], 'WATCH')
+
 
 if __name__ == '__main__':
     unittest.main()

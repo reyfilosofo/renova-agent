@@ -53,6 +53,13 @@ class PublicQualityTests(unittest.TestCase):
         report = make_public_report(self.store(row), now=datetime(2026, 10, 15, tzinfo=timezone.utc))
         self.assertEqual(report['opportunities'][0]['classification'], 'SKIP')
 
+    def test_packet_claimed_detail_is_not_published_as_verified_public_observation(self):
+        row = fixtures.opportunity()
+        row.update(origin='OFFLINE_PACKET', verification_scope='PROGRAM_DETAIL')
+        report = make_public_report(self.store(row), now=NOW)
+        self.assertEqual(report['opportunity_count'], 0)
+        self.assertEqual(report['quality']['detail_verified_candidates'], 0)
+
 
 if __name__ == '__main__':
     unittest.main()

@@ -302,7 +302,7 @@ class Store:
                 continue
             proof = detail.get('source_evidence')
             if disposition in ('ACTIVE', 'INACTIVE'):
-                if (not isinstance(proof, dict) or proof.get('url') != detail['url']
+                if (not isinstance(proof, dict) or proof.get('source_id') != sid or proof.get('url') != detail['url']
                         or proof.get('http_status') != 200 or not isinstance(proof.get('content_sha256'), str)
                         or not re.fullmatch('[0-9a-f]{64}', proof['content_sha256'])
                         or not isinstance(proof.get('observed_at'), str) or timestamp(proof['observed_at']) != observed):
@@ -455,7 +455,7 @@ class Store:
             previous = db.execute('SELECT payload FROM receipts WHERE packet_id=?', (packet_id,)).fetchone()
             if previous:
                 receipt = json.loads(previous['payload'])
-                if receipt.get('packet_sha256') != packet['sha256']:
+                if not isinstance(receipt, dict) or receipt.get('packet_sha256') != packet['sha256']:
                     raise ValueError('Packet id collision or unverified legacy receipt')
                 return {'state': 'EXISTING', 'packet_id': packet_id, 'authenticated_channel_verified': False}
             counts = self._save_scan(db, prepared, at, imported=True)

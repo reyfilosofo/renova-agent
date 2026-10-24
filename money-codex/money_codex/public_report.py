@@ -164,6 +164,9 @@ def make_public_report(store, now=None):
     for record in store.opportunities(limit=1000, now=clock):
         if not isinstance(record, dict) or record.get('privacy') in ('PRIVATE', 'CONFIDENTIAL') or record.get('private') is True:
             continue
+        if record.get('origin') == 'OFFLINE_PACKET' or record.get('observation_origin') == 'OFFLINE_PACKET':
+            # Packet integrity is not an authenticated read of a public source.
+            continue
         sid = record.get('source_id')
         if not isinstance(sid, str) or sid not in registered:
             continue
