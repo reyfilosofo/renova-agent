@@ -75,3 +75,10 @@ This chat has GitHub and Drive write capability, and Library Site **metadata** o
 - `.github/workflows/money-single-site-tests.yml` (read-only CI)
 - Existing `money-codex`, `money-resources`, `money-app`, `omega-predict`.
 - Official Sites operations: https://help.openai.com/en/articles/20001339-creating-and-using-chatgpt-sites
+
+## 2026-10-24 — Implemented staging shell (not a fourth Site)
+A **single HTML page** representing the integrated experience now exists in GitHub at `money-bridge/site-unification/operational-shell.html`. It includes seven real client-side views in one origin and navigation: Centro ejecutivo, Earn Engine, Observatorio, Recursos, Wallets & Rewards, Finanzas, Integraciones. The source fetches the existing public GitHub discovery report, filters opportunities, shows source timestamps and risk indicators, and computes actionable counts only from explicit eligibility/terms/risk/EV predicates. It **does not** persist private data, connect a wallet, replace the Site database or trade.
+
+Operational smoke tests and the existing data adapter tests are in `operational-shell.test.mjs` and `unified-feed.test.mjs`; the GitHub Actions workflow `money-single-site-tests.yml` is configured to run both groups. A source commit or CI file is **not** proof that a GitHub Actions run succeeded.
+
+Integration must **copy/adapt this source into the editor of the chosen existing ChatGPT Site**, reconcile with existing live code/DB (do not overwrite blindly), and publish only to its existing site ID and URL. Keeping this HTML in GitHub does not create a fourth published Site.
