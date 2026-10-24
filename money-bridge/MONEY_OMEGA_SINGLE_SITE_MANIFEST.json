@@ -237,5 +237,37 @@
     "private_records": "Site D1, per authenticated user"
   },
   "product_interface_count": 1,
-  "hosting_records_retained_for_recovery": 3
+  "hosting_records_retained_for_recovery": 3,
+  "staging_app": {
+    "path": "money-bridge/site-unification/operational-shell.html",
+    "origin": "GITHUB_SOURCE_ONLY",
+    "hosted_site_published": false,
+    "integrated_sections": [
+      "inicio",
+      "earn",
+      "observatorio",
+      "recursos",
+      "wallets",
+      "ledger",
+      "sistema"
+    ],
+    "source": "money-resources/data/latest.json",
+    "private_account_data_connected": false,
+    "wallet_execution": false
+  },
+  "revenue_ledger": {
+    "path": "money-bridge/site-unification/revenue-ledger.mjs",
+    "connected_to_private_site_db": false,
+    "verified_receipts_count": null
+  },
+  "automation_tests": {
+    "workflow": ".github/workflows/money-single-site-tests.yml",
+    "test_files": [
+      "money-bridge/site-unification/unified-feed.test.mjs",
+      "money-bridge/site-unification/operational-shell.test.mjs",
+      "money-bridge/site-unification/revenue-ledger.test.mjs"
+    ],
+    "ci_run_verification": "NOT_VERIFIED"
+  },
+  "integration_status": "STAGING_SOURCE_IMPLEMENTED_SITE_MIGRATION_NOT_EXECUTED"
 }
