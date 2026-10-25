@@ -1,7 +1,7 @@
 {
   "system": "MONEY Ω",
   "node": "MONEY Ω · CODEX",
-  "as_of_utc": "2026-10-25T17:21:42.468462+00:00",
+  "as_of_utc": "2026-10-25T17:25:47.173778+00:00",
   "runtime_version": "0.5.0",
   "desk_version": "0.1",
   "canonical_site": {
@@ -41,7 +41,15 @@
     "published": true,
     "site_version": 6,
     "observation_readback": "HTTP 200; six source rows, audit valid, HALT",
-    "cloud_first_run": "PENDING_MAIN_DEPLOYMENT"
+    "cloud_first_run": {
+      "status": "SUCCESS",
+      "run_id": 40216279947,
+      "url": "https://github.com/reyfilosofo/renova-agent/actions/runs/40216279947",
+      "report_at_utc": "2026-10-25T17:24:21.803021Z",
+      "source_count": 6,
+      "risk_state": "HALT",
+      "audit_integrity": true
+    }
   },
   "risk_state": "HALT",
   "paper_execution_enabled": false,
@@ -83,14 +91,24 @@
     ],
     "simulated_fills": 0,
     "pnl": null,
-    "income_verified": null
+    "income_verified": null,
+    "first_cloud_report_utc": "2026-10-25T17:24:21.803021Z",
+    "cloud_source_http200_count": 6
   },
   "deployment": {
-    "scheduled_cloud_observer": "GHA */5 * * * * UTC requested, first main run pending",
+    "scheduled_cloud_observer": "ACTIVE; requested */5 * * * * UTC; first main run SUCCESS40216279947",
     "continuous_low_latency_host": "ACCESS UNAVAILABLE",
     "storage": "isolated SQLite, daily best-effort cache, JSON observation artifacts90d",
     "systemd_templates_installed": false,
-    "appdeploy_market_cron": "last verified disabled credits_exhausted, no mutation"
+    "appdeploy_market_cron": "last verified disabled credits_exhausted, no mutation",
+    "first_cloud_run": "https://github.com/reyfilosofo/renova-agent/actions/runs/40216279947",
+    "implementation_merge_sha": "562a1b1a7b3912fa8b60ed2e6463029e50459a3e",
+    "implementation_pr": "https://github.com/reyfilosofo/renova-agent/pull/68",
+    "evidence_artifact": {
+      "id": 12608200620,
+      "size_bytes": 3708,
+      "expires_at_utc": "2027-01-23T17:24:02Z"
+    }
   },
   "validation": {
     "python_tests": 237,
