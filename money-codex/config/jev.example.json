@@ -1,0 +1,38 @@
+{
+  "enabled": false,
+  "provider": "TypeSafe AI",
+  "model": "jev-1.14.0",
+  "endpoint": "https://api.typesafe.ai/v1/systemone",
+  "secret_runtime_variable": "TYPESAFE_API_KEY",
+  "questions": {
+    "regime": {
+      "type": "choice",
+      "instructions": "Classify only the supplied observed market regime; use unknown if evidence is insufficient. Do not authorize a trade.",
+      "criteria": {
+        "trend": "A supported directional trend",
+        "range": "A supported range",
+        "volatile": "High or unstable observed variation",
+        "unknown": "Insufficient evidence"
+      }
+    },
+    "toxic_conditions": {
+      "type": "noul",
+      "instructions": "Do the supplied observations contain evidence of adverse liquidity or toxic conditions? Missing data must not imply safe conditions."
+    },
+    "setup_quality": {
+      "type": "score",
+      "instructions": "Score evidence quality for further PAPER research, not expected return or contract probability.",
+      "criteria": [
+        "Insufficient evidence",
+        "Weak evidence",
+        "Mixed evidence",
+        "Supported for research",
+        "Strong evidence for research"
+      ]
+    },
+    "worth_reviewing": {
+      "type": "noul",
+      "instructions": "Is the supplied evidence worth further human PAPER review? This answer cannot authorize financial execution."
+    }
+  }
+}

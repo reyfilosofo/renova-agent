@@ -1,0 +1,2182 @@
+{
+  "schema_version": "1.0",
+  "system": "MONEY Ω",
+  "mode": "PAPER",
+  "state": "COLLECTED",
+  "generated_at_utc": "2026-10-25T17:15:51.293216Z",
+  "observations": [
+    {
+      "ask": "80697.98",
+      "asset": "BTC",
+      "bid": "80697.97",
+      "bid_ask_timestamp_verified": false,
+      "body_sha256": "ce3a283dd3956414d7327fe0dc7a56b7138c067cefef83663042673d49e1be0e",
+      "last_trade_at_utc": "2026-10-25T17:15:44.287383Z",
+      "last_trade_price": "80697.97",
+      "mode": "PAPER",
+      "price": "80697.97",
+      "product": "BTC-USD",
+      "quote_at_utc": "2026-10-25T17:15:44.287383Z",
+      "quote_currency": "USD",
+      "received_at_utc": "2026-10-25T17:15:45.820947Z",
+      "source": "COINBASE_EXCHANGE",
+      "source_url": "https://api.exchange.coinbase.com/products/BTC-USD/ticker",
+      "status": "OBSERVED",
+      "tick_age_seconds": 7.006,
+      "timestamp_scope": "LAST_TRADE_ONLY"
+    },
+    {
+      "ask": "2352.19",
+      "asset": "ETH",
+      "bid": "2352.18",
+      "bid_ask_timestamp_verified": false,
+      "body_sha256": "48aca810fcd254cbdbe0df82b0d9923719997d10bf375cfc536b2c0c9ceca62b",
+      "last_trade_at_utc": "2026-10-25T17:15:45.363712Z",
+      "last_trade_price": "2352.38",
+      "mode": "PAPER",
+      "price": "2352.38",
+      "product": "ETH-USD",
+      "quote_at_utc": "2026-10-25T17:15:45.363712Z",
+      "quote_currency": "USD",
+      "received_at_utc": "2026-10-25T17:15:46.906479Z",
+      "source": "COINBASE_EXCHANGE",
+      "source_url": "https://api.exchange.coinbase.com/products/ETH-USD/ticker",
+      "status": "OBSERVED",
+      "tick_age_seconds": 5.93,
+      "timestamp_scope": "LAST_TRADE_ONLY"
+    },
+    {
+      "ask": "101.68",
+      "asset": "SOL",
+      "bid": "101.67",
+      "bid_ask_timestamp_verified": false,
+      "body_sha256": "cfe56aea9420734d8b8d7cbd340fe8f7bf1f84dfccd29db68501aa664c2abc81",
+      "last_trade_at_utc": "2026-10-25T17:15:45.631755Z",
+      "last_trade_price": "101.67",
+      "mode": "PAPER",
+      "price": "101.67",
+      "product": "SOL-USD",
+      "quote_at_utc": "2026-10-25T17:15:45.631755Z",
+      "quote_currency": "USD",
+      "received_at_utc": "2026-10-25T17:15:47.982672Z",
+      "source": "COINBASE_EXCHANGE",
+      "source_url": "https://api.exchange.coinbase.com/products/SOL-USD/ticker",
+      "status": "OBSERVED",
+      "tick_age_seconds": 5.661,
+      "timestamp_scope": "LAST_TRADE_ONLY"
+    },
+    {
+      "ask": "0.0773",
+      "asset": "DOGE",
+      "bid": "0.07727",
+      "bid_ask_timestamp_verified": false,
+      "body_sha256": "b17027d2b415ee5bff5d0889ce82cc05d6bf29054a1dd80e4ae614221fcc7f02",
+      "last_trade_at_utc": "2026-10-25T17:15:40.609061Z",
+      "last_trade_price": "0.07729",
+      "mode": "PAPER",
+      "price": "0.07729",
+      "product": "DOGE-USD",
+      "quote_at_utc": "2026-10-25T17:15:40.609061Z",
+      "quote_currency": "USD",
+      "received_at_utc": "2026-10-25T17:15:49.066823Z",
+      "source": "COINBASE_EXCHANGE",
+      "source_url": "https://api.exchange.coinbase.com/products/DOGE-USD/ticker",
+      "status": "OBSERVED",
+      "tick_age_seconds": 10.684,
+      "timestamp_scope": "LAST_TRADE_ONLY"
+    },
+    {
+      "ask": "1.3044",
+      "asset": "XRP",
+      "bid": "1.3042",
+      "bid_ask_timestamp_verified": false,
+      "body_sha256": "da958e02622a5a61fb501d115b9c9692c43022bc26159fb6fc5c6bfa43a34ca6",
+      "last_trade_at_utc": "2026-10-25T17:15:47.471192Z",
+      "last_trade_price": "1.3044",
+      "mode": "PAPER",
+      "price": "1.3044",
+      "product": "XRP-USD",
+      "quote_at_utc": "2026-10-25T17:15:47.471192Z",
+      "quote_currency": "USD",
+      "received_at_utc": "2026-10-25T17:15:50.187788Z",
+      "source": "COINBASE_EXCHANGE",
+      "source_url": "https://api.exchange.coinbase.com/products/XRP-USD/ticker",
+      "status": "OBSERVED",
+      "tick_age_seconds": 3.822,
+      "timestamp_scope": "LAST_TRADE_ONLY"
+    },
+    {
+      "ask": "741.82",
+      "asset": "BNB",
+      "bid": "741.65",
+      "bid_ask_timestamp_verified": false,
+      "body_sha256": "efcfc99ed76e33299f3c540bf9a7405f30c2fb8b9492ac01402d869c13430b9d",
+      "last_trade_at_utc": "2026-10-25T17:15:07.126722Z",
+      "last_trade_price": "741.39",
+      "mode": "PAPER",
+      "price": "741.39",
+      "product": "BNB-USD",
+      "quote_at_utc": "2026-10-25T17:15:07.126722Z",
+      "quote_currency": "USD",
+      "received_at_utc": "2026-10-25T17:15:51.293152Z",
+      "source": "COINBASE_EXCHANGE",
+      "source_url": "https://api.exchange.coinbase.com/products/BNB-USD/ticker",
+      "status": "OBSERVED",
+      "tick_age_seconds": 44.166,
+      "timestamp_scope": "LAST_TRADE_ONLY"
+    }
+  ],
+  "source_status": [
+    {
+      "access_status": "ACCESS VERIFIED",
+      "asset": "BTC",
+      "http_status": 200,
+      "last_attempt_at_utc": "2026-10-25T17:15:45.820967Z",
+      "retry_after_seconds": 240,
+      "status": "OBSERVED"
+    },
+    {
+      "access_status": "ACCESS VERIFIED",
+      "asset": "ETH",
+      "http_status": 200,
+      "last_attempt_at_utc": "2026-10-25T17:15:46.906497Z",
+      "retry_after_seconds": 240,
+      "status": "OBSERVED"
+    },
+    {
+      "access_status": "ACCESS VERIFIED",
+      "asset": "SOL",
+      "http_status": 200,
+      "last_attempt_at_utc": "2026-10-25T17:15:47.982692Z",
+      "retry_after_seconds": 240,
+      "status": "OBSERVED"
+    },
+    {
+      "access_status": "ACCESS VERIFIED",
+      "asset": "DOGE",
+      "http_status": 200,
+      "last_attempt_at_utc": "2026-10-25T17:15:49.066843Z",
+      "retry_after_seconds": 240,
+      "status": "OBSERVED"
+    },
+    {
+      "access_status": "ACCESS VERIFIED",
+      "asset": "XRP",
+      "http_status": 200,
+      "last_attempt_at_utc": "2026-10-25T17:15:50.187809Z",
+      "retry_after_seconds": 240,
+      "status": "OBSERVED"
+    },
+    {
+      "access_status": "ACCESS VERIFIED",
+      "asset": "BNB",
+      "http_status": 200,
+      "last_attempt_at_utc": "2026-10-25T17:15:51.293173Z",
+      "retry_after_seconds": 240,
+      "status": "OBSERVED"
+    }
+  ],
+  "fresh_observation_count": 6,
+  "observations_max_age_seconds": 90,
+  "reviews": [
+    {
+      "schema_version": "1.0",
+      "system": "MONEY Ω",
+      "mode": "PAPER",
+      "generated_at_utc": "2026-10-25T17:15:51.293216Z",
+      "strategies": [
+        {
+          "strategy_id": "MONEY_GAMBLER_PAPER_V1",
+          "mode": "PAPER",
+          "decision": "HALT",
+          "classification": "DATA INSUFFICIENT",
+          "approvedForPaper": false,
+          "reviews": [
+            {
+              "asset": "BTC",
+              "decision": "HALT",
+              "classification": "DATA INSUFFICIENT",
+              "reasons": [
+                "contract_evidence_missing",
+                "kill_switch_not_verified_run",
+                "policy_metric_invalid:daily_loss_usd",
+                "policy_metric_invalid:max_daily_loss_usd",
+                "policy_metric_invalid:max_paper_exposure_usd",
+                "policy_metric_invalid:max_paper_order_usd",
+                "policy_metric_invalid:paper_exposure_usd",
+                "policy_metric_invalid:paper_order_usd",
+                "policy_metrics_stale_or_future"
+              ],
+              "research": {
+                "published_spread_bps": 0.00123919,
+                "sourceTickVerified": false,
+                "direction": "UNDETERMINED",
+                "pspot_experimental": null
+              },
+              "contracts": [],
+              "approvedForPaper": false,
+              "blindCopyAllowed": false,
+              "financialAuthority": false
+            },
+            {
+              "asset": "ETH",
+              "decision": "HALT",
+              "classification": "DATA INSUFFICIENT",
+              "reasons": [
+                "contract_evidence_missing",
+                "kill_switch_not_verified_run",
+                "policy_metric_invalid:daily_loss_usd",
+                "policy_metric_invalid:max_daily_loss_usd",
+                "policy_metric_invalid:max_paper_exposure_usd",
+                "policy_metric_invalid:max_paper_order_usd",
+                "policy_metric_invalid:paper_exposure_usd",
+                "policy_metric_invalid:paper_order_usd",
+                "policy_metrics_stale_or_future"
+              ],
+              "research": {
+                "published_spread_bps": 0.04251366,
+                "sourceTickVerified": false,
+                "direction": "UNDETERMINED",
+                "pspot_experimental": null
+              },
+              "contracts": [],
+              "approvedForPaper": false,
+              "blindCopyAllowed": false,
+              "financialAuthority": false
+            },
+            {
+              "asset": "SOL",
+              "decision": "HALT",
+              "classification": "DATA INSUFFICIENT",
+              "reasons": [
+                "contract_evidence_missing",
+                "kill_switch_not_verified_run",
+                "policy_metric_invalid:daily_loss_usd",
+                "policy_metric_invalid:max_daily_loss_usd",
+                "policy_metric_invalid:max_paper_exposure_usd",
+                "policy_metric_invalid:max_paper_order_usd",
+                "policy_metric_invalid:paper_exposure_usd",
+                "policy_metric_invalid:paper_order_usd",
+                "policy_metrics_stale_or_future"
+              ],
+              "research": {
+                "published_spread_bps": 0.98352594,
+                "sourceTickVerified": false,
+                "direction": "UNDETERMINED",
+                "pspot_experimental": null
+              },
+              "contracts": [],
+              "approvedForPaper": false,
+              "blindCopyAllowed": false,
+              "financialAuthority": false
+            },
+            {
+              "asset": "DOGE",
+              "decision": "HALT",
+              "classification": "DATA INSUFFICIENT",
+              "reasons": [
+                "contract_evidence_missing",
+                "kill_switch_not_verified_run",
+                "policy_metric_invalid:daily_loss_usd",
+                "policy_metric_invalid:max_daily_loss_usd",
+                "policy_metric_invalid:max_paper_exposure_usd",
+                "policy_metric_invalid:max_paper_order_usd",
+                "policy_metric_invalid:paper_exposure_usd",
+                "policy_metric_invalid:paper_order_usd",
+                "policy_metrics_stale_or_future"
+              ],
+              "research": {
+                "published_spread_bps": 3.88173643,
+                "sourceTickVerified": false,
+                "direction": "UNDETERMINED",
+                "pspot_experimental": null
+              },
+              "contracts": [],
+              "approvedForPaper": false,
+              "blindCopyAllowed": false,
+              "financialAuthority": false
+            },
+            {
+              "asset": "XRP",
+              "decision": "HALT",
+              "classification": "DATA INSUFFICIENT",
+              "reasons": [
+                "contract_evidence_missing",
+                "kill_switch_not_verified_run",
+                "policy_metric_invalid:daily_loss_usd",
+                "policy_metric_invalid:max_daily_loss_usd",
+                "policy_metric_invalid:max_paper_exposure_usd",
+                "policy_metric_invalid:max_paper_order_usd",
+                "policy_metric_invalid:paper_exposure_usd",
+                "policy_metric_invalid:paper_order_usd",
+                "policy_metrics_stale_or_future"
+              ],
+              "research": {
+                "published_spread_bps": 1.53338956,
+                "sourceTickVerified": false,
+                "direction": "UNDETERMINED",
+                "pspot_experimental": null
+              },
+              "contracts": [],
+              "approvedForPaper": false,
+              "blindCopyAllowed": false,
+              "financialAuthority": false
+            },
+            {
+              "asset": "BNB",
+              "decision": "HALT",
+              "classification": "DATA INSUFFICIENT",
+              "reasons": [
+                "contract_evidence_missing",
+                "kill_switch_not_verified_run",
+                "policy_metric_invalid:daily_loss_usd",
+                "policy_metric_invalid:max_daily_loss_usd",
+                "policy_metric_invalid:max_paper_exposure_usd",
+                "policy_metric_invalid:max_paper_order_usd",
+                "policy_metric_invalid:paper_exposure_usd",
+                "policy_metric_invalid:paper_order_usd",
+                "policy_metrics_stale_or_future"
+              ],
+              "research": {
+                "published_spread_bps": 2.29192367,
+                "sourceTickVerified": false,
+                "direction": "UNDETERMINED",
+                "pspot_experimental": null
+              },
+              "contracts": [],
+              "approvedForPaper": false,
+              "blindCopyAllowed": false,
+              "financialAuthority": false
+            }
+          ]
+        },
+        {
+          "strategy_id": "MONEY_HOUSE_PAPER_V1",
+          "mode": "PAPER",
+          "decision": "HALT",
+          "classification": "DATA INSUFFICIENT",
+          "approvedForPaper": false,
+          "reviews": [
+            {
+              "asset": "BTC",
+              "decision": "HALT",
+              "classification": "DATA INSUFFICIENT",
+              "reasons": [
+                "contract_evidence_missing",
+                "kill_switch_not_verified_run",
+                "policy_metric_invalid:daily_loss_usd",
+                "policy_metric_invalid:max_daily_loss_usd",
+                "policy_metric_invalid:max_paper_exposure_usd",
+                "policy_metric_invalid:max_paper_order_usd",
+                "policy_metric_invalid:paper_exposure_usd",
+                "policy_metric_invalid:paper_order_usd",
+                "policy_metrics_stale_or_future"
+              ],
+              "research": {
+                "published_spread_bps": 0.00123919,
+                "sourceTickVerified": false,
+                "direction": "UNDETERMINED",
+                "pspot_experimental": null
+              },
+              "contracts": [],
+              "approvedForPaper": false,
+              "blindCopyAllowed": false,
+              "financialAuthority": false
+            },
+            {
+              "asset": "ETH",
+              "decision": "HALT",
+              "classification": "DATA INSUFFICIENT",
+              "reasons": [
+                "contract_evidence_missing",
+                "kill_switch_not_verified_run",
+                "policy_metric_invalid:daily_loss_usd",
+                "policy_metric_invalid:max_daily_loss_usd",
+                "policy_metric_invalid:max_paper_exposure_usd",
+                "policy_metric_invalid:max_paper_order_usd",
+                "policy_metric_invalid:paper_exposure_usd",
+                "policy_metric_invalid:paper_order_usd",
+                "policy_metrics_stale_or_future"
+              ],
+              "research": {
+                "published_spread_bps": 0.04251366,
+                "sourceTickVerified": false,
+                "direction": "UNDETERMINED",
+                "pspot_experimental": null
+              },
+              "contracts": [],
+              "approvedForPaper": false,
+              "blindCopyAllowed": false,
+              "financialAuthority": false
+            },
+            {
+              "asset": "SOL",
+              "decision": "HALT",
+              "classification": "DATA INSUFFICIENT",
+              "reasons": [
+                "contract_evidence_missing",
+                "kill_switch_not_verified_run",
+                "policy_metric_invalid:daily_loss_usd",
+                "policy_metric_invalid:max_daily_loss_usd",
+                "policy_metric_invalid:max_paper_exposure_usd",
+                "policy_metric_invalid:max_paper_order_usd",
+                "policy_metric_invalid:paper_exposure_usd",
+                "policy_metric_invalid:paper_order_usd",
+                "policy_metrics_stale_or_future"
+              ],
+              "research": {
+                "published_spread_bps": 0.98352594,
+                "sourceTickVerified": false,
+                "direction": "UNDETERMINED",
+                "pspot_experimental": null
+              },
+              "contracts": [],
+              "approvedForPaper": false,
+              "blindCopyAllowed": false,
+              "financialAuthority": false
+            },
+            {
+              "asset": "DOGE",
+              "decision": "HALT",
+              "classification": "DATA INSUFFICIENT",
+              "reasons": [
+                "contract_evidence_missing",
+                "kill_switch_not_verified_run",
+                "policy_metric_invalid:daily_loss_usd",
+                "policy_metric_invalid:max_daily_loss_usd",
+                "policy_metric_invalid:max_paper_exposure_usd",
+                "policy_metric_invalid:max_paper_order_usd",
+                "policy_metric_invalid:paper_exposure_usd",
+                "policy_metric_invalid:paper_order_usd",
+                "policy_metrics_stale_or_future"
+              ],
+              "research": {
+                "published_spread_bps": 3.88173643,
+                "sourceTickVerified": false,
+                "direction": "UNDETERMINED",
+                "pspot_experimental": null
+              },
+              "contracts": [],
+              "approvedForPaper": false,
+              "blindCopyAllowed": false,
+              "financialAuthority": false
+            },
+            {
+              "asset": "XRP",
+              "decision": "HALT",
+              "classification": "DATA INSUFFICIENT",
+              "reasons": [
+                "contract_evidence_missing",
+                "kill_switch_not_verified_run",
+                "policy_metric_invalid:daily_loss_usd",
+                "policy_metric_invalid:max_daily_loss_usd",
+                "policy_metric_invalid:max_paper_exposure_usd",
+                "policy_metric_invalid:max_paper_order_usd",
+                "policy_metric_invalid:paper_exposure_usd",
+                "policy_metric_invalid:paper_order_usd",
+                "policy_metrics_stale_or_future"
+              ],
+              "research": {
+                "published_spread_bps": 1.53338956,
+                "sourceTickVerified": false,
+                "direction": "UNDETERMINED",
+                "pspot_experimental": null
+              },
+              "contracts": [],
+              "approvedForPaper": false,
+              "blindCopyAllowed": false,
+              "financialAuthority": false
+            },
+            {
+              "asset": "BNB",
+              "decision": "HALT",
+              "classification": "DATA INSUFFICIENT",
+              "reasons": [
+                "contract_evidence_missing",
+                "kill_switch_not_verified_run",
+                "policy_metric_invalid:daily_loss_usd",
+                "policy_metric_invalid:max_daily_loss_usd",
+                "policy_metric_invalid:max_paper_exposure_usd",
+                "policy_metric_invalid:max_paper_order_usd",
+                "policy_metric_invalid:paper_exposure_usd",
+                "policy_metric_invalid:paper_order_usd",
+                "policy_metrics_stale_or_future"
+              ],
+              "research": {
+                "published_spread_bps": 2.29192367,
+                "sourceTickVerified": false,
+                "direction": "UNDETERMINED",
+                "pspot_experimental": null
+              },
+              "contracts": [],
+              "approvedForPaper": false,
+              "blindCopyAllowed": false,
+              "financialAuthority": false
+            }
+          ]
+        },
+        {
+          "strategy_id": "MONEY_SPY_PAPER_V1",
+          "mode": "PAPER",
+          "decision": "HALT",
+          "classification": "DATA INSUFFICIENT",
+          "approvedForPaper": false,
+          "reviews": [
+            {
+              "asset": "BTC",
+              "decision": "HALT",
+              "classification": "DATA INSUFFICIENT",
+              "reasons": [
+                "contract_evidence_missing",
+                "kill_switch_not_verified_run",
+                "policy_metric_invalid:daily_loss_usd",
+                "policy_metric_invalid:max_daily_loss_usd",
+                "policy_metric_invalid:max_paper_exposure_usd",
+                "policy_metric_invalid:max_paper_order_usd",
+                "policy_metric_invalid:paper_exposure_usd",
+                "policy_metric_invalid:paper_order_usd",
+                "policy_metrics_stale_or_future"
+              ],
+              "research": {
+                "published_spread_bps": 0.00123919,
+                "sourceTickVerified": false,
+                "direction": "UNDETERMINED",
+                "pspot_experimental": null
+              },
+              "contracts": [],
+              "approvedForPaper": false,
+              "blindCopyAllowed": false,
+              "financialAuthority": false
+            },
+            {
+              "asset": "ETH",
+              "decision": "HALT",
+              "classification": "DATA INSUFFICIENT",
+              "reasons": [
+                "contract_evidence_missing",
+                "kill_switch_not_verified_run",
+                "policy_metric_invalid:daily_loss_usd",
+                "policy_metric_invalid:max_daily_loss_usd",
+                "policy_metric_invalid:max_paper_exposure_usd",
+                "policy_metric_invalid:max_paper_order_usd",
+                "policy_metric_invalid:paper_exposure_usd",
+                "policy_metric_invalid:paper_order_usd",
+                "policy_metrics_stale_or_future"
+              ],
+              "research": {
+                "published_spread_bps": 0.04251366,
+                "sourceTickVerified": false,
+                "direction": "UNDETERMINED",
+                "pspot_experimental": null
+              },
+              "contracts": [],
+              "approvedForPaper": false,
+              "blindCopyAllowed": false,
+              "financialAuthority": false
+            },
+            {
+              "asset": "SOL",
+              "decision": "HALT",
+              "classification": "DATA INSUFFICIENT",
+              "reasons": [
+                "contract_evidence_missing",
+                "kill_switch_not_verified_run",
+                "policy_metric_invalid:daily_loss_usd",
+                "policy_metric_invalid:max_daily_loss_usd",
+                "policy_metric_invalid:max_paper_exposure_usd",
+                "policy_metric_invalid:max_paper_order_usd",
+                "policy_metric_invalid:paper_exposure_usd",
+                "policy_metric_invalid:paper_order_usd",
+                "policy_metrics_stale_or_future"
+              ],
+              "research": {
+                "published_spread_bps": 0.98352594,
+                "sourceTickVerified": false,
+                "direction": "UNDETERMINED",
+                "pspot_experimental": null
+              },
+              "contracts": [],
+              "approvedForPaper": false,
+              "blindCopyAllowed": false,
+              "financialAuthority": false
+            },
+            {
+              "asset": "DOGE",
+              "decision": "HALT",
+              "classification": "DATA INSUFFICIENT",
+              "reasons": [
+                "contract_evidence_missing",
+                "kill_switch_not_verified_run",
+                "policy_metric_invalid:daily_loss_usd",
+                "policy_metric_invalid:max_daily_loss_usd",
+                "policy_metric_invalid:max_paper_exposure_usd",
+                "policy_metric_invalid:max_paper_order_usd",
+                "policy_metric_invalid:paper_exposure_usd",
+                "policy_metric_invalid:paper_order_usd",
+                "policy_metrics_stale_or_future"
+              ],
+              "research": {
+                "published_spread_bps": 3.88173643,
+                "sourceTickVerified": false,
+                "direction": "UNDETERMINED",
+                "pspot_experimental": null
+              },
+              "contracts": [],
+              "approvedForPaper": false,
+              "blindCopyAllowed": false,
+              "financialAuthority": false
+            },
+            {
+              "asset": "XRP",
+              "decision": "HALT",
+              "classification": "DATA INSUFFICIENT",
+              "reasons": [
+                "contract_evidence_missing",
+                "kill_switch_not_verified_run",
+                "policy_metric_invalid:daily_loss_usd",
+                "policy_metric_invalid:max_daily_loss_usd",
+                "policy_metric_invalid:max_paper_exposure_usd",
+                "policy_metric_invalid:max_paper_order_usd",
+                "policy_metric_invalid:paper_exposure_usd",
+                "policy_metric_invalid:paper_order_usd",
+                "policy_metrics_stale_or_future"
+              ],
+              "research": {
+                "published_spread_bps": 1.53338956,
+                "sourceTickVerified": false,
+                "direction": "UNDETERMINED",
+                "pspot_experimental": null
+              },
+              "contracts": [],
+              "approvedForPaper": false,
+              "blindCopyAllowed": false,
+              "financialAuthority": false
+            },
+            {
+              "asset": "BNB",
+              "decision": "HALT",
+              "classification": "DATA INSUFFICIENT",
+              "reasons": [
+                "contract_evidence_missing",
+                "kill_switch_not_verified_run",
+                "policy_metric_invalid:daily_loss_usd",
+                "policy_metric_invalid:max_daily_loss_usd",
+                "policy_metric_invalid:max_paper_exposure_usd",
+                "policy_metric_invalid:max_paper_order_usd",
+                "policy_metric_invalid:paper_exposure_usd",
+                "policy_metric_invalid:paper_order_usd",
+                "policy_metrics_stale_or_future"
+              ],
+              "research": {
+                "published_spread_bps": 2.29192367,
+                "sourceTickVerified": false,
+                "direction": "UNDETERMINED",
+                "pspot_experimental": null
+              },
+              "contracts": [],
+              "approvedForPaper": false,
+              "blindCopyAllowed": false,
+              "financialAuthority": false
+            }
+          ]
+        }
+      ],
+      "risk": {
+        "name": "RISK Ω",
+        "state": "HALT",
+        "vetoes": [
+          "kill_switch_not_verified_run",
+          "policy_metric_invalid:daily_loss_usd",
+          "policy_metric_invalid:max_daily_loss_usd",
+          "policy_metric_invalid:max_paper_exposure_usd",
+          "policy_metric_invalid:max_paper_order_usd",
+          "policy_metric_invalid:paper_exposure_usd",
+          "policy_metric_invalid:paper_order_usd",
+          "policy_metrics_stale_or_future"
+        ],
+        "assetVetoes": [
+          "contract_evidence_missing",
+          "kill_switch_not_verified_run",
+          "policy_metric_invalid:daily_loss_usd",
+          "policy_metric_invalid:max_daily_loss_usd",
+          "policy_metric_invalid:max_paper_exposure_usd",
+          "policy_metric_invalid:max_paper_order_usd",
+          "policy_metric_invalid:paper_exposure_usd",
+          "policy_metric_invalid:paper_order_usd",
+          "policy_metrics_stale_or_future"
+        ]
+      },
+      "judgments": [],
+      "approvedForPaper": false,
+      "executionEnabled": false,
+      "financialAuthority": false,
+      "simulationPerformed": false,
+      "modelAggregation": "NONE",
+      "pcontract": null,
+      "scope": {
+        "assets": [
+          "BTC",
+          "ETH",
+          "SOL",
+          "DOGE",
+          "XRP",
+          "BNB"
+        ],
+        "timeframe": "5m",
+        "window_start_utc": "2026-10-25T17:15:00Z",
+        "window_end_utc": "2026-10-25T17:20:00Z"
+      },
+      "input_sha256": "5e1e45ffb1201ac30549beb9e5c1283265d30b86abbff36f5250fe30e22ddf87",
+      "modelDisagreement": null,
+      "modelDisagreementAssessment": "REQUIRES_SEPARATE_SCOPE_AND_METHODOLOGY_REVIEW",
+      "timeframe": "5m"
+    },
+    {
+      "schema_version": "1.0",
+      "system": "MONEY Ω",
+      "mode": "PAPER",
+      "generated_at_utc": "2026-10-25T17:15:51.293216Z",
+      "strategies": [
+        {
+          "strategy_id": "MONEY_GAMBLER_PAPER_V1",
+          "mode": "PAPER",
+          "decision": "HALT",
+          "classification": "DATA INSUFFICIENT",
+          "approvedForPaper": false,
+          "reviews": [
+            {
+              "asset": "BTC",
+              "decision": "HALT",
+              "classification": "DATA INSUFFICIENT",
+              "reasons": [
+                "contract_evidence_missing",
+                "kill_switch_not_verified_run",
+                "policy_metric_invalid:daily_loss_usd",
+                "policy_metric_invalid:max_daily_loss_usd",
+                "policy_metric_invalid:max_paper_exposure_usd",
+                "policy_metric_invalid:max_paper_order_usd",
+                "policy_metric_invalid:paper_exposure_usd",
+                "policy_metric_invalid:paper_order_usd",
+                "policy_metrics_stale_or_future"
+              ],
+              "research": {
+                "published_spread_bps": 0.00123919,
+                "sourceTickVerified": false,
+                "direction": "UNDETERMINED",
+                "pspot_experimental": null
+              },
+              "contracts": [],
+              "approvedForPaper": false,
+              "blindCopyAllowed": false,
+              "financialAuthority": false
+            },
+            {
+              "asset": "ETH",
+              "decision": "HALT",
+              "classification": "DATA INSUFFICIENT",
+              "reasons": [
+                "contract_evidence_missing",
+                "kill_switch_not_verified_run",
+                "policy_metric_invalid:daily_loss_usd",
+                "policy_metric_invalid:max_daily_loss_usd",
+                "policy_metric_invalid:max_paper_exposure_usd",
+                "policy_metric_invalid:max_paper_order_usd",
+                "policy_metric_invalid:paper_exposure_usd",
+                "policy_metric_invalid:paper_order_usd",
+                "policy_metrics_stale_or_future"
+              ],
+              "research": {
+                "published_spread_bps": 0.04251366,
+                "sourceTickVerified": false,
+                "direction": "UNDETERMINED",
+                "pspot_experimental": null
+              },
+              "contracts": [],
+              "approvedForPaper": false,
+              "blindCopyAllowed": false,
+              "financialAuthority": false
+            },
+            {
+              "asset": "SOL",
+              "decision": "HALT",
+              "classification": "DATA INSUFFICIENT",
+              "reasons": [
+                "contract_evidence_missing",
+                "kill_switch_not_verified_run",
+                "policy_metric_invalid:daily_loss_usd",
+                "policy_metric_invalid:max_daily_loss_usd",
+                "policy_metric_invalid:max_paper_exposure_usd",
+                "policy_metric_invalid:max_paper_order_usd",
+                "policy_metric_invalid:paper_exposure_usd",
+                "policy_metric_invalid:paper_order_usd",
+                "policy_metrics_stale_or_future"
+              ],
+              "research": {
+                "published_spread_bps": 0.98352594,
+                "sourceTickVerified": false,
+                "direction": "UNDETERMINED",
+                "pspot_experimental": null
+              },
+              "contracts": [],
+              "approvedForPaper": false,
+              "blindCopyAllowed": false,
+              "financialAuthority": false
+            },
+            {
+              "asset": "DOGE",
+              "decision": "HALT",
+              "classification": "DATA INSUFFICIENT",
+              "reasons": [
+                "contract_evidence_missing",
+                "kill_switch_not_verified_run",
+                "policy_metric_invalid:daily_loss_usd",
+                "policy_metric_invalid:max_daily_loss_usd",
+                "policy_metric_invalid:max_paper_exposure_usd",
+                "policy_metric_invalid:max_paper_order_usd",
+                "policy_metric_invalid:paper_exposure_usd",
+                "policy_metric_invalid:paper_order_usd",
+                "policy_metrics_stale_or_future"
+              ],
+              "research": {
+                "published_spread_bps": 3.88173643,
+                "sourceTickVerified": false,
+                "direction": "UNDETERMINED",
+                "pspot_experimental": null
+              },
+              "contracts": [],
+              "approvedForPaper": false,
+              "blindCopyAllowed": false,
+              "financialAuthority": false
+            },
+            {
+              "asset": "XRP",
+              "decision": "HALT",
+              "classification": "DATA INSUFFICIENT",
+              "reasons": [
+                "contract_evidence_missing",
+                "kill_switch_not_verified_run",
+                "policy_metric_invalid:daily_loss_usd",
+                "policy_metric_invalid:max_daily_loss_usd",
+                "policy_metric_invalid:max_paper_exposure_usd",
+                "policy_metric_invalid:max_paper_order_usd",
+                "policy_metric_invalid:paper_exposure_usd",
+                "policy_metric_invalid:paper_order_usd",
+                "policy_metrics_stale_or_future"
+              ],
+              "research": {
+                "published_spread_bps": 1.53338956,
+                "sourceTickVerified": false,
+                "direction": "UNDETERMINED",
+                "pspot_experimental": null
+              },
+              "contracts": [],
+              "approvedForPaper": false,
+              "blindCopyAllowed": false,
+              "financialAuthority": false
+            },
+            {
+              "asset": "BNB",
+              "decision": "HALT",
+              "classification": "DATA INSUFFICIENT",
+              "reasons": [
+                "contract_evidence_missing",
+                "kill_switch_not_verified_run",
+                "policy_metric_invalid:daily_loss_usd",
+                "policy_metric_invalid:max_daily_loss_usd",
+                "policy_metric_invalid:max_paper_exposure_usd",
+                "policy_metric_invalid:max_paper_order_usd",
+                "policy_metric_invalid:paper_exposure_usd",
+                "policy_metric_invalid:paper_order_usd",
+                "policy_metrics_stale_or_future"
+              ],
+              "research": {
+                "published_spread_bps": 2.29192367,
+                "sourceTickVerified": false,
+                "direction": "UNDETERMINED",
+                "pspot_experimental": null
+              },
+              "contracts": [],
+              "approvedForPaper": false,
+              "blindCopyAllowed": false,
+              "financialAuthority": false
+            }
+          ]
+        },
+        {
+          "strategy_id": "MONEY_HOUSE_PAPER_V1",
+          "mode": "PAPER",
+          "decision": "HALT",
+          "classification": "DATA INSUFFICIENT",
+          "approvedForPaper": false,
+          "reviews": [
+            {
+              "asset": "BTC",
+              "decision": "HALT",
+              "classification": "DATA INSUFFICIENT",
+              "reasons": [
+                "contract_evidence_missing",
+                "kill_switch_not_verified_run",
+                "policy_metric_invalid:daily_loss_usd",
+                "policy_metric_invalid:max_daily_loss_usd",
+                "policy_metric_invalid:max_paper_exposure_usd",
+                "policy_metric_invalid:max_paper_order_usd",
+                "policy_metric_invalid:paper_exposure_usd",
+                "policy_metric_invalid:paper_order_usd",
+                "policy_metrics_stale_or_future"
+              ],
+              "research": {
+                "published_spread_bps": 0.00123919,
+                "sourceTickVerified": false,
+                "direction": "UNDETERMINED",
+                "pspot_experimental": null
+              },
+              "contracts": [],
+              "approvedForPaper": false,
+              "blindCopyAllowed": false,
+              "financialAuthority": false
+            },
+            {
+              "asset": "ETH",
+              "decision": "HALT",
+              "classification": "DATA INSUFFICIENT",
+              "reasons": [
+                "contract_evidence_missing",
+                "kill_switch_not_verified_run",
+                "policy_metric_invalid:daily_loss_usd",
+                "policy_metric_invalid:max_daily_loss_usd",
+                "policy_metric_invalid:max_paper_exposure_usd",
+                "policy_metric_invalid:max_paper_order_usd",
+                "policy_metric_invalid:paper_exposure_usd",
+                "policy_metric_invalid:paper_order_usd",
+                "policy_metrics_stale_or_future"
+              ],
+              "research": {
+                "published_spread_bps": 0.04251366,
+                "sourceTickVerified": false,
+                "direction": "UNDETERMINED",
+                "pspot_experimental": null
+              },
+              "contracts": [],
+              "approvedForPaper": false,
+              "blindCopyAllowed": false,
+              "financialAuthority": false
+            },
+            {
+              "asset": "SOL",
+              "decision": "HALT",
+              "classification": "DATA INSUFFICIENT",
+              "reasons": [
+                "contract_evidence_missing",
+                "kill_switch_not_verified_run",
+                "policy_metric_invalid:daily_loss_usd",
+                "policy_metric_invalid:max_daily_loss_usd",
+                "policy_metric_invalid:max_paper_exposure_usd",
+                "policy_metric_invalid:max_paper_order_usd",
+                "policy_metric_invalid:paper_exposure_usd",
+                "policy_metric_invalid:paper_order_usd",
+                "policy_metrics_stale_or_future"
+              ],
+              "research": {
+                "published_spread_bps": 0.98352594,
+                "sourceTickVerified": false,
+                "direction": "UNDETERMINED",
+                "pspot_experimental": null
+              },
+              "contracts": [],
+              "approvedForPaper": false,
+              "blindCopyAllowed": false,
+              "financialAuthority": false
+            },
+            {
+              "asset": "DOGE",
+              "decision": "HALT",
+              "classification": "DATA INSUFFICIENT",
+              "reasons": [
+                "contract_evidence_missing",
+                "kill_switch_not_verified_run",
+                "policy_metric_invalid:daily_loss_usd",
+                "policy_metric_invalid:max_daily_loss_usd",
+                "policy_metric_invalid:max_paper_exposure_usd",
+                "policy_metric_invalid:max_paper_order_usd",
+                "policy_metric_invalid:paper_exposure_usd",
+                "policy_metric_invalid:paper_order_usd",
+                "policy_metrics_stale_or_future"
+              ],
+              "research": {
+                "published_spread_bps": 3.88173643,
+                "sourceTickVerified": false,
+                "direction": "UNDETERMINED",
+                "pspot_experimental": null
+              },
+              "contracts": [],
+              "approvedForPaper": false,
+              "blindCopyAllowed": false,
+              "financialAuthority": false
+            },
+            {
+              "asset": "XRP",
+              "decision": "HALT",
+              "classification": "DATA INSUFFICIENT",
+              "reasons": [
+                "contract_evidence_missing",
+                "kill_switch_not_verified_run",
+                "policy_metric_invalid:daily_loss_usd",
+                "policy_metric_invalid:max_daily_loss_usd",
+                "policy_metric_invalid:max_paper_exposure_usd",
+                "policy_metric_invalid:max_paper_order_usd",
+                "policy_metric_invalid:paper_exposure_usd",
+                "policy_metric_invalid:paper_order_usd",
+                "policy_metrics_stale_or_future"
+              ],
+              "research": {
+                "published_spread_bps": 1.53338956,
+                "sourceTickVerified": false,
+                "direction": "UNDETERMINED",
+                "pspot_experimental": null
+              },
+              "contracts": [],
+              "approvedForPaper": false,
+              "blindCopyAllowed": false,
+              "financialAuthority": false
+            },
+            {
+              "asset": "BNB",
+              "decision": "HALT",
+              "classification": "DATA INSUFFICIENT",
+              "reasons": [
+                "contract_evidence_missing",
+                "kill_switch_not_verified_run",
+                "policy_metric_invalid:daily_loss_usd",
+                "policy_metric_invalid:max_daily_loss_usd",
+                "policy_metric_invalid:max_paper_exposure_usd",
+                "policy_metric_invalid:max_paper_order_usd",
+                "policy_metric_invalid:paper_exposure_usd",
+                "policy_metric_invalid:paper_order_usd",
+                "policy_metrics_stale_or_future"
+              ],
+              "research": {
+                "published_spread_bps": 2.29192367,
+                "sourceTickVerified": false,
+                "direction": "UNDETERMINED",
+                "pspot_experimental": null
+              },
+              "contracts": [],
+              "approvedForPaper": false,
+              "blindCopyAllowed": false,
+              "financialAuthority": false
+            }
+          ]
+        },
+        {
+          "strategy_id": "MONEY_SPY_PAPER_V1",
+          "mode": "PAPER",
+          "decision": "HALT",
+          "classification": "DATA INSUFFICIENT",
+          "approvedForPaper": false,
+          "reviews": [
+            {
+              "asset": "BTC",
+              "decision": "HALT",
+              "classification": "DATA INSUFFICIENT",
+              "reasons": [
+                "contract_evidence_missing",
+                "kill_switch_not_verified_run",
+                "policy_metric_invalid:daily_loss_usd",
+                "policy_metric_invalid:max_daily_loss_usd",
+                "policy_metric_invalid:max_paper_exposure_usd",
+                "policy_metric_invalid:max_paper_order_usd",
+                "policy_metric_invalid:paper_exposure_usd",
+                "policy_metric_invalid:paper_order_usd",
+                "policy_metrics_stale_or_future"
+              ],
+              "research": {
+                "published_spread_bps": 0.00123919,
+                "sourceTickVerified": false,
+                "direction": "UNDETERMINED",
+                "pspot_experimental": null
+              },
+              "contracts": [],
+              "approvedForPaper": false,
+              "blindCopyAllowed": false,
+              "financialAuthority": false
+            },
+            {
+              "asset": "ETH",
+              "decision": "HALT",
+              "classification": "DATA INSUFFICIENT",
+              "reasons": [
+                "contract_evidence_missing",
+                "kill_switch_not_verified_run",
+                "policy_metric_invalid:daily_loss_usd",
+                "policy_metric_invalid:max_daily_loss_usd",
+                "policy_metric_invalid:max_paper_exposure_usd",
+                "policy_metric_invalid:max_paper_order_usd",
+                "policy_metric_invalid:paper_exposure_usd",
+                "policy_metric_invalid:paper_order_usd",
+                "policy_metrics_stale_or_future"
+              ],
+              "research": {
+                "published_spread_bps": 0.04251366,
+                "sourceTickVerified": false,
+                "direction": "UNDETERMINED",
+                "pspot_experimental": null
+              },
+              "contracts": [],
+              "approvedForPaper": false,
+              "blindCopyAllowed": false,
+              "financialAuthority": false
+            },
+            {
+              "asset": "SOL",
+              "decision": "HALT",
+              "classification": "DATA INSUFFICIENT",
+              "reasons": [
+                "contract_evidence_missing",
+                "kill_switch_not_verified_run",
+                "policy_metric_invalid:daily_loss_usd",
+                "policy_metric_invalid:max_daily_loss_usd",
+                "policy_metric_invalid:max_paper_exposure_usd",
+                "policy_metric_invalid:max_paper_order_usd",
+                "policy_metric_invalid:paper_exposure_usd",
+                "policy_metric_invalid:paper_order_usd",
+                "policy_metrics_stale_or_future"
+              ],
+              "research": {
+                "published_spread_bps": 0.98352594,
+                "sourceTickVerified": false,
+                "direction": "UNDETERMINED",
+                "pspot_experimental": null
+              },
+              "contracts": [],
+              "approvedForPaper": false,
+              "blindCopyAllowed": false,
+              "financialAuthority": false
+            },
+            {
+              "asset": "DOGE",
+              "decision": "HALT",
+              "classification": "DATA INSUFFICIENT",
+              "reasons": [
+                "contract_evidence_missing",
+                "kill_switch_not_verified_run",
+                "policy_metric_invalid:daily_loss_usd",
+                "policy_metric_invalid:max_daily_loss_usd",
+                "policy_metric_invalid:max_paper_exposure_usd",
+                "policy_metric_invalid:max_paper_order_usd",
+                "policy_metric_invalid:paper_exposure_usd",
+                "policy_metric_invalid:paper_order_usd",
+                "policy_metrics_stale_or_future"
+              ],
+              "research": {
+                "published_spread_bps": 3.88173643,
+                "sourceTickVerified": false,
+                "direction": "UNDETERMINED",
+                "pspot_experimental": null
+              },
+              "contracts": [],
+              "approvedForPaper": false,
+              "blindCopyAllowed": false,
+              "financialAuthority": false
+            },
+            {
+              "asset": "XRP",
+              "decision": "HALT",
+              "classification": "DATA INSUFFICIENT",
+              "reasons": [
+                "contract_evidence_missing",
+                "kill_switch_not_verified_run",
+                "policy_metric_invalid:daily_loss_usd",
+                "policy_metric_invalid:max_daily_loss_usd",
+                "policy_metric_invalid:max_paper_exposure_usd",
+                "policy_metric_invalid:max_paper_order_usd",
+                "policy_metric_invalid:paper_exposure_usd",
+                "policy_metric_invalid:paper_order_usd",
+                "policy_metrics_stale_or_future"
+              ],
+              "research": {
+                "published_spread_bps": 1.53338956,
+                "sourceTickVerified": false,
+                "direction": "UNDETERMINED",
+                "pspot_experimental": null
+              },
+              "contracts": [],
+              "approvedForPaper": false,
+              "blindCopyAllowed": false,
+              "financialAuthority": false
+            },
+            {
+              "asset": "BNB",
+              "decision": "HALT",
+              "classification": "DATA INSUFFICIENT",
+              "reasons": [
+                "contract_evidence_missing",
+                "kill_switch_not_verified_run",
+                "policy_metric_invalid:daily_loss_usd",
+                "policy_metric_invalid:max_daily_loss_usd",
+                "policy_metric_invalid:max_paper_exposure_usd",
+                "policy_metric_invalid:max_paper_order_usd",
+                "policy_metric_invalid:paper_exposure_usd",
+                "policy_metric_invalid:paper_order_usd",
+                "policy_metrics_stale_or_future"
+              ],
+              "research": {
+                "published_spread_bps": 2.29192367,
+                "sourceTickVerified": false,
+                "direction": "UNDETERMINED",
+                "pspot_experimental": null
+              },
+              "contracts": [],
+              "approvedForPaper": false,
+              "blindCopyAllowed": false,
+              "financialAuthority": false
+            }
+          ]
+        }
+      ],
+      "risk": {
+        "name": "RISK Ω",
+        "state": "HALT",
+        "vetoes": [
+          "kill_switch_not_verified_run",
+          "policy_metric_invalid:daily_loss_usd",
+          "policy_metric_invalid:max_daily_loss_usd",
+          "policy_metric_invalid:max_paper_exposure_usd",
+          "policy_metric_invalid:max_paper_order_usd",
+          "policy_metric_invalid:paper_exposure_usd",
+          "policy_metric_invalid:paper_order_usd",
+          "policy_metrics_stale_or_future"
+        ],
+        "assetVetoes": [
+          "contract_evidence_missing",
+          "kill_switch_not_verified_run",
+          "policy_metric_invalid:daily_loss_usd",
+          "policy_metric_invalid:max_daily_loss_usd",
+          "policy_metric_invalid:max_paper_exposure_usd",
+          "policy_metric_invalid:max_paper_order_usd",
+          "policy_metric_invalid:paper_exposure_usd",
+          "policy_metric_invalid:paper_order_usd",
+          "policy_metrics_stale_or_future"
+        ]
+      },
+      "judgments": [],
+      "approvedForPaper": false,
+      "executionEnabled": false,
+      "financialAuthority": false,
+      "simulationPerformed": false,
+      "modelAggregation": "NONE",
+      "pcontract": null,
+      "scope": {
+        "assets": [
+          "BTC",
+          "ETH",
+          "SOL",
+          "DOGE",
+          "XRP",
+          "BNB"
+        ],
+        "timeframe": "15m",
+        "window_start_utc": "2026-10-25T17:15:00Z",
+        "window_end_utc": "2026-10-25T17:30:00Z"
+      },
+      "input_sha256": "77fca7a591aa9325c067db335d3266524954fe73352fa3552f127aabb46b4ffa",
+      "modelDisagreement": null,
+      "modelDisagreementAssessment": "REQUIRES_SEPARATE_SCOPE_AND_METHODOLOGY_REVIEW",
+      "timeframe": "15m"
+    },
+    {
+      "schema_version": "1.0",
+      "system": "MONEY Ω",
+      "mode": "PAPER",
+      "generated_at_utc": "2026-10-25T17:15:51.293216Z",
+      "strategies": [
+        {
+          "strategy_id": "MONEY_GAMBLER_PAPER_V1",
+          "mode": "PAPER",
+          "decision": "HALT",
+          "classification": "DATA INSUFFICIENT",
+          "approvedForPaper": false,
+          "reviews": [
+            {
+              "asset": "BTC",
+              "decision": "HALT",
+              "classification": "DATA INSUFFICIENT",
+              "reasons": [
+                "contract_evidence_missing",
+                "kill_switch_not_verified_run",
+                "policy_metric_invalid:daily_loss_usd",
+                "policy_metric_invalid:max_daily_loss_usd",
+                "policy_metric_invalid:max_paper_exposure_usd",
+                "policy_metric_invalid:max_paper_order_usd",
+                "policy_metric_invalid:paper_exposure_usd",
+                "policy_metric_invalid:paper_order_usd",
+                "policy_metrics_stale_or_future"
+              ],
+              "research": {
+                "published_spread_bps": 0.00123919,
+                "sourceTickVerified": false,
+                "direction": "UNDETERMINED",
+                "pspot_experimental": null
+              },
+              "contracts": [],
+              "approvedForPaper": false,
+              "blindCopyAllowed": false,
+              "financialAuthority": false
+            },
+            {
+              "asset": "ETH",
+              "decision": "HALT",
+              "classification": "DATA INSUFFICIENT",
+              "reasons": [
+                "contract_evidence_missing",
+                "kill_switch_not_verified_run",
+                "policy_metric_invalid:daily_loss_usd",
+                "policy_metric_invalid:max_daily_loss_usd",
+                "policy_metric_invalid:max_paper_exposure_usd",
+                "policy_metric_invalid:max_paper_order_usd",
+                "policy_metric_invalid:paper_exposure_usd",
+                "policy_metric_invalid:paper_order_usd",
+                "policy_metrics_stale_or_future"
+              ],
+              "research": {
+                "published_spread_bps": 0.04251366,
+                "sourceTickVerified": false,
+                "direction": "UNDETERMINED",
+                "pspot_experimental": null
+              },
+              "contracts": [],
+              "approvedForPaper": false,
+              "blindCopyAllowed": false,
+              "financialAuthority": false
+            },
+            {
+              "asset": "SOL",
+              "decision": "HALT",
+              "classification": "DATA INSUFFICIENT",
+              "reasons": [
+                "contract_evidence_missing",
+                "kill_switch_not_verified_run",
+                "policy_metric_invalid:daily_loss_usd",
+                "policy_metric_invalid:max_daily_loss_usd",
+                "policy_metric_invalid:max_paper_exposure_usd",
+                "policy_metric_invalid:max_paper_order_usd",
+                "policy_metric_invalid:paper_exposure_usd",
+                "policy_metric_invalid:paper_order_usd",
+                "policy_metrics_stale_or_future"
+              ],
+              "research": {
+                "published_spread_bps": 0.98352594,
+                "sourceTickVerified": false,
+                "direction": "UNDETERMINED",
+                "pspot_experimental": null
+              },
+              "contracts": [],
+              "approvedForPaper": false,
+              "blindCopyAllowed": false,
+              "financialAuthority": false
+            },
+            {
+              "asset": "DOGE",
+              "decision": "HALT",
+              "classification": "DATA INSUFFICIENT",
+              "reasons": [
+                "contract_evidence_missing",
+                "kill_switch_not_verified_run",
+                "policy_metric_invalid:daily_loss_usd",
+                "policy_metric_invalid:max_daily_loss_usd",
+                "policy_metric_invalid:max_paper_exposure_usd",
+                "policy_metric_invalid:max_paper_order_usd",
+                "policy_metric_invalid:paper_exposure_usd",
+                "policy_metric_invalid:paper_order_usd",
+                "policy_metrics_stale_or_future"
+              ],
+              "research": {
+                "published_spread_bps": 3.88173643,
+                "sourceTickVerified": false,
+                "direction": "UNDETERMINED",
+                "pspot_experimental": null
+              },
+              "contracts": [],
+              "approvedForPaper": false,
+              "blindCopyAllowed": false,
+              "financialAuthority": false
+            },
+            {
+              "asset": "XRP",
+              "decision": "HALT",
+              "classification": "DATA INSUFFICIENT",
+              "reasons": [
+                "contract_evidence_missing",
+                "kill_switch_not_verified_run",
+                "policy_metric_invalid:daily_loss_usd",
+                "policy_metric_invalid:max_daily_loss_usd",
+                "policy_metric_invalid:max_paper_exposure_usd",
+                "policy_metric_invalid:max_paper_order_usd",
+                "policy_metric_invalid:paper_exposure_usd",
+                "policy_metric_invalid:paper_order_usd",
+                "policy_metrics_stale_or_future"
+              ],
+              "research": {
+                "published_spread_bps": 1.53338956,
+                "sourceTickVerified": false,
+                "direction": "UNDETERMINED",
+                "pspot_experimental": null
+              },
+              "contracts": [],
+              "approvedForPaper": false,
+              "blindCopyAllowed": false,
+              "financialAuthority": false
+            },
+            {
+              "asset": "BNB",
+              "decision": "HALT",
+              "classification": "DATA INSUFFICIENT",
+              "reasons": [
+                "contract_evidence_missing",
+                "kill_switch_not_verified_run",
+                "policy_metric_invalid:daily_loss_usd",
+                "policy_metric_invalid:max_daily_loss_usd",
+                "policy_metric_invalid:max_paper_exposure_usd",
+                "policy_metric_invalid:max_paper_order_usd",
+                "policy_metric_invalid:paper_exposure_usd",
+                "policy_metric_invalid:paper_order_usd",
+                "policy_metrics_stale_or_future"
+              ],
+              "research": {
+                "published_spread_bps": 2.29192367,
+                "sourceTickVerified": false,
+                "direction": "UNDETERMINED",
+                "pspot_experimental": null
+              },
+              "contracts": [],
+              "approvedForPaper": false,
+              "blindCopyAllowed": false,
+              "financialAuthority": false
+            }
+          ]
+        },
+        {
+          "strategy_id": "MONEY_HOUSE_PAPER_V1",
+          "mode": "PAPER",
+          "decision": "HALT",
+          "classification": "DATA INSUFFICIENT",
+          "approvedForPaper": false,
+          "reviews": [
+            {
+              "asset": "BTC",
+              "decision": "HALT",
+              "classification": "DATA INSUFFICIENT",
+              "reasons": [
+                "contract_evidence_missing",
+                "kill_switch_not_verified_run",
+                "policy_metric_invalid:daily_loss_usd",
+                "policy_metric_invalid:max_daily_loss_usd",
+                "policy_metric_invalid:max_paper_exposure_usd",
+                "policy_metric_invalid:max_paper_order_usd",
+                "policy_metric_invalid:paper_exposure_usd",
+                "policy_metric_invalid:paper_order_usd",
+                "policy_metrics_stale_or_future"
+              ],
+              "research": {
+                "published_spread_bps": 0.00123919,
+                "sourceTickVerified": false,
+                "direction": "UNDETERMINED",
+                "pspot_experimental": null
+              },
+              "contracts": [],
+              "approvedForPaper": false,
+              "blindCopyAllowed": false,
+              "financialAuthority": false
+            },
+            {
+              "asset": "ETH",
+              "decision": "HALT",
+              "classification": "DATA INSUFFICIENT",
+              "reasons": [
+                "contract_evidence_missing",
+                "kill_switch_not_verified_run",
+                "policy_metric_invalid:daily_loss_usd",
+                "policy_metric_invalid:max_daily_loss_usd",
+                "policy_metric_invalid:max_paper_exposure_usd",
+                "policy_metric_invalid:max_paper_order_usd",
+                "policy_metric_invalid:paper_exposure_usd",
+                "policy_metric_invalid:paper_order_usd",
+                "policy_metrics_stale_or_future"
+              ],
+              "research": {
+                "published_spread_bps": 0.04251366,
+                "sourceTickVerified": false,
+                "direction": "UNDETERMINED",
+                "pspot_experimental": null
+              },
+              "contracts": [],
+              "approvedForPaper": false,
+              "blindCopyAllowed": false,
+              "financialAuthority": false
+            },
+            {
+              "asset": "SOL",
+              "decision": "HALT",
+              "classification": "DATA INSUFFICIENT",
+              "reasons": [
+                "contract_evidence_missing",
+                "kill_switch_not_verified_run",
+                "policy_metric_invalid:daily_loss_usd",
+                "policy_metric_invalid:max_daily_loss_usd",
+                "policy_metric_invalid:max_paper_exposure_usd",
+                "policy_metric_invalid:max_paper_order_usd",
+                "policy_metric_invalid:paper_exposure_usd",
+                "policy_metric_invalid:paper_order_usd",
+                "policy_metrics_stale_or_future"
+              ],
+              "research": {
+                "published_spread_bps": 0.98352594,
+                "sourceTickVerified": false,
+                "direction": "UNDETERMINED",
+                "pspot_experimental": null
+              },
+              "contracts": [],
+              "approvedForPaper": false,
+              "blindCopyAllowed": false,
+              "financialAuthority": false
+            },
+            {
+              "asset": "DOGE",
+              "decision": "HALT",
+              "classification": "DATA INSUFFICIENT",
+              "reasons": [
+                "contract_evidence_missing",
+                "kill_switch_not_verified_run",
+                "policy_metric_invalid:daily_loss_usd",
+                "policy_metric_invalid:max_daily_loss_usd",
+                "policy_metric_invalid:max_paper_exposure_usd",
+                "policy_metric_invalid:max_paper_order_usd",
+                "policy_metric_invalid:paper_exposure_usd",
+                "policy_metric_invalid:paper_order_usd",
+                "policy_metrics_stale_or_future"
+              ],
+              "research": {
+                "published_spread_bps": 3.88173643,
+                "sourceTickVerified": false,
+                "direction": "UNDETERMINED",
+                "pspot_experimental": null
+              },
+              "contracts": [],
+              "approvedForPaper": false,
+              "blindCopyAllowed": false,
+              "financialAuthority": false
+            },
+            {
+              "asset": "XRP",
+              "decision": "HALT",
+              "classification": "DATA INSUFFICIENT",
+              "reasons": [
+                "contract_evidence_missing",
+                "kill_switch_not_verified_run",
+                "policy_metric_invalid:daily_loss_usd",
+                "policy_metric_invalid:max_daily_loss_usd",
+                "policy_metric_invalid:max_paper_exposure_usd",
+                "policy_metric_invalid:max_paper_order_usd",
+                "policy_metric_invalid:paper_exposure_usd",
+                "policy_metric_invalid:paper_order_usd",
+                "policy_metrics_stale_or_future"
+              ],
+              "research": {
+                "published_spread_bps": 1.53338956,
+                "sourceTickVerified": false,
+                "direction": "UNDETERMINED",
+                "pspot_experimental": null
+              },
+              "contracts": [],
+              "approvedForPaper": false,
+              "blindCopyAllowed": false,
+              "financialAuthority": false
+            },
+            {
+              "asset": "BNB",
+              "decision": "HALT",
+              "classification": "DATA INSUFFICIENT",
+              "reasons": [
+                "contract_evidence_missing",
+                "kill_switch_not_verified_run",
+                "policy_metric_invalid:daily_loss_usd",
+                "policy_metric_invalid:max_daily_loss_usd",
+                "policy_metric_invalid:max_paper_exposure_usd",
+                "policy_metric_invalid:max_paper_order_usd",
+                "policy_metric_invalid:paper_exposure_usd",
+                "policy_metric_invalid:paper_order_usd",
+                "policy_metrics_stale_or_future"
+              ],
+              "research": {
+                "published_spread_bps": 2.29192367,
+                "sourceTickVerified": false,
+                "direction": "UNDETERMINED",
+                "pspot_experimental": null
+              },
+              "contracts": [],
+              "approvedForPaper": false,
+              "blindCopyAllowed": false,
+              "financialAuthority": false
+            }
+          ]
+        },
+        {
+          "strategy_id": "MONEY_SPY_PAPER_V1",
+          "mode": "PAPER",
+          "decision": "HALT",
+          "classification": "DATA INSUFFICIENT",
+          "approvedForPaper": false,
+          "reviews": [
+            {
+              "asset": "BTC",
+              "decision": "HALT",
+              "classification": "DATA INSUFFICIENT",
+              "reasons": [
+                "contract_evidence_missing",
+                "kill_switch_not_verified_run",
+                "policy_metric_invalid:daily_loss_usd",
+                "policy_metric_invalid:max_daily_loss_usd",
+                "policy_metric_invalid:max_paper_exposure_usd",
+                "policy_metric_invalid:max_paper_order_usd",
+                "policy_metric_invalid:paper_exposure_usd",
+                "policy_metric_invalid:paper_order_usd",
+                "policy_metrics_stale_or_future"
+              ],
+              "research": {
+                "published_spread_bps": 0.00123919,
+                "sourceTickVerified": false,
+                "direction": "UNDETERMINED",
+                "pspot_experimental": null
+              },
+              "contracts": [],
+              "approvedForPaper": false,
+              "blindCopyAllowed": false,
+              "financialAuthority": false
+            },
+            {
+              "asset": "ETH",
+              "decision": "HALT",
+              "classification": "DATA INSUFFICIENT",
+              "reasons": [
+                "contract_evidence_missing",
+                "kill_switch_not_verified_run",
+                "policy_metric_invalid:daily_loss_usd",
+                "policy_metric_invalid:max_daily_loss_usd",
+                "policy_metric_invalid:max_paper_exposure_usd",
+                "policy_metric_invalid:max_paper_order_usd",
+                "policy_metric_invalid:paper_exposure_usd",
+                "policy_metric_invalid:paper_order_usd",
+                "policy_metrics_stale_or_future"
+              ],
+              "research": {
+                "published_spread_bps": 0.04251366,
+                "sourceTickVerified": false,
+                "direction": "UNDETERMINED",
+                "pspot_experimental": null
+              },
+              "contracts": [],
+              "approvedForPaper": false,
+              "blindCopyAllowed": false,
+              "financialAuthority": false
+            },
+            {
+              "asset": "SOL",
+              "decision": "HALT",
+              "classification": "DATA INSUFFICIENT",
+              "reasons": [
+                "contract_evidence_missing",
+                "kill_switch_not_verified_run",
+                "policy_metric_invalid:daily_loss_usd",
+                "policy_metric_invalid:max_daily_loss_usd",
+                "policy_metric_invalid:max_paper_exposure_usd",
+                "policy_metric_invalid:max_paper_order_usd",
+                "policy_metric_invalid:paper_exposure_usd",
+                "policy_metric_invalid:paper_order_usd",
+                "policy_metrics_stale_or_future"
+              ],
+              "research": {
+                "published_spread_bps": 0.98352594,
+                "sourceTickVerified": false,
+                "direction": "UNDETERMINED",
+                "pspot_experimental": null
+              },
+              "contracts": [],
+              "approvedForPaper": false,
+              "blindCopyAllowed": false,
+              "financialAuthority": false
+            },
+            {
+              "asset": "DOGE",
+              "decision": "HALT",
+              "classification": "DATA INSUFFICIENT",
+              "reasons": [
+                "contract_evidence_missing",
+                "kill_switch_not_verified_run",
+                "policy_metric_invalid:daily_loss_usd",
+                "policy_metric_invalid:max_daily_loss_usd",
+                "policy_metric_invalid:max_paper_exposure_usd",
+                "policy_metric_invalid:max_paper_order_usd",
+                "policy_metric_invalid:paper_exposure_usd",
+                "policy_metric_invalid:paper_order_usd",
+                "policy_metrics_stale_or_future"
+              ],
+              "research": {
+                "published_spread_bps": 3.88173643,
+                "sourceTickVerified": false,
+                "direction": "UNDETERMINED",
+                "pspot_experimental": null
+              },
+              "contracts": [],
+              "approvedForPaper": false,
+              "blindCopyAllowed": false,
+              "financialAuthority": false
+            },
+            {
+              "asset": "XRP",
+              "decision": "HALT",
+              "classification": "DATA INSUFFICIENT",
+              "reasons": [
+                "contract_evidence_missing",
+                "kill_switch_not_verified_run",
+                "policy_metric_invalid:daily_loss_usd",
+                "policy_metric_invalid:max_daily_loss_usd",
+                "policy_metric_invalid:max_paper_exposure_usd",
+                "policy_metric_invalid:max_paper_order_usd",
+                "policy_metric_invalid:paper_exposure_usd",
+                "policy_metric_invalid:paper_order_usd",
+                "policy_metrics_stale_or_future"
+              ],
+              "research": {
+                "published_spread_bps": 1.53338956,
+                "sourceTickVerified": false,
+                "direction": "UNDETERMINED",
+                "pspot_experimental": null
+              },
+              "contracts": [],
+              "approvedForPaper": false,
+              "blindCopyAllowed": false,
+              "financialAuthority": false
+            },
+            {
+              "asset": "BNB",
+              "decision": "HALT",
+              "classification": "DATA INSUFFICIENT",
+              "reasons": [
+                "contract_evidence_missing",
+                "kill_switch_not_verified_run",
+                "policy_metric_invalid:daily_loss_usd",
+                "policy_metric_invalid:max_daily_loss_usd",
+                "policy_metric_invalid:max_paper_exposure_usd",
+                "policy_metric_invalid:max_paper_order_usd",
+                "policy_metric_invalid:paper_exposure_usd",
+                "policy_metric_invalid:paper_order_usd",
+                "policy_metrics_stale_or_future"
+              ],
+              "research": {
+                "published_spread_bps": 2.29192367,
+                "sourceTickVerified": false,
+                "direction": "UNDETERMINED",
+                "pspot_experimental": null
+              },
+              "contracts": [],
+              "approvedForPaper": false,
+              "blindCopyAllowed": false,
+              "financialAuthority": false
+            }
+          ]
+        }
+      ],
+      "risk": {
+        "name": "RISK Ω",
+        "state": "HALT",
+        "vetoes": [
+          "kill_switch_not_verified_run",
+          "policy_metric_invalid:daily_loss_usd",
+          "policy_metric_invalid:max_daily_loss_usd",
+          "policy_metric_invalid:max_paper_exposure_usd",
+          "policy_metric_invalid:max_paper_order_usd",
+          "policy_metric_invalid:paper_exposure_usd",
+          "policy_metric_invalid:paper_order_usd",
+          "policy_metrics_stale_or_future"
+        ],
+        "assetVetoes": [
+          "contract_evidence_missing",
+          "kill_switch_not_verified_run",
+          "policy_metric_invalid:daily_loss_usd",
+          "policy_metric_invalid:max_daily_loss_usd",
+          "policy_metric_invalid:max_paper_exposure_usd",
+          "policy_metric_invalid:max_paper_order_usd",
+          "policy_metric_invalid:paper_exposure_usd",
+          "policy_metric_invalid:paper_order_usd",
+          "policy_metrics_stale_or_future"
+        ]
+      },
+      "judgments": [],
+      "approvedForPaper": false,
+      "executionEnabled": false,
+      "financialAuthority": false,
+      "simulationPerformed": false,
+      "modelAggregation": "NONE",
+      "pcontract": null,
+      "scope": {
+        "assets": [
+          "BTC",
+          "ETH",
+          "SOL",
+          "DOGE",
+          "XRP",
+          "BNB"
+        ],
+        "timeframe": "1h",
+        "window_start_utc": "2026-10-25T17:00:00Z",
+        "window_end_utc": "2026-10-25T18:00:00Z"
+      },
+      "input_sha256": "af833d00ac929346b7b887975742ccdb022d518a2872832ead361ccd0d99c239",
+      "modelDisagreement": null,
+      "modelDisagreementAssessment": "REQUIRES_SEPARATE_SCOPE_AND_METHODOLOGY_REVIEW",
+      "timeframe": "1h"
+    }
+  ],
+  "snapshots": [
+    {
+      "schema_version": "1.0",
+      "mode": "PAPER",
+      "timeframe": "5m",
+      "observed_at_utc": "2026-10-25T17:15:51.293216Z",
+      "assets": [
+        {
+          "asset": "BTC",
+          "contracts": [],
+          "spot_observation": {
+            "asset": "BTC",
+            "product": "BTC-USD",
+            "source": "COINBASE_EXCHANGE",
+            "quote_currency": "USD",
+            "status": "OBSERVED",
+            "last_trade_price": 80697.97,
+            "bid": 80697.97,
+            "ask": 80697.98,
+            "last_trade_at_utc": "2026-10-25T17:15:44.287383Z",
+            "received_at_utc": "2026-10-25T17:15:45.820947Z",
+            "bid_ask_timestamp_verified": false
+          }
+        },
+        {
+          "asset": "ETH",
+          "contracts": [],
+          "spot_observation": {
+            "asset": "ETH",
+            "product": "ETH-USD",
+            "source": "COINBASE_EXCHANGE",
+            "quote_currency": "USD",
+            "status": "OBSERVED",
+            "last_trade_price": 2352.38,
+            "bid": 2352.18,
+            "ask": 2352.19,
+            "last_trade_at_utc": "2026-10-25T17:15:45.363712Z",
+            "received_at_utc": "2026-10-25T17:15:46.906479Z",
+            "bid_ask_timestamp_verified": false
+          }
+        },
+        {
+          "asset": "SOL",
+          "contracts": [],
+          "spot_observation": {
+            "asset": "SOL",
+            "product": "SOL-USD",
+            "source": "COINBASE_EXCHANGE",
+            "quote_currency": "USD",
+            "status": "OBSERVED",
+            "last_trade_price": 101.67,
+            "bid": 101.67,
+            "ask": 101.68,
+            "last_trade_at_utc": "2026-10-25T17:15:45.631755Z",
+            "received_at_utc": "2026-10-25T17:15:47.982672Z",
+            "bid_ask_timestamp_verified": false
+          }
+        },
+        {
+          "asset": "DOGE",
+          "contracts": [],
+          "spot_observation": {
+            "asset": "DOGE",
+            "product": "DOGE-USD",
+            "source": "COINBASE_EXCHANGE",
+            "quote_currency": "USD",
+            "status": "OBSERVED",
+            "last_trade_price": 0.07729,
+            "bid": 0.07727,
+            "ask": 0.0773,
+            "last_trade_at_utc": "2026-10-25T17:15:40.609061Z",
+            "received_at_utc": "2026-10-25T17:15:49.066823Z",
+            "bid_ask_timestamp_verified": false
+          }
+        },
+        {
+          "asset": "XRP",
+          "contracts": [],
+          "spot_observation": {
+            "asset": "XRP",
+            "product": "XRP-USD",
+            "source": "COINBASE_EXCHANGE",
+            "quote_currency": "USD",
+            "status": "OBSERVED",
+            "last_trade_price": 1.3044,
+            "bid": 1.3042,
+            "ask": 1.3044,
+            "last_trade_at_utc": "2026-10-25T17:15:47.471192Z",
+            "received_at_utc": "2026-10-25T17:15:50.187788Z",
+            "bid_ask_timestamp_verified": false
+          }
+        },
+        {
+          "asset": "BNB",
+          "contracts": [],
+          "spot_observation": {
+            "asset": "BNB",
+            "product": "BNB-USD",
+            "source": "COINBASE_EXCHANGE",
+            "quote_currency": "USD",
+            "status": "OBSERVED",
+            "last_trade_price": 741.39,
+            "bid": 741.65,
+            "ask": 741.82,
+            "last_trade_at_utc": "2026-10-25T17:15:07.126722Z",
+            "received_at_utc": "2026-10-25T17:15:51.293152Z",
+            "bid_ask_timestamp_verified": false
+          }
+        }
+      ]
+    },
+    {
+      "schema_version": "1.0",
+      "mode": "PAPER",
+      "timeframe": "15m",
+      "observed_at_utc": "2026-10-25T17:15:51.293216Z",
+      "assets": [
+        {
+          "asset": "BTC",
+          "contracts": [],
+          "spot_observation": {
+            "asset": "BTC",
+            "product": "BTC-USD",
+            "source": "COINBASE_EXCHANGE",
+            "quote_currency": "USD",
+            "status": "OBSERVED",
+            "last_trade_price": 80697.97,
+            "bid": 80697.97,
+            "ask": 80697.98,
+            "last_trade_at_utc": "2026-10-25T17:15:44.287383Z",
+            "received_at_utc": "2026-10-25T17:15:45.820947Z",
+            "bid_ask_timestamp_verified": false
+          }
+        },
+        {
+          "asset": "ETH",
+          "contracts": [],
+          "spot_observation": {
+            "asset": "ETH",
+            "product": "ETH-USD",
+            "source": "COINBASE_EXCHANGE",
+            "quote_currency": "USD",
+            "status": "OBSERVED",
+            "last_trade_price": 2352.38,
+            "bid": 2352.18,
+            "ask": 2352.19,
+            "last_trade_at_utc": "2026-10-25T17:15:45.363712Z",
+            "received_at_utc": "2026-10-25T17:15:46.906479Z",
+            "bid_ask_timestamp_verified": false
+          }
+        },
+        {
+          "asset": "SOL",
+          "contracts": [],
+          "spot_observation": {
+            "asset": "SOL",
+            "product": "SOL-USD",
+            "source": "COINBASE_EXCHANGE",
+            "quote_currency": "USD",
+            "status": "OBSERVED",
+            "last_trade_price": 101.67,
+            "bid": 101.67,
+            "ask": 101.68,
+            "last_trade_at_utc": "2026-10-25T17:15:45.631755Z",
+            "received_at_utc": "2026-10-25T17:15:47.982672Z",
+            "bid_ask_timestamp_verified": false
+          }
+        },
+        {
+          "asset": "DOGE",
+          "contracts": [],
+          "spot_observation": {
+            "asset": "DOGE",
+            "product": "DOGE-USD",
+            "source": "COINBASE_EXCHANGE",
+            "quote_currency": "USD",
+            "status": "OBSERVED",
+            "last_trade_price": 0.07729,
+            "bid": 0.07727,
+            "ask": 0.0773,
+            "last_trade_at_utc": "2026-10-25T17:15:40.609061Z",
+            "received_at_utc": "2026-10-25T17:15:49.066823Z",
+            "bid_ask_timestamp_verified": false
+          }
+        },
+        {
+          "asset": "XRP",
+          "contracts": [],
+          "spot_observation": {
+            "asset": "XRP",
+            "product": "XRP-USD",
+            "source": "COINBASE_EXCHANGE",
+            "quote_currency": "USD",
+            "status": "OBSERVED",
+            "last_trade_price": 1.3044,
+            "bid": 1.3042,
+            "ask": 1.3044,
+            "last_trade_at_utc": "2026-10-25T17:15:47.471192Z",
+            "received_at_utc": "2026-10-25T17:15:50.187788Z",
+            "bid_ask_timestamp_verified": false
+          }
+        },
+        {
+          "asset": "BNB",
+          "contracts": [],
+          "spot_observation": {
+            "asset": "BNB",
+            "product": "BNB-USD",
+            "source": "COINBASE_EXCHANGE",
+            "quote_currency": "USD",
+            "status": "OBSERVED",
+            "last_trade_price": 741.39,
+            "bid": 741.65,
+            "ask": 741.82,
+            "last_trade_at_utc": "2026-10-25T17:15:07.126722Z",
+            "received_at_utc": "2026-10-25T17:15:51.293152Z",
+            "bid_ask_timestamp_verified": false
+          }
+        }
+      ]
+    },
+    {
+      "schema_version": "1.0",
+      "mode": "PAPER",
+      "timeframe": "1h",
+      "observed_at_utc": "2026-10-25T17:15:51.293216Z",
+      "assets": [
+        {
+          "asset": "BTC",
+          "contracts": [],
+          "spot_observation": {
+            "asset": "BTC",
+            "product": "BTC-USD",
+            "source": "COINBASE_EXCHANGE",
+            "quote_currency": "USD",
+            "status": "OBSERVED",
+            "last_trade_price": 80697.97,
+            "bid": 80697.97,
+            "ask": 80697.98,
+            "last_trade_at_utc": "2026-10-25T17:15:44.287383Z",
+            "received_at_utc": "2026-10-25T17:15:45.820947Z",
+            "bid_ask_timestamp_verified": false
+          }
+        },
+        {
+          "asset": "ETH",
+          "contracts": [],
+          "spot_observation": {
+            "asset": "ETH",
+            "product": "ETH-USD",
+            "source": "COINBASE_EXCHANGE",
+            "quote_currency": "USD",
+            "status": "OBSERVED",
+            "last_trade_price": 2352.38,
+            "bid": 2352.18,
+            "ask": 2352.19,
+            "last_trade_at_utc": "2026-10-25T17:15:45.363712Z",
+            "received_at_utc": "2026-10-25T17:15:46.906479Z",
+            "bid_ask_timestamp_verified": false
+          }
+        },
+        {
+          "asset": "SOL",
+          "contracts": [],
+          "spot_observation": {
+            "asset": "SOL",
+            "product": "SOL-USD",
+            "source": "COINBASE_EXCHANGE",
+            "quote_currency": "USD",
+            "status": "OBSERVED",
+            "last_trade_price": 101.67,
+            "bid": 101.67,
+            "ask": 101.68,
+            "last_trade_at_utc": "2026-10-25T17:15:45.631755Z",
+            "received_at_utc": "2026-10-25T17:15:47.982672Z",
+            "bid_ask_timestamp_verified": false
+          }
+        },
+        {
+          "asset": "DOGE",
+          "contracts": [],
+          "spot_observation": {
+            "asset": "DOGE",
+            "product": "DOGE-USD",
+            "source": "COINBASE_EXCHANGE",
+            "quote_currency": "USD",
+            "status": "OBSERVED",
+            "last_trade_price": 0.07729,
+            "bid": 0.07727,
+            "ask": 0.0773,
+            "last_trade_at_utc": "2026-10-25T17:15:40.609061Z",
+            "received_at_utc": "2026-10-25T17:15:49.066823Z",
+            "bid_ask_timestamp_verified": false
+          }
+        },
+        {
+          "asset": "XRP",
+          "contracts": [],
+          "spot_observation": {
+            "asset": "XRP",
+            "product": "XRP-USD",
+            "source": "COINBASE_EXCHANGE",
+            "quote_currency": "USD",
+            "status": "OBSERVED",
+            "last_trade_price": 1.3044,
+            "bid": 1.3042,
+            "ask": 1.3044,
+            "last_trade_at_utc": "2026-10-25T17:15:47.471192Z",
+            "received_at_utc": "2026-10-25T17:15:50.187788Z",
+            "bid_ask_timestamp_verified": false
+          }
+        },
+        {
+          "asset": "BNB",
+          "contracts": [],
+          "spot_observation": {
+            "asset": "BNB",
+            "product": "BNB-USD",
+            "source": "COINBASE_EXCHANGE",
+            "quote_currency": "USD",
+            "status": "OBSERVED",
+            "last_trade_price": 741.39,
+            "bid": 741.65,
+            "ask": 741.82,
+            "last_trade_at_utc": "2026-10-25T17:15:07.126722Z",
+            "received_at_utc": "2026-10-25T17:15:51.293152Z",
+            "bid_ask_timestamp_verified": false
+          }
+        }
+      ]
+    }
+  ],
+  "risk_state": "HALT",
+  "counts": {
+    "observations": 6,
+    "sources": 6,
+    "records": 3,
+    "cycles": 1
+  },
+  "audit_integrity": true,
+  "paper_execution_enabled": false,
+  "live_execution_enabled": false,
+  "account_truth_verified": false
+}

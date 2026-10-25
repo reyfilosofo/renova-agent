@@ -1,4 +1,4 @@
-# MONEY Ω · sitio único · 0.4.0 · 2026-10-24
+# MONEY Ω · sitio único · 0.5.0 · 2026-10-25
 
 Este repositorio Sites amplía el Observatorio existente, preservando su identidad,
 audiencia pública y base D1. Earn Engine, Wallets/Rewards, Observatorio, Recursos,
@@ -107,3 +107,13 @@ GitHub canónico reyfilosofo/renova-agent/main: AGENTS.md, omega-predict/MASTER_
 La continuidad documenta conversaciones visibles y antecedentes recuperados, **no exporta todas las conversaciones de ChatGPT ni instala memoria global automática**. GitHub público recibe solo documentación técnica y código sanitizado. Drive privado recibe paquete/documentación de esta entrega.
 
 Ver docs/SOURCE_REVIEW_2026-10-04.md, docs/BUILD_PLAN_2026-10-04.md y docs/DECISION_2026-10-04.md. Las decisiones de0.1 se conservan como antecedentes.
+
+
+## Trading Desk PAPER · 0.1
+
+El mismo Site incorpora `#desk`: GAMBLER, HOUSE, SPY, Jev fijado a1.14.0 y
+RISK Ω. Se muestran observaciones y revisiones con sus fechas originales, nunca
+una cotización LIVE por inferencia. El feed es `money-desk/data/latest.json`.
+El worker cloud solicita una pasada cada cinco minutos; no se afirma un daemon
+continuo ni ejecución financiera. El adaptador Jev está deshabilitado y carece
+de round-trip autenticado verificado. El estado de esta fase es HALT/validación.
