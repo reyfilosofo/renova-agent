@@ -64,3 +64,11 @@ valid and the private ledger still rejects anonymous access with401. Runtime
 build passed. No new D1 schema or mutation was required. Git main publication and
 cloud execution receipts follow in the release/Actions history; they are not
 inferred from this Site deployment.
+
+
+Release receipt: PR68 merged to main at commit562a1b1a7b3912fa8b60ed2e6463029e50459a3e.
+The first unattended cloud job40216279947 completed SUCCESS at25-Oct17:24:27UTC.
+Its17:24:21UTC report observed all six USD products with HTTP200, valid audit and
+HALT across the three horizons. No paper fills or financial actions occurred.
+Artifact12608200620 retains the JSON evidence until23-Jan2027; no full DB was
+uploaded. These receipts establish one actual cloud execution, not a latency SLA.
