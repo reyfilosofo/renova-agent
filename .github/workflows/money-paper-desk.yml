@@ -1,0 +1,84 @@
+name: MONEY PAPER desk observation
+on:
+  schedule:
+    - cron: '*/5 * * * *'
+  workflow_dispatch:
+  pull_request:
+    paths: ['money-codex/**', '.github/workflows/money-paper-desk.yml']
+  push:
+    branches: [main]
+    paths: ['money-codex/**', '.github/workflows/money-paper-desk.yml']
+permissions:
+  contents: read
+concurrency:
+  group: money-paper-desk-${{ github.ref }}
+  cancel-in-progress: false
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    timeout-minutes: 6
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: PAPER, risk veto, typed decisions and persistence
+        working-directory: money-codex
+        run: python -B -m unittest discover -s tests -v
+  observe:
+    if: github.event_name != 'pull_request' && github.ref == 'refs/heads/main'
+    needs: test
+    runs-on: ubuntu-latest
+    timeout-minutes: 6
+    permissions:
+      contents: write
+    env:
+      MONEY_EXECUTION_MODE: PAPER
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Scope best-effort state to the UTC day
+        id: day
+        run: echo "utc_date=$(date -u +%F)" >> "$GITHUB_OUTPUT"
+      - name: Restore independent best-effort PAPER state
+        continue-on-error: true
+        uses: actions/cache/restore@v4
+        with:
+          path: ${{ runner.temp }}/money-paper-desk/
+          key: money-paper-desk-v1-${{ runner.os }}-${{ steps.day.outputs.utc_date }}-${{ github.run_id }}-${{ github.run_attempt }}
+          restore-keys: |
+            money-paper-desk-v1-${{ runner.os }}-${{ steps.day.outputs.utc_date }}-
+      - name: Observe public spot and run deterministic vetoes
+        id: collect
+        working-directory: money-codex
+        run: python -m money_codex.desk_runtime collect --state-dir "$RUNNER_TEMP/money-paper-desk" --policy config/desk_policy.json --output ../money-desk/data/latest.json
+      - name: Save independent PAPER history
+        if: always()
+        continue-on-error: true
+        uses: actions/cache/save@v4
+        with:
+          path: ${{ runner.temp }}/money-paper-desk/
+          key: money-paper-desk-v1-${{ runner.os }}-${{ steps.day.outputs.utc_date }}-${{ github.run_id }}-${{ github.run_attempt }}
+      - name: Retain immutable observation evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: money-paper-desk-${{ github.run_id }}-${{ github.run_attempt }}
+          path: money-desk/data/latest.json
+          retention-days: 90
+          if-no-files-found: warn
+      - name: Publish PAPER operational report
+        if: always() && !cancelled()
+        run: |
+          if [ ! -s money-desk/data/latest.json ]; then exit 0; fi
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add -- money-desk/data/latest.json
+          if git diff --cached --quiet; then exit 0; fi
+          git commit -m 'MONEY: record PAPER desk public observation'
+          git pull --rebase origin main
+          git push origin HEAD:main

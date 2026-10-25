@@ -1,6 +1,6 @@
 # MONEY Ω · CODEX
 
-Version 0.4.0 · 2026-10-24 · Python 3.11+ · standard library only.
+Version 0.5.0 · 2026-10-25 · Python 3.11+ · standard library only.
 
 The engineering node of MONEY Ω now operates a public resource discovery rail:
 ten configured sources for bounties, quests and paid research, a durable SQLite
@@ -112,3 +112,14 @@ SQLite, raw evidence, receipts, account records and credentials must remain in
 runtime storage, outside Git and the public site. The public report uses a field
 allowlist and contains only discovery results and their public evidence links.
 Original bootstrap sources remain preserved in the local `upstream/` archive.
+
+
+## PAPER desk 0.1 · 2026-10-25
+
+The same engineering node now includes an isolated observation desk with
+GAMBLER, HOUSE, SPY, deterministic RISK Ω vetoes and an optional typed Jev adapter.
+It does not add order execution or alter RENOVA_DESK_V0. See
+[the desk runbook](../money-desk/README.md), its Grok charter and default-HALT
+policy. Public spot observations, prospective records and reviews use separate
+SQLite state from resources and personal income. The workflow requests a pass
+every five minutes; scheduler delays and best-effort cache limits remain visible.

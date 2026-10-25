@@ -1,0 +1,19 @@
+[Unit]
+Description=MONEY Omega bounded PAPER observation
+After=network-online.target
+Wants=network-online.target
+[Service]
+Type=oneshot
+WorkingDirectory=/opt/money/renova-agent/money-codex
+Environment=MONEY_EXECUTION_MODE=PAPER
+Environment=MONEY_DESK_MODE=PAPER
+ExecStart=/usr/bin/python3 -m money_codex.desk_runtime collect --state-dir /var/lib/money-paper-desk --policy config/desk_policy.json --output /var/lib/money-paper-desk/latest.json
+User=money
+Group=money
+NoNewPrivileges=true
+PrivateTmp=true
+ProtectSystem=strict
+ProtectHome=true
+ReadWritePaths=/var/lib/money-paper-desk
+UMask=0077
+TimeoutStartSec=180

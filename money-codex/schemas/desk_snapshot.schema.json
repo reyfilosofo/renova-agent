@@ -1,0 +1,29 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "MONEY PAPER desk snapshot 1.0",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "mode", "timeframe", "observed_at_utc", "assets"],
+  "properties": {
+    "schema_version": {"const": "1.0"},
+    "mode": {"const": "PAPER"},
+    "timeframe": {"enum": ["5m", "15m", "1h"]},
+    "observed_at_utc": {"type": "string", "format": "date-time"},
+    "assets": {
+      "type": "array", "minItems": 6, "maxItems": 6,
+      "items": {
+        "type": "object", "additionalProperties": false,
+        "required": ["asset", "contracts"],
+        "properties": {
+          "asset": {"enum": ["BTC", "ETH", "SOL", "DOGE", "XRP", "BNB"]},
+          "contracts": {"type": "array", "maxItems": 12, "items": {"type": "object"}},
+          "spot_observation": {"type": "object"},
+          "spot_research": {"type": "object"},
+          "house": {"type": "object"},
+          "spy": {"type": "object"}
+        }
+      }
+    }
+  },
+  "$comment": "The deterministic Python validator additionally checks unique assets, exact contract fields, explicit cost/liquidity units, timestamp freshness, source evidence, no secrets and bounded risk policy. This JSON schema alone grants no authority."
+}

@@ -1,0 +1,30 @@
+{
+  "schema_version": "1.0",
+  "mode": "PAPER",
+  "allowed_assets": [
+    "BTC",
+    "ETH",
+    "SOL",
+    "DOGE",
+    "XRP",
+    "BNB"
+  ],
+  "allowed_timeframes": [
+    "5m",
+    "15m",
+    "1h"
+  ],
+  "max_paper_order_usd": null,
+  "max_paper_exposure_usd": null,
+  "max_daily_loss_usd": null,
+  "paper_order_usd": null,
+  "paper_exposure_usd": null,
+  "daily_loss_usd": null,
+  "metrics_observed_at_utc": null,
+  "kill_switch": {
+    "state": "HALT",
+    "observed_at_utc": null
+  },
+  "validated_pcontract_methods": [],
+  "spy_evidence_hashes": []
+}

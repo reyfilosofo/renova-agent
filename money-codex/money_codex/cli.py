@@ -48,6 +48,12 @@ def _signal_interrupt(*_args):
 def main(argv=None):
     parser = argparse.ArgumentParser(prog='money-omega', description='MONEY Ω · CODEX public resource discovery')
     sub = parser.add_subparsers(dest='cmd', required=True)
+    desk = sub.add_parser('desk', help='Operate the isolated PAPER observation desk')
+    desk.add_argument('desk_args', nargs=argparse.REMAINDER)
+    review = sub.add_parser('desk-review', help='Review a normalized snapshot without execution')
+    review.add_argument('--input', required=True)
+    review.add_argument('--policy')
+    review.add_argument('--output')
     scan = sub.add_parser('scan', help='Fetch configured public sources, store observations, and return the scan batch')
     _state_args(scan, config=True)
     scan.add_argument('--source-id', action='append', help='Select one enabled configured source; repeat for multiple sources')
@@ -72,6 +78,18 @@ def main(argv=None):
     args = parser.parse_args(argv)
     try:
         require_research_mode()
+        if args.cmd == 'desk':
+            from .desk_runtime import main as desk_main
+            return desk_main(args.desk_args)
+        if args.cmd == 'desk-review':
+            from .desk import review_desk
+            from .packets import strict_json_loads
+            source = Path(args.input)
+            if source.stat().st_size > 262144:
+                raise ValueError('Desk input exceeds 256 KB')
+            policy = strict_json_loads(Path(args.policy).read_bytes()) if args.policy else None
+            _write_json(review_desk(strict_json_loads(source.read_bytes()), policy), args.output)
+            return 0
         if args.cmd == 'sync':
             from .sync import load_config, sync
             _write_json([record.to_dict() for record in sync(load_config(args.config))])
