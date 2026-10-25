@@ -1,0 +1,126 @@
+{
+  "system": "MONEY Ω",
+  "node": "MONEY Ω · CODEX",
+  "as_of_utc": "2026-10-25T17:21:42.468462+00:00",
+  "runtime_version": "0.5.0",
+  "desk_version": "0.1",
+  "canonical_site": {
+    "provider": "ChatGPT Sites",
+    "site_id": "appgprj_6ac169e9eed48191a46429c70adabaf7",
+    "url": "https://money-omega-observatorio.seresarte.chatgpt.site",
+    "selection_status": "PUBLISHED_VERIFIED",
+    "new_site_allowed": false,
+    "reason": "Reuse one of three pre-existing Sites; do not create a fourth",
+    "candidate_project_ids": [
+      "appgprj_6acbc836e4f08191adcd4185507c9d69",
+      "appgprj_6ac5214987948191aae2761cd626e297",
+      "appgprj_6ac169e9eed48191a46429c70adabaf7"
+    ],
+    "expected_origin_count": 1,
+    "selection_reason": "Existing Worker and five market tables retained in place; private user-owned ledger added",
+    "audience_preserved": "public",
+    "version_number": 6,
+    "deployment_id": "appgdep_6ade3a1f1d1c8191870c8263fe02bc06",
+    "source_commit": "b02a958fd20ffab6d4d0ec6384c43d08012c89d6",
+    "published_at_utc": "2026-10-25T17:19:38.648648Z"
+  },
+  "site_count_created_this_release": 0,
+  "desk": {
+    "module_version": "0.1",
+    "runtime_version": "0.5.0",
+    "path": "money-desk/",
+    "route": "#desk",
+    "mode": "PAPER",
+    "risk_default": "HALT",
+    "financial_execution_enabled": false,
+    "jev_model_pin": "jev-1.14.0",
+    "jev_authenticated_roundtrip_verified": false,
+    "grok_authenticated_roundtrip_verified": false,
+    "cloud_schedule_requested": "*/5 * * * * UTC; platform delays possible",
+    "paper_fills_implemented": false,
+    "published": true,
+    "site_version": 6,
+    "observation_readback": "HTTP 200; six source rows, audit valid, HALT",
+    "cloud_first_run": "PENDING_MAIN_DEPLOYMENT"
+  },
+  "risk_state": "HALT",
+  "paper_execution_enabled": false,
+  "live_execution_enabled": false,
+  "account_truth_verified": false,
+  "financial_authorizations": [],
+  "jev": {
+    "model": "jev-1.14.0",
+    "adapter": "IMPLEMENTED_TESTED_OFFLINE",
+    "default_enabled": false,
+    "authenticated_roundtrip_verified": false,
+    "inference_calls_made": 0,
+    "secret_runtime_variable": "TYPESAFE_API_KEY",
+    "credential_metadata": "GitHub access unavailable403; runtime observed no configured capabilities; remote secret existence not inferred"
+  },
+  "grok": {
+    "direct_grok_bot_connected": false,
+    "endpoint": null,
+    "charter": "money-desk/GROK_BOT_CHARTER.md"
+  },
+  "observation": {
+    "public_provider": "Coinbase Exchange USD ticker",
+    "assets": [
+      "BTC",
+      "ETH",
+      "SOL",
+      "DOGE",
+      "XRP",
+      "BNB"
+    ],
+    "last_authoring_pass_utc": "2026-10-25T17:15:51Z",
+    "source_http200_count": 6,
+    "tick_scope": "LAST_TRADE_ONLY; bid/ask timestamp unverified",
+    "last_pass_audit_integrity": true,
+    "reviews_horizons": [
+      "5m",
+      "15m",
+      "1h"
+    ],
+    "simulated_fills": 0,
+    "pnl": null,
+    "income_verified": null
+  },
+  "deployment": {
+    "scheduled_cloud_observer": "GHA */5 * * * * UTC requested, first main run pending",
+    "continuous_low_latency_host": "ACCESS UNAVAILABLE",
+    "storage": "isolated SQLite, daily best-effort cache, JSON observation artifacts90d",
+    "systemd_templates_installed": false,
+    "appdeploy_market_cron": "last verified disabled credits_exhausted, no mutation"
+  },
+  "validation": {
+    "python_tests": 237,
+    "site_tests": 63,
+    "shared_bridge_tests": 20,
+    "root_tests": 2,
+    "typecheck": "PASS",
+    "build": "PASS",
+    "browser_visual_qa": "ACCESS UNAVAILABLE",
+    "anonymous_private_ledger": "HTTP401",
+    "paper_report_readback": "HTTP200, modePAPER, HALT, audittrue"
+  },
+  "prior_income_ledger": "Existing Site D1 preserved; REPORTED, no provider payment reconciliation",
+  "prior_strategy": "RENOVA_DESK_V0 remains frozen, unchanged, PAPER",
+  "direct_chatgpt_to_codex": false,
+  "direct_grok_bot_connected": false,
+  "execution_pipeline": "research -> signal -> risk -> authorization -> adapter -> venue -> reconciliation -> ledger -> postmortem; no financial adapter in this release",
+  "limitations": [
+    "No validated Pcontract, predictive edge or prospective profitability",
+    "No real financial transactions or simulated fills",
+    "No direct authenticated Jev/Grok round trip",
+    "No exact5-minute SLA or uninterrupted24/7 daemon",
+    "Source timestamps expire independently of publication",
+    "No Trading Desk ZIP from the quoted prior response was attached or verified"
+  ],
+  "resource_engine": {
+    "last_public_report_utc": "2026-10-25T16:16:40.493136Z",
+    "source_count": 10,
+    "registry_count": 18,
+    "verified_income_usd": null,
+    "mode": "READ_ONLY"
+  }
+}

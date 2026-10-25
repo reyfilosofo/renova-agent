@@ -1,7 +1,7 @@
 {
   "schema_version": "1.1.0",
   "system": "MONEY Ω",
-  "updated_on": "2026-10-24",
+  "updated_on": "2026-10-25",
   "intent": "SINGLE_SITE_CANONICAL",
   "canonical_site": {
     "provider": "ChatGPT Sites",
@@ -18,10 +18,10 @@
     "expected_origin_count": 1,
     "selection_reason": "Existing Worker and five market tables retained in place; private user-owned ledger added",
     "audience_preserved": "public",
-    "version_number": 5,
-    "deployment_id": "appgdep_6adcdd579ac88191b65524cedb4dcfda",
-    "source_commit": "fd707e8c5cacda3af20707bb645931ac57603180",
-    "published_at_utc": "2026-10-24T16:31:27.133321Z"
+    "version_number": 6,
+    "deployment_id": "appgdep_6ade3a1f1d1c8191870c8263fe02bc06",
+    "source_commit": "b02a958fd20ffab6d4d0ec6384c43d08012c89d6",
+    "published_at_utc": "2026-10-25T17:19:38.648648Z"
   },
   "legacy_sites": [
     {
@@ -210,10 +210,10 @@
     "warning": "Candidates are not verified payouts or personal eligibility"
   },
   "verification": {
-    "core_python_tests": 179,
-    "site_tests": 59,
+    "core_python_tests": 237,
+    "site_tests": 63,
     "public_dashboard_tests": 6,
-    "shared_adapter_tests": 8,
+    "shared_adapter_tests": 20,
     "root_tests": 2,
     "typecheck": "PASS",
     "build": "PASS",
@@ -253,12 +253,16 @@
     ],
     "source": "money-resources/data/latest.json",
     "private_account_data_connected": false,
-    "wallet_execution": false
+    "wallet_execution": false,
+    "status": "AUXILIARY_SOURCE_PROTOTYPE_NOT_PRODUCTION",
+    "superseded_by": "money-site/"
   },
   "revenue_ledger": {
     "path": "money-bridge/site-unification/revenue-ledger.mjs",
     "connected_to_private_site_db": false,
-    "verified_receipts_count": null
+    "verified_receipts_count": null,
+    "production_ledger_path": "money-site/app/api/earn-ledger/route.ts",
+    "production_evidence_status": "REPORTED; no account-reconciled income"
   },
   "automation_tests": {
     "workflow": ".github/workflows/money-single-site-tests.yml",
@@ -269,5 +273,23 @@
     ],
     "ci_run_verification": "NOT_VERIFIED"
   },
-  "integration_status": "STAGING_SOURCE_IMPLEMENTED_SITE_MIGRATION_NOT_EXECUTED"
+  "integration_status": "CANONICAL_SITE_PUBLISHED_VERIFIED",
+  "paper_desk": {
+    "module_version": "0.1",
+    "runtime_version": "0.5.0",
+    "path": "money-desk/",
+    "route": "#desk",
+    "mode": "PAPER",
+    "risk_default": "HALT",
+    "financial_execution_enabled": false,
+    "jev_model_pin": "jev-1.14.0",
+    "jev_authenticated_roundtrip_verified": false,
+    "grok_authenticated_roundtrip_verified": false,
+    "cloud_schedule_requested": "*/5 * * * * UTC; platform delays possible",
+    "paper_fills_implemented": false,
+    "published": true,
+    "site_version": 6,
+    "observation_readback": "HTTP 200; six source rows, audit valid, HALT",
+    "cloud_first_run": "PENDING_MAIN_DEPLOYMENT"
+  }
 }

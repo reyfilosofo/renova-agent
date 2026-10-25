@@ -74,7 +74,7 @@ Pcontract, verified source-account data, provider receipt or LIVE authorization
 was observed. UI publication and tests do not establish those facts.
 
 Sources: https://docs.typesafe.ai/models.md,
-https://docs.typesafe.ai/api-reference/system-one,
+https://docs.typesafe.ai/api/system-one.md,
 https://api.typesafe.ai/openapi.json,
 https://docs.cdp.coinbase.com/exchange/reference/exchangerestapi_getproductticker,
 https://x.com/0xkiyoro/status/2107135100911563017.
