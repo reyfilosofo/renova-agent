@@ -2,70 +2,36 @@
   "schema_version": "1.0",
   "system": "MONEY Ω",
   "mode": "READ_ONLY",
-  "generated_at_utc": "2026-10-26T13:00:06.826072Z",
-  "status": "OBSERVATION ONLY",
+  "generated_at_utc": "2026-10-26T22:39:49.278680Z",
+  "status": "DEGRADED",
   "archive_scope": "BTC 5m only",
   "archive_date": "2026-10-26",
   "endpoints": {
     "health": {
-      "http_status": 200,
-      "access_status": "ACCESS VERIFIED",
+      "http_status": 402,
+      "access_status": "ACCESS UNAVAILABLE",
       "method": "GET",
-      "byte_count": 149,
-      "body_sha256": "c8928c74ddf2bfcc9e163b92dd91aed5a830bdcc5325e73d4e9d169219a9798a",
+      "error_code": "http_unavailable",
       "inspection": {
-        "state": "VERIFIED",
-        "cron_status": "NOT CHECKED"
+        "state": "UNAVAILABLE"
       }
     },
     "snapshot": {
-      "http_status": 200,
-      "access_status": "ACCESS VERIFIED",
+      "http_status": 402,
+      "access_status": "ACCESS UNAVAILABLE",
       "method": "GET",
-      "byte_count": 29618,
-      "body_sha256": "2d2f07c7caca7ab0d470361ae1bd9acd1265eba967e1fc7371da88578deb173d",
+      "error_code": "http_unavailable",
       "inspection": {
-        "scope": "SIX_ASSETS_5m_SNAPSHOT",
-        "state": "FRESH",
-        "as_of_utc": "2026-10-26T13:00:05.235000Z",
-        "expires_at_utc": "2026-10-26T13:00:50.235000Z",
-        "window_start_utc": "2026-10-26T13:00:00Z",
-        "window_end_utc": "2026-10-26T13:05:00Z",
-        "snapshot_age_seconds": 1.591,
-        "paper_flags_verified": true,
-        "venue_readings": 18,
-        "source_tick_count": 0,
-        "fresh_source_tick_count": 0,
-        "reported_live_count": 0,
-        "unverified_live_claim_count": 0,
-        "published_without_tick_count": 0,
-        "issues": []
+        "state": "UNAVAILABLE"
       }
     },
     "archive": {
-      "http_status": 200,
-      "access_status": "ACCESS VERIFIED",
+      "http_status": 402,
+      "access_status": "ACCESS UNAVAILABLE",
       "method": "GET",
-      "byte_count": 278391,
-      "body_sha256": "e2ced9e2f95f404e42179d3cb3415dab0736728f190421f582529d23a21cb20e",
+      "error_code": "http_unavailable",
       "inspection": {
-        "scope": "BTC_5m_ARCHIVE_ONLY",
-        "timezone": "America/Mexico_City",
-        "utc_offset_minutes": -360,
-        "date": "2026-10-26",
-        "state": "VERIFIED",
-        "as_of_utc": "2026-10-26T13:00:06.736000Z",
-        "as_of_age_seconds": 0.09,
-        "freshness": "FRESH",
-        "captured_count": 84,
-        "missing_past_count": 0,
-        "future_count": 203,
-        "pending_current_count": 1,
-        "invalid_capture_count": 0,
-        "paper_flags_verified": true,
-        "gap_group_count": 0,
-        "gaps": [],
-        "issues": []
+        "state": "UNAVAILABLE"
       }
     }
   },
