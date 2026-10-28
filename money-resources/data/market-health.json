@@ -2,10 +2,10 @@
   "schema_version": "1.0",
   "system": "MONEY Ω",
   "mode": "READ_ONLY",
-  "generated_at_utc": "2026-10-28T05:41:18.455114Z",
-  "status": "DEGRADED",
+  "generated_at_utc": "2026-10-28T12:53:13.376403Z",
+  "status": "OBSERVATION ONLY",
   "archive_scope": "BTC 5m only",
-  "archive_date": "2026-10-27",
+  "archive_date": "2026-10-28",
   "endpoints": {
     "health": {
       "http_status": 200,
@@ -22,16 +22,16 @@
       "http_status": 200,
       "access_status": "ACCESS VERIFIED",
       "method": "GET",
-      "byte_count": 31578,
-      "body_sha256": "36087fd633ce9530e8c1f961413234bd4b7433dcfdffb581d2ff7913ae29f693",
+      "byte_count": 31076,
+      "body_sha256": "7d4ac0cb4f0e7cf114594ee54799d042123ff111ee7e3bbaeefec3dcc0ca04a0",
       "inspection": {
         "scope": "SIX_ASSETS_5m_SNAPSHOT",
         "state": "FRESH",
-        "as_of_utc": "2026-10-28T05:41:16.414000Z",
-        "expires_at_utc": "2026-10-28T05:42:01.414000Z",
-        "window_start_utc": "2026-10-28T05:40:00Z",
-        "window_end_utc": "2026-10-28T05:45:00Z",
-        "snapshot_age_seconds": 2.041,
+        "as_of_utc": "2026-10-28T12:53:11.906000Z",
+        "expires_at_utc": "2026-10-28T12:53:56.906000Z",
+        "window_start_utc": "2026-10-28T12:50:00Z",
+        "window_end_utc": "2026-10-28T12:55:00Z",
+        "snapshot_age_seconds": 1.47,
         "paper_flags_verified": true,
         "venue_readings": 18,
         "source_tick_count": 0,
@@ -46,34 +46,26 @@
       "http_status": 200,
       "access_status": "ACCESS VERIFIED",
       "method": "GET",
-      "byte_count": 635455,
-      "body_sha256": "66f8cef083c7ce184c0225abb8848e51d2b1e4f552b2ac63e520c73478b7d168",
+      "byte_count": 274118,
+      "body_sha256": "e676602b0e86f6c6eb4930f264f793ff93287fdbef368383a1d6774e529bb37c",
       "inspection": {
         "scope": "BTC_5m_ARCHIVE_ONLY",
         "timezone": "America/Mexico_City",
         "utc_offset_minutes": -360,
-        "date": "2026-10-27",
-        "state": "DEGRADED",
-        "as_of_utc": "2026-10-28T05:41:18.077000Z",
-        "as_of_age_seconds": 0.378,
+        "date": "2026-10-28",
+        "state": "VERIFIED",
+        "as_of_utc": "2026-10-28T12:53:13.234000Z",
+        "as_of_age_seconds": 0.142,
         "freshness": "FRESH",
-        "captured_count": 207,
-        "missing_past_count": 78,
-        "future_count": 3,
+        "captured_count": 83,
+        "missing_past_count": 0,
+        "future_count": 205,
         "pending_current_count": 0,
         "invalid_capture_count": 0,
         "paper_flags_verified": true,
-        "gap_group_count": 1,
-        "gaps": [
-          {
-            "start_utc": "2026-10-27T17:35:00Z",
-            "end_utc_exclusive": "2026-10-28T00:05:00Z",
-            "window_count": 78
-          }
-        ],
-        "issues": [
-          "archive_gaps"
-        ]
+        "gap_group_count": 0,
+        "gaps": [],
+        "issues": []
       }
     }
   },
