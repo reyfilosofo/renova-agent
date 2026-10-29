@@ -1,9 +1,9 @@
 #!/usr/bin/env python3
-"""NOUS public-safe federation preflight. Standard library; no external systems accessed."""
+"""NOUS public-safe preflight using Draft 2020-12 JSON Schema; no external systems accessed."""
 from __future__ import annotations
 import json
 from pathlib import Path
-from datetime import datetime
+from jsonschema import Draft202012Validator, FormatChecker
 
 ROOT = Path(__file__).resolve().parent
 
@@ -31,31 +31,10 @@ def inspect() -> dict:
     return {"nodes": len(node_ids), "projects": len(project_ids), "integrations": len(connector_ids)}
 
 def validate_fixture(packet: dict, schema: dict) -> bool:
-    """Subset of structural checks; not a complete JSON Schema validator."""
-    if not isinstance(packet, dict): return False
-    if set(schema["required"]) - set(packet): return False
-    if schema.get("additionalProperties") is False and set(packet) - set(schema["properties"]): return False
-    for key, value in packet.items():
-        entry = schema["properties"].get(key, {})
-        kinds = entry.get("type", [])
-        kinds = [kinds] if isinstance(kinds, str) else kinds
-        if value is None:
-            if "null" not in kinds: return False
-            continue
-        if "string" in kinds and not isinstance(value, str): return False
-        if "boolean" in kinds and not isinstance(value, bool): return False
-        if "object" in kinds and not isinstance(value, dict): return False
-        if "array" in kinds and not isinstance(value, list): return False
-        if "enum" in entry and value not in entry["enum"]: return False
-        if "const" in entry and value != entry["const"]: return False
-        if "minLength" in entry and len(value) < entry["minLength"]: return False
-        if key == "authorization" and not {"required","approved"} <= set(value): return False
-        if key == "evidence" and not all(isinstance(x, dict) and {"source","status"} <= set(x) for x in value): return False
-        if key in ("created_at_utc", "expires_at_utc") and isinstance(value,str):
-            try:
-                datetime.fromisoformat(value.replace("Z","+00:00"))
-            except ValueError: return False
-    return True
+    """Validate *all* nested fields with the authoritative JSON Schema and formats."""
+    Draft202012Validator.check_schema(schema)
+    validator = Draft202012Validator(schema, format_checker=FormatChecker())
+    return validator.is_valid(packet)
 
 def main() -> None:
     counts = inspect()
@@ -74,6 +53,9 @@ def main() -> None:
     assert not validate_fixture({**packet,"classification":"NOT_ALLOWED"},schema)
     assert not validate_fixture({**packet,"secret":"no"},schema)
     assert not validate_fixture({key:value for key,value in packet.items() if key != "authorization"},schema)
+    assert not validate_fixture({**packet,"created_at_utc":"never"},schema)
+    assert not validate_fixture({**packet,"evidence":[{"source":"fictional fixture","status":"INVALID"}]},schema)
+    assert not validate_fixture({**packet,"authorization":{"required":True}},schema)
     print("NOUS preflight passed. Counts:", json.dumps(counts,sort_keys=True))
     print("No cloud auth, deployments, synchronization or real business actions were attempted.")
 
