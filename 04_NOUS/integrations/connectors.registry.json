@@ -1,0 +1,59 @@
+{
+  "schema_version": "1.1.0",
+  "updated_at": "2026-10-28",
+  "visibility": "PUBLIC_SAFE",
+  "policy": "Do not put credentials, client information, CRM exports or private Drive content in GitHub. READ/WRITE statuses refer only to verified scopes, never generic cross-app authorization.",
+  "integrations": [
+    {
+      "id": "github",
+      "role": "version_control",
+      "resource": "reyfilosofo/renova-agent",
+      "status": "WRITE_VERIFIED",
+      "verified_scope": "Isolated branch commits and PR; main promotion remains a separate decision"
+    },
+    {
+      "id": "google_drive",
+      "role": "private_system_of_record",
+      "resource": "NOUS Drive (private; no folder IDs exposed here)",
+      "status": "WRITE_VERIFIED",
+      "verified_scope": "Authorized connector created and read back private operational documents; GitHub Actions OIDC bridge NOT configured"
+    },
+    {
+      "id": "netlify",
+      "role": "public_site_hosting",
+      "resource": "nous-intelligence-rooms-seresarte",
+      "status": "ACCESS_VERIFIED",
+      "verified_scope": "Project and existing ready deploy readable; Git repository link and deployment action NOT verified"
+    },
+    {
+      "id": "replit",
+      "role": "prototype_runtime",
+      "resource": "Nous Intelligence Rooms",
+      "status": "ACCESS_VERIFIED",
+      "verified_scope": "Application located and read-only agent consulted; code synchronization NOT verified"
+    },
+    {
+      "id": "lovable",
+      "role": "public_landing_designer",
+      "resource": "NOUS: Strategic Intelligence",
+      "status": "ACCESS_VERIFIED",
+      "verified_scope": "Workspace project and published landing page located; GitHub connector is available in catalog, NOT connected"
+    },
+    {
+      "id": "vertex_ai",
+      "role": "optional_private_model_runtime",
+      "resource": "Google Cloud Vertex AI",
+      "status": "DISCOVERED",
+      "verified_scope": "No Google Cloud project, IAM binding, endpoint or billing verified"
+    }
+  ],
+  "release_gates": [
+    "Validate fixtures without secrets",
+    "Confirm a specific repo/app mapping",
+    "Configure delegated auth explicitly",
+    "Perform authenticated read-only smoke tests",
+    "Keep Drive data private",
+    "Verify nonproduction deployment",
+    "Obtain release approval before production"
+  ]
+}
