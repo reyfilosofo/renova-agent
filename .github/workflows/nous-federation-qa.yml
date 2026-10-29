@@ -22,6 +22,6 @@ jobs:
         with:
           python-version: '3.11'
       - name: Install full JSON Schema validator
-        run: python3 -m pip install 'jsonschema>=4.22,<5'
+        run: python3 -m pip install 'jsonschema[format]>=4.22,<5'
       - name: Validate federation registries and fictional handoff
         run: python3 04_NOUS/integrations/verify_bridge.py
