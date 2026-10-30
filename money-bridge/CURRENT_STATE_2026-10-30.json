@@ -1,0 +1,109 @@
+{
+  "schema_version": "1.0",
+  "system": "MONEY Ω",
+  "node": "MONEY Ω · CHATGPT",
+  "record_type": "RECONCILED_SNAPSHOT",
+  "generated_at_utc": "2026-10-30T17:51:49.174Z",
+  "mode": "READ_ONLY / PAPER",
+  "sources_scope": "Public GitHub repository + authenticated AppDeploy status; private billing amount not published",
+  "canonical_site": {
+    "url": "https://money-omega-observatorio.seresarte.chatgpt.site",
+    "documentary_version": 6,
+    "publication_last_confirmed_utc": "2026-10-25T17:19:38.648648Z",
+    "current_browser_readback": "ACCESS UNAVAILABLE",
+    "source": "money-bridge/MONEY_OMEGA_SINGLE_SITE_MANIFEST.json"
+  },
+  "github": {
+    "repository": "reyfilosofo/renova-agent",
+    "branch": "main",
+    "resource_report": "money-resources/data/latest.json",
+    "paper_desk_report": "money-desk/data/latest.json",
+    "market_health_report": "money-resources/data/market-health.json"
+  },
+  "resource_engine": {
+    "as_of_utc": "2026-10-30T12:53:54.670786Z",
+    "source_count": 10,
+    "candidates": 18,
+    "queue_count": 0,
+    "net_ev_missing_count": 18,
+    "verified_income_usd": null,
+    "decision_readiness": "DATA INSUFFICIENT",
+    "ledger_integrity": true,
+    "classification_counts": {
+      "DATA INSUFFICIENT": 1,
+      "DO NOW": 0,
+      "QUEUE": 0,
+      "SKIP": 0,
+      "WATCH": 17
+    }
+  },
+  "paper_desk": {
+    "as_of_utc": "2026-10-30T15:30:45.743369Z",
+    "mode": "PAPER",
+    "spot_assets": [
+      "BTC",
+      "ETH",
+      "SOL",
+      "DOGE",
+      "XRP",
+      "BNB"
+    ],
+    "observations_in_report": 18,
+    "source_count": 6,
+    "review_cycles": 3,
+    "risk_state": "HALT",
+    "paper_execution_enabled": false,
+    "live_execution_enabled": false,
+    "account_truth_verified": false,
+    "audit_integrity": true
+  },
+  "market_collector": {
+    "status": "DEGRADED",
+    "appdeploy_app_id": "money-z6epdn",
+    "frontend_deployment_last_authenticated": "READY",
+    "cron_name": "money-five-minute-cuts",
+    "cron_enabled": false,
+    "disabled_reason": "credits_exhausted",
+    "last_status": "success (historical; does not override disabled)",
+    "public_endpoint_monitor_as_of_utc": "2026-10-30T12:53:55.396965Z",
+    "public_endpoint_health_http": 402,
+    "public_endpoint_snapshot_http": 402,
+    "public_endpoint_archive_http": 402,
+    "conflict": "Account billing may show available monthly credits while cron is disabled; exact billing is private; no automated reactivation",
+    "incident_issue": "https://github.com/reyfilosofo/renova-agent/issues/61"
+  },
+  "integrations": {
+    "direct_chatgpt_to_codex": false,
+    "direct_grok_bot_connected": false,
+    "coinbase_account_authenticated": false,
+    "site_authenticated_income_ledger_write": "NOT VERIFIED",
+    "drive_continuous_writer": "NOT VERIFIED"
+  },
+  "security": {
+    "financial_transactions_performed_by_this_audit": false,
+    "cron_changed": false,
+    "credentials_exposed": false,
+    "synthetic_backfill": false,
+    "kill_switch_override": false
+  },
+  "critical_blockers": [
+    "AppDeploy 402 + disabled cron; investigate account/cron mismatch without billing purchases",
+    "Zero candidates with calculable net EV or verified eligibility",
+    "No account-level fill/PnL or income receipts; income remains null",
+    "No verified authenticated agent round-trip or authenticated site ledger write",
+    "Site publication historical; current site readback unavailable in this audit"
+  ],
+  "recommended_next": [
+    "Diagnose AppDeploy service and cron via authorized support/console; preserve historical data",
+    "Require two real consecutive cron captures before marking restored",
+    "Drive bridge appendix and issue #61 reconciliation",
+    "Produce source-specific actionable opportunity records and collect payment receipts",
+    "Keep PAPER risk HALT until contract identity/cost/risk fields verified"
+  ],
+  "source_urls": [
+    "https://github.com/reyfilosofo/renova-agent/blob/main/money-resources/data/latest.json",
+    "https://github.com/reyfilosofo/renova-agent/blob/main/money-desk/data/latest.json",
+    "https://github.com/reyfilosofo/renova-agent/blob/main/money-resources/data/market-health.json",
+    "https://github.com/reyfilosofo/renova-agent/issues/61"
+  ]
+}
