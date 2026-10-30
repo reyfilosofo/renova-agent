@@ -5,7 +5,7 @@ project: MONEY
 status: activo
 version: "1.1"
 created: 2026-10-04
-updated: 2026-10-12
+updated: 2026-10-30
 source_commit: 810f934cf6fece768ed19c9494e84568ccbe397f
 ---
 
@@ -61,3 +61,17 @@ El [estado actual verificado](CURRENT_STATE_2026-10-12.json) registra tres ejecu
 Una nueva lectura autenticada de AppDeploy el 12-Oct informa el collector de mercados habilitado y un run reciente exitoso. Esa observación supera el estado deshabilitado del 11-Oct; los incidentes históricos se preservan. Codex no cambió el cron ni compró créditos. El snapshot de la app devuelve datos actuales, pero una cuota PUBLICADO sin quoteAt verificado no es LIVE ni demuestra edge.
 
 Los dos puentes de Drive tienen las adiciones operativas del 11-Oct y su lectura autenticada se verificó otra vez el 12-Oct. Eso acredita actualizaciones documentales, no un Drive writer continuo ni comunicación directa entre agentes.
+
+
+## Latest reconciled state — 2026-10-30
+
+The current verified *read-only* MONEY Ω status is [CURRENT_STATE_2026-10-30.json](CURRENT_STATE_2026-10-30.json), recorded by the ChatGPT research node from authenticated/source-specific evidence. Earlier dated files above are historical and must not overwrite the new status.
+
+- **Resource discovery:** 10 public sources, 18 candidates, 0 actionable queue; no net EV estimate for any candidate, `verified_income_usd=null`. The 2026-10-30T12:53:54Z run reports healthy collection but decision readiness DATA INSUFFICIENT.
+- **PAPER Desk:** 2026-10-30T15:30:45Z, public Coinbase Exchange observations for six assets; audit integrity valid; RISK Ω = HALT, PAPER/LIVE execution disabled. Public spot ticks are not proof of contract edge or private Coinbase account state.
+- **AppDeploy collector:** authenticated service still shows frontend READY but `money-five-minute-cuts` disabled with `credits_exhausted`. The independent [market-health monitor](../money-resources/data/market-health.json) logged three HTTP 402 endpoint failures on 2026-10-30T12:53:55Z. The private billing account simultaneously showed monthly credits remaining; do not publish private amounts or assume a billing fix. [Incident #61](https://github.com/reyfilosofo/renova-agent/issues/61) remains OPEN.
+- **Drive:** Operating Bridge v2.1 and Codex Cloud Bridge v2.0 received documentary reconciliation updates on 2026-10-30. Their updates are not an automated writer or a ChatGPT↔Codex connection.
+- **ChatGPT Sites:** canonical existing MONEY Ω Observatorio Site v6 publication remains the last verified publishing receipt (2026-10-25); no live site readback succeeded through the present public web tool.
+- **Intermodel/security:** direct ChatGPT↔Codex and Grok bot authentication remains unverified, no wallet signer, no private fills, no verified income, no trading enablement.
+
+Do not reactivate the archived market collector, buy credits, or unblock LIVE from a documentation update. Confirm real backend reads, cron enabled and two consecutive verified captures before closing #61; keep missing archive rows null and do not backfill.
