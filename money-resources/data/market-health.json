@@ -2,7 +2,7 @@
   "schema_version": "1.0",
   "system": "MONEY Ω",
   "mode": "READ_ONLY",
-  "generated_at_utc": "2026-10-31T12:26:26.776976Z",
+  "generated_at_utc": "2026-10-31T21:31:34.185579Z",
   "status": "DEGRADED",
   "archive_scope": "BTC 5m only",
   "archive_date": "2026-10-31",
