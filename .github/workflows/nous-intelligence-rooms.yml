@@ -1,12 +1,6 @@
 name: NOUS Intelligence Rooms — validation and delivery
 
 on:
-  push:
-    branches:
-      - codex/nous-intelligence-rooms-build-week-2026
-    paths:
-      - 'projects/nous-intelligence-rooms/**'
-      - '.github/workflows/nous-intelligence-rooms.yml'
   pull_request:
     paths:
       - 'projects/nous-intelligence-rooms/**'
