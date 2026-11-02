@@ -37,6 +37,7 @@ class MasterArchiveTests(unittest.TestCase):
             members = zipfile_obj.namelist()
             self.assertIn("nous-intelligence-rooms/MANIFEST_SHA256.txt", members)
             self.assertIn("nous-intelligence-rooms/README.md", members)
+            self.assertEqual((zipfile_obj.getinfo("nous-intelligence-rooms/run.sh").external_attr >> 16) & 0o777, 0o755)
             self.assertFalse(any("dist/" in member or "__pycache__" in member for member in members))
             manifest = zipfile_obj.read("nous-intelligence-rooms/MANIFEST_SHA256.txt").decode()
             for line in manifest.splitlines():
