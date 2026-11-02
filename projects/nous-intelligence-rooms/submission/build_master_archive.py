@@ -72,7 +72,7 @@ def build_archive(root: Path = ROOT, output_dir: Path | None = None) -> tuple[Pa
         for name in sorted(payload):
             entry = zipfile.ZipInfo(name, (2026, 1, 1, 0, 0, 0))
             entry.create_system = 3
-            entry.external_attr = 0o100644 << 16
+            entry.external_attr = (0o100755 if name.endswith("/run.sh") else 0o100644) << 16
             entry.compress_type = zipfile.ZIP_DEFLATED
             archive.writestr(entry, payload[name], compress_type=zipfile.ZIP_DEFLATED, compresslevel=9)
 
