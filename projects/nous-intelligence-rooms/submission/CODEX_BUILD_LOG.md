@@ -122,3 +122,14 @@ Scope: update the existing open PR #19 without merging; preserve the static demo
 - Final URLs / external gates: submission/FINAL_URLS_TEMPLATE.md
 
 Do not merge PR #19 until the owner has reviewed the evidence.
+
+### Verified GitHub Actions outcome — 2026-11-02
+
+- Run 41490321825 (https://github.com/reyfilosofo/renova-agent/actions/runs/41490321825), source commit d525f114051b62964909f1c15acbc2d7b7f586d1: **SUCCESS**.
+- Python 3.13, all 34 unit and release tests: **PASS**.
+- Docker image build: **PASS**; container started without OpenAI credentials.
+- Runtime smoke: **PASS** for GET /api/health and POST /api/analyze with the deterministic SERESARTE case.
+- Master ZIP build and read-back integrity: **PASS**; SHA256SUMS.txt verified by sha256sum -c.
+- Master ZIP SHA-256 for that exact source commit: e7cb65971075dafd8210104579be2c9a4f6c8adbbc7e4308a81bf2e2cf0dd90b.
+- Downloadable GitHub Actions artifact ID: 13164346265 (30-day retention; archive outside GitHub for durable evidence).
+- This is container and curated-demo evidence, **not** a live OpenAI Responses API request and **not** a Devpost submission.
