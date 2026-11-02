@@ -95,3 +95,30 @@
   six decisions and three roadmap phases; JSON and print actions were enabled.
 - Public copy states that this is a curated static demonstration, disables live
   analysis and confirms that selected files remain in the browser.
+
+## Maintenance and release-integrity hardening — 2026-11-02
+
+Scope: update the existing open PR #19 without merging; preserve the static demo architecture, server-side-only API credentials, and distinctions between genuine external verification and local simulations.
+
+### Changes introduced
+
+- Added submission/build_master_archive.py: reproducible master ZIP with fixed archive metadata, project-file allowlist, exclusion of dist/bytecode, refusal of scanned environment secrets and symlinks, internal SHA-256 manifest, external full-ZIP SHA256SUMS.txt, and read-back integrity verification.
+- Added tests/test_release.py: four tests covering deterministic output, member digests, excluded environment file, required inputs and symlink rejection.
+- Added a dedicated GitHub Actions workflow for application unit tests, Docker build and HTTP smoke (health plus curated analysis), delivery package generation and downloadable artifact.
+- Updated README.md and FINAL_URLS_TEMPLATE.md to distinguish the historical July 2026 evidence from post-deadline maintenance; preserved unverified live API, hosted video and Devpost statuses.
+
+### Verification boundary
+
+- Local synthetic-fixture tests for the new builder: **4/4 passed** before repository commit; not a substitute for full integrated CI.
+- Integrated unit tests, Docker build, runtime smoke and master ZIP upload: **workflow configured; verify completed run and artifact before claiming PASS**.
+- Live Responses API: **not rerun** here; the last documented real attempt remains HTTP 429 insufficient_quota. CI deliberately does not receive an OpenAI API credential.
+- Video / captions and Devpost: **not externally verified**; URLs still missing.
+- Competition deadline recorded in FINAL_URLS_TEMPLATE.md is **2026-07-21 17:00 PDT**; post-deadline work is not evidence of on-time submission.
+
+### Evidence paths
+
+- Dedicated CI: https://github.com/reyfilosofo/renova-agent/actions/workflows/nous-intelligence-rooms.yml
+- PR: https://github.com/reyfilosofo/renova-agent/pull/19
+- Final URLs / external gates: submission/FINAL_URLS_TEMPLATE.md
+
+Do not merge PR #19 until the owner has reviewed the evidence.
