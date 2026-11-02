@@ -7,7 +7,7 @@ NOUS Intelligence Rooms turns fragmented organizational material into an evidenc
 
 > **Verification status — updated 2026-07-28:** the curated SERESARTE flow, security regressions, request contract, structured output validation, desktop/mobile interface, keyboard flow, JSON export and print/PDF export were verified. The public demo-only export is live on EdgeOne and Netlify and was verified without authentication. The existing server-side key can access the official `gpt-5.6-terra` model record, but a real Responses API generation returned `429 insufficient_quota`; therefore a successful live analysis is **not** claimed. Docker remains unverified.
 
-> **Maintenance review — 2026-11-02:** PR #19 remains open and unmerged pending owner review. A reproducible master ZIP / SHA-256 builder, delivery-integrity tests, and a dedicated GitHub Actions Docker smoke workflow have been introduced. Their integrated workflow outcome must be checked before claiming a validated Docker build or published master artifact. Live generation still lacks a documented successful provider response; video and Devpost URLs are unverified. Historical checks below are dated July 2026, not new checks.
+> **Maintenance review — 2026-11-02:** PR #19 remains open and unmerged pending owner review. A reproducible master ZIP / SHA-256 builder, delivery-integrity tests, and a dedicated GitHub Actions Docker smoke workflow have been introduced. The workflow run on commit d525f114 (2026-11-02) **passed 34 tests, built Docker, exercised both curated HTTP endpoints, verified the master ZIP SHA-256 and uploaded its artifact**. Subsequent commits require their own CI validation. Live generation still lacks a documented successful provider response; video and Devpost URLs are unverified. Historical checks below are dated July 2026, not new checks.
 ## Product flow
 
 1. Define the organization and decision to enable.
@@ -184,7 +184,7 @@ docker run --rm \
   nous-intelligence-rooms
 ```
 
-Docker was unavailable during the July 2026 verification pass. A dedicated GitHub Actions Docker build and container HTTP smoke workflow was added in November; consult its current run before claiming container verification.
+Docker was unavailable during the July 2026 verification pass. A dedicated GitHub Actions Docker build and container HTTP smoke workflow passed on 2026-11-02 ([audited run](https://github.com/reyfilosofo/renova-agent/actions/runs/41490321825)) for commit d525f114; this verifies the containerized curated demo, not a live OpenAI API call.
 
 ## Repository and external delivery status
 
