@@ -1,12 +1,13 @@
 # NOUS Intelligence Rooms
 
-**OpenAI Build Week 2026 submission**<br>
+**OpenAI Build Week 2026 project · submission status not independently verified**<br>
 **Creator:** Carlos Jonathan González Rodríguez · NOUS by SERESARTE
 
 NOUS Intelligence Rooms turns fragmented organizational material into an evidence-backed decision architecture: executive synthesis, scored strategic signals, prioritized decisions, a 30/60/90-day roadmap and a traceable evidence ledger.
 
 > **Verification status — updated 2026-07-28:** the curated SERESARTE flow, security regressions, request contract, structured output validation, desktop/mobile interface, keyboard flow, JSON export and print/PDF export were verified. The public demo-only export is live on EdgeOne and Netlify and was verified without authentication. The existing server-side key can access the official `gpt-5.6-terra` model record, but a real Responses API generation returned `429 insufficient_quota`; therefore a successful live analysis is **not** claimed. Docker remains unverified.
 
+> **Maintenance review — 2026-11-02:** PR #19 remains open and unmerged pending owner review. A reproducible master ZIP / SHA-256 builder, delivery-integrity tests, and a dedicated GitHub Actions Docker smoke workflow have been introduced. Their integrated workflow outcome must be checked before claiming a validated Docker build or published master artifact. Live generation still lacks a documented successful provider response; video and Devpost URLs are unverified. Historical checks below are dated July 2026, not new checks.
 ## Product flow
 
 1. Define the organization and decision to enable.
@@ -183,7 +184,7 @@ docker run --rm \
   nous-intelligence-rooms
 ```
 
-Docker was not installed in the validation environment, so the image remains unverified.
+Docker was unavailable during the July 2026 verification pass. A dedicated GitHub Actions Docker build and container HTTP smoke workflow was added in November; consult its current run before claiming container verification.
 
 ## Repository and external delivery status
 
@@ -194,7 +195,23 @@ Docker was not installed in the validation environment, so the image remains unv
 - Final URL tracker: [`submission/FINAL_URLS_TEMPLATE.md`](submission/FINAL_URLS_TEMPLATE.md)
 - Codex verification record: [`submission/CODEX_BUILD_LOG.md`](submission/CODEX_BUILD_LOG.md)
 
-Before Devpost submission: restore OpenAI API quota and record one successful live run, host the video, complete the Devpost page, and regenerate the master ZIP so it contains this final code and deployment record rather than the pre-audit source snapshot.
+Current unresolved evidence: restore OpenAI project quota and record one successful live run; verify a hosted captioned video; verify the original Devpost submission, if any; and retain the master ZIP and hash manifest from the latest successful validation workflow. Do not describe post-deadline maintenance as a timely submission.
+
+## Reproducible delivery package (November 2026)
+
+The master delivery archive is distinct from the pre-existing static drop-deploy ZIP. The builder uses an explicit project allowlist, skips generated and bytecode directories, rejects symlinks and real environment files in scanned folders, and writes both per-member digests and a checksum for the complete ZIP.
+
+From the project directory:
+
+    python3 submission/build_master_archive.py
+    cd submission/dist
+    sha256sum -c SHA256SUMS.txt
+
+Generated files: NOUS_Intelligence_Rooms_MASTER_DELIVERY.zip and SHA256SUMS.txt; the archive also contains MANIFEST_SHA256.txt covering every packaged source member. These outputs are generated on demand and must be tied to a specific commit before distribution.
+
+Automated verification: [NOUS Intelligence Rooms — validation and delivery](https://github.com/reyfilosofo/renova-agent/actions/workflows/nous-intelligence-rooms.yml). This checks the Python suite, builds and runs the Docker image without an API key, exercises the health and curated-analysis endpoints, rebuilds the ZIP, verifies the SHA-256 and uploads a downloadable workflow artifact. Workflow success is required evidence; the workflow definition alone is not.
+
+**Submission provenance:** the documented Build Week submission deadline was 2026-07-21, 17:00 PDT. November 2026 build artifacts are post-deadline maintenance outputs, not proof of an on-time competition submission. Verify any original entry in the owner's Devpost account. See [external delivery tracker](submission/FINAL_URLS_TEMPLATE.md).
 
 ## License
 
