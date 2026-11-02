@@ -1,0 +1,102 @@
+name: NOUS Intelligence Rooms — validation and delivery
+
+on:
+  push:
+    branches:
+      - codex/nous-intelligence-rooms-build-week-2026
+    paths:
+      - 'projects/nous-intelligence-rooms/**'
+      - '.github/workflows/nous-intelligence-rooms.yml'
+  pull_request:
+    paths:
+      - 'projects/nous-intelligence-rooms/**'
+      - '.github/workflows/nous-intelligence-rooms.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  verify-and-package:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    defaults:
+      run:
+        working-directory: projects/nous-intelligence-rooms
+    steps:
+      - name: Checkout exact commit
+        uses: actions/checkout@v4
+
+      - name: Set up Python 3.13
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.13'
+
+      - name: Run application and delivery tests
+        run: |
+          set -euo pipefail
+          PYTHONDONTWRITEBYTECODE=1 python -m unittest discover -s tests -p 'test_*.py' -v
+          python -m py_compile app/server.py submission/build_master_archive.py
+
+      - name: Build Docker container
+        run: docker build -t nous-intelligence-rooms:ci .
+
+      - name: Verify running Docker app without API credentials
+        run: |
+          set -euo pipefail
+          docker run -d --name nous-ci -p 127.0.0.1:18000:8000 nous-intelligence-rooms:ci
+          trap 'docker logs nous-ci || true; docker rm -f nous-ci || true' EXIT
+          python - <<'PY'
+          import json
+          import time
+          from urllib.request import Request, urlopen
+
+          base = "http://127.0.0.1:18000"
+          for attempt in range(30):
+              try:
+                  with urlopen(base + "/api/health", timeout=2) as response:
+                      health = json.load(response)
+                      assert response.status == 200 and health["ok"] is True
+                      assert health["live_available"] is False
+                  break
+              except (OSError, ValueError):
+                  if attempt == 29:
+                      raise
+                  time.sleep(1)
+
+          payload = {
+              "organization": "SERESARTE",
+              "sector": "Creative & cultural organization",
+              "goal": "Clarify positioning and priorities",
+              "website": "https://seresarte.org",
+              "context": "Public, user-owned strategic context for the curated demonstration.",
+              "use_live": False,
+              "files": []
+          }
+          request = Request(
+              base + "/api/analyze",
+              data=json.dumps(payload).encode("utf-8"),
+              headers={"Content-Type": "application/json"},
+              method="POST",
+          )
+          with urlopen(request, timeout=15) as response:
+              result = json.load(response)
+              assert response.status == 200
+              assert result["analysis"]["organization"] == "SERESARTE"
+          print("Docker container /api/health and curated /api/analyze passed.")
+          PY
+
+      - name: Generate verified master ZIP and SHA-256 manifest
+        run: |
+          set -euo pipefail
+          python submission/build_master_archive.py
+          cd submission/dist
+          sha256sum -c SHA256SUMS.txt
+
+      - name: Upload delivery package (not a Devpost submission)
+        uses: actions/upload-artifact@v4
+        with:
+          name: nous-intelligence-rooms-master
+          path: projects/nous-intelligence-rooms/submission/dist/
+          if-no-files-found: error
+          retention-days: 30
