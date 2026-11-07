@@ -2,10 +2,10 @@
   "schema_version": "1.0",
   "system": "MONEY Ω",
   "mode": "READ_ONLY",
-  "generated_at_utc": "2026-11-07T05:56:49.829589Z",
+  "generated_at_utc": "2026-11-07T12:58:37.820139Z",
   "status": "DEGRADED",
   "archive_scope": "BTC 5m only",
-  "archive_date": "2026-11-06",
+  "archive_date": "2026-11-07",
   "endpoints": {
     "health": {
       "http_status": 402,
