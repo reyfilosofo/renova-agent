@@ -1,0 +1,29 @@
+{
+  "note": "Tarjetas declaradas. No descubren agentes en la red.",
+  "cards": [
+    {
+      "name": "centro-compuerta",
+      "version": "0.session",
+      "skills": ["clasificar acción", "fail-closed"],
+      "endpoint": "no-conectado"
+    },
+    {
+      "name": "lucem-evidencia",
+      "version": "0.session",
+      "skills": ["triage de cita", "no tratar similitud como verdad"],
+      "endpoint": "no-conectado"
+    },
+    {
+      "name": "egra-medida",
+      "version": "0.session",
+      "skills": ["preregistro", "falsador"],
+      "endpoint": "no-conectado"
+    },
+    {
+      "name": "nous-sala",
+      "version": "0.session",
+      "skills": ["inventario", "dueño", "hueco"],
+      "endpoint": "no-conectado"
+    }
+  ]
+}
