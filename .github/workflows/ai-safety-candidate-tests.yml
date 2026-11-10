@@ -1,0 +1,26 @@
+name: AI Safety Research Candidate - offline tests
+on:
+  pull_request:
+    paths:
+      - "ai-safety/**"
+      - ".github/workflows/ai-safety-candidate-tests.yml"
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  offline-tests:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Unit tests - no API keys
+        working-directory: ai-safety
+        run: python -m unittest discover -s tests -v
+      - name: Synthetic policy fixture tests only
+        working-directory: ai-safety
+        run: python -m renova_guard.cli fixtures/demo.json
