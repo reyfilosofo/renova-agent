@@ -20,6 +20,7 @@ jobs:
       - name: Run 13 deterministic synthetic regression cases
         run: |
           mkdir -p /tmp/centro-t052
+          set -o pipefail
           python3 centro-lab/validation/t052/t052_ci_runner.py | tee /tmp/centro-t052/qa-report.json
       - name: Publish synthetic QA report
         if: always()
@@ -27,4 +28,4 @@ jobs:
         with:
           name: centro-t052-synthetic-qa
           path: /tmp/centro-t052/qa-report.json
-          if-no-files-found: warn
+          if-no-files-found: error
