@@ -3,126 +3,126 @@
   "system": "MONEY Ω",
   "mode": "PAPER",
   "state": "COLLECTED",
-  "generated_at_utc": "2026-11-13T21:37:54.951688Z",
+  "generated_at_utc": "2026-11-14T01:43:35.873415Z",
   "observations": [
     {
-      "ask": "68237.22",
+      "ask": "68311",
       "asset": "BTC",
-      "bid": "68237.21",
+      "bid": "68310.99",
       "bid_ask_timestamp_verified": false,
-      "body_sha256": "f1a6410c435ec017fd5e9eec827a98b6a590a0f6f5833ffb73a01717e34fda58",
-      "last_trade_at_utc": "2026-11-13T21:37:49.046027Z",
-      "last_trade_price": "68237.21",
+      "body_sha256": "52ff3c8b1ca7861537ee4ffdcc319b5114ce29924475e3b9267a8707e74fa405",
+      "last_trade_at_utc": "2026-11-14T01:43:29.893234Z",
+      "last_trade_price": "68311",
       "mode": "PAPER",
-      "price": "68237.21",
+      "price": "68311",
       "product": "BTC-USD",
-      "quote_at_utc": "2026-11-13T21:37:49.046027Z",
+      "quote_at_utc": "2026-11-14T01:43:29.893234Z",
       "quote_currency": "USD",
-      "received_at_utc": "2026-11-13T21:37:49.702303Z",
+      "received_at_utc": "2026-11-14T01:43:30.624243Z",
       "source": "COINBASE_EXCHANGE",
       "source_url": "https://api.exchange.coinbase.com/products/BTC-USD/ticker",
       "status": "OBSERVED",
-      "tick_age_seconds": 5.906,
+      "tick_age_seconds": 5.98,
       "timestamp_scope": "LAST_TRADE_ONLY"
     },
     {
-      "ask": "1927.22",
+      "ask": "1930.45",
       "asset": "ETH",
-      "bid": "1927.1",
+      "bid": "1930.41",
       "bid_ask_timestamp_verified": false,
-      "body_sha256": "5abfafa6d11f436694fdc668249398558cb263cfc6c3bbb0edfa4c2674c43e06",
-      "last_trade_at_utc": "2026-11-13T21:37:50.162202Z",
-      "last_trade_price": "1927.07",
+      "body_sha256": "2b0bba467c9a72f1dada117f167fbf8cb0aee18d8441a6ba1e4f6b4896773f9a",
+      "last_trade_at_utc": "2026-11-14T01:43:31.009038Z",
+      "last_trade_price": "1930.45",
       "mode": "PAPER",
-      "price": "1927.07",
+      "price": "1930.45",
       "product": "ETH-USD",
-      "quote_at_utc": "2026-11-13T21:37:50.162202Z",
+      "quote_at_utc": "2026-11-14T01:43:31.009038Z",
       "quote_currency": "USD",
-      "received_at_utc": "2026-11-13T21:37:50.737081Z",
+      "received_at_utc": "2026-11-14T01:43:31.673930Z",
       "source": "COINBASE_EXCHANGE",
       "source_url": "https://api.exchange.coinbase.com/products/ETH-USD/ticker",
       "status": "OBSERVED",
-      "tick_age_seconds": 4.789,
+      "tick_age_seconds": 4.864,
       "timestamp_scope": "LAST_TRADE_ONLY"
     },
     {
-      "ask": "79.22",
+      "ask": "77.37",
       "asset": "SOL",
-      "bid": "79.21",
+      "bid": "77.36",
       "bid_ask_timestamp_verified": false,
-      "body_sha256": "2e62975b341792824109241fdba88bcad9cbdd0be7a7209ffa4dc315af3d50dc",
-      "last_trade_at_utc": "2026-11-13T21:37:48.151200Z",
-      "last_trade_price": "79.2",
+      "body_sha256": "1810a169edf40fedb463365b6256ee76665bab187c802b87e6106f19f9f0b437",
+      "last_trade_at_utc": "2026-11-14T01:43:32.474529Z",
+      "last_trade_price": "77.34",
       "mode": "PAPER",
-      "price": "79.2",
+      "price": "77.34",
       "product": "SOL-USD",
-      "quote_at_utc": "2026-11-13T21:37:48.151200Z",
+      "quote_at_utc": "2026-11-14T01:43:32.474529Z",
       "quote_currency": "USD",
-      "received_at_utc": "2026-11-13T21:37:51.780814Z",
+      "received_at_utc": "2026-11-14T01:43:32.719858Z",
       "source": "COINBASE_EXCHANGE",
       "source_url": "https://api.exchange.coinbase.com/products/SOL-USD/ticker",
       "status": "OBSERVED",
-      "tick_age_seconds": 6.8,
+      "tick_age_seconds": 3.399,
       "timestamp_scope": "LAST_TRADE_ONLY"
     },
     {
-      "ask": "0.06466",
+      "ask": "0.06446",
       "asset": "DOGE",
-      "bid": "0.06465",
+      "bid": "0.06444",
       "bid_ask_timestamp_verified": false,
-      "body_sha256": "5f98e544d700c01990dbdecdd5ccab5f3e38fb8e90c5f021f304a78a3a0a3f01",
-      "last_trade_at_utc": "2026-11-13T21:37:51.674690Z",
-      "last_trade_price": "0.06466",
+      "body_sha256": "68bc34bc25493837066e01b9a66d4176319940876329b3c8b1c4076ea8bb957c",
+      "last_trade_at_utc": "2026-11-14T01:43:28.012505Z",
+      "last_trade_price": "0.06444",
       "mode": "PAPER",
-      "price": "0.06466",
+      "price": "0.06444",
       "product": "DOGE-USD",
-      "quote_at_utc": "2026-11-13T21:37:51.674690Z",
+      "quote_at_utc": "2026-11-14T01:43:28.012505Z",
       "quote_currency": "USD",
-      "received_at_utc": "2026-11-13T21:37:52.824776Z",
+      "received_at_utc": "2026-11-14T01:43:33.768684Z",
       "source": "COINBASE_EXCHANGE",
       "source_url": "https://api.exchange.coinbase.com/products/DOGE-USD/ticker",
       "status": "OBSERVED",
-      "tick_age_seconds": 3.277,
+      "tick_age_seconds": 7.861,
       "timestamp_scope": "LAST_TRADE_ONLY"
     },
     {
-      "ask": "1.0097",
+      "ask": "1.009",
       "asset": "XRP",
-      "bid": "1.0094",
+      "bid": "1.0089",
       "bid_ask_timestamp_verified": false,
-      "body_sha256": "7e587bf07e2786b2e7b7d7046f0e7f67d34196438c65778fe52b03d17a74f5c7",
-      "last_trade_at_utc": "2026-11-13T21:37:53.264872Z",
-      "last_trade_price": "1.0097",
+      "body_sha256": "701de00af1a50f919424ca512ede2f9706d3ab26209bdef1a96ff82fee6694ea",
+      "last_trade_at_utc": "2026-11-14T01:43:33.526667Z",
+      "last_trade_price": "1.009",
       "mode": "PAPER",
-      "price": "1.0097",
+      "price": "1.009",
       "product": "XRP-USD",
-      "quote_at_utc": "2026-11-13T21:37:53.264872Z",
+      "quote_at_utc": "2026-11-14T01:43:33.526667Z",
       "quote_currency": "USD",
-      "received_at_utc": "2026-11-13T21:37:53.864441Z",
+      "received_at_utc": "2026-11-14T01:43:34.819446Z",
       "source": "COINBASE_EXCHANGE",
       "source_url": "https://api.exchange.coinbase.com/products/XRP-USD/ticker",
       "status": "OBSERVED",
-      "tick_age_seconds": 1.687,
+      "tick_age_seconds": 2.347,
       "timestamp_scope": "LAST_TRADE_ONLY"
     },
     {
-      "ask": "630.28",
+      "ask": "631.56",
       "asset": "BNB",
-      "bid": "630.11",
+      "bid": "631.43",
       "bid_ask_timestamp_verified": false,
-      "body_sha256": "bb71d9d22bc246586c9ed8017cf5792b095e369ec8597290d36d6c20dc9847f0",
-      "last_trade_at_utc": "2026-11-13T21:37:43.734452Z",
-      "last_trade_price": "630.06",
+      "body_sha256": "c99ceb0b91bb31013218121014ac497acd7ece9e7695c9f11e087587db236832",
+      "last_trade_at_utc": "2026-11-14T01:43:28.140762Z",
+      "last_trade_price": "631.44",
       "mode": "PAPER",
-      "price": "630.06",
+      "price": "631.44",
       "product": "BNB-USD",
-      "quote_at_utc": "2026-11-13T21:37:43.734452Z",
+      "quote_at_utc": "2026-11-14T01:43:28.140762Z",
       "quote_currency": "USD",
-      "received_at_utc": "2026-11-13T21:37:54.951601Z",
+      "received_at_utc": "2026-11-14T01:43:35.873342Z",
       "source": "COINBASE_EXCHANGE",
       "source_url": "https://api.exchange.coinbase.com/products/BNB-USD/ticker",
       "status": "OBSERVED",
-      "tick_age_seconds": 11.217,
+      "tick_age_seconds": 7.733,
       "timestamp_scope": "LAST_TRADE_ONLY"
     }
   ],
@@ -131,7 +131,7 @@
       "access_status": "ACCESS VERIFIED",
       "asset": "BTC",
       "http_status": 200,
-      "last_attempt_at_utc": "2026-11-13T21:37:49.702326Z",
+      "last_attempt_at_utc": "2026-11-14T01:43:30.624273Z",
       "retry_after_seconds": 240,
       "status": "OBSERVED"
     },
@@ -139,7 +139,7 @@
       "access_status": "ACCESS VERIFIED",
       "asset": "ETH",
       "http_status": 200,
-      "last_attempt_at_utc": "2026-11-13T21:37:50.737102Z",
+      "last_attempt_at_utc": "2026-11-14T01:43:31.673952Z",
       "retry_after_seconds": 240,
       "status": "OBSERVED"
     },
@@ -147,7 +147,7 @@
       "access_status": "ACCESS VERIFIED",
       "asset": "SOL",
       "http_status": 200,
-      "last_attempt_at_utc": "2026-11-13T21:37:51.780836Z",
+      "last_attempt_at_utc": "2026-11-14T01:43:32.719879Z",
       "retry_after_seconds": 240,
       "status": "OBSERVED"
     },
@@ -155,7 +155,7 @@
       "access_status": "ACCESS VERIFIED",
       "asset": "DOGE",
       "http_status": 200,
-      "last_attempt_at_utc": "2026-11-13T21:37:52.824799Z",
+      "last_attempt_at_utc": "2026-11-14T01:43:33.768704Z",
       "retry_after_seconds": 240,
       "status": "OBSERVED"
     },
@@ -163,7 +163,7 @@
       "access_status": "ACCESS VERIFIED",
       "asset": "XRP",
       "http_status": 200,
-      "last_attempt_at_utc": "2026-11-13T21:37:53.864462Z",
+      "last_attempt_at_utc": "2026-11-14T01:43:34.819467Z",
       "retry_after_seconds": 240,
       "status": "OBSERVED"
     },
@@ -171,7 +171,7 @@
       "access_status": "ACCESS VERIFIED",
       "asset": "BNB",
       "http_status": 200,
-      "last_attempt_at_utc": "2026-11-13T21:37:54.951629Z",
+      "last_attempt_at_utc": "2026-11-14T01:43:35.873367Z",
       "retry_after_seconds": 240,
       "status": "OBSERVED"
     }
@@ -183,7 +183,7 @@
       "schema_version": "1.0",
       "system": "MONEY Ω",
       "mode": "PAPER",
-      "generated_at_utc": "2026-11-13T21:37:54.951688Z",
+      "generated_at_utc": "2026-11-14T01:43:35.873415Z",
       "strategies": [
         {
           "strategy_id": "MONEY_GAMBLER_PAPER_V1",
@@ -208,7 +208,7 @@
                 "policy_metrics_stale_or_future"
               ],
               "research": {
-                "published_spread_bps": 0.00146548,
+                "published_spread_bps": 0.00146389,
                 "sourceTickVerified": false,
                 "direction": "UNDETERMINED",
                 "pspot_experimental": null
@@ -234,7 +234,7 @@
                 "policy_metrics_stale_or_future"
               ],
               "research": {
-                "published_spread_bps": 0.62267793,
+                "published_spread_bps": 0.20720772,
                 "sourceTickVerified": false,
                 "direction": "UNDETERMINED",
                 "pspot_experimental": null
@@ -260,7 +260,7 @@
                 "policy_metrics_stale_or_future"
               ],
               "research": {
-                "published_spread_bps": 1.26238717,
+                "published_spread_bps": 1.29257416,
                 "sourceTickVerified": false,
                 "direction": "UNDETERMINED",
                 "pspot_experimental": null
@@ -286,7 +286,7 @@
                 "policy_metrics_stale_or_future"
               ],
               "research": {
-                "published_spread_bps": 1.54667079,
+                "published_spread_bps": 3.10318076,
                 "sourceTickVerified": false,
                 "direction": "UNDETERMINED",
                 "pspot_experimental": null
@@ -312,7 +312,7 @@
                 "policy_metrics_stale_or_future"
               ],
               "research": {
-                "published_spread_bps": 2.97162102,
+                "published_spread_bps": 0.99112939,
                 "sourceTickVerified": false,
                 "direction": "UNDETERMINED",
                 "pspot_experimental": null
@@ -338,7 +338,7 @@
                 "policy_metrics_stale_or_future"
               ],
               "research": {
-                "published_spread_bps": 2.69757773,
+                "published_spread_bps": 2.05860696,
                 "sourceTickVerified": false,
                 "direction": "UNDETERMINED",
                 "pspot_experimental": null
@@ -373,7 +373,7 @@
                 "policy_metrics_stale_or_future"
               ],
               "research": {
-                "published_spread_bps": 0.00146548,
+                "published_spread_bps": 0.00146389,
                 "sourceTickVerified": false,
                 "direction": "UNDETERMINED",
                 "pspot_experimental": null
@@ -399,7 +399,7 @@
                 "policy_metrics_stale_or_future"
               ],
               "research": {
-                "published_spread_bps": 0.62267793,
+                "published_spread_bps": 0.20720772,
                 "sourceTickVerified": false,
                 "direction": "UNDETERMINED",
                 "pspot_experimental": null
@@ -425,7 +425,7 @@
                 "policy_metrics_stale_or_future"
               ],
               "research": {
-                "published_spread_bps": 1.26238717,
+                "published_spread_bps": 1.29257416,
                 "sourceTickVerified": false,
                 "direction": "UNDETERMINED",
                 "pspot_experimental": null
@@ -451,7 +451,7 @@
                 "policy_metrics_stale_or_future"
               ],
               "research": {
-                "published_spread_bps": 1.54667079,
+                "published_spread_bps": 3.10318076,
                 "sourceTickVerified": false,
                 "direction": "UNDETERMINED",
                 "pspot_experimental": null
@@ -477,7 +477,7 @@
                 "policy_metrics_stale_or_future"
               ],
               "research": {
-                "published_spread_bps": 2.97162102,
+                "published_spread_bps": 0.99112939,
                 "sourceTickVerified": false,
                 "direction": "UNDETERMINED",
                 "pspot_experimental": null
@@ -503,7 +503,7 @@
                 "policy_metrics_stale_or_future"
               ],
               "research": {
-                "published_spread_bps": 2.69757773,
+                "published_spread_bps": 2.05860696,
                 "sourceTickVerified": false,
                 "direction": "UNDETERMINED",
                 "pspot_experimental": null
@@ -538,7 +538,7 @@
                 "policy_metrics_stale_or_future"
               ],
               "research": {
-                "published_spread_bps": 0.00146548,
+                "published_spread_bps": 0.00146389,
                 "sourceTickVerified": false,
                 "direction": "UNDETERMINED",
                 "pspot_experimental": null
@@ -564,7 +564,7 @@
                 "policy_metrics_stale_or_future"
               ],
               "research": {
-                "published_spread_bps": 0.62267793,
+                "published_spread_bps": 0.20720772,
                 "sourceTickVerified": false,
                 "direction": "UNDETERMINED",
                 "pspot_experimental": null
@@ -590,7 +590,7 @@
                 "policy_metrics_stale_or_future"
               ],
               "research": {
-                "published_spread_bps": 1.26238717,
+                "published_spread_bps": 1.29257416,
                 "sourceTickVerified": false,
                 "direction": "UNDETERMINED",
                 "pspot_experimental": null
@@ -616,7 +616,7 @@
                 "policy_metrics_stale_or_future"
               ],
               "research": {
-                "published_spread_bps": 1.54667079,
+                "published_spread_bps": 3.10318076,
                 "sourceTickVerified": false,
                 "direction": "UNDETERMINED",
                 "pspot_experimental": null
@@ -642,7 +642,7 @@
                 "policy_metrics_stale_or_future"
               ],
               "research": {
-                "published_spread_bps": 2.97162102,
+                "published_spread_bps": 0.99112939,
                 "sourceTickVerified": false,
                 "direction": "UNDETERMINED",
                 "pspot_experimental": null
@@ -668,7 +668,7 @@
                 "policy_metrics_stale_or_future"
               ],
               "research": {
-                "published_spread_bps": 2.69757773,
+                "published_spread_bps": 2.05860696,
                 "sourceTickVerified": false,
                 "direction": "UNDETERMINED",
                 "pspot_experimental": null
@@ -723,10 +723,10 @@
           "BNB"
         ],
         "timeframe": "5m",
-        "window_start_utc": "2026-11-13T21:35:00Z",
-        "window_end_utc": "2026-11-13T21:40:00Z"
+        "window_start_utc": "2026-11-14T01:40:00Z",
+        "window_end_utc": "2026-11-14T01:45:00Z"
       },
-      "input_sha256": "4fa26f7cbe043e0b93a70b976dac4a4903323b80de0683b9aca36856ae03654f",
+      "input_sha256": "48d5b4367e54e2dbeeeaac7d81523324d165ee70ebdbc7598e48b35d43d18cad",
       "modelDisagreement": null,
       "modelDisagreementAssessment": "REQUIRES_SEPARATE_SCOPE_AND_METHODOLOGY_REVIEW",
       "timeframe": "5m"
@@ -735,7 +735,7 @@
       "schema_version": "1.0",
       "system": "MONEY Ω",
       "mode": "PAPER",
-      "generated_at_utc": "2026-11-13T21:37:54.951688Z",
+      "generated_at_utc": "2026-11-14T01:43:35.873415Z",
       "strategies": [
         {
           "strategy_id": "MONEY_GAMBLER_PAPER_V1",
@@ -760,7 +760,7 @@
                 "policy_metrics_stale_or_future"
               ],
               "research": {
-                "published_spread_bps": 0.00146548,
+                "published_spread_bps": 0.00146389,
                 "sourceTickVerified": false,
                 "direction": "UNDETERMINED",
                 "pspot_experimental": null
@@ -786,7 +786,7 @@
                 "policy_metrics_stale_or_future"
               ],
               "research": {
-                "published_spread_bps": 0.62267793,
+                "published_spread_bps": 0.20720772,
                 "sourceTickVerified": false,
                 "direction": "UNDETERMINED",
                 "pspot_experimental": null
@@ -812,7 +812,7 @@
                 "policy_metrics_stale_or_future"
               ],
               "research": {
-                "published_spread_bps": 1.26238717,
+                "published_spread_bps": 1.29257416,
                 "sourceTickVerified": false,
                 "direction": "UNDETERMINED",
                 "pspot_experimental": null
@@ -838,7 +838,7 @@
                 "policy_metrics_stale_or_future"
               ],
               "research": {
-                "published_spread_bps": 1.54667079,
+                "published_spread_bps": 3.10318076,
                 "sourceTickVerified": false,
                 "direction": "UNDETERMINED",
                 "pspot_experimental": null
@@ -864,7 +864,7 @@
                 "policy_metrics_stale_or_future"
               ],
               "research": {
-                "published_spread_bps": 2.97162102,
+                "published_spread_bps": 0.99112939,
                 "sourceTickVerified": false,
                 "direction": "UNDETERMINED",
                 "pspot_experimental": null
@@ -890,7 +890,7 @@
                 "policy_metrics_stale_or_future"
               ],
               "research": {
-                "published_spread_bps": 2.69757773,
+                "published_spread_bps": 2.05860696,
                 "sourceTickVerified": false,
                 "direction": "UNDETERMINED",
                 "pspot_experimental": null
@@ -925,7 +925,7 @@
                 "policy_metrics_stale_or_future"
               ],
               "research": {
-                "published_spread_bps": 0.00146548,
+                "published_spread_bps": 0.00146389,
                 "sourceTickVerified": false,
                 "direction": "UNDETERMINED",
                 "pspot_experimental": null
@@ -951,7 +951,7 @@
                 "policy_metrics_stale_or_future"
               ],
               "research": {
-                "published_spread_bps": 0.62267793,
+                "published_spread_bps": 0.20720772,
                 "sourceTickVerified": false,
                 "direction": "UNDETERMINED",
                 "pspot_experimental": null
@@ -977,7 +977,7 @@
                 "policy_metrics_stale_or_future"
               ],
               "research": {
-                "published_spread_bps": 1.26238717,
+                "published_spread_bps": 1.29257416,
                 "sourceTickVerified": false,
                 "direction": "UNDETERMINED",
                 "pspot_experimental": null
@@ -1003,7 +1003,7 @@
                 "policy_metrics_stale_or_future"
               ],
               "research": {
-                "published_spread_bps": 1.54667079,
+                "published_spread_bps": 3.10318076,
                 "sourceTickVerified": false,
                 "direction": "UNDETERMINED",
                 "pspot_experimental": null
@@ -1029,7 +1029,7 @@
                 "policy_metrics_stale_or_future"
               ],
               "research": {
-                "published_spread_bps": 2.97162102,
+                "published_spread_bps": 0.99112939,
                 "sourceTickVerified": false,
                 "direction": "UNDETERMINED",
                 "pspot_experimental": null
@@ -1055,7 +1055,7 @@
                 "policy_metrics_stale_or_future"
               ],
               "research": {
-                "published_spread_bps": 2.69757773,
+                "published_spread_bps": 2.05860696,
                 "sourceTickVerified": false,
                 "direction": "UNDETERMINED",
                 "pspot_experimental": null
@@ -1090,7 +1090,7 @@
                 "policy_metrics_stale_or_future"
               ],
               "research": {
-                "published_spread_bps": 0.00146548,
+                "published_spread_bps": 0.00146389,
                 "sourceTickVerified": false,
                 "direction": "UNDETERMINED",
                 "pspot_experimental": null
@@ -1116,7 +1116,7 @@
                 "policy_metrics_stale_or_future"
               ],
               "research": {
-                "published_spread_bps": 0.62267793,
+                "published_spread_bps": 0.20720772,
                 "sourceTickVerified": false,
                 "direction": "UNDETERMINED",
                 "pspot_experimental": null
@@ -1142,7 +1142,7 @@
                 "policy_metrics_stale_or_future"
               ],
               "research": {
-                "published_spread_bps": 1.26238717,
+                "published_spread_bps": 1.29257416,
                 "sourceTickVerified": false,
                 "direction": "UNDETERMINED",
                 "pspot_experimental": null
@@ -1168,7 +1168,7 @@
                 "policy_metrics_stale_or_future"
               ],
               "research": {
-                "published_spread_bps": 1.54667079,
+                "published_spread_bps": 3.10318076,
                 "sourceTickVerified": false,
                 "direction": "UNDETERMINED",
                 "pspot_experimental": null
@@ -1194,7 +1194,7 @@
                 "policy_metrics_stale_or_future"
               ],
               "research": {
-                "published_spread_bps": 2.97162102,
+                "published_spread_bps": 0.99112939,
                 "sourceTickVerified": false,
                 "direction": "UNDETERMINED",
                 "pspot_experimental": null
@@ -1220,7 +1220,7 @@
                 "policy_metrics_stale_or_future"
               ],
               "research": {
-                "published_spread_bps": 2.69757773,
+                "published_spread_bps": 2.05860696,
                 "sourceTickVerified": false,
                 "direction": "UNDETERMINED",
                 "pspot_experimental": null
@@ -1275,10 +1275,10 @@
           "BNB"
         ],
         "timeframe": "15m",
-        "window_start_utc": "2026-11-13T21:30:00Z",
-        "window_end_utc": "2026-11-13T21:45:00Z"
+        "window_start_utc": "2026-11-14T01:30:00Z",
+        "window_end_utc": "2026-11-14T01:45:00Z"
       },
-      "input_sha256": "47ea3d0463277a3933d97d64d5f835a7b8906c85f0c895d63795239b4eb0a525",
+      "input_sha256": "502da0f84096b14705407ad1fe6cef5176cff975a86cbbd794e72e4d4eeb38a7",
       "modelDisagreement": null,
       "modelDisagreementAssessment": "REQUIRES_SEPARATE_SCOPE_AND_METHODOLOGY_REVIEW",
       "timeframe": "15m"
@@ -1287,7 +1287,7 @@
       "schema_version": "1.0",
       "system": "MONEY Ω",
       "mode": "PAPER",
-      "generated_at_utc": "2026-11-13T21:37:54.951688Z",
+      "generated_at_utc": "2026-11-14T01:43:35.873415Z",
       "strategies": [
         {
           "strategy_id": "MONEY_GAMBLER_PAPER_V1",
@@ -1312,7 +1312,7 @@
                 "policy_metrics_stale_or_future"
               ],
               "research": {
-                "published_spread_bps": 0.00146548,
+                "published_spread_bps": 0.00146389,
                 "sourceTickVerified": false,
                 "direction": "UNDETERMINED",
                 "pspot_experimental": null
@@ -1338,7 +1338,7 @@
                 "policy_metrics_stale_or_future"
               ],
               "research": {
-                "published_spread_bps": 0.62267793,
+                "published_spread_bps": 0.20720772,
                 "sourceTickVerified": false,
                 "direction": "UNDETERMINED",
                 "pspot_experimental": null
@@ -1364,7 +1364,7 @@
                 "policy_metrics_stale_or_future"
               ],
               "research": {
-                "published_spread_bps": 1.26238717,
+                "published_spread_bps": 1.29257416,
                 "sourceTickVerified": false,
                 "direction": "UNDETERMINED",
                 "pspot_experimental": null
@@ -1390,7 +1390,7 @@
                 "policy_metrics_stale_or_future"
               ],
               "research": {
-                "published_spread_bps": 1.54667079,
+                "published_spread_bps": 3.10318076,
                 "sourceTickVerified": false,
                 "direction": "UNDETERMINED",
                 "pspot_experimental": null
@@ -1416,7 +1416,7 @@
                 "policy_metrics_stale_or_future"
               ],
               "research": {
-                "published_spread_bps": 2.97162102,
+                "published_spread_bps": 0.99112939,
                 "sourceTickVerified": false,
                 "direction": "UNDETERMINED",
                 "pspot_experimental": null
@@ -1442,7 +1442,7 @@
                 "policy_metrics_stale_or_future"
               ],
               "research": {
-                "published_spread_bps": 2.69757773,
+                "published_spread_bps": 2.05860696,
                 "sourceTickVerified": false,
                 "direction": "UNDETERMINED",
                 "pspot_experimental": null
@@ -1477,7 +1477,7 @@
                 "policy_metrics_stale_or_future"
               ],
               "research": {
-                "published_spread_bps": 0.00146548,
+                "published_spread_bps": 0.00146389,
                 "sourceTickVerified": false,
                 "direction": "UNDETERMINED",
                 "pspot_experimental": null
@@ -1503,7 +1503,7 @@
                 "policy_metrics_stale_or_future"
               ],
               "research": {
-                "published_spread_bps": 0.62267793,
+                "published_spread_bps": 0.20720772,
                 "sourceTickVerified": false,
                 "direction": "UNDETERMINED",
                 "pspot_experimental": null
@@ -1529,7 +1529,7 @@
                 "policy_metrics_stale_or_future"
               ],
               "research": {
-                "published_spread_bps": 1.26238717,
+                "published_spread_bps": 1.29257416,
                 "sourceTickVerified": false,
                 "direction": "UNDETERMINED",
                 "pspot_experimental": null
@@ -1555,7 +1555,7 @@
                 "policy_metrics_stale_or_future"
               ],
               "research": {
-                "published_spread_bps": 1.54667079,
+                "published_spread_bps": 3.10318076,
                 "sourceTickVerified": false,
                 "direction": "UNDETERMINED",
                 "pspot_experimental": null
@@ -1581,7 +1581,7 @@
                 "policy_metrics_stale_or_future"
               ],
               "research": {
-                "published_spread_bps": 2.97162102,
+                "published_spread_bps": 0.99112939,
                 "sourceTickVerified": false,
                 "direction": "UNDETERMINED",
                 "pspot_experimental": null
@@ -1607,7 +1607,7 @@
                 "policy_metrics_stale_or_future"
               ],
               "research": {
-                "published_spread_bps": 2.69757773,
+                "published_spread_bps": 2.05860696,
                 "sourceTickVerified": false,
                 "direction": "UNDETERMINED",
                 "pspot_experimental": null
@@ -1642,7 +1642,7 @@
                 "policy_metrics_stale_or_future"
               ],
               "research": {
-                "published_spread_bps": 0.00146548,
+                "published_spread_bps": 0.00146389,
                 "sourceTickVerified": false,
                 "direction": "UNDETERMINED",
                 "pspot_experimental": null
@@ -1668,7 +1668,7 @@
                 "policy_metrics_stale_or_future"
               ],
               "research": {
-                "published_spread_bps": 0.62267793,
+                "published_spread_bps": 0.20720772,
                 "sourceTickVerified": false,
                 "direction": "UNDETERMINED",
                 "pspot_experimental": null
@@ -1694,7 +1694,7 @@
                 "policy_metrics_stale_or_future"
               ],
               "research": {
-                "published_spread_bps": 1.26238717,
+                "published_spread_bps": 1.29257416,
                 "sourceTickVerified": false,
                 "direction": "UNDETERMINED",
                 "pspot_experimental": null
@@ -1720,7 +1720,7 @@
                 "policy_metrics_stale_or_future"
               ],
               "research": {
-                "published_spread_bps": 1.54667079,
+                "published_spread_bps": 3.10318076,
                 "sourceTickVerified": false,
                 "direction": "UNDETERMINED",
                 "pspot_experimental": null
@@ -1746,7 +1746,7 @@
                 "policy_metrics_stale_or_future"
               ],
               "research": {
-                "published_spread_bps": 2.97162102,
+                "published_spread_bps": 0.99112939,
                 "sourceTickVerified": false,
                 "direction": "UNDETERMINED",
                 "pspot_experimental": null
@@ -1772,7 +1772,7 @@
                 "policy_metrics_stale_or_future"
               ],
               "research": {
-                "published_spread_bps": 2.69757773,
+                "published_spread_bps": 2.05860696,
                 "sourceTickVerified": false,
                 "direction": "UNDETERMINED",
                 "pspot_experimental": null
@@ -1827,10 +1827,10 @@
           "BNB"
         ],
         "timeframe": "1h",
-        "window_start_utc": "2026-11-13T21:00:00Z",
-        "window_end_utc": "2026-11-13T22:00:00Z"
+        "window_start_utc": "2026-11-14T01:00:00Z",
+        "window_end_utc": "2026-11-14T02:00:00Z"
       },
-      "input_sha256": "70409ef7d984e94d9b35c887f5b44cb8e332ac8a60c14045cddea97836e4eb4b",
+      "input_sha256": "f686e00212e1ad2510fa21a06f318be2d2159fcf0f1cd5e9b29c077dee668c60",
       "modelDisagreement": null,
       "modelDisagreementAssessment": "REQUIRES_SEPARATE_SCOPE_AND_METHODOLOGY_REVIEW",
       "timeframe": "1h"
@@ -1841,7 +1841,7 @@
       "schema_version": "1.0",
       "mode": "PAPER",
       "timeframe": "5m",
-      "observed_at_utc": "2026-11-13T21:37:54.951688Z",
+      "observed_at_utc": "2026-11-14T01:43:35.873415Z",
       "assets": [
         {
           "asset": "BTC",
@@ -1852,11 +1852,11 @@
             "source": "COINBASE_EXCHANGE",
             "quote_currency": "USD",
             "status": "OBSERVED",
-            "last_trade_price": 68237.21,
-            "bid": 68237.21,
-            "ask": 68237.22,
-            "last_trade_at_utc": "2026-11-13T21:37:49.046027Z",
-            "received_at_utc": "2026-11-13T21:37:49.702303Z",
+            "last_trade_price": 68311.0,
+            "bid": 68310.99,
+            "ask": 68311.0,
+            "last_trade_at_utc": "2026-11-14T01:43:29.893234Z",
+            "received_at_utc": "2026-11-14T01:43:30.624243Z",
             "bid_ask_timestamp_verified": false
           }
         },
@@ -1869,11 +1869,11 @@
             "source": "COINBASE_EXCHANGE",
             "quote_currency": "USD",
             "status": "OBSERVED",
-            "last_trade_price": 1927.07,
-            "bid": 1927.1,
-            "ask": 1927.22,
-            "last_trade_at_utc": "2026-11-13T21:37:50.162202Z",
-            "received_at_utc": "2026-11-13T21:37:50.737081Z",
+            "last_trade_price": 1930.45,
+            "bid": 1930.41,
+            "ask": 1930.45,
+            "last_trade_at_utc": "2026-11-14T01:43:31.009038Z",
+            "received_at_utc": "2026-11-14T01:43:31.673930Z",
             "bid_ask_timestamp_verified": false
           }
         },
@@ -1886,11 +1886,11 @@
             "source": "COINBASE_EXCHANGE",
             "quote_currency": "USD",
             "status": "OBSERVED",
-            "last_trade_price": 79.2,
-            "bid": 79.21,
-            "ask": 79.22,
-            "last_trade_at_utc": "2026-11-13T21:37:48.151200Z",
-            "received_at_utc": "2026-11-13T21:37:51.780814Z",
+            "last_trade_price": 77.34,
+            "bid": 77.36,
+            "ask": 77.37,
+            "last_trade_at_utc": "2026-11-14T01:43:32.474529Z",
+            "received_at_utc": "2026-11-14T01:43:32.719858Z",
             "bid_ask_timestamp_verified": false
           }
         },
@@ -1903,11 +1903,11 @@
             "source": "COINBASE_EXCHANGE",
             "quote_currency": "USD",
             "status": "OBSERVED",
-            "last_trade_price": 0.06466,
-            "bid": 0.06465,
-            "ask": 0.06466,
-            "last_trade_at_utc": "2026-11-13T21:37:51.674690Z",
-            "received_at_utc": "2026-11-13T21:37:52.824776Z",
+            "last_trade_price": 0.06444,
+            "bid": 0.06444,
+            "ask": 0.06446,
+            "last_trade_at_utc": "2026-11-14T01:43:28.012505Z",
+            "received_at_utc": "2026-11-14T01:43:33.768684Z",
             "bid_ask_timestamp_verified": false
           }
         },
@@ -1920,11 +1920,11 @@
             "source": "COINBASE_EXCHANGE",
             "quote_currency": "USD",
             "status": "OBSERVED",
-            "last_trade_price": 1.0097,
-            "bid": 1.0094,
-            "ask": 1.0097,
-            "last_trade_at_utc": "2026-11-13T21:37:53.264872Z",
-            "received_at_utc": "2026-11-13T21:37:53.864441Z",
+            "last_trade_price": 1.009,
+            "bid": 1.0089,
+            "ask": 1.009,
+            "last_trade_at_utc": "2026-11-14T01:43:33.526667Z",
+            "received_at_utc": "2026-11-14T01:43:34.819446Z",
             "bid_ask_timestamp_verified": false
           }
         },
@@ -1937,11 +1937,11 @@
             "source": "COINBASE_EXCHANGE",
             "quote_currency": "USD",
             "status": "OBSERVED",
-            "last_trade_price": 630.06,
-            "bid": 630.11,
-            "ask": 630.28,
-            "last_trade_at_utc": "2026-11-13T21:37:43.734452Z",
-            "received_at_utc": "2026-11-13T21:37:54.951601Z",
+            "last_trade_price": 631.44,
+            "bid": 631.43,
+            "ask": 631.56,
+            "last_trade_at_utc": "2026-11-14T01:43:28.140762Z",
+            "received_at_utc": "2026-11-14T01:43:35.873342Z",
             "bid_ask_timestamp_verified": false
           }
         }
@@ -1951,7 +1951,7 @@
       "schema_version": "1.0",
       "mode": "PAPER",
       "timeframe": "15m",
-      "observed_at_utc": "2026-11-13T21:37:54.951688Z",
+      "observed_at_utc": "2026-11-14T01:43:35.873415Z",
       "assets": [
         {
           "asset": "BTC",
@@ -1962,11 +1962,11 @@
             "source": "COINBASE_EXCHANGE",
             "quote_currency": "USD",
             "status": "OBSERVED",
-            "last_trade_price": 68237.21,
-            "bid": 68237.21,
-            "ask": 68237.22,
-            "last_trade_at_utc": "2026-11-13T21:37:49.046027Z",
-            "received_at_utc": "2026-11-13T21:37:49.702303Z",
+            "last_trade_price": 68311.0,
+            "bid": 68310.99,
+            "ask": 68311.0,
+            "last_trade_at_utc": "2026-11-14T01:43:29.893234Z",
+            "received_at_utc": "2026-11-14T01:43:30.624243Z",
             "bid_ask_timestamp_verified": false
           }
         },
@@ -1979,11 +1979,11 @@
             "source": "COINBASE_EXCHANGE",
             "quote_currency": "USD",
             "status": "OBSERVED",
-            "last_trade_price": 1927.07,
-            "bid": 1927.1,
-            "ask": 1927.22,
-            "last_trade_at_utc": "2026-11-13T21:37:50.162202Z",
-            "received_at_utc": "2026-11-13T21:37:50.737081Z",
+            "last_trade_price": 1930.45,
+            "bid": 1930.41,
+            "ask": 1930.45,
+            "last_trade_at_utc": "2026-11-14T01:43:31.009038Z",
+            "received_at_utc": "2026-11-14T01:43:31.673930Z",
             "bid_ask_timestamp_verified": false
           }
         },
@@ -1996,11 +1996,11 @@
             "source": "COINBASE_EXCHANGE",
             "quote_currency": "USD",
             "status": "OBSERVED",
-            "last_trade_price": 79.2,
-            "bid": 79.21,
-            "ask": 79.22,
-            "last_trade_at_utc": "2026-11-13T21:37:48.151200Z",
-            "received_at_utc": "2026-11-13T21:37:51.780814Z",
+            "last_trade_price": 77.34,
+            "bid": 77.36,
+            "ask": 77.37,
+            "last_trade_at_utc": "2026-11-14T01:43:32.474529Z",
+            "received_at_utc": "2026-11-14T01:43:32.719858Z",
             "bid_ask_timestamp_verified": false
           }
         },
@@ -2013,11 +2013,11 @@
             "source": "COINBASE_EXCHANGE",
             "quote_currency": "USD",
             "status": "OBSERVED",
-            "last_trade_price": 0.06466,
-            "bid": 0.06465,
-            "ask": 0.06466,
-            "last_trade_at_utc": "2026-11-13T21:37:51.674690Z",
-            "received_at_utc": "2026-11-13T21:37:52.824776Z",
+            "last_trade_price": 0.06444,
+            "bid": 0.06444,
+            "ask": 0.06446,
+            "last_trade_at_utc": "2026-11-14T01:43:28.012505Z",
+            "received_at_utc": "2026-11-14T01:43:33.768684Z",
             "bid_ask_timestamp_verified": false
           }
         },
@@ -2030,11 +2030,11 @@
             "source": "COINBASE_EXCHANGE",
             "quote_currency": "USD",
             "status": "OBSERVED",
-            "last_trade_price": 1.0097,
-            "bid": 1.0094,
-            "ask": 1.0097,
-            "last_trade_at_utc": "2026-11-13T21:37:53.264872Z",
-            "received_at_utc": "2026-11-13T21:37:53.864441Z",
+            "last_trade_price": 1.009,
+            "bid": 1.0089,
+            "ask": 1.009,
+            "last_trade_at_utc": "2026-11-14T01:43:33.526667Z",
+            "received_at_utc": "2026-11-14T01:43:34.819446Z",
             "bid_ask_timestamp_verified": false
           }
         },
@@ -2047,11 +2047,11 @@
             "source": "COINBASE_EXCHANGE",
             "quote_currency": "USD",
             "status": "OBSERVED",
-            "last_trade_price": 630.06,
-            "bid": 630.11,
-            "ask": 630.28,
-            "last_trade_at_utc": "2026-11-13T21:37:43.734452Z",
-            "received_at_utc": "2026-11-13T21:37:54.951601Z",
+            "last_trade_price": 631.44,
+            "bid": 631.43,
+            "ask": 631.56,
+            "last_trade_at_utc": "2026-11-14T01:43:28.140762Z",
+            "received_at_utc": "2026-11-14T01:43:35.873342Z",
             "bid_ask_timestamp_verified": false
           }
         }
@@ -2061,7 +2061,7 @@
       "schema_version": "1.0",
       "mode": "PAPER",
       "timeframe": "1h",
-      "observed_at_utc": "2026-11-13T21:37:54.951688Z",
+      "observed_at_utc": "2026-11-14T01:43:35.873415Z",
       "assets": [
         {
           "asset": "BTC",
@@ -2072,11 +2072,11 @@
             "source": "COINBASE_EXCHANGE",
             "quote_currency": "USD",
             "status": "OBSERVED",
-            "last_trade_price": 68237.21,
-            "bid": 68237.21,
-            "ask": 68237.22,
-            "last_trade_at_utc": "2026-11-13T21:37:49.046027Z",
-            "received_at_utc": "2026-11-13T21:37:49.702303Z",
+            "last_trade_price": 68311.0,
+            "bid": 68310.99,
+            "ask": 68311.0,
+            "last_trade_at_utc": "2026-11-14T01:43:29.893234Z",
+            "received_at_utc": "2026-11-14T01:43:30.624243Z",
             "bid_ask_timestamp_verified": false
           }
         },
@@ -2089,11 +2089,11 @@
             "source": "COINBASE_EXCHANGE",
             "quote_currency": "USD",
             "status": "OBSERVED",
-            "last_trade_price": 1927.07,
-            "bid": 1927.1,
-            "ask": 1927.22,
-            "last_trade_at_utc": "2026-11-13T21:37:50.162202Z",
-            "received_at_utc": "2026-11-13T21:37:50.737081Z",
+            "last_trade_price": 1930.45,
+            "bid": 1930.41,
+            "ask": 1930.45,
+            "last_trade_at_utc": "2026-11-14T01:43:31.009038Z",
+            "received_at_utc": "2026-11-14T01:43:31.673930Z",
             "bid_ask_timestamp_verified": false
           }
         },
@@ -2106,11 +2106,11 @@
             "source": "COINBASE_EXCHANGE",
             "quote_currency": "USD",
             "status": "OBSERVED",
-            "last_trade_price": 79.2,
-            "bid": 79.21,
-            "ask": 79.22,
-            "last_trade_at_utc": "2026-11-13T21:37:48.151200Z",
-            "received_at_utc": "2026-11-13T21:37:51.780814Z",
+            "last_trade_price": 77.34,
+            "bid": 77.36,
+            "ask": 77.37,
+            "last_trade_at_utc": "2026-11-14T01:43:32.474529Z",
+            "received_at_utc": "2026-11-14T01:43:32.719858Z",
             "bid_ask_timestamp_verified": false
           }
         },
@@ -2123,11 +2123,11 @@
             "source": "COINBASE_EXCHANGE",
             "quote_currency": "USD",
             "status": "OBSERVED",
-            "last_trade_price": 0.06466,
-            "bid": 0.06465,
-            "ask": 0.06466,
-            "last_trade_at_utc": "2026-11-13T21:37:51.674690Z",
-            "received_at_utc": "2026-11-13T21:37:52.824776Z",
+            "last_trade_price": 0.06444,
+            "bid": 0.06444,
+            "ask": 0.06446,
+            "last_trade_at_utc": "2026-11-14T01:43:28.012505Z",
+            "received_at_utc": "2026-11-14T01:43:33.768684Z",
             "bid_ask_timestamp_verified": false
           }
         },
@@ -2140,11 +2140,11 @@
             "source": "COINBASE_EXCHANGE",
             "quote_currency": "USD",
             "status": "OBSERVED",
-            "last_trade_price": 1.0097,
-            "bid": 1.0094,
-            "ask": 1.0097,
-            "last_trade_at_utc": "2026-11-13T21:37:53.264872Z",
-            "received_at_utc": "2026-11-13T21:37:53.864441Z",
+            "last_trade_price": 1.009,
+            "bid": 1.0089,
+            "ask": 1.009,
+            "last_trade_at_utc": "2026-11-14T01:43:33.526667Z",
+            "received_at_utc": "2026-11-14T01:43:34.819446Z",
             "bid_ask_timestamp_verified": false
           }
         },
@@ -2157,11 +2157,11 @@
             "source": "COINBASE_EXCHANGE",
             "quote_currency": "USD",
             "status": "OBSERVED",
-            "last_trade_price": 630.06,
-            "bid": 630.11,
-            "ask": 630.28,
-            "last_trade_at_utc": "2026-11-13T21:37:43.734452Z",
-            "received_at_utc": "2026-11-13T21:37:54.951601Z",
+            "last_trade_price": 631.44,
+            "bid": 631.43,
+            "ask": 631.56,
+            "last_trade_at_utc": "2026-11-14T01:43:28.140762Z",
+            "received_at_utc": "2026-11-14T01:43:35.873342Z",
             "bid_ask_timestamp_verified": false
           }
         }
@@ -2170,10 +2170,10 @@
   ],
   "risk_state": "HALT",
   "counts": {
-    "observations": 24,
+    "observations": 6,
     "sources": 6,
-    "records": 12,
-    "cycles": 4
+    "records": 3,
+    "cycles": 1
   },
   "audit_integrity": true,
   "paper_execution_enabled": false,
