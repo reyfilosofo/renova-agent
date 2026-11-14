@@ -1,0 +1,31 @@
+name: CENTRO T-052 Synthetic Validator QA
+on:
+  pull_request:
+    paths:
+      - 'centro-lab/validation/t051/**'
+      - 'centro-lab/validation/t052/**'
+      - '.github/workflows/centro-t052-validator.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  synthetic-validator-regression:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Python version
+        run: python3 --version
+      - name: Run 13 deterministic synthetic regression cases
+        run: |
+          mkdir -p /tmp/centro-t052
+          set -o pipefail
+          python3 centro-lab/validation/t052/t052_ci_runner.py | tee /tmp/centro-t052/qa-report.json
+      - name: Publish synthetic QA report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: centro-t052-synthetic-qa
+          path: /tmp/centro-t052/qa-report.json
+          if-no-files-found: error
