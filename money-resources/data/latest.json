@@ -2,7 +2,7 @@
   "schema_version": "1.1",
   "system": "MONEY Ω",
   "rail": "RESOURCE",
-  "generated_at_utc": "2026-11-20T07:12:48.963318Z",
+  "generated_at_utc": "2026-11-20T20:16:00.394080Z",
   "mode": "READ_ONLY",
   "verified_income_usd": null,
   "income_status": "NO VERIFIED RECEIPTS",
@@ -16,15 +16,15 @@
       "title": "Zealy public program catalogue",
       "official_url": "https://zealy.io/",
       "deadline_utc": null,
-      "last_verified_at_utc": "2026-11-20T07:12:48.018930Z",
+      "last_verified_at_utc": "2026-11-20T20:15:59.725734Z",
       "classification": "WATCH",
       "ev_status": "DATA INSUFFICIENT",
       "discovery_only": true,
       "source_evidence": [
         {
           "url": "https://zealy.io/",
-          "observed_at_utc": "2026-11-20T07:12:48.018930Z",
-          "content_sha256": "ad5cde903be96262a3a099c2fa09a7db11cf7ac719ed6b657572156a9584cc66",
+          "observed_at_utc": "2026-11-20T20:15:59.725734Z",
+          "content_sha256": "58f2c33b41c3dd72f461cf47ba542ced9f09d7afd3e0a601d6c127f2ef1c43e0",
           "http_status": 200
         }
       ],
@@ -71,15 +71,15 @@
       "title": "Share your opinions, get paid. It's that easy.",
       "official_url": "https://www.userinterviews.com/hello",
       "deadline_utc": null,
-      "last_verified_at_utc": "2026-11-20T07:12:47.538730Z",
+      "last_verified_at_utc": "2026-11-20T20:15:59.215964Z",
       "classification": "WATCH",
       "ev_status": "DATA INSUFFICIENT",
       "discovery_only": true,
       "source_evidence": [
         {
           "url": "https://www.userinterviews.com/hello",
-          "observed_at_utc": "2026-11-20T07:12:47.538730Z",
-          "content_sha256": "9df5f640793138703f764a9917723f513f7f2bd76dacc9cdcdc082eca035ff45",
+          "observed_at_utc": "2026-11-20T20:15:59.215964Z",
+          "content_sha256": "ce9281f36932cd87fc929f7af16b4de77f7e4081caa1a79083309e360ed4a055",
           "http_status": 200
         }
       ],
@@ -126,15 +126,15 @@
       "title": "Get paid to share your perspective.",
       "official_url": "https://www.respondent.io/become-a-participant",
       "deadline_utc": null,
-      "last_verified_at_utc": "2026-11-20T07:12:47.258136Z",
+      "last_verified_at_utc": "2026-11-20T20:15:58.989846Z",
       "classification": "WATCH",
       "ev_status": "DATA INSUFFICIENT",
       "discovery_only": true,
       "source_evidence": [
         {
           "url": "https://www.respondent.io/become-a-participant",
-          "observed_at_utc": "2026-11-20T07:12:47.258136Z",
-          "content_sha256": "15d63a49ba6bdda9a8e9d9a12e96c9260d5ebf51710a3904c21585ef4c4fb830",
+          "observed_at_utc": "2026-11-20T20:15:58.989846Z",
+          "content_sha256": "933cd2bdd447557015085625e729d38d8b97bdebdb0a500df7ea2b74463a4304",
           "http_status": 200
         }
       ],
@@ -181,15 +181,15 @@
       "title": "Get paid to take studies",
       "official_url": "https://www.prolific.com/participants",
       "deadline_utc": null,
-      "last_verified_at_utc": "2026-11-20T07:12:46.944272Z",
+      "last_verified_at_utc": "2026-11-20T20:15:58.702564Z",
       "classification": "WATCH",
       "ev_status": "DATA INSUFFICIENT",
       "discovery_only": true,
       "source_evidence": [
         {
           "url": "https://www.prolific.com/participants",
-          "observed_at_utc": "2026-11-20T07:12:46.944272Z",
-          "content_sha256": "913cc9cb7744eab1607781f58a9d844c18cb32f6120f8231f1d34e7a5f111e35",
+          "observed_at_utc": "2026-11-20T20:15:58.702564Z",
+          "content_sha256": "a66f86a79a352aa70a19ddeae8dc53fd12324d5c17fc315e1aa1ccf44373f938",
           "http_status": 200
         }
       ],
@@ -236,24 +236,24 @@
       "title": "SSV Network",
       "official_url": "https://immunefi.com/bug-bounty/ssvnetwork/information/",
       "deadline_utc": null,
-      "last_verified_at_utc": "2026-11-20T07:12:37.810332Z",
+      "last_verified_at_utc": "2026-11-20T20:15:49.475053Z",
       "classification": "WATCH",
       "ev_status": "DATA INSUFFICIENT",
       "discovery_only": true,
       "source_evidence": [
         {
           "url": "https://immunefi.com/bug-bounty/ssvnetwork/information/",
-          "observed_at_utc": "2026-11-20T07:12:37.810332Z",
-          "content_sha256": "44b31646264e5e55043d3e7ae20d5085ac9e7587f2ab66dd6bebf8dbef606717",
+          "observed_at_utc": "2026-11-20T20:15:49.475053Z",
+          "content_sha256": "96b063937cc3651f2d8fa6bf63d15cac9e3a43e022ecc3a3552f3653aff404c1",
           "http_status": 200
         }
       ],
       "evidence_freshness": "FRESH",
       "advertised_max_reward_usd": 250000.0,
-      "detail_verified_at_utc": "2026-11-20T07:12:37.810332Z",
+      "detail_verified_at_utc": "2026-11-20T20:15:49.475053Z",
       "programme_launch_at_utc": "2023-09-11T16:00:00Z",
       "programme_updated_at_utc": "2026-09-13T09:14:03.442000Z",
-      "availability_checked_at_utc": "2026-11-20T07:12:37.810332Z",
+      "availability_checked_at_utc": "2026-11-20T20:15:49.475053Z",
       "verification_scope": "PUBLIC_PROGRAM_TERMS_ONLY",
       "detail_status": "ACTIVE",
       "availability_status": "ACTIVE",
@@ -290,24 +290,24 @@
       "title": "Cosmos",
       "official_url": "https://immunefi.com/bug-bounty/cosmos/information/",
       "deadline_utc": null,
-      "last_verified_at_utc": "2026-11-20T07:12:39.634041Z",
+      "last_verified_at_utc": "2026-11-20T20:15:51.507873Z",
       "classification": "WATCH",
       "ev_status": "DATA INSUFFICIENT",
       "discovery_only": true,
       "source_evidence": [
         {
           "url": "https://immunefi.com/bug-bounty/cosmos/information/",
-          "observed_at_utc": "2026-11-20T07:12:39.634041Z",
-          "content_sha256": "d5d67b43ca01ca015ded7e5321e463f420c792af0c227df6cc965f0c56a0c704",
+          "observed_at_utc": "2026-11-20T20:15:51.507873Z",
+          "content_sha256": "422fa244aa03f500ae88eadeabd43ccc414d0f9a5106a86ce11feaeee367de93",
           "http_status": 200
         }
       ],
       "evidence_freshness": "FRESH",
       "advertised_max_reward_usd": 50000.0,
-      "detail_verified_at_utc": "2026-11-20T07:12:39.634041Z",
+      "detail_verified_at_utc": "2026-11-20T20:15:51.507873Z",
       "programme_launch_at_utc": "2026-06-22T21:39:00Z",
       "programme_updated_at_utc": "2026-11-12T18:11:44.515000Z",
-      "availability_checked_at_utc": "2026-11-20T07:12:39.634041Z",
+      "availability_checked_at_utc": "2026-11-20T20:15:51.507873Z",
       "verification_scope": "PUBLIC_PROGRAM_TERMS_ONLY",
       "detail_status": "ACTIVE",
       "availability_status": "ACTIVE",
@@ -344,24 +344,24 @@
       "title": "Lombard Finance",
       "official_url": "https://immunefi.com/bug-bounty/lombard-finance/information/",
       "deadline_utc": null,
-      "last_verified_at_utc": "2026-11-20T07:12:40.713585Z",
+      "last_verified_at_utc": "2026-11-20T20:15:52.468458Z",
       "classification": "WATCH",
       "ev_status": "DATA INSUFFICIENT",
       "discovery_only": true,
       "source_evidence": [
         {
           "url": "https://immunefi.com/bug-bounty/lombard-finance/information/",
-          "observed_at_utc": "2026-11-20T07:12:40.713585Z",
-          "content_sha256": "7947fbcd88d8a550e6fd60c0c156e4817874b9eda5823c892af4d89acb5487e6",
+          "observed_at_utc": "2026-11-20T20:15:52.468458Z",
+          "content_sha256": "6a2bc0914b70592b356e911585d9126dfc4f1aef23cc3587571e7a062ee50297",
           "http_status": 200
         }
       ],
       "evidence_freshness": "FRESH",
       "advertised_max_reward_usd": 500000.0,
-      "detail_verified_at_utc": "2026-11-20T07:12:40.713585Z",
+      "detail_verified_at_utc": "2026-11-20T20:15:52.468458Z",
       "programme_launch_at_utc": "2024-09-04T00:00:00Z",
       "programme_updated_at_utc": "2026-10-15T19:31:58.175000Z",
-      "availability_checked_at_utc": "2026-11-20T07:12:40.713585Z",
+      "availability_checked_at_utc": "2026-11-20T20:15:52.468458Z",
       "verification_scope": "PUBLIC_PROGRAM_TERMS_ONLY",
       "detail_status": "ACTIVE",
       "availability_status": "ACTIVE",
@@ -398,24 +398,24 @@
       "title": "ENS",
       "official_url": "https://immunefi.com/bug-bounty/ens/information/",
       "deadline_utc": null,
-      "last_verified_at_utc": "2026-11-20T07:12:38.626870Z",
+      "last_verified_at_utc": "2026-11-20T20:15:50.539043Z",
       "classification": "WATCH",
       "ev_status": "DATA INSUFFICIENT",
       "discovery_only": true,
       "source_evidence": [
         {
           "url": "https://immunefi.com/bug-bounty/ens/information/",
-          "observed_at_utc": "2026-11-20T07:12:38.626870Z",
-          "content_sha256": "3193d84c0e10c449059645737f0f551b0f563546fb6640b1633a52ad3a5092f9",
+          "observed_at_utc": "2026-11-20T20:15:50.539043Z",
+          "content_sha256": "d7d55d52a11c2a306d2464398db4e2df8093c63880c5e9d4150fcc8dc1ff1864",
           "http_status": 200
         }
       ],
       "evidence_freshness": "FRESH",
       "advertised_max_reward_usd": 250000.0,
-      "detail_verified_at_utc": "2026-11-20T07:12:38.626870Z",
+      "detail_verified_at_utc": "2026-11-20T20:15:50.539043Z",
       "programme_launch_at_utc": "2024-05-10T03:11:00Z",
-      "programme_updated_at_utc": "2026-11-11T06:43:41.189000Z",
-      "availability_checked_at_utc": "2026-11-20T07:12:38.626870Z",
+      "programme_updated_at_utc": "2026-11-20T13:26:03.537000Z",
+      "availability_checked_at_utc": "2026-11-20T20:15:50.539043Z",
       "verification_scope": "PUBLIC_PROGRAM_TERMS_ONLY",
       "detail_status": "ACTIVE",
       "availability_status": "ACTIVE",
@@ -452,24 +452,24 @@
       "title": "The Graph",
       "official_url": "https://immunefi.com/bug-bounty/thegraph/information/",
       "deadline_utc": null,
-      "last_verified_at_utc": "2026-11-20T07:12:41.614600Z",
+      "last_verified_at_utc": "2026-11-20T20:15:53.473422Z",
       "classification": "WATCH",
       "ev_status": "DATA INSUFFICIENT",
       "discovery_only": true,
       "source_evidence": [
         {
           "url": "https://immunefi.com/bug-bounty/thegraph/information/",
-          "observed_at_utc": "2026-11-20T07:12:41.614600Z",
-          "content_sha256": "b4e02254d4a9a2214897492e337a3c66ae5a93deca77afd6ca3bc552b183ca1e",
+          "observed_at_utc": "2026-11-20T20:15:53.473422Z",
+          "content_sha256": "c41b65b24d75a8e00d96b8c9f85383e791c8fedde367f452b0b29caf471a60e0",
           "http_status": 200
         }
       ],
       "evidence_freshness": "FRESH",
       "advertised_max_reward_usd": 50000.0,
-      "detail_verified_at_utc": "2026-11-20T07:12:41.614600Z",
+      "detail_verified_at_utc": "2026-11-20T20:15:53.473422Z",
       "programme_launch_at_utc": "2021-08-04T17:00:00Z",
       "programme_updated_at_utc": "2026-08-27T13:53:35.331000Z",
-      "availability_checked_at_utc": "2026-11-20T07:12:41.614600Z",
+      "availability_checked_at_utc": "2026-11-20T20:15:53.473422Z",
       "verification_scope": "PUBLIC_PROGRAM_TERMS_ONLY",
       "detail_status": "ACTIVE",
       "availability_status": "ACTIVE",
@@ -506,24 +506,24 @@
       "title": "DeXe Protocol",
       "official_url": "https://immunefi.com/bug-bounty/dexeprotocol/information/",
       "deadline_utc": null,
-      "last_verified_at_utc": "2026-11-20T07:12:43.583368Z",
+      "last_verified_at_utc": "2026-11-20T20:15:55.502413Z",
       "classification": "WATCH",
       "ev_status": "DATA INSUFFICIENT",
       "discovery_only": true,
       "source_evidence": [
         {
           "url": "https://immunefi.com/bug-bounty/dexeprotocol/information/",
-          "observed_at_utc": "2026-11-20T07:12:43.583368Z",
-          "content_sha256": "486455dcfb78543f6992bfc32ffcdbac5251f5c857c6e2ca2b44f3c80e878c5c",
+          "observed_at_utc": "2026-11-20T20:15:55.502413Z",
+          "content_sha256": "0e267296d36d8cbf7c691a601c20ce6eeb1a2049c5c5e3680554c14a1681d8af",
           "http_status": 200
         }
       ],
       "evidence_freshness": "FRESH",
       "advertised_max_reward_usd": 500000.0,
-      "detail_verified_at_utc": "2026-11-20T07:12:43.583368Z",
+      "detail_verified_at_utc": "2026-11-20T20:15:55.502413Z",
       "programme_launch_at_utc": "2024-01-23T20:00:00Z",
       "programme_updated_at_utc": "2024-11-13T15:46:02.266000Z",
-      "availability_checked_at_utc": "2026-11-20T07:12:43.583368Z",
+      "availability_checked_at_utc": "2026-11-20T20:15:55.502413Z",
       "verification_scope": "PUBLIC_PROGRAM_TERMS_ONLY",
       "detail_status": "ACTIVE",
       "availability_status": "ACTIVE",
@@ -560,24 +560,24 @@
       "title": "Ethena",
       "official_url": "https://immunefi.com/bug-bounty/ethena/information/",
       "deadline_utc": null,
-      "last_verified_at_utc": "2026-11-20T07:12:42.765877Z",
+      "last_verified_at_utc": "2026-11-20T20:15:54.469482Z",
       "classification": "WATCH",
       "ev_status": "DATA INSUFFICIENT",
       "discovery_only": true,
       "source_evidence": [
         {
           "url": "https://immunefi.com/bug-bounty/ethena/information/",
-          "observed_at_utc": "2026-11-20T07:12:42.765877Z",
-          "content_sha256": "cf6eddaadf7d4b7cf90de22fef832b97c342e149dfc0ada95e761a64b821787f",
+          "observed_at_utc": "2026-11-20T20:15:54.469482Z",
+          "content_sha256": "2e2f01ea687f76837f15276878339f2e7025a25ee78edec14c4ef33277181653",
           "http_status": 200
         }
       ],
       "evidence_freshness": "FRESH",
       "advertised_max_reward_usd": 3000000.0,
-      "detail_verified_at_utc": "2026-11-20T07:12:42.765877Z",
+      "detail_verified_at_utc": "2026-11-20T20:15:54.469482Z",
       "programme_launch_at_utc": "2024-04-04T16:46:29Z",
       "programme_updated_at_utc": "2026-08-11T08:18:02.651000Z",
-      "availability_checked_at_utc": "2026-11-20T07:12:42.765877Z",
+      "availability_checked_at_utc": "2026-11-20T20:15:54.469482Z",
       "verification_scope": "PUBLIC_PROGRAM_TERMS_ONLY",
       "detail_status": "ACTIVE",
       "availability_status": "ACTIVE",
@@ -614,24 +614,24 @@
       "title": "Hedera",
       "official_url": "https://immunefi.com/bug-bounty/hedera/information/",
       "deadline_utc": null,
-      "last_verified_at_utc": "2026-11-20T07:12:45.743523Z",
+      "last_verified_at_utc": "2026-11-20T20:15:57.496170Z",
       "classification": "WATCH",
       "ev_status": "DATA INSUFFICIENT",
       "discovery_only": true,
       "source_evidence": [
         {
           "url": "https://immunefi.com/bug-bounty/hedera/information/",
-          "observed_at_utc": "2026-11-20T07:12:45.743523Z",
-          "content_sha256": "af32476a94d76caeeabb1e485705d022f3e98b7d855680f6f66c6ccd60c497d7",
+          "observed_at_utc": "2026-11-20T20:15:57.496170Z",
+          "content_sha256": "ac205afdb7532671dfd4d1b0427af9742b4f0e929460816a0fcebd5d79ce9827",
           "http_status": 200
         }
       ],
       "evidence_freshness": "FRESH",
       "advertised_max_reward_usd": 30000.0,
-      "detail_verified_at_utc": "2026-11-20T07:12:45.743523Z",
+      "detail_verified_at_utc": "2026-11-20T20:15:57.496170Z",
       "programme_launch_at_utc": "2025-02-05T04:21:00Z",
       "programme_updated_at_utc": "2026-11-19T05:14:23.604000Z",
-      "availability_checked_at_utc": "2026-11-20T07:12:45.743523Z",
+      "availability_checked_at_utc": "2026-11-20T20:15:57.496170Z",
       "verification_scope": "PUBLIC_PROGRAM_TERMS_ONLY",
       "detail_status": "ACTIVE",
       "availability_status": "ACTIVE",
@@ -668,24 +668,24 @@
       "title": "Immunefi",
       "official_url": "https://immunefi.com/bug-bounty/immunefi/information/",
       "deadline_utc": null,
-      "last_verified_at_utc": "2026-11-20T07:12:44.759375Z",
+      "last_verified_at_utc": "2026-11-20T20:15:56.445941Z",
       "classification": "WATCH",
       "ev_status": "DATA INSUFFICIENT",
       "discovery_only": true,
       "source_evidence": [
         {
           "url": "https://immunefi.com/bug-bounty/immunefi/information/",
-          "observed_at_utc": "2026-11-20T07:12:44.759375Z",
-          "content_sha256": "26f68da42e604472a2e2b3e16e118129e0e2efc4d8b912551f0e533f98e70f62",
+          "observed_at_utc": "2026-11-20T20:15:56.445941Z",
+          "content_sha256": "6cf703b6450ef77c2fc1015fb9803aaa9d38d817771f3666f8d34d7bd324c974",
           "http_status": 200
         }
       ],
       "evidence_freshness": "FRESH",
       "advertised_max_reward_usd": 50000.0,
-      "detail_verified_at_utc": "2026-11-20T07:12:44.759375Z",
+      "detail_verified_at_utc": "2026-11-20T20:15:56.445941Z",
       "programme_launch_at_utc": "2020-12-02T05:00:00Z",
       "programme_updated_at_utc": "2026-09-09T12:02:37.269000Z",
-      "availability_checked_at_utc": "2026-11-20T07:12:44.759375Z",
+      "availability_checked_at_utc": "2026-11-20T20:15:56.445941Z",
       "verification_scope": "PUBLIC_PROGRAM_TERMS_ONLY",
       "detail_status": "ACTIVE",
       "availability_status": "ACTIVE",
@@ -722,24 +722,24 @@
       "title": "StackingDAO",
       "official_url": "https://immunefi.com/bug-bounty/stackingdao/information/",
       "deadline_utc": null,
-      "last_verified_at_utc": "2026-11-20T07:12:46.675500Z",
+      "last_verified_at_utc": "2026-11-20T20:15:58.455299Z",
       "classification": "WATCH",
       "ev_status": "DATA INSUFFICIENT",
       "discovery_only": true,
       "source_evidence": [
         {
           "url": "https://immunefi.com/bug-bounty/stackingdao/information/",
-          "observed_at_utc": "2026-11-20T07:12:46.675500Z",
-          "content_sha256": "782a44fd7ed26cc52ad8755c744b4edb4a4697c8f03118be30c49a991627872d",
+          "observed_at_utc": "2026-11-20T20:15:58.455299Z",
+          "content_sha256": "9f41d05704bc5918422010bea9494797d252855dc1520df89fcee14c41cd05f1",
           "http_status": 200
         }
       ],
       "evidence_freshness": "FRESH",
       "advertised_max_reward_usd": 100000.0,
-      "detail_verified_at_utc": "2026-11-20T07:12:46.675500Z",
+      "detail_verified_at_utc": "2026-11-20T20:15:58.455299Z",
       "programme_launch_at_utc": "2024-02-04T20:00:00Z",
       "programme_updated_at_utc": "2026-09-02T17:45:09.307000Z",
-      "availability_checked_at_utc": "2026-11-20T07:12:46.675500Z",
+      "availability_checked_at_utc": "2026-11-20T20:15:58.455299Z",
       "verification_scope": "PUBLIC_PROGRAM_TERMS_ONLY",
       "detail_status": "ACTIVE",
       "availability_status": "ACTIVE",
@@ -776,14 +776,14 @@
       "title": "Galxe Quest public program catalogue",
       "official_url": "https://app.galxe.com/quest/explore/all",
       "deadline_utc": null,
-      "last_verified_at_utc": "2026-11-20T07:12:36.302370Z",
+      "last_verified_at_utc": "2026-11-20T20:15:46.950553Z",
       "classification": "WATCH",
       "ev_status": "DATA INSUFFICIENT",
       "discovery_only": true,
       "source_evidence": [
         {
           "url": "https://app.galxe.com/quest/explore/all",
-          "observed_at_utc": "2026-11-20T07:12:36.302370Z",
+          "observed_at_utc": "2026-11-20T20:15:46.950553Z",
           "content_sha256": "c23f986a92a9b8972d64512bda456724c1468eea5e847cf16c38e2942b410fc5",
           "http_status": 200
         }
@@ -831,14 +831,14 @@
       "title": "Code4rena bounties public program catalogue",
       "official_url": "https://code4rena.com/bounties",
       "deadline_utc": null,
-      "last_verified_at_utc": "2026-11-20T07:12:35.933346Z",
+      "last_verified_at_utc": "2026-11-20T20:15:46.521950Z",
       "classification": "WATCH",
       "ev_status": "DATA INSUFFICIENT",
       "discovery_only": true,
       "source_evidence": [
         {
           "url": "https://code4rena.com/bounties",
-          "observed_at_utc": "2026-11-20T07:12:35.933346Z",
+          "observed_at_utc": "2026-11-20T20:15:46.521950Z",
           "content_sha256": "c4bf78e4f74bdff822d92a8473d3695f4c5c75d75bb1a9c191d32d99c79c3d33",
           "http_status": 200
         }
@@ -886,14 +886,14 @@
       "title": "Code4rena audits public program catalogue",
       "official_url": "https://code4rena.com/audits",
       "deadline_utc": null,
-      "last_verified_at_utc": "2026-11-20T07:12:35.135306Z",
+      "last_verified_at_utc": "2026-11-20T20:15:45.611002Z",
       "classification": "WATCH",
       "ev_status": "DATA INSUFFICIENT",
       "discovery_only": true,
       "source_evidence": [
         {
           "url": "https://code4rena.com/audits",
-          "observed_at_utc": "2026-11-20T07:12:35.135306Z",
+          "observed_at_utc": "2026-11-20T20:15:45.611002Z",
           "content_sha256": "318f6780817a4dbb16048e97ce014f417179cdb118c7e5c65e181b58ee7b1181",
           "http_status": 200
         }
@@ -997,7 +997,7 @@
       "provider": "code4rena",
       "url": "https://code4rena.com/audits",
       "enabled": true,
-      "last_scan_at_utc": "2026-11-20T07:12:35.158687Z",
+      "last_scan_at_utc": "2026-11-20T20:15:45.630345Z",
       "observation_freshness": "FRESH",
       "last_status": "ACCESS VERIFIED"
     },
@@ -1006,7 +1006,7 @@
       "provider": "code4rena",
       "url": "https://code4rena.com/bounties",
       "enabled": true,
-      "last_scan_at_utc": "2026-11-20T07:12:35.935452Z",
+      "last_scan_at_utc": "2026-11-20T20:15:46.523771Z",
       "observation_freshness": "FRESH",
       "last_status": "ACCESS VERIFIED"
     },
@@ -1015,7 +1015,7 @@
       "provider": "galxe",
       "url": "https://app.galxe.com/quest/explore/all",
       "enabled": true,
-      "last_scan_at_utc": "2026-11-20T07:12:36.306392Z",
+      "last_scan_at_utc": "2026-11-20T20:15:46.953857Z",
       "observation_freshness": "FRESH",
       "last_status": "ACCESS VERIFIED"
     },
@@ -1024,7 +1024,7 @@
       "provider": "github",
       "url": "https://api.github.com/repos/algora-io/algora/issues?state=open&labels=bounty&per_page=30",
       "enabled": true,
-      "last_scan_at_utc": "2026-11-20T07:12:33.442121Z",
+      "last_scan_at_utc": "2026-11-20T20:15:47.164010Z",
       "observation_freshness": "FRESH",
       "last_status": "ACCESS VERIFIED"
     },
@@ -1033,7 +1033,7 @@
       "provider": "github",
       "url": "https://api.github.com/repos/reyfilosofo/renova-agent/issues?state=open&labels=bounty&per_page=30",
       "enabled": true,
-      "last_scan_at_utc": "2026-11-20T07:12:34.455365Z",
+      "last_scan_at_utc": "2026-11-20T20:15:48.175503Z",
       "observation_freshness": "FRESH",
       "last_status": "ACCESS VERIFIED"
     },
@@ -1042,7 +1042,7 @@
       "provider": "immunefi",
       "url": "https://immunefi.com/bug-bounty/",
       "enabled": true,
-      "last_scan_at_utc": "2026-11-20T07:12:46.691908Z",
+      "last_scan_at_utc": "2026-11-20T20:15:58.468752Z",
       "observation_freshness": "FRESH",
       "last_status": "ACCESS VERIFIED"
     },
@@ -1051,7 +1051,7 @@
       "provider": "prolific",
       "url": "https://www.prolific.com/participants",
       "enabled": true,
-      "last_scan_at_utc": "2026-11-20T07:12:46.949722Z",
+      "last_scan_at_utc": "2026-11-20T20:15:58.706958Z",
       "observation_freshness": "FRESH",
       "last_status": "ACCESS VERIFIED"
     },
@@ -1060,7 +1060,7 @@
       "provider": "respondent",
       "url": "https://www.respondent.io/become-a-participant",
       "enabled": true,
-      "last_scan_at_utc": "2026-11-20T07:12:47.292368Z",
+      "last_scan_at_utc": "2026-11-20T20:15:59.017444Z",
       "observation_freshness": "FRESH",
       "last_status": "ACCESS VERIFIED"
     },
@@ -1069,7 +1069,7 @@
       "provider": "userinterviews",
       "url": "https://www.userinterviews.com/hello",
       "enabled": true,
-      "last_scan_at_utc": "2026-11-20T07:12:47.543250Z",
+      "last_scan_at_utc": "2026-11-20T20:15:59.219584Z",
       "observation_freshness": "FRESH",
       "last_status": "ACCESS VERIFIED"
     },
@@ -1078,7 +1078,7 @@
       "provider": "zealy",
       "url": "https://zealy.io/",
       "enabled": true,
-      "last_scan_at_utc": "2026-11-20T07:12:48.023368Z",
+      "last_scan_at_utc": "2026-11-20T20:15:59.729281Z",
       "observation_freshness": "FRESH",
       "last_status": "ACCESS VERIFIED"
     }
