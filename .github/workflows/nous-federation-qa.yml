@@ -1,0 +1,27 @@
+name: NOUS Federation QA
+
+on:
+  pull_request:
+    paths:
+      - '04_NOUS/integrations/**'
+      - '.github/workflows/nous-federation-qa.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  public-safe-preflight:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          persist-credentials: false
+      - uses: actions/setup-python@v6
+        with:
+          python-version: '3.11'
+      - name: Install full JSON Schema validator
+        run: python3 -m pip install 'jsonschema[format]>=4.22,<5'
+      - name: Validate federation registries and fictional handoff
+        run: python3 04_NOUS/integrations/verify_bridge.py

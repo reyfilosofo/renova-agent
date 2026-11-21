@@ -1,0 +1,31 @@
+name: NOUS Netlify Nonproduction Preview
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  preview:
+    if: ${{ vars.NOUS_NETLIFY_SITE_ID != '' }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@v6
+        with:
+          node-version: '24'
+      - name: Publish public-safe draft preview (NOT production)
+        env:
+          NETLIFY_AUTH_TOKEN: ${{ secrets.NOUS_NETLIFY_AUTH_TOKEN }}
+          NETLIFY_SITE_ID: ${{ vars.NOUS_NETLIFY_SITE_ID }}
+        run: |
+          test -n "$NETLIFY_AUTH_TOKEN" || { echo 'Configure NOUS_NETLIFY_AUTH_TOKEN secret'; exit 1; }
+          npx --yes netlify-cli@latest deploy \
+            --site "$NETLIFY_SITE_ID" \
+            --auth "$NETLIFY_AUTH_TOKEN" \
+            --dir "04_NOUS/integrations/public-portal" \
+            --message "NOUS federation public-safe preview"

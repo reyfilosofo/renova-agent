@@ -1,0 +1,32 @@
+name: NOUS Drive Read-Only Probe
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  id-token: write
+
+jobs:
+  drive:
+    if: ${{ vars.NOUS_GCP_WIF_PROVIDER != '' && vars.NOUS_GCP_SERVICE_ACCOUNT != '' && vars.NOUS_DRIVE_FOLDER_ID != '' }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          persist-credentials: false
+      - name: Authenticate via short-lived WIF (no service account key)
+        id: google-auth
+        uses: google-github-actions/auth@v3
+        with:
+          workload_identity_provider: ${{ vars.NOUS_GCP_WIF_PROVIDER }}
+          service_account: ${{ vars.NOUS_GCP_SERVICE_ACCOUNT }}
+          token_format: access_token
+          access_token_scopes: https://www.googleapis.com/auth/drive.metadata.readonly
+          create_credentials_file: false
+      - name: Check approved folder metadata only
+        env:
+          NOUS_DRIVE_ACCESS_TOKEN: ${{ steps.google-auth.outputs.access_token }}
+          NOUS_DRIVE_FOLDER_ID: ${{ vars.NOUS_DRIVE_FOLDER_ID }}
+        run: python3 04_NOUS/integrations/probe_drive.py
