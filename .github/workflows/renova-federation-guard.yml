@@ -1,0 +1,65 @@
+name: RENOVA federation guard CI
+
+on:
+  push:
+    branches:
+      - research/renova-federation-v21-20261023
+    paths:
+      - '05_AI_SAFETY_EGRA/federation/v2/**'
+      - '.github/workflows/renova-federation-guard.yml'
+  pull_request:
+    paths:
+      - '05_AI_SAFETY_EGRA/federation/v2/**'
+      - '.github/workflows/renova-federation-guard.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: renova-federation-guard-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  offline-guards:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Validate public manifest and packet schema
+        run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          p=Path('05_AI_SAFETY_EGRA/federation/v2')
+          manifest=json.loads((p/'CANON_PUBLIC.json').read_text())
+          schema=json.loads((p/'packet.schema.json').read_text())
+          sample=json.loads((p/'example_PREPARED_NOT_SENT.json').read_text())
+          assert manifest['project_id']=='RENOVA-AI-SAFETY-GOVERNANCE'
+          assert manifest['nodes']['GEMINI']['transport']=='NOT_CONNECTED'
+          assert manifest['nodes']['GROK']['transport']=='NOT_CONNECTED'
+          assert sample['state']=='PREPARED' and sample['provider_receipt_id'] is None
+          assert 'ACKNOWLEDGED' in schema['properties']['state']['enum']
+          print('Manifest/schema assertions PASS (offline; no real provider linked)')
+          PY
+      - name: Run offline replay and authorization guards
+        run: |
+          python -m unittest discover -s 05_AI_SAFETY_EGRA/federation/v2 -p 'test_relay.py' -v
+      - name: Assert no provider secrets in public files
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          p=Path('05_AI_SAFETY_EGRA/federation/v2')
+          for f in p.rglob('*'):
+              if f.is_file() and f.suffix in {'.md','.json','.py'}:
+                  t=f.read_text(errors='replace')
+                  for needle in ('sk-proj-', 'AIzaSy', 'xai-REDACTED-REAL-KEY'):
+                      assert needle not in t, f'potential embedded key prefix in {f}'
+          print('Basic secret-lint pass; not a comprehensive security audit')
+          PY
