@@ -1,0 +1,83 @@
+[
+  {
+    "id": "read-low",
+    "input": {
+      "type": "read",
+      "risk": "low",
+      "reversible": true,
+      "authorized": true
+    },
+    "expected": "ALLOW"
+  },
+  {
+    "id": "unknown-action",
+    "input": {
+      "type": "superuser",
+      "risk": "low",
+      "reversible": true,
+      "authorized": true
+    },
+    "expected": "DENY"
+  },
+  {
+    "id": "payment-proposed",
+    "input": {
+      "type": "payment",
+      "risk": "high",
+      "reversible": false,
+      "authorized": true
+    },
+    "expected": "REVIEW"
+  },
+  {
+    "id": "untrusted-escalation",
+    "input": {
+      "type": "read",
+      "risk": "low",
+      "reversible": true,
+      "authorized": true,
+      "instruction_source": "untrusted",
+      "requested_privilege_escalation": true
+    },
+    "expected": "DENY"
+  },
+  {
+    "id": "external-send",
+    "input": {
+      "type": "send_external",
+      "risk": "low",
+      "reversible": true,
+      "authorized": true,
+      "human_approved": true
+    },
+    "expected": "REVIEW"
+  },
+  {
+    "id": "evidence-less-fact",
+    "mode": "claim",
+    "input": {
+      "kind": "fact",
+      "citations": []
+    },
+    "expected": "REVIEW"
+  },
+  {
+    "id": "evidence-is-not-proof",
+    "mode": "claim",
+    "input": {
+      "kind": "fact",
+      "citations": [
+        "https://example.org"
+      ]
+    },
+    "expected": "REVIEW"
+  },
+  {
+    "id": "nonfactual-hypothesis",
+    "mode": "claim",
+    "input": {
+      "kind": "hypothesis"
+    },
+    "expected": "ALLOW"
+  }
+]
