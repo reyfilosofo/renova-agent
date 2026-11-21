@@ -1,0 +1,92 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Obra editorial ℛenova Press",
+  "type": "object",
+  "required": [
+    "obra_id",
+    "titulo",
+    "autor",
+    "genero",
+    "estado",
+    "version",
+    "source_hashes"
+  ],
+  "properties": {
+    "obra_id": {
+      "type": "string"
+    },
+    "titulo": {
+      "type": "string"
+    },
+    "autor": {
+      "const": "Carlos Jonathan González Rodríguez"
+    },
+    "genero": {
+      "enum": [
+        "ensayo_filosofico",
+        "tratado",
+        "monografia",
+        "critica_cultural",
+        "articulo_academico",
+        "antropologia",
+        "discurso",
+        "otros_prosa_argumentativa"
+      ]
+    },
+    "estado": {
+      "enum": [
+        "ingested",
+        "classified",
+        "source_checked",
+        "edited",
+        "typeset_proof",
+        "QA_rework",
+        "author_review",
+        "approved",
+        "released"
+      ]
+    },
+    "version": {
+      "type": "string"
+    },
+    "source_hashes": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "release_approval": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "evidence_status": {
+      "enum": [
+        "not_started",
+        "incomplete",
+        "verified"
+      ]
+    },
+    "rights_status": {
+      "enum": [
+        "unknown",
+        "review_required",
+        "cleared"
+      ]
+    },
+    "drive_file_ids": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "github_commit": {
+      "type": [
+        "string",
+        "null"
+      ]
+    }
+  },
+  "additionalProperties": true
+}
