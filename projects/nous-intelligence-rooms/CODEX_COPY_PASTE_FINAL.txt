@@ -1,0 +1,59 @@
+FINAL CODEX TASK — NOUS INTELLIGENCE ROOMS / OPENAI BUILD WEEK 2026
+
+Repository: reyfilosofo/renova-agent
+Working branch: codex/nous-intelligence-rooms-build-week-2026
+Project directory: projects/nous-intelligence-rooms
+
+Open the repository and work only inside `projects/nous-intelligence-rooms`, except when a root-level repository configuration is strictly required. Read and obey `projects/nous-intelligence-rooms/AGENTS.md` before changing anything.
+
+MISSION
+Finalize, test and document NOUS Intelligence Rooms as a judge-ready OpenAI Build Week 2026 submission. The product converts fragmented organizational information into an evidence-backed decision architecture: executive synthesis, scored strategic signals, prioritized decisions, a 30/60/90-day roadmap and a traceable evidence ledger.
+
+NON-NEGOTIABLES
+1. Keep the product name exactly: NOUS Intelligence Rooms.
+2. Preserve the NOUS by SERESARTE identity, black architectural wordmark, warm-ivory background and near-black visual system.
+3. Keep the curated demonstration case as SERESARTE. Do not add confidential Tayga or Lucky Pizza material.
+4. Do not turn the interface into a generic chatbot.
+5. Every recommendation must remain connected to evidence and confidence.
+6. State clearly that the system structures human judgment; it does not replace it.
+7. Keep all OpenAI API calls server-side. Never expose, print, log or commit an API key.
+8. Use the OpenAI Responses API, Structured Outputs and `store: false` for live requests.
+9. Default model: `gpt-5.6-terra`, unless current official OpenAI documentation establishes a different valid model ID. Do not guess model names.
+10. Do not add unnecessary dependencies or replace the working dependency-free architecture without a verified reason.
+
+CREDENTIAL GATE
+Before making a live OpenAI API request, check for a usable `OPENAI_API_KEY` without printing it. Ask me whether to reuse an existing key or create a new secure key. The application and automated tests must still work in curated demo mode without a key.
+
+REQUIRED VALIDATION
+1. Run: `python -m unittest tests/test_app.py -v`.
+2. Start the application and verify `/api/health`.
+3. Exercise the full workflow: intake → analysis → executive overview → strategic signals → decision map → 30/60/90 roadmap → evidence ledger → JSON export → print/PDF export.
+4. Inspect desktop and mobile layouts.
+5. Review keyboard navigation, labels, focus states, contrast, empty states, loading states and error states.
+6. Validate the Responses API request shape against current official OpenAI documentation, including model ID, multimodal inputs, Structured Outputs, reasoning settings and `store: false`.
+7. Fix only verified defects. Preserve the approved positioning and visual identity.
+8. Add or improve tests for every defect fixed.
+9. Do not claim a successful live API test unless one was actually executed and recorded.
+
+DOCUMENTATION AND RECORD
+Update:
+- `README.md` with exact local-run and deployment instructions.
+- `submission/CODEX_BUILD_LOG.md` with date, Codex model, tests run, verified changes, unresolved items and final commit hash.
+- `submission/FINAL_URLS_TEMPLATE.md` only when real URLs exist.
+
+GIT WORKFLOW
+- Stay on branch `codex/nous-intelligence-rooms-build-week-2026`.
+- Commit all validated changes with: `feat: finalize NOUS Intelligence Rooms Build Week submission`.
+- Push the branch.
+- Open a pull request to `main` titled: `NOUS Intelligence Rooms — OpenAI Build Week 2026`.
+- In the PR body, include: product summary, test evidence, API/privacy notes, screenshots reviewed, unresolved external actions and deployment status.
+- Do not merge automatically. Leave the PR ready for my review.
+
+FINAL RESPONSE TO ME
+Return a concise completion report containing:
+1. Files changed.
+2. Tests and smoke checks performed.
+3. Whether live GPT-5.6 analysis was actually verified.
+4. Commit hash.
+5. Pull request URL.
+6. Any external action still required before Devpost submission.
